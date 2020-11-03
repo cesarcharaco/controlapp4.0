@@ -158,5 +158,14 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::post('registrar_incidencia','MultasRecargasController@registrar_incidencia')->name('registrar_incidencia');
 	Route::resource('membresias','MembresiasController');
 	// Route::get('membresias/{id}/buscar','MembresiasController');
-
+	//-----------flow----------------
+		Route::group(['prefix' => 'payment/flow'], function(){
+	    Route::get('index', 'FlowController@index');
+	    Route::post('orden', 'FlowController@orden');
+	    Route::get('confirm', 'FlowController@confirm');
+	    Route::match(['get', 'post'], 'success', 'FlowController@success');
+	    Route::match(['get', 'post'], 'failure', 'FlowController@failure');
+	    Route::post('index', 'FlowController@orden');
+		});
+	//-------------------------------
 });
