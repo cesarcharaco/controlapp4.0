@@ -16,7 +16,6 @@ class FlowController extends Controller
     }
 
     public function orden(Request $request){
-
         $orden = [
             'orden_compra' => $request->orden,
             'monto'           => $request->monto,
@@ -24,6 +23,8 @@ class FlowController extends Controller
             'email_pagador'   => $request->pagador,
             //'medio_pago'     => $request->medio_pago,
         ];
+
+        // dd($orden);
         
     #Aqui debemos verificar la entrada...
         if (!is_numeric($orden['orden_compra'])) {

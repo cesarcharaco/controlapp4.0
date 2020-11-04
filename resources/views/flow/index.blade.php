@@ -104,7 +104,7 @@
     <div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
         <div class="row justify-content-center">
 	            <div class="col-md-12">
-	               	<form method="post" action="">
+	               	<form method="post" action="{{ url('payment/flow/orden') }}">
 						{{ csrf_field() }}
 						<center>
 							<div class="row">
