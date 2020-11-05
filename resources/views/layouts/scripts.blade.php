@@ -990,7 +990,7 @@
 		                    '<div class="col-md-12">'+
 		                        '<div class="form-group">'+
 		                            '<label>Referencia</label>'+
-		                            '<input type="text" name="referencia" maxlength="20" max="20" class="form-control" required="required">'+
+		                            '<input type="text" name="referencia" id="referencia_p_arriendos" maxlength="20" max="20" class="form-control" required="required">'+
 		                        '</div>'+
 		                    '</div>'+
 		                '</div>'

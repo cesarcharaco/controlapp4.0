@@ -366,21 +366,15 @@ class FlowBuilder
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-<<<<<<< HEAD
+
 		return base64_encode($signature);
-		/*$public_key_id = $this->flow_get_public_key_id();
-		openssl_free_key( $public_key_id );
-		if(! openssl_sign($data, $signature, $public_key_id)) {
-=======
-		return base64_encode($signature);*/
 		$priv_key_id = $this->flow_get_public_key_id();
 		openssl_free_key( $priv_key_id );
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
->>>>>>> Commit
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-		return base64_encode($signature);*/
+		return base64_encode($signature);
 	}
 	
 	private function flow_sign_validate($signature, $data) {

@@ -72,3 +72,5 @@
 [2020-11-05 19:06:47.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
 [2020-11-05 19:06:57.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 >>>>>>> Stashed changes
+[2020-11-05 20:06:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 20:06:34.000000 127.0.0.1  - flow_pack ] Orden N°: 000001 -empaquetado correcto
