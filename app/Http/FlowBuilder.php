@@ -350,9 +350,11 @@ class FlowBuilder
 	private function flow_get_private_key_id() {
 		
 		$flow_keys = config('flow.keys');
+		//dd($flow_keys);
 		
 		try {
 			$fp       = fopen("$flow_keys/comercio.pem", "r");
+			
 			$priv_key = fread($fp, 8192);
 			fclose($fp);
 			return openssl_get_privatekey($priv_key); 	
@@ -363,25 +365,25 @@ class FlowBuilder
 	}
 	
 	private function flow_sign($data) {
-		/*$priv_key_id = $this->flow_get_public_key_id();
-		openssl_free_key( $priv_key_id );
+		$priv_key_id = $this->flow_get_private_key_id();
+		
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-		return base64_encode($signature);*/
-		$public_key_id = $this->flow_get_public_key_id();
+		return base64_encode($signature);
+		/*$public_key_id = $this->flow_get_public_key_id();
 		openssl_free_key( $public_key_id );
 		if(! openssl_sign($data, $signature, $public_key_id)) {
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-		return base64_encode($signature);
+		return base64_encode($signature);*/
 	}
 	
 	private function flow_sign_validate($signature, $data) {
 		
-		
+
 		$signature = base64_decode($signature);
 		$response = explode("&s=", $data, 2);
 		$response = $response[0];
