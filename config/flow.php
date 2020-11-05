@@ -15,7 +15,7 @@ return [
     * 
     * @var string
     */
-    'url_exito' => 'http://localhost/payment/flow/success',
+    'url_exito' => env('APP_URL').'/payment/flow/success',
 
     /**
     * Ingrese aquí la URL de su página de fracaso
@@ -23,7 +23,7 @@ return [
     * 
     * @var string
     */
-    'url_fracaso' => 'http://localhost/payment/flow/failure',
+    'url_fracaso' => env('APP_URL').'/payment/flow/failure',
 
     /**
     * Ingrese aquí la URL de su página de confirmación
@@ -31,7 +31,7 @@ return [
     * 
     * @var string
     */
-    'url_confirmacion' => 'http://localhost/payment/flow/confirm',
+    'url_confirmacion' => env('APP_URL').'/payment/flow/confirm',
 
     /**
     * Ingrese aquí la URL de su página de retorno
@@ -39,7 +39,7 @@ return [
     * 
     * @var string
     */
-    'url_retorno' => 'http://localhost/',
+    'url_retorno' => env('APP_URL').'/home',
 
     /**
     * Ingrese aquí la página de pago de Flow
