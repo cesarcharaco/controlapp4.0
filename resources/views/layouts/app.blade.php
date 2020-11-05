@@ -1478,6 +1478,17 @@
 
     <!-- Scripts -->
         <script type="text/javascript">
+
+        function FlowCheck(opcion) {
+          if($('#checkFlow'+opcion).prop('checked')){
+                $('#referencia_p_arriendos').removeAttr('required',false);
+                $('#referencia_p_arriendos').attr('disabled',true);
+            }else{
+                $('#referencia_p_arriendos').attr('required',true);
+                $('#referencia_p_arriendos').removeAttr('disabled',false);
+            }
+        }
+
         function CheckboxCuantos(){
             if($('#PoseeEstacionamientoI').val() == 'Si'){
                 $('#cuantosEstaciona').css('display','block');

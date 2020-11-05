@@ -182,7 +182,6 @@ class FlowBuilder
 	* @return string flow_pack Paquete de datos firmados listos para ser enviados a Flow
 	*/
 	public function new_order($orden_compra, $monto,  $concepto, $email_pagador, $medioPago = "Non") {
-		
 		$this->flow_log("Iniciando nueva Orden", "new_order");
 		
 		if(!isset($orden_compra,$monto,$concepto)) {
@@ -331,17 +330,13 @@ class FlowBuilder
 	private function flow_get_public_key_id() {
 		
 		$flow_keys = config('flow.keys');
-
 		try {
-			$fp      = fopen("$flow_keys/flow.pem", "r");
+			$fp      = fopen("$flow_keys/flow.pubkey", "r");
 			$pub_key = fread($fp, 8192);
-			//dd($pub_key);
 			fclose($fp);
-
-			//dd($pub_key);
-			//dd(openssl_get_publickey(file_get_contents("$flow_keys/flow.pem")));
-			return openssl_get_publickey(file_get_contents("$flow_keys/flow.pem"));
+			return openssl_get_publickey($pub_key);
 		} catch (\Exception $e) {
+		dd($e);
 			$this->flow_log("Error al intentar obtener la llave pública - Error-> " .$e->getMessage(), "flow_get_public_key_id");
 			throw new \Exception($e->getMessage());
 		}
@@ -371,14 +366,15 @@ class FlowBuilder
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
+
 		return base64_encode($signature);
-		/*$public_key_id = $this->flow_get_public_key_id();
-		openssl_free_key( $public_key_id );
-		if(! openssl_sign($data, $signature, $public_key_id)) {
+		$priv_key_id = $this->flow_get_public_key_id();
+		openssl_free_key( $priv_key_id );
+		if(! openssl_sign($data, $signature, $priv_key_id)) {
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-		return base64_encode($signature);*/
+		return base64_encode($signature);
 	}
 	
 	private function flow_sign_validate($signature, $data) {
