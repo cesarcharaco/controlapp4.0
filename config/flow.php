@@ -15,7 +15,7 @@ return [
     * 
     * @var string
     */
-    'url_exito' => 'http://localhost/myproject/public/payment/flow/success',
+    'url_exito' => 'http://localhost/payment/flow/success',
 
     /**
     * Ingrese aquí la URL de su página de fracaso
@@ -23,7 +23,7 @@ return [
     * 
     * @var string
     */
-    'url_fracaso' => 'http://localhost/myproject/public/payment/flow/failure',
+    'url_fracaso' => 'http://localhost/payment/flow/failure',
 
     /**
     * Ingrese aquí la URL de su página de confirmación
@@ -31,7 +31,7 @@ return [
     * 
     * @var string
     */
-    'url_confirmacion' => 'http://localhost/myproject/public/payment/flow/confirm',
+    'url_confirmacion' => 'http://localhost/payment/flow/confirm',
 
     /**
     * Ingrese aquí la URL de su página de retorno
@@ -58,14 +58,14 @@ return [
     * 
     * @var string
     */
-    'keys' =>  storage_path('app/flow/keys'),
+    'keys' =>  public_path('public/flow/keys'),
 
     /**
     * Ingrese aquí la ruta (path) en su sitio donde estarán los archivos de logs
     * 
     * @var string
     */
-    'logPath' =>  storage_path('logs/flow'),
+    'logPath' =>  public_path('public/flow/logs'),
 
     /**
     * Ingrese aquí el email con el que está registrado en Flow
