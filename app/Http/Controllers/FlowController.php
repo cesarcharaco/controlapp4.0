@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use Flow;
 
 use Illuminate\Http\Request;
-//llamado a los facades
+//llamando a los facades
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class FlowController extends Controller
 {
     public function index(){
+        $var=0;
         return view('flow.index');
     }
 
