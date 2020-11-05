@@ -72,7 +72,7 @@ return [
     * 
     * @var string
     */
-    'comercio' => 'miemail@hotmail.com',
+    'comercio' => 'p.arrocet@eiche.cl',
 
     /**
     * Ingrese aquí el medio de pago
