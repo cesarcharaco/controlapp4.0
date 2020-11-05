@@ -1480,13 +1480,17 @@
         <script type="text/javascript">
 
         function FlowCheck(opcion) {
-          if($('#checkFlow'+opcion).prop('checked')){
-                $('#referencia_p_arriendos').removeAttr('required',false);
-                $('#referencia_p_arriendos').attr('disabled',true);
-            }else{
-                $('#referencia_p_arriendos').attr('required',true);
-                $('#referencia_p_arriendos').removeAttr('disabled',false);
-            }
+          if($('#checkFlow').prop('checked')){
+            // alert('Si');
+            $('#referencia_p_arriendos').removeAttr('required',false);
+            $('#referencia_p_arriendos').attr('disabled',true);
+            $('#referencia_p_arriendos').removeClass('border').removeClass('border-primary');
+          }else{
+            // alert('No');
+            $('#referencia_p_arriendos').attr('required',true);
+            $('#referencia_p_arriendos').removeAttr('disabled',false);
+            $('#referencia_p_arriendos').addClass('border').addClass('border-primary');
+          }
         }
 
         function CheckboxCuantos(){

@@ -521,11 +521,12 @@ function buscar_pasarelas()
 	    ->where('residentes.id_admin',$id_admin)
 	    ->select('admins_has_pasarelas.*')
 	    ->get();
+
+	    $num=0;
 	    foreach ($buscar_pasarelas as $key) {
-	    	if ($key->pasarelas->pasarela == 'Flow') {
-	    		$buscar_pasarelas = print("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow".$key->pasarelas->id."'></center><br>");
-	    	}else{
-	    		// $buscar_pasarelas = print("<b>" .$key->pasarelas->pasarela.":</b> <a href='".$key->link_pasarela."' target='_blank'>" .$key->link_pasarela."</a><br>");
+	    	if ($key->pasarelas->pasarela == 'Flow' && $num == 0) {
+	    		$buscar_pasarelas = print("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow'></center><br>");
+	    		$num++;
 	    	}
 	    }
 		
