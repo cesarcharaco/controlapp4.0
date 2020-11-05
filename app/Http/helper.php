@@ -525,7 +525,7 @@ function buscar_pasarelas()
 	    	if ($key->pasarelas->pasarela == 'Flow') {
 	    		$buscar_pasarelas = print("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow".$key->pasarelas->id."'></center><br>");
 	    	}else{
-	    		$buscar_pasarelas = print("<b>" .$key->pasarelas->pasarela.":</b> <a href='".$key->link_pasarela."' target='_blank'>" .$key->link_pasarela."</a><br>");
+	    		// $buscar_pasarelas = print("<b>" .$key->pasarelas->pasarela.":</b> <a href='".$key->link_pasarela."' target='_blank'>" .$key->link_pasarela."</a><br>");
 	    	}
 	    }
 		
