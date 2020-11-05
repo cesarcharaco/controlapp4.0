@@ -51,4 +51,24 @@
 [2020-11-05 18:56:56.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-05 18:57:22.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-05 18:57:22.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+<<<<<<< Updated upstream
 >>>>>>> Commit
+=======
+[2020-11-05 19:01:26.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:01:26.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:04:12.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:04:12.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:04:29.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:05:00.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:05:12.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:05:12.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:05:38.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:05:43.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:05:43.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:06:17.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:06:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:06:33.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:06:47.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 19:06:47.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+[2020-11-05 19:06:57.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+>>>>>>> Stashed changes

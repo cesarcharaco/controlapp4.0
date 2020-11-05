@@ -330,13 +330,13 @@ class FlowBuilder
 	private function flow_get_public_key_id() {
 		
 		$flow_keys = config('flow.keys');
-
 		try {
 			$fp      = fopen("$flow_keys/flow.pubkey", "r");
 			$pub_key = fread($fp, 8192);
 			fclose($fp);
 			return openssl_get_publickey($pub_key);
 		} catch (\Exception $e) {
+		dd($e);
 			$this->flow_log("Error al intentar obtener la llave pública - Error-> " .$e->getMessage(), "flow_get_public_key_id");
 			throw new \Exception($e->getMessage());
 		}
