@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Flow;
-
+use App\Http\FlowBuilder;
 use Illuminate\Http\Request;
 //llamando a los facades
 use App\Http\Requests;
@@ -12,11 +12,13 @@ use App\Http\Controllers\Controller;
 class FlowController extends Controller
 {
     public function index(){
-        $var=0;
+    $flow=new FlowBuilder();
+        //$var=0;
         return view('flow.index');
     }
 
     public function orden(Request $request){
+        $flow=new FlowBuilder();
         $orden = [
             'orden_compra' => $request->orden,
             'monto'           => $request->monto,
@@ -33,10 +35,10 @@ class FlowController extends Controller
         }
 
         // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
-        $orden['flow_pack'] = Flow::new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
+        $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
 
         // Si desea enviar el medio de pago usar la siguiente línea
-        //$orden['flow_pack'] = Flow::new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
+        //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
         return view('flow.orden', compact('orden'));
     }
 
@@ -44,14 +46,15 @@ class FlowController extends Controller
  * Página de confirmación del Comercio
  */
     public function confirm(){
+        $flow=new FlowBuilder();
 
         try {
             // Lee los datos enviados por Flow
-            $data = Flow::read_confirm();
+            $data = $flow->read_confirm();
             
         } catch (\Exception $e) {
             // Si hay un error responde false
-            Flow::build_response(false);
+            $flow->build_response(false);
             return;
         }
 
@@ -80,10 +83,10 @@ class FlowController extends Controller
  * y el usuario presione el botón para retornar al comercio desde Flow
  */
     public function success(){
-
+        $flow=new FlowBuilder();
         try {
             // Lee los datos enviados por Flow
-            Flow::read_result();
+            $flow->read_result();
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return view('flow.error_500');
@@ -91,11 +94,11 @@ class FlowController extends Controller
 
         //Recupera los datos enviados por Flow
         $data = [
-            'ordenCompra' => Flow::getOrderNumber(),
-            'monto'       => Flow::getAmount(),
-            'concepto'    => Flow::getConcept(),
-            'pagador'     => Flow::getPayer(),
-            'flowOrden'   => Flow::getFlowNumber(),
+            'ordenCompra' => $flow->getOrderNumber(),
+            'monto'       => $flow->getAmount(),
+            'concepto'    => $flow->getConcept(),
+            'pagador'     => $flow->getPayer(),
+            'flowOrden'   => $flow->getFlowNumber(),
         ];
 
         return view('flow.success', compact('data'));
@@ -107,9 +110,10 @@ class FlowController extends Controller
  * y el usuario presione el botón para retornar al comercio desde Flow
  */
     public function failure(){
+        $flow=new FlowBuilder();
         try {
             // Lee los datos enviados por Flow
-            Flow::read_result();
+            $flow->read_result();
         } catch (\Exception $e) {
             error_log($e->getMessage());
             return view('flow.error_500');
@@ -117,11 +121,11 @@ class FlowController extends Controller
 
         //Recupera los datos enviados por Flow
         $data = [
-            'ordenCompra' => Flow::getOrderNumber(),
-            'monto'       => Flow::getAmount(),
-            'concepto'    => Flow::getConcept(),
-            'pagador'     => Flow::getPayer(),
-            'flowOrden'   => Flow::getFlowNumber(),
+            'ordenCompra' => $flow->getOrderNumber(),
+            'monto'       => $flow->getAmount(),
+            'concepto'    => $flow->getConcept(),
+            'pagador'     => $flow->getPayer(),
+            'flowOrden'   => $flow->getFlowNumber(),
         ];
 
         return view('flow.failure', compact('data'));

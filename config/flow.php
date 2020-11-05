@@ -58,14 +58,14 @@ return [
     * 
     * @var string
     */
-    'keys' =>  public_path('public/flow/keys'),
+    'keys' =>  public_path('flow/keys'),
 
     /**
     * Ingrese aquí la ruta (path) en su sitio donde estarán los archivos de logs
     * 
     * @var string
     */
-    'logPath' =>  public_path('public/flow/logs'),
+    'logPath' =>  public_path('flow/logs'),
 
     /**
     * Ingrese aquí el email con el que está registrado en Flow

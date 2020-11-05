@@ -9,3 +9,5 @@
 [2020-11-05 02:45:46.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-05 02:46:45.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-05 03:04:52.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 13:57:37.000000 ::1  - new_order ] Iniciando nueva Orden
+[2020-11-05 14:10:46.000000 ::1  - new_order ] Iniciando nueva Orden

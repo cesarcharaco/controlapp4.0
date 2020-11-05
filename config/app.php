@@ -166,7 +166,7 @@ return [
          * Package Service Providers...
          */
         Barryvdh\DomPDF\ServiceProvider::class,
-        Siturra\Flow\FlowServiceProvider::class,
+        App\Providers\FlowServiceProvider::class,
         /*
          * Application Service Providers...
          */

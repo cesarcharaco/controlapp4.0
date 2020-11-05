@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class FlowServiceProvider extends ServiceProvider
 {
- 	/**
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -19,11 +19,11 @@ class FlowServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
- 	{
+    {
         $this->registerFlowBuilder();
 
-        $this->app->alias('flow', '\Siturra\Flow\FlowBuilder');
- 	}
+        $this->app->alias('flow', app_path('Http\FlowBuilder'));
+    }
 
    
     /**
@@ -49,7 +49,7 @@ class FlowServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/config/flow.php' => config_path('flow.php'),
             __DIR__.'/resources/views/'   => base_path('resources/views'),
-            __DIR__.'/storage/' => base_path('storage'),
+            __DIR__.'/public/flow/' => public_path('flow'),
             __DIR__.'/FlowController.php' => base_path('app/Http/Controllers/FlowController.php'),
         ], 'flow');
 
@@ -62,6 +62,6 @@ class FlowServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['flow', 'Siturra\Flow\FlowBuilder'];
+        return ['flow', app_path('Http\FlowBuilder')];
     }
  }

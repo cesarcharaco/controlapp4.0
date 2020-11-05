@@ -359,6 +359,13 @@ class FlowBuilder
 	}
 	
 	private function flow_sign($data) {
+		/*$priv_key_id = $this->flow_get_public_key_id();
+		openssl_free_key( $priv_key_id );
+		if(! openssl_sign($data, $signature, $priv_key_id)) {
+			$this->flow_log("No se pudo firmar", "flow_sign");
+			throw new \Exception('It can not sign');
+		};
+		return base64_encode($signature);*/
 		$priv_key_id = $this->flow_get_public_key_id();
 		openssl_free_key( $priv_key_id );
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
