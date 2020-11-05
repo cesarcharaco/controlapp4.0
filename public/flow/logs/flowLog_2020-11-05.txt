@@ -1,0 +1,11 @@
+[2020-11-05 00:10:01.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 00:10:32.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 00:11:27.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 00:11:36.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 00:11:36.000000 127.0.0.1  - flow_get_private_key_id ] Error al intentar obtener la llave privada - Error-> fopen(C:\laragon\www\controlapp4.0\storage\app/flow/keys/comercio.pem): failed to open stream: No such file or directory
+[2020-11-05 00:11:44.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 01:21:26.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 01:21:40.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 02:45:46.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 02:46:45.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-05 03:04:52.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
