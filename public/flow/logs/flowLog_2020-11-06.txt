@@ -82,3 +82,9 @@
 [2020-11-06 13:13:42.000000 127.0.0.1  - flow_pack ] Orden N°: 24982635 -empaquetado correcto
 [2020-11-06 13:25:06.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-06 13:25:06.000000 127.0.0.1  - flow_pack ] Orden N°: 53226675 -empaquetado correcto
+[2020-11-06 13:59:35.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:59:35.000000 127.0.0.1  - flow_pack ] Orden N°: 96332610 -empaquetado correcto
+[2020-11-06 14:26:04.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 14:26:04.000000 127.0.0.1  - flow_pack ] Orden N°: 99967493 -empaquetado correcto
+[2020-11-06 14:28:03.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 14:28:03.000000 127.0.0.1  - flow_pack ] Orden N°: 02668079 -empaquetado correcto

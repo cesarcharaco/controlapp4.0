@@ -82,34 +82,39 @@ class PagosController extends Controller
         $concepto="";
         $total=0;
         if ($request->opcion==1) {
-          
-        //---------------------------------- para pagar como residente o admin-----------------------------------------------
-        if (is_null($request->mes)==true) {
-            toastr()->warning('intente otra vez!!', 'No ha seleccionado algo a pagar');
-            return redirect()->back();
-        } else {
-            if (is_null($request->mes)==false) {
-                for ($i=0; $i < count($request->mes); $i++) {
-                    if($request->mes[$i]!==null){
-                        $residente=Residentes::find($request->id_user);
-                        foreach ($residente->inmuebles as $key) {
-                            if ($key->pivot->status=="En Uso") {
-                                foreach ($key->mensualidades as $key2) {
-                                    if ($key2->mes==$request->mes[$i]) {
-                                        //echo $key2->id."<br>";
-                                        $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
-                                        if(!is_null($pagos)){
-                                            if (\Auth::user()->tipo_usuario=="Residente") {
-                                                $pagos->status="Por Confirmar";
-                                            } else {
-                                                $pagos->status="Cancelado";
-                                            }
-                                            $pagos->referencia=$request->referencia;
-                                            $pagos->save();
+            //---------------------------------- para pagar como residente o admin-----------------------------------------------
+            if (is_null($request->mes)==true) {
+                toastr()->warning('intente otra vez!!', 'No ha seleccionado algo a pagar');
+                return redirect()->back();
+            } else {
+                if (is_null($request->mes)==false) {
+                    for ($i=0; $i < count($request->mes); $i++) {
+                        if($request->mes[$i]!==null){
+                            $residente=Residentes::find($request->id_user);
+                            foreach ($residente->inmuebles as $key) {
+                                if ($key->pivot->status=="En Uso") {
+                                    foreach ($key->mensualidades as $key2) {
+                                        if ($key2->mes==$request->mes[$i]) {
+                                            //echo $key2->id."<br>";
+                                            $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
+                                            if(!is_null($pagos)){
+                                                if ($request->flow==1) {
+                                                    $id = $key2->id;
+                                                    dd($id);
+                                                } else {
+                                                    if (\Auth::user()->tipo_usuario=="Residente") {
+                                                        $pagos->status="Por Confirmar";
+                                                    } else {
+                                                        $pagos->status="Cancelado";
+                                                    }                                                    
+                                                }
+                                                $pagos->referencia=$request->referencia;
+                                                $pagos->save();
 
-                                            $total+=$key2->monto;
-                                            $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
-                                            $concepto.="Inmueble: ".$key->idem." | Mes: ".$this->mostrar_mes($request->mes[$i])." | Monto: ".$key2->monto." ";
+                                                $total+=$key2->monto;
+                                                $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                                $concepto.="Inmueble: ".$key->idem." | Mes: ".$this->mostrar_mes($request->mes[$i])." | Monto: ".$key2->monto." ";
+                                            }
                                         }
                                     }
                                 }
@@ -117,28 +122,28 @@ class PagosController extends Controller
                         }
                     }
                 }
-            }
             
-            if(is_null($request->mes)==false){
-                for ($i=0; $i < count($request->mes); $i++) { 
-                    if($request->mes[$i]!==null){
-                        $residente=Residentes::find($request->id_user);
-                        foreach ($residente->estacionamientos as $key) {
-                            if ($key->pivot->status=="En Uso") {
-                                foreach ($key->mensualidad as $key2) {
-                                    if ($key2->mes==$request->mes[$i]) {
-                                        //echo $key2->id."<br>";
-                                        $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
-                                        if(!is_null($pagos)){
-                                            if (\Auth::user()->tipo_usuario=="Residente") {
-                                                $pagos->status="Por Confirmar";
-                                            } else {
-                                                $pagos->status="Cancelado";
+                if(is_null($request->mes)==false){
+                    for ($i=0; $i < count($request->mes); $i++) { 
+                        if($request->mes[$i]!==null){
+                            $residente=Residentes::find($request->id_user);
+                            foreach ($residente->estacionamientos as $key) {
+                                if ($key->pivot->status=="En Uso") {
+                                    foreach ($key->mensualidad as $key2) {
+                                        if ($key2->mes==$request->mes[$i]) {
+                                            //echo $key2->id."<br>";
+                                            $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
+                                            if(!is_null($pagos)){
+                                                if (\Auth::user()->tipo_usuario=="Residente") {
+                                                    $pagos->status="Por Confirmar";
+                                                } else {
+                                                    $pagos->status="Cancelado";
+                                                }
+                                                $pagos->save();
+                                                $total+=$key2->monto;
+                                                $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                                $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                             }
-                                            $pagos->save();
-                                            $total+=$key2->monto;
-                                            $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
-                                            $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                         }
                                     }
                                 }
@@ -146,96 +151,93 @@ class PagosController extends Controller
                         }
                     }
                 }
-            }
 
-            if($request->flow==1){
-                if ($total >= 350) {
-                    //dd('hola 1');
-                    $email_pagador = \Auth::User()->email;
-                    $concepto.= "| Total Cancelado: ".$total."";
-                    $flowcontroller=new FlowController();
-                    //Con este return nos vamos al controlador de FLOW
-                    return  $flowcontroller->orden2($request,$total,$concepto,$email_pagador,$orden_compra);
-                } else {
-                    toastr()->error('ERROR!!', 'El monto debe ser mayor a 350 pesos chilenos');
+                if($request->flow==1){
+                    if ($total >= 350) {
+                        //dd('hola 1');
+                        $email_pagador = \Auth::User()->email;
+                        $concepto.= "| Total Cancelado: ".$total."";
+                        $flowcontroller=new FlowController();
+                        //Con este return nos vamos al controlador de FLOW
+                        return  $flowcontroller->orden2($request,$total,$concepto,$email_pagador,$orden_compra);
+                    } else {
+                        toastr()->error('ERROR!!', 'El monto debe ser mayor a 350 pesos chilenos');
+                        return redirect()->back();
+                    }
+                }else{
+                    $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+                    $reporte=\DB::table('reportes_pagos')->insert([
+                        'referencia' => $request->referencia,
+                        'reporte' => $factura,
+                        'id_residente' => $request->id_user
+                    ]);
+                    //dd("---------");
+                    toastr()->success('con éxito!!', 'Pago realizado');
                     return redirect()->back();
                 }
-            }else{
-                $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
-                $reporte=\DB::table('reportes_pagos')->insert([
-                    'referencia' => $request->referencia,
-                    'reporte' => $factura,
-                    'id_residente' => $request->id_user
-                ]);
-                //dd("---------");
-                toastr()->success('con éxito!!', 'Pago realizado');
-                return redirect()->back();
-            }
-            //---------------------------------- fin para pagar como residente o admin-----------------------------------------------
+                //---------------------------------- fin para pagar como residente o admin-----------------------------------------------
             }
 
         } else {
             # cambiando status de por confirmar a cancelado
             if (is_null($request->mes)==true) {
-            toastr()->warning('intente otra vez!!', 'No ha seleccionado algo a pagar');
-        return redirect()->back();
-        } else {
-            if (is_null($request->mes)==false) {
-                for ($i=0; $i < count($request->mes); $i++) {
-                    if($request->mes[$i]!==null){
-                        $residente=Residentes::find($request->id_residente);
-                        foreach ($residente->inmuebles as $key) {
-                            if ($key->pivot->status=="En Uso") {
-                                foreach ($key->mensualidades as $key2) {
-                                    if ($key2->mes==$request->mes[$i]) {
-                                        //echo $key2->id."<br>";
-                                        $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
-                                        $pagos->status="Cancelado";
-                                        $pagos->referencia=$request->referencia;
-                                        $pagos->save();
-                                        $total+=$key2->monto;
-                                        $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                toastr()->warning('intente otra vez!!', 'No ha seleccionado algo a pagar');
+                return redirect()->back();
+            } else {
+                if (is_null($request->mes)==false) {
+                    for ($i=0; $i < count($request->mes); $i++) {
+                        if($request->mes[$i]!==null){
+                            $residente=Residentes::find($request->id_residente);
+                            foreach ($residente->inmuebles as $key) {
+                                if ($key->pivot->status=="En Uso") {
+                                    foreach ($key->mensualidades as $key2) {
+                                        if ($key2->mes==$request->mes[$i]) {
+                                            //echo $key2->id."<br>";
+                                            $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
+                                            $pagos->status="Cancelado";
+                                            $pagos->referencia=$request->referencia;
+                                            $pagos->save();
+                                            $total+=$key2->monto;
+                                            $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
             
-            if(is_null($request->mes)==false){
-                for ($i=0; $i < count($request->mes); $i++) { 
-                    if($request->mes[$i]!==null){
-                        $residente=Residentes::find($request->id_residente);
-                        foreach ($residente->estacionamientos as $key) {
-                            if ($key->pivot->status=="En Uso") {
-                                foreach ($key->mensualidad as $key2) {
-                                    if ($key2->mes==$request->mes[$i]) {
-                                        //echo $key2->id."<br>";
-                                        $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
-                                        $pagos->status="Cancelado";
-                                        
-                                        $pagos->save();
-                                        $total+=$key2->monto;
-                                        $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                if(is_null($request->mes)==false){
+                    for ($i=0; $i < count($request->mes); $i++) { 
+                        if($request->mes[$i]!==null){
+                            $residente=Residentes::find($request->id_residente);
+                            foreach ($residente->estacionamientos as $key) {
+                                if ($key->pivot->status=="En Uso") {
+                                    foreach ($key->mensualidad as $key2) {
+                                        if ($key2->mes==$request->mes[$i]) {
+                                            //echo $key2->id."<br>";
+                                            $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
+                                            $pagos->status="Cancelado";
+                                            
+                                            $pagos->save();
+                                            $total+=$key2->monto;
+                                            $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                        }
                                     }
                                 }
                             }
                         }
                     }
                 }
-            }
-
-            
-            $factura.="<br></br>Total Cancelado: ".$total."";
-            $reporte=\DB::table('reportes_pagos')->insert([
-                'referencia' => 0,
-                'reporte' => $factura,
-                'id_residente' => $request->id_residente
-            ]);
-            //dd("---------");
-            toastr()->success('con éxito!!', 'Pago confirmado');
-            return redirect()->back();
+                $factura.="<br></br>Total Cancelado: ".$total."";
+                $reporte=\DB::table('reportes_pagos')->insert([
+                    'referencia' => 0,
+                    'reporte' => $factura,
+                    'id_residente' => $request->id_residente
+                ]);
+                //dd("---------");
+                toastr()->success('con éxito!!', 'Pago confirmado');
+                return redirect()->back();
             //---------------------------------- fin para pagar como residente o admin-----------------------------------------------
             }
         }
