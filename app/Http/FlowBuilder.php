@@ -39,7 +39,7 @@ class FlowBuilder
 		if(!empty($orderNumber)) {
 			$this->order["OrdenNumero"] = $orderNumber;
 		}
-		$this->flow_log("Asigna Orden N°: ". $this->order["OrdenNumero"], '');
+		//$this->flow_log("Asigna Orden N°: ". $this->order["OrdenNumero"], '');
 		return !empty($orderNumber);	
 	} 
 	
@@ -182,16 +182,16 @@ class FlowBuilder
 	* @return string flow_pack Paquete de datos firmados listos para ser enviados a Flow
 	*/
 	public function new_order($orden_compra, $monto,  $concepto, $email_pagador, $medioPago = "Non") {
-		$this->flow_log("Iniciando nueva Orden", "new_order");
+		//$this->flow_log("Iniciando nueva Orden", "new_order");
 		
 		if(!isset($orden_compra,$monto,$concepto)) {
-			$this->flow_log("Error: No se pasaron todos los parámetros obligatorios","new_order");
+			//$this->flow_log("Error: No se pasaron todos los parámetros obligatorios","new_order");
 		}
 		if($medioPago == "Non") {
 			$medioPago = $this->order['MedioPago'];
 		}
 		if(!is_numeric($monto)) {
-			$this->flow_log("Error: El parámetro monto de la orden debe ser numérico","new_order");
+			//$this->flow_log("Error: El parámetro monto de la orden debe ser numérico","new_order");
 			throw new \Exception("El monto de la orden debe ser numérico");
 		}
 		$this->order["OrdenNumero"] = $orden_compra;
@@ -208,29 +208,29 @@ class FlowBuilder
 	*/
 	public function read_confirm() {
 		if(!isset($_POST['response'])) {
-			$this->flow_log("Respuesta Inválida", "read_confirm");
+			//$this->flow_log("Respuesta Inválida", "read_confirm");
 			throw new \Exception('Invalid response');
 		}
 		$data = $_POST['response'];
 		$params = array();
 		parse_str($data, $params);
 		if(!isset($params['status'])) {
-			$this->flow_log("Respuesta sin status", "read_confirm");
+			//$this->flow_log("Respuesta sin status", "read_confirm");
 			throw new \Exception('Invalid response status');
 		}
 		$this->order['Status'] = $params['status'];
-		$this->flow_log("Lee Status: " . $params['status'], "read_confirm");
+		//$this->flow_log("Lee Status: " . $params['status'], "read_confirm");
 		if (!isset($params['s'])) {
-			$this->flow_log("Mensaje no tiene firma", "read_confirm");
+			//$this->flow_log("Mensaje no tiene firma", "read_confirm");
 			throw new \Exception('Invalid response (no signature)');
 		}
 		if(!$this->flow_sign_validate($params['s'], $data)) {
-			$this->flow_log("firma invalida", "read_confirm");
+			//$this->flow_log("firma invalida", "read_confirm");
 			throw new \Exception('Invalid signature from Flow');
 		}
-		$this->flow_log("Firma verificada", "read_confirm");
+		//$this->flow_log("Firma verificada", "read_confirm");
 		if($params['status'] == "ERROR") {
-			$this->flow_log("Error: " .$params['kpf_error'], "read_confirm");
+			//$this->flow_log("Error: " .$params['kpf_error'], "read_confirm");
 			$this->order["Error"] = $params['kpf_error'];
 			return;
 		}
@@ -238,15 +238,15 @@ class FlowBuilder
 			throw new \Exception('Invalid response Orden number');
 		}
 		$this->order['OrdenNumero'] = $params['kpf_orden'];
-		$this->flow_log("Lee Numero Orden: " . $params['kpf_orden'], "read_confirm");
+		//$this->flow_log("Lee Numero Orden: " . $params['kpf_orden'], "read_confirm");
 		if(!isset($params['kpf_monto'])) {
 			throw new \Exception('Invalid response Amount');
 		}
 		$this->order['Monto'] = $params['kpf_monto'];
-		$this->flow_log("Lee Monto: " . $params['kpf_monto'], "read_confirm");
+		//$this->flow_log("Lee Monto: " . $params['kpf_monto'], "read_confirm");
 		if(isset($params['kpf_flow_order'])) {
 			$this->order['FlowNumero'] = $params['kpf_flow_order'];
-			$this->flow_log("Lee Orden Flow: " . $params['kpf_flow_order'], "read_confirm");
+			//$this->flow_log("Lee Orden Flow: " . $params['kpf_flow_order'], "read_confirm");
 		}
 		if(isset($params['kpf_pagador'])) {
 			$this->order['Pagador'] = $params['kpf_pagador'];
@@ -269,7 +269,7 @@ class FlowBuilder
 		$data["c"]      = $flow_comercio;
 		$q              = http_build_query($data);
 		$s              = $this->flow_sign($q);
-		$this->flow_log("Orden N°: ".$this->order["OrdenNumero"]. " - Status: $r","flow_build_response");
+		//$this->flow_log("Orden N°: ".$this->order["OrdenNumero"]. " - Status: $r","flow_build_response");
 		//dd($q."&s=".$s);
 		return $q."&s=".$s;
 	}
@@ -280,18 +280,18 @@ class FlowBuilder
 	*/
 	public function read_result() {
 		if(!isset($_POST['response'])) {
-			$this->flow_log("Respuesta Inválida", "read_result");
+			//$this->flow_log("Respuesta Inválida", "read_result");
 			throw new \Exception('Invalid response');
 		}
 		$data   = $_POST['response'];
 		$params = array();
 		parse_str($data, $params);
 		if (!isset($params['s'])) {
-			$this->flow_log("Mensaje no tiene firma", "read_result");
+			//$this->flow_log("Mensaje no tiene firma", "read_result");
 			throw new \Exception('Invalid response (no signature)');
 		}
 		if(!$this->flow_sign_validate($params['s'], $data)) {
-			$this->flow_log("firma invalida", "read_result");
+			//$this->flow_log("firma invalida", "read_result");
 			throw new \Exception('Invalid signature from Flow');
 		}
 		$this->order["Status"]      = "";
@@ -301,7 +301,7 @@ class FlowBuilder
 		$this->order['Monto']       = $params['kpf_monto'];
 		$this->order["FlowNumero"]  = $params["kpf_flow_order"];
 		$this->order["Pagador"]     = $params["kpf_pagador"];
-		$this->flow_log("Datos recuperados Orden de Compra N°: " .$params['kpf_orden'], "read_result");
+		//$this->flow_log("Datos recuperados Orden de Compra N°: " .$params['kpf_orden'], "read_result");
 	}
 	
 	/**
@@ -336,8 +336,8 @@ class FlowBuilder
 			fclose($fp);
 			return openssl_get_publickey($pub_key);
 		} catch (\Exception $e) {
-		dd($e);
-			$this->flow_log("Error al intentar obtener la llave pública - Error-> " .$e->getMessage(), "flow_get_public_key_id");
+		//dd($e);
+			//$this->flow_log("Error al intentar obtener la llave pública - Error-> " .$e->getMessage(), "flow_get_public_key_id");
 			throw new \Exception($e->getMessage());
 		}
 	}
@@ -354,7 +354,7 @@ class FlowBuilder
 			fclose($fp);
 			return openssl_get_privatekey($priv_key); 	
 		} catch (\Exception $e) {
-			$this->flow_log("Error al intentar obtener la llave privada - Error-> " .$e->getMessage(), "flow_get_private_key_id");
+			//$this->flow_log("Error al intentar obtener la llave privada - Error-> " .$e->getMessage(), "flow_get_private_key_id");
 			throw new \Exception($e->getMessage());
 		}
 	}
@@ -363,7 +363,7 @@ class FlowBuilder
 		$priv_key_id = $this->flow_get_private_key_id();
 		
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
-			$this->flow_log("No se pudo firmar", "flow_sign");
+			//$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
 
@@ -371,7 +371,7 @@ class FlowBuilder
 		/*$priv_key_id = $this->flow_get_public_key_id();
 		openssl_free_key( $priv_key_id );
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
-			$this->flow_log("No se pudo firmar", "flow_sign");
+			//$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
 		return base64_encode($signature);*/
@@ -411,7 +411,7 @@ class FlowBuilder
 		$p = "c=$comercio&oc=$orden_compra&mp=$medioPago&m=$monto&o=$concepto&ue=$url_exito&uf=$url_fracaso&uc=$url_confirmacion&ti=$tipo_integracion&e=$email&v=kit_1_4&ur=$url_retorno";
 		
 		$signature = $this->flow_sign($p);
-		$this->flow_log("Orden N°: ".$this->order["OrdenNumero"]. " -empaquetado correcto","flow_pack");
+		//$this->flow_log("Orden N°: ".$this->order["OrdenNumero"]. " -empaquetado correcto","flow_pack");
 		return $p."&s=$signature";
 	}
 	

@@ -56,7 +56,7 @@ class FlowController extends Controller
         
     #Aqui debemos verificar la entrada...
         if (!is_numeric($orden['orden_compra'])) {
-            dd("Error #1: Orden debe ser number");
+            //dd("Error #1: Orden debe ser number");
         }
 
         // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
