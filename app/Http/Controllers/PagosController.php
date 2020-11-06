@@ -149,7 +149,7 @@ class PagosController extends Controller
                 $email_pagador = \Auth::User()->email;
                 $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";    
                 $flowcontroller=new FlowController();
-                $flowcontroller->orden($request,$total,$factura,$email_pagador,$orden_compra);
+                $flowcontroller->orden2($request,$total,$factura,$email_pagador,$orden_compra);
             }else{
             $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
             $reporte=\DB::table('reportes_pagos')->insert([

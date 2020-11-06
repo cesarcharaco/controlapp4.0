@@ -17,8 +17,7 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    
-    public function orden(Request $request,$monto,$factura,$email_pagador,$orden_compra){
+    public function orden2(Request $request,$monto,$factura,$email_pagador,$orden_compra){
         //echo "concepto: ".$factura;
         //dd($request->all());
         //dd($monto);
@@ -43,6 +42,27 @@ class FlowController extends Controller
 
         // Si desea enviar el medio de pago usar la siguiente línea
         //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
+        return view('flow.orden', compact('orden'));
+    }
+    public function orden(Request $request){
+        $orden = [
+            'orden_compra' => $request->orden,
+            'monto'           => $request->monto,
+            'concepto'        => $request->concepto,
+            'email_pagador'   => $request->pagador,
+            //'medio_pago'     => $request->medio_pago,
+        ];
+        
+    #Aqui debemos verificar la entrada...
+        if (!is_numeric($orden['orden_compra'])) {
+            dd("Error #1: Orden debe ser number");
+        }
+
+        // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
+        $orden['flow_pack'] = Flow::new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
+
+        // Si desea enviar el medio de pago usar la siguiente línea
+        //$orden['flow_pack'] = Flow::new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
         return view('flow.orden', compact('orden'));
     }
 
