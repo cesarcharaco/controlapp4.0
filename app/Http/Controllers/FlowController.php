@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
 //llamando a los facades
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Pagos;
+use App\PagosE;
+use App\Residentes;
 class FlowController extends Controller
 {
     public function index(){
@@ -116,7 +118,36 @@ class FlowController extends Controller
             error_log($e->getMessage());
             return view('flow.error_500');
         }
+        //actualizando status de pagos de inmuebles
+        $pagosi=array();
+        $pagosi=$flow->getPagosI();
+        for($i=0 ; count($pagosi) ; $i++){
+            $pagos = Pagos::find($pagosi[$i]);
+            $pagos->status='Por Confirmar';
+            $pagos->referencia=$flow->getOrderNumber();
+            $pagos->save();
 
+        }
+        //actualizando status de pagos de estacionamientos
+        $pagose=array();
+        $pagose=$flow->getPagosE();
+        for($i=0 ; count($pagose) ; $i++){
+            $pagos = PagosE::find($pagose[$i]);
+            $pagos->status='Por Confirmar';
+            $pagos->referencia=$flow->getOrderNumber();
+            $pagos->save();
+
+        }
+        //-------------------registrando reporte--------------------
+        $residente=Residentes::where('id_usuario',\Auth::user()->id)->first();
+        $factura=$flow->getFactura();
+        $factura.="<br></br>Total Cancelado: ".$flow->getAmount().", con la referencia: ".$flow->getOrderNumber()."<br>";
+        $reporte=\DB::table('reportes_pagos')->insert([
+            'referencia' => $flow->getOrderNumber(),
+            'reporte' => $factura,
+            'id_residente' => $residente->id
+        ]); 
+        //----------------------------------------------------------------
         //Recupera los datos enviados por Flow
         $data = [
             'ordenCompra' => $flow->getOrderNumber(),

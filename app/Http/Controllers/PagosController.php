@@ -15,6 +15,7 @@ use App\Reportes;
 use App\Referencias;
 use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
+use App\Http\FlowBuilder;
 
 class PagosController extends Controller
 {
@@ -116,12 +117,12 @@ class PagosController extends Controller
                                                         $pagos->status="Cancelado";
                                                     }                                                    
                                                     $pagos->referencia=$request->referencia;
-                                                }
-                                                $pagos->save();
+                                                    $pagos->save();
 
-                                                $total+=$key2->monto;
-                                                $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
-                                                $concepto.="Inmueble: ".$key->idem." - Mes: ".$this->mostrar_mes($request->mes[$i])." - Monto: ".$key2->monto." | ";
+                                                    $total+=$key2->monto;
+                                                    $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                                    $concepto.="Inmueble: ".$key->idem." - Mes: ".$this->mostrar_mes($request->mes[$i])." - Monto: ".$key2->monto." | ";
+                                                }
                                             }
                                         }
                                     }
@@ -151,11 +152,11 @@ class PagosController extends Controller
                                                     } else {
                                                         $pagos->status="Cancelado";
                                                     }
+                                                    $pagos->save();
+                                                    $total+=$key2->monto;
+                                                    $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                                    $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                                 }
-                                                $pagos->save();
-                                                $total+=$key2->monto;
-                                                $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
-                                                $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                             }
                                         }
                                     }
@@ -168,6 +169,10 @@ class PagosController extends Controller
                 if($request->flow==1){
                     if ($total >= 350) {
                         //dd($pago_i);
+                        $flowbuilder=new FlowBuilder();
+                        $flowbuilder->setPagosI($pago_i);
+                        $flowbuilder->setPagosE($pago_e);
+                        $flowbuilder->setFactura($factura);
                         $email_pagador = \Auth::User()->email;
                         $concepto.= "Total Cancelado: ".$total."";
                         $flowcontroller=new FlowController();

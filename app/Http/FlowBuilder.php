@@ -13,7 +13,9 @@ namespace App\Http;
 class FlowBuilder
 {
 	protected $order = array();
-	
+	protected $pagos_i=array();
+	protected $pagos_e=array();
+	protected $factura;
 	//Constructor de la clase
 	public function __construct() {
 		$this->order['OrdenNumero'] = '';
@@ -24,10 +26,47 @@ class FlowBuilder
 		$this->order['Pagador']     = '';
 		$this->order['Status']      = '';
 		$this->order['Error']       = '';
+		$this->factura='';
 	}
 	
+	
+
+
 	// Metodos SET
 	
+	//---- set de los id_pagos de inmuebles
+	public function setPagosI($pagos_i) {
+		if(!empty($pagos_i)) {
+
+			for($i=0 ; $i < count($pagos_i) ; $i++){
+				$this->pagos_i[$i]=$pagos_i[$i];
+			}
+		}
+		
+		return !empty($pagos_i);	
+	}
+	//---------------------------------------
+	//set de los id_pagose e estacionamientos
+	public function setPagosI($pagos_e) {
+		if(!empty($pagos_e)) {
+
+			for($i=0 ; $i < count($pagos_e) ; $i++){
+				$this->pagos_e[$i]=$pagos_e[$i];
+			}
+		}
+		
+		return !empty($pagos_e);	
+	}
+	// set para factura
+	public function setFactura($factura) {
+		if(!empty($factura)) {
+			$this->factura = $factura;
+		}
+		//$this->flow_log("Asigna Orden N°: ". $this->order["OrdenNumero"], '');
+		return !empty($factura);	
+	} 
+	//---------------------------------------
+
 	/**
 	* Set el número de Orden del comercio
 	* 
@@ -106,6 +145,21 @@ class FlowBuilder
 	
 	// Metodos GET
 	
+	//get de los id_pagos de los inmuebles
+	public function getPagosI(){
+		return $this->pagos_i;
+	}
+	//---------------------
+	//get de los id_pagos de los inmuebles
+	public function getPagosE(){
+		return $this->pagos_e;
+	}
+	//---------------------
+	// get de factura
+	public function getFactura(){
+		return $this->factura;
+	}
+	//-------------------------
 	/**
 	* Get el número de Orden del Comercio
 	* 
