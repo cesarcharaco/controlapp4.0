@@ -882,14 +882,10 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                              @if(contar_buscar_pasarelas() ==0)
-                                                <center><h5>Admin no posee pasarelas de pago registradas</h5></center><br>
-                                                <hr>
-                                              @else
+                                              
                                                 <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-                                                <p>{{ buscar_pasarelas() }}</p>
+                                                <center><p>{{ buscar_pasarelas() }}</p></center>
                                                 <hr>
-                                              @endif
                                                 <center>
                                                     <div id="muestraMesesAPagar">
                                                         

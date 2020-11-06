@@ -509,7 +509,7 @@ function anios_registros()
 function buscar_pasarelas()
 {
 	if(\Auth::User()->tipo_usuario=="Residente") {
-
+		$buscar_pasarelas ="";
 		$id_admin = \App\Residentes::join('users','users.id','=','residentes.id_usuario')
 	        ->where('users.id',\Auth::User()->id)->get();
 	        foreach ($id_admin as $key) {
@@ -521,16 +521,21 @@ function buscar_pasarelas()
 	    ->where('residentes.id_admin',$id_admin)
 	    ->select('admins_has_pasarelas.*')
 	    ->get();
+	    $contar = count($buscar_pasarelas);
 
 	    $num=0;
-	    foreach ($buscar_pasarelas as $key) {
-	    	if ($key->pasarelas->pasarela == 'Flow' && $num == 0) {
-	    		$buscar_pasarelas = print("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow'></center><br>");
-	    		$num++;
-	    	}
+	    if ($contar==0) {
+	    	$buscar_pasarelas = "Admin no posee pasarelas de pago registradas";
+	    	return $buscar_pasarelas;
+	    } else {
+		    foreach ($buscar_pasarelas as $key) {
+		    	if ($key->pasarelas->pasarela == 'Flow' && $num == 0) {
+		    		echo ("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow'></center><br>");
+		    		$num++;
+		    	}
+		    }			
 	    }
-		
-		return $buscar_pasarelas;
+			
 	}
 }
 
