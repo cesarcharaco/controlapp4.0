@@ -115,7 +115,7 @@
 							<div class="col-md-6">
 								<div class="shadow" style="border-radius: 30px;">
 									<div class="card-body">
-										<h1>Confirme su orden antes de proceder al pago via Flow</h1>
+										<h1>Confirme la información antes de proceder al pago via Flow</h1>
 										<p>Código/Referencia de Pago: <strong>{{$orden['orden_compra']}}</strong></p>
 										<p>Monto: <strong>{{$orden['monto']}}</strong></p>
 										<p>Descripción: <strong>{{$orden['concepto']}}</strong></p>
@@ -125,14 +125,43 @@
 							</div>
 						</div>
 						<input type="hidden" name="parameters" value="{{$orden['flow_pack'] }}" />
-						<button class="btn btn-primary shadow mt-4" id="btnAceptar" type="submit">Pagar en Flow</button>
+                        <a class="btn btn-danger shadow mt-4" onclick="cancelarPago();"><strong class="text-white">Cancelar</strong></a>
+						<button class="btn btn-primary shadow mt-4" id="btnAceptar" type="submit"><strong>Pagar en Flow</strong></button>
 					</center>
 				</form>
             </div>
     	</div>
     </div>
 
+    <div class="modal fade" id="Cancelar_Pago" role="dialog">
+        <div class="modal-dialog modals-default">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>¿Seguro que no desea continuar con la operación de pago?</h3>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <a href="{{ route('home')}}" class="btn btn-danger" >Cancelar</a>
+                        <button type="button" data-dismiss="modal" class="btn btn-primary">
+                            Continuar
+                        </button>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
+
+
+<script type="text/javascript">
+    function cancelarPago() {
+        $('#Cancelar_Pago').modal('show');
+    }
+</script>
 
 
 
