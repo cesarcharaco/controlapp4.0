@@ -74,3 +74,5 @@
 >>>>>>> Stashed changes
 [2020-11-05 20:06:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-05 20:06:34.000000 127.0.0.1  - flow_pack ] Orden N°: 000001 -empaquetado correcto
+[2020-11-05 23:19:16.000000 ::1  - new_order ] Iniciando nueva Orden
+[2020-11-05 23:19:17.000000 ::1  - flow_pack ] Orden N°: 888 -empaquetado correcto

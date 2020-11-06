@@ -13,6 +13,7 @@ use App\MensualidadE;
 use App\Mensualidades;
 use App\Reportes;
 use App\Referencias;
+use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
 
 class PagosController extends Controller
@@ -139,7 +140,10 @@ class PagosController extends Controller
                 }
             }
 
-            
+            if($request->flow==1){
+                $flowcontroller=new FlowController();
+                $flowcontroller->orden($request,$total);
+            }else{
             $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
             $reporte=\DB::table('reportes_pagos')->insert([
                 'referencia' => $request->referencia,
@@ -149,6 +153,7 @@ class PagosController extends Controller
             //dd("---------");
             toastr()->success('con éxito!!', 'Pago realizado');
             return redirect()->back();
+            }
             //---------------------------------- fin para pagar como residente o admin-----------------------------------------------
             }
 

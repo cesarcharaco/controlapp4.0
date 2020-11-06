@@ -17,7 +17,9 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    public function orden(Request $request){
+    public function orden(Request $request,$monto){
+        echo "monto: ".$monto;
+        dd($request->all());
         $flow=new FlowBuilder();
         $orden = [
             'orden_compra' => $request->orden,
