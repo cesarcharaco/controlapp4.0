@@ -141,8 +141,9 @@ class PagosController extends Controller
             }
 
             if($request->flow==1){
+                $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";    
                 $flowcontroller=new FlowController();
-                $flowcontroller->orden($request,$total);
+                $flowcontroller->orden($request,$total,$factura);
             }else{
             $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
             $reporte=\DB::table('reportes_pagos')->insert([

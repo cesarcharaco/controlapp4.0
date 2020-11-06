@@ -17,14 +17,14 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    public function orden(Request $request,$monto){
-        echo "monto: ".$monto;
+    public function orden(Request $request,$monto,$factura){
+        echo "concepto: ".$factura;
         dd($request->all());
         $flow=new FlowBuilder();
         $orden = [
             'orden_compra' => $request->orden,
             'monto'           => $request->monto,
-            'concepto'        => $request->concepto,
+            'concepto'        => $factura,
             'email_pagador'   => $request->pagador,
             //'medio_pago'     => $request->medio_pago,
         ];
