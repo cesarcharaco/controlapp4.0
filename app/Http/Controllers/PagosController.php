@@ -81,6 +81,14 @@ class PagosController extends Controller
         $factura="";
         $concepto="";
         $total=0;
+        //-------------para el caso de pagar con flow-----------------
+        //arreglo para id e Pagos para cambia status
+        $pago_i=array();
+        $pi=0;//variable para iterar el array
+        //arreglo para id e PagosE para cambia status
+        $pago_e=array();
+        $pe=0;//variable para iterar el array
+        //---------------------------------------------------------------
         if ($request->opcion==1) {
             //---------------------------------- para pagar como residente o admin-----------------------------------------------
             if (is_null($request->mes)==true) {
@@ -99,8 +107,8 @@ class PagosController extends Controller
                                             $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                                             if(!is_null($pagos)){
                                                 if ($request->flow==1) {
-                                                    $id = $key2->id;
-                                                    dd($id);
+                                                    $pago_i[$pi]=$pagos->id;
+                                                    $pi++;
                                                 } else {
                                                     if (\Auth::user()->tipo_usuario=="Residente") {
                                                         $pagos->status="Por Confirmar";
@@ -134,10 +142,15 @@ class PagosController extends Controller
                                             //echo $key2->id."<br>";
                                             $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
                                             if(!is_null($pagos)){
+                                                if ($request->flow==1) {
+                                                    $pago_e[$pe]=$pagos->id;
+                                                    $pe++;
+                                                } else {
                                                 if (\Auth::user()->tipo_usuario=="Residente") {
                                                     $pagos->status="Por Confirmar";
                                                 } else {
                                                     $pagos->status="Cancelado";
+                                                }
                                                 }
                                                 $pagos->save();
                                                 $total+=$key2->monto;
@@ -154,7 +167,7 @@ class PagosController extends Controller
 
                 if($request->flow==1){
                     if ($total >= 350) {
-                        //dd('hola 1');
+                        dd($pago_i);
                         $email_pagador = \Auth::User()->email;
                         $concepto.= "| Total Cancelado: ".$total."";
                         $flowcontroller=new FlowController();
