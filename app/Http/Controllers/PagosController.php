@@ -115,13 +115,13 @@ class PagosController extends Controller
                                                     } else {
                                                         $pagos->status="Cancelado";
                                                     }                                                    
+                                                    $pagos->referencia=$request->referencia;
                                                 }
-                                                $pagos->referencia=$request->referencia;
                                                 $pagos->save();
 
                                                 $total+=$key2->monto;
                                                 $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
-                                                $concepto.="Inmueble: ".$key->idem." | Mes: ".$this->mostrar_mes($request->mes[$i])." | Monto: ".$key2->monto." ";
+                                                $concepto.="Inmueble: ".$key->idem." - Mes: ".$this->mostrar_mes($request->mes[$i])." - Monto: ".$key2->monto." | ";
                                             }
                                         }
                                     }
@@ -146,11 +146,11 @@ class PagosController extends Controller
                                                     $pago_e[$pe]=$pagos->id;
                                                     $pe++;
                                                 } else {
-                                                if (\Auth::user()->tipo_usuario=="Residente") {
-                                                    $pagos->status="Por Confirmar";
-                                                } else {
-                                                    $pagos->status="Cancelado";
-                                                }
+                                                    if (\Auth::user()->tipo_usuario=="Residente") {
+                                                        $pagos->status="Por Confirmar";
+                                                    } else {
+                                                        $pagos->status="Cancelado";
+                                                    }
                                                 }
                                                 $pagos->save();
                                                 $total+=$key2->monto;
@@ -167,9 +167,9 @@ class PagosController extends Controller
 
                 if($request->flow==1){
                     if ($total >= 350) {
-                        dd($pago_i);
+                        //dd($pago_i);
                         $email_pagador = \Auth::User()->email;
-                        $concepto.= "| Total Cancelado: ".$total."";
+                        $concepto.= "Total Cancelado: ".$total."";
                         $flowcontroller=new FlowController();
                         //Con este return nos vamos al controlador de FLOW
                         return  $flowcontroller->orden2($request,$total,$concepto,$email_pagador,$orden_compra);
