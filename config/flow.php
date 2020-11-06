@@ -49,7 +49,7 @@ return [
     * 
     * @var string
     */
-    'url_pago' => 'http://flow.tuxpan.com/app/kpf/pago.php',
+    'url_pago' => 'https://www.flow.cl/app/kpf/pago.php',
 
     # Commerce specific config
 
