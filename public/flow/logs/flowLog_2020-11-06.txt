@@ -33,3 +33,21 @@
 [2020-11-06 03:07:18.000000 127.0.0.1  - flow_pack ] Orden N°: 04543785 -empaquetado correcto
 [2020-11-06 03:11:08.000000 ::1  - new_order ] Iniciando nueva Orden
 [2020-11-06 03:11:08.000000 ::1  - flow_pack ] Orden N°: 37708334 -empaquetado correcto
+[2020-11-06 03:24:37.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:24:37.000000 127.0.0.1  - flow_pack ] Orden N°: 25364 -empaquetado correcto
+[2020-11-06 03:26:04.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:26:04.000000 127.0.0.1  - flow_pack ] Orden N°: 47168687 -empaquetado correcto
+[2020-11-06 03:29:40.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:29:40.000000 127.0.0.1  - flow_pack ] Orden N°: 2525 -empaquetado correcto
+[2020-11-06 03:35:06.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:35:06.000000 127.0.0.1  - flow_pack ] Orden N°: 85333398 -empaquetado correcto
+[2020-11-06 03:36:48.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:36:48.000000 127.0.0.1  - flow_pack ] Orden N°: 90458130 -empaquetado correcto
+[2020-11-06 03:41:08.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:41:08.000000 127.0.0.1  - flow_pack ] Orden N°: 07256416 -empaquetado correcto
+[2020-11-06 03:42:50.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:42:50.000000 127.0.0.1  - flow_pack ] Orden N°: 12869971 -empaquetado correcto
+[2020-11-06 03:43:06.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:43:06.000000 127.0.0.1  - flow_pack ] Orden N°: 48887794 -empaquetado correcto
+[2020-11-06 03:44:13.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:44:13.000000 127.0.0.1  - flow_pack ] Orden N°: 82037486 -empaquetado correcto
