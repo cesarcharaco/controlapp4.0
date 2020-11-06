@@ -79,13 +79,14 @@ class PagosController extends Controller
         }
         //dd($request->referencia);
         $factura="";
+        $concepto="";
         $total=0;
         if ($request->opcion==1) {
           
         //---------------------------------- para pagar como residente o admin-----------------------------------------------
         if (is_null($request->mes)==true) {
             toastr()->warning('intente otra vez!!', 'No ha seleccionado algo a pagar');
-        return redirect()->back();
+            return redirect()->back();
         } else {
             if (is_null($request->mes)==false) {
                 for ($i=0; $i < count($request->mes); $i++) {
@@ -108,6 +109,7 @@ class PagosController extends Controller
 
                                             $total+=$key2->monto;
                                             $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                            $concepto.="Inmueble: ".$key->idem." | Mes: ".$this->mostrar_mes($request->mes[$i])." | Monto: ".$key2->monto." ";
                                         }
                                     }
                                 }
@@ -136,6 +138,7 @@ class PagosController extends Controller
                                             $pagos->save();
                                             $total+=$key2->monto;
                                             $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                            $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                         }
                                     }
                                 }
@@ -146,22 +149,28 @@ class PagosController extends Controller
             }
 
             if($request->flow==1){
-                //dd('hola 1');
-                $email_pagador = \Auth::User()->email;
-                $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";    
-                $flowcontroller=new FlowController();
-                //Con este return nos vamos al controlador de FLOW
-                return  $flowcontroller->orden2($request,$total,$factura,$email_pagador,$orden_compra);
+                if ($total >= 350) {
+                    //dd('hola 1');
+                    $email_pagador = \Auth::User()->email;
+                    $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+                    $concepto.= "| Total Cancelado: ".$total."";
+                    $flowcontroller=new FlowController();
+                    //Con este return nos vamos al controlador de FLOW
+                    return  $flowcontroller->orden2($request,$total,$factura,$concepto,$email_pagador,$orden_compra);
+                } else {
+                    toastr()->error('ERROR!!', 'El monto debe ser mayor a 350 pesos chilenos');
+                    return redirect()->back();
+                }
             }else{
-            $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
-            $reporte=\DB::table('reportes_pagos')->insert([
-                'referencia' => $request->referencia,
-                'reporte' => $factura,
-                'id_residente' => $request->id_user
-            ]);
-            //dd("---------");
-            toastr()->success('con éxito!!', 'Pago realizado');
-            return redirect()->back();
+                $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+                $reporte=\DB::table('reportes_pagos')->insert([
+                    'referencia' => $request->referencia,
+                    'reporte' => $factura,
+                    'id_residente' => $request->id_user
+                ]);
+                //dd("---------");
+                toastr()->success('con éxito!!', 'Pago realizado');
+                return redirect()->back();
             }
             //---------------------------------- fin para pagar como residente o admin-----------------------------------------------
             }

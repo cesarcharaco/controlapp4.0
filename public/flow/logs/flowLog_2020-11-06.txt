@@ -58,3 +58,27 @@
 [2020-11-06 03:23:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-06 03:23:33.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
 >>>>>>>  - pagosController
+[2020-11-06 12:55:23.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 12:55:23.000000 127.0.0.1  - flow_pack ] Orden N°: 98465610 -empaquetado correcto
+[2020-11-06 12:57:07.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 12:57:07.000000 127.0.0.1  - flow_pack ] Orden N°: 67117833 -empaquetado correcto
+[2020-11-06 12:57:43.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 12:57:43.000000 127.0.0.1  - flow_pack ] Orden N°: 89174995 -empaquetado correcto
+[2020-11-06 13:02:25.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:02:25.000000 127.0.0.1  - flow_pack ] Orden N°: 16333296 -empaquetado correcto
+[2020-11-06 13:03:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:03:33.000000 127.0.0.1  - flow_pack ] Orden N°: 08031303 -empaquetado correcto
+[2020-11-06 13:05:50.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:05:50.000000 127.0.0.1  - flow_pack ] Orden N°: 01962123 -empaquetado correcto
+[2020-11-06 13:06:43.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:06:43.000000 127.0.0.1  - flow_pack ] Orden N°: 23287310 -empaquetado correcto
+[2020-11-06 13:09:22.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:09:22.000000 127.0.0.1  - flow_pack ] Orden N°: 26398291 -empaquetado correcto
+[2020-11-06 13:10:13.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:10:13.000000 127.0.0.1  - flow_pack ] Orden N°: 62168414 -empaquetado correcto
+[2020-11-06 13:12:34.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:12:34.000000 127.0.0.1  - flow_pack ] Orden N°: 99859778 -empaquetado correcto
+[2020-11-06 13:13:42.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:13:42.000000 127.0.0.1  - flow_pack ] Orden N°: 24982635 -empaquetado correcto
+[2020-11-06 13:25:06.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 13:25:06.000000 127.0.0.1  - flow_pack ] Orden N°: 53226675 -empaquetado correcto
