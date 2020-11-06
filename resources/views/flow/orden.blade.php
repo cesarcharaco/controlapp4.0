@@ -116,7 +116,7 @@
 								<div class="shadow" style="border-radius: 30px;">
 									<div class="card-body">
 										<h1>Confirme su orden antes de proceder al pago via Flow</h1>
-										<p>Orden N°: <strong>{{$orden['orden_compra']}}</strong></p>
+										<p>Código/Referencia de Pago: <strong>{{$orden['orden_compra']}}</strong></p>
 										<p>Monto: <strong>{{$orden['monto']}}</strong></p>
 										<p>Descripción: <strong>{{$orden['concepto']}}</strong></p>
 										<p>Email Pagador (Opcional): <strong>{{$orden['email_pagador']}}</strong></p>
@@ -139,10 +139,17 @@
 
 {{--
 Confirme su orden antes de proceder al pago via Flow<br /><br />
+<<<<<<< HEAD
 Orden N°: {{$flowcontroller['orden_compra']}}<br />
 Monto: {{$flowcontroller['monto']}}<br />
 Descripción: {{$flowcontroller['concepto']}}<br />
 Email Pagador (Opcional): {{$flowcontroller['email_pagador']}}<br />
+=======
+Código/Referencia de Pago: {{$orden['orden_compra']}}<br />
+Monto: {{$orden['monto']}}<br />
+Descripción: {{$orden['concepto']}}<br />
+Email Pagador (Opcional): {{$orden['email_pagador']}}<br />
+>>>>>>>  - pagosController
 <form method="post" action="{{config('flow.url_pago')}}">
 {{ csrf_field() }}
 <input type="hidden" name="parameters" value="{{$orden['flow_pack'] }}" />

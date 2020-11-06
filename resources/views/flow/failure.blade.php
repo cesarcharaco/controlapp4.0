@@ -114,7 +114,7 @@
 								<div class="card-body">
 									<h1 class="text-danger">¡Ha ocurrido un error!</h1>
 									<h3>Su pago ha fracasado</h3>
-									<p>Orden de Compra: <strong>{{$data['ordenCompra']}}</strong></p>
+									<p>Código/Referencia de Pago: <strong>{{$data['ordenCompra']}}</strong></p>
 									<p>Monto: <strong>{{$data['monto']}}</strong></p>
 									<p>Descripción: <strong>{{$data['concepto']}}</strong></p>
 									<p>Pagador: <strong>{{$data['pagador']}}</strong></p>

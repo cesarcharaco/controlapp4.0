@@ -17,7 +17,7 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    public function orden2(Request $request,$monto,$factura,$email_pagador,$orden_compra){
+    public function orden2(Request $request,$monto,$factura,$concepto,$email_pagador,$orden_compra){
         //echo "concepto: ".$factura;
         //dd($request->all());
         //dd($monto);
@@ -25,7 +25,8 @@ class FlowController extends Controller
         $orden = [
             'orden_compra' => $orden_compra,
             'monto'           => $monto,
-            'concepto'        => $factura,
+            // 'concepto'        => $factura,
+            'concepto'        => $concepto,
             'email_pagador'   => $email_pagador,
             //'medio_pago'     => $request->medio_pago,
         ];

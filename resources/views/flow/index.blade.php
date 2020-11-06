@@ -118,7 +118,7 @@
 											<div class="row justify-content-center">
 												<div class="col-md-12">
 													<div class="form-group">
-														<label>Orden N°:</label>
+														<label>Código/Referencia de Pago:</label>
 													 	<div class="input-group mb-2">
 		                                                    <div class="input-group-prepend">
 		                                                        <div class="input-group-text">

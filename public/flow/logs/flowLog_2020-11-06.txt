@@ -33,6 +33,7 @@
 [2020-11-06 03:07:18.000000 127.0.0.1  - flow_pack ] Orden N°: 04543785 -empaquetado correcto
 [2020-11-06 03:11:08.000000 ::1  - new_order ] Iniciando nueva Orden
 [2020-11-06 03:11:08.000000 ::1  - flow_pack ] Orden N°: 37708334 -empaquetado correcto
+<<<<<<< HEAD
 [2020-11-06 03:24:37.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-06 03:24:37.000000 127.0.0.1  - flow_pack ] Orden N°: 25364 -empaquetado correcto
 [2020-11-06 03:26:04.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
@@ -51,3 +52,9 @@
 [2020-11-06 03:43:06.000000 127.0.0.1  - flow_pack ] Orden N°: 48887794 -empaquetado correcto
 [2020-11-06 03:44:13.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
 [2020-11-06 03:44:13.000000 127.0.0.1  - flow_pack ] Orden N°: 82037486 -empaquetado correcto
+=======
+[2020-11-06 03:22:35.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:22:35.000000 127.0.0.1  - flow_pack ] Orden N°: 97761017 -empaquetado correcto
+[2020-11-06 03:23:33.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 03:23:33.000000 127.0.0.1  - flow_get_public_key_id ] Error al intentar obtener la llave pública - Error-> fopen(C:\laragon\www\controlapp4.0\public\flow/keys/flow.pubkey): failed to open stream: No such file or directory
+>>>>>>>  - pagosController
