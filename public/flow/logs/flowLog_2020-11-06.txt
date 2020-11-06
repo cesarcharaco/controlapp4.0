@@ -1,0 +1,27 @@
+[2020-11-06 01:56:36.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 01:56:36.000000 127.0.0.1  - new_order ] Error: No se pasaron todos los parámetros obligatorios
+[2020-11-06 01:56:36.000000 127.0.0.1  - new_order ] Error: El parámetro monto de la orden debe ser numérico
+[2020-11-06 01:57:51.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 01:57:51.000000 127.0.0.1  - new_order ] Error: No se pasaron todos los parámetros obligatorios
+[2020-11-06 01:57:51.000000 127.0.0.1  - new_order ] Error: El parámetro monto de la orden debe ser numérico
+[2020-11-06 02:00:28.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:00:28.000000 127.0.0.1  - flow_pack ] Orden N°: 62279558 -empaquetado correcto
+[2020-11-06 02:01:24.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:01:24.000000 127.0.0.1  - new_order ] Error: No se pasaron todos los parámetros obligatorios
+[2020-11-06 02:01:24.000000 127.0.0.1  - new_order ] Error: El parámetro monto de la orden debe ser numérico
+[2020-11-06 02:01:38.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:01:38.000000 127.0.0.1  - flow_pack ] Orden N°: 25 -empaquetado correcto
+[2020-11-06 02:03:21.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:03:21.000000 127.0.0.1  - flow_pack ] Orden N°: 12345678 -empaquetado correcto
+[2020-11-06 02:08:51.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:08:51.000000 127.0.0.1  - flow_pack ] Orden N°: 98701730 -empaquetado correcto
+[2020-11-06 02:11:26.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:11:26.000000 127.0.0.1  - flow_pack ] Orden N°: 00059467 -empaquetado correcto
+[2020-11-06 02:12:30.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:12:30.000000 127.0.0.1  - flow_pack ] Orden N°: 67309488 -empaquetado correcto
+[2020-11-06 02:16:02.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:16:02.000000 127.0.0.1  - flow_pack ] Orden N°: 32056634 -empaquetado correcto
+[2020-11-06 02:17:07.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:17:07.000000 127.0.0.1  - flow_pack ] Orden N°: 85514588 -empaquetado correcto
+[2020-11-06 02:18:09.000000 127.0.0.1  - new_order ] Iniciando nueva Orden
+[2020-11-06 02:18:09.000000 127.0.0.1  - flow_pack ] Orden N°: 30163803 -empaquetado correcto

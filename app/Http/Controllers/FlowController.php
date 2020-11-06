@@ -17,25 +17,36 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    public function orden(Request $request,$monto,$factura){
-        echo "concepto: ".$factura;
-        dd($request->all());
+    protected function generarOrden()
+    {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;   
+    }
+    public function orden(Request $request,$monto,$factura,$email_pagador){
+        //echo "concepto: ".$factura;
+        //dd($request->all());
+        //dd($monto);
         $flow=new FlowBuilder();
         $orden = [
-            'orden_compra' => $request->orden,
-            'monto'           => $request->monto,
+            'orden_compra' => $this->generarOrden(),
+            'monto'           => $monto,
             'concepto'        => $factura,
-            'email_pagador'   => $request->pagador,
+            'email_pagador'   => $email_pagador,
             //'medio_pago'     => $request->medio_pago,
         ];
 
-        // dd($orden);
         
-    #Aqui debemos verificar la entrada...
+        #Aqui debemos verificar la entrada...
         if (!is_numeric($orden['orden_compra'])) {
             dd("Error #1: Orden debe ser number");
         }
 
+        //dd($orden);
         // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
         $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
 
