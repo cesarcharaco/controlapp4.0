@@ -113,6 +113,7 @@
 							<div class="shadow" style="border-radius: 30px;">
 								<div class="card-body">
 									<h1 class="text-danger">¡Ha ocurrido un error!</h1>
+
 									<h3>Su pago ha fracasado</h3>
 									<p>Código/Referencia de Pago: <strong>{{$data['ordenCompra']}}</strong></p>
 									<p>Monto: <strong>{{$data['monto']}}</strong></p>
@@ -120,7 +121,8 @@
 									<p>Pagador: <strong>{{$data['pagador']}}</strong></p>
 									<p>Flow Orden N°: <strong>{{$data['flowOrden']}}</strong></p>
 									<br>
-									<a class="btn btn-primary" href="{{ url('payment/flow/index')}}">Volver a intentar</a>
+									<a class="btn btn-primary" href="{{ route('pagos.consultas') }}">Volver a intentar</a>
+                                    
 								</div>
 							</div>
 						</div>
