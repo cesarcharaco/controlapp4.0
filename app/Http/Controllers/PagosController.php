@@ -73,6 +73,11 @@ class PagosController extends Controller
     {
         //dd($request->all());
         //dd(count($request->mes));
+        if($request->flow==1){
+            $request->referencia=$this->generarOrden();
+            $orden_compra=$request->referencia;
+        }
+        //dd($request->referencia);
         $factura="";
         $total=0;
         if ($request->opcion==1) {
@@ -144,7 +149,7 @@ class PagosController extends Controller
                 $email_pagador = \Auth::User()->email;
                 $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";    
                 $flowcontroller=new FlowController();
-                $flowcontroller->orden($request,$total,$factura,$email_pagador);
+                $flowcontroller->orden($request,$total,$factura,$email_pagador,$orden_compra);
             }else{
             $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
             $reporte=\DB::table('reportes_pagos')->insert([
@@ -723,5 +728,16 @@ class PagosController extends Controller
         }
         //dd($status_pago);
         return view('consultas.index',compact('status_pago','buscar','anio'));
+    }
+
+    protected function generarOrden()
+    {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;   
     }
 }
