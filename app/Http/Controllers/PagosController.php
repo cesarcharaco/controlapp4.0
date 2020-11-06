@@ -152,11 +152,10 @@ class PagosController extends Controller
                 if ($total >= 350) {
                     //dd('hola 1');
                     $email_pagador = \Auth::User()->email;
-                    $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
                     $concepto.= "| Total Cancelado: ".$total."";
                     $flowcontroller=new FlowController();
                     //Con este return nos vamos al controlador de FLOW
-                    return  $flowcontroller->orden2($request,$total,$factura,$concepto,$email_pagador,$orden_compra);
+                    return  $flowcontroller->orden2($request,$total,$concepto,$email_pagador,$orden_compra);
                 } else {
                     toastr()->error('ERROR!!', 'El monto debe ser mayor a 350 pesos chilenos');
                     return redirect()->back();

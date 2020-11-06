@@ -17,8 +17,8 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
-    public function orden2(Request $request,$monto,$factura,$concepto,$email_pagador,$orden_compra){
-        //echo "concepto: ".$factura;
+    public function orden2(Request $request,$monto,$concepto,$email_pagador,$orden_compra){
+        //echo "concepto: ".$concepto;
         //dd($request->all());
         //dd($monto);
         $flow=new FlowBuilder();
