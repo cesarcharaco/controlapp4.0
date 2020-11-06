@@ -121,8 +121,8 @@
 									<p>Pagador: <strong>{{$data['pagador']}}</strong></p>
 									<p>Flow Orden N°: <strong>{{$data['flowOrden']}}</strong></p>
 									<br>
-									<a class="btn btn-primary" href="{{ route('pagos.consultas') }}">Volver a intentar</a>
-                                    
+									<a class="btn btn-primary" href="{{ url('home') }}">Volver a intentar</a>
+
 								</div>
 							</div>
 						</div>

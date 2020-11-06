@@ -111,7 +111,7 @@
                                 <center>
                                     {{-- <h1 class="title">{{$_SERVER['SERVER_PROTOCOL']}} 500 Ha ocurrido un error interno.</h1> --}}
                                     <h1 class="title"></h1>
-                                    <a class="btn btn-primary" href="{{ route('pagos.consultas') }}">Volver a intentar</a>
+                                    <a class="btn btn-primary" href="{{url('home') }}">Volver a intentar</a>
                                 </center>
                             </div>
                         </div>
