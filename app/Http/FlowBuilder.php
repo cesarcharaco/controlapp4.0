@@ -270,7 +270,7 @@ class FlowBuilder
 		$q              = http_build_query($data);
 		$s              = $this->flow_sign($q);
 		$this->flow_log("Orden N°: ".$this->order["OrdenNumero"]. " - Status: $r","flow_build_response");
-		dd($q."&s=".$s);
+		//dd($q."&s=".$s);
 		return $q."&s=".$s;
 	}
 
@@ -368,13 +368,13 @@ class FlowBuilder
 		};
 
 		return base64_encode($signature);
-		$priv_key_id = $this->flow_get_public_key_id();
+		/*$priv_key_id = $this->flow_get_public_key_id();
 		openssl_free_key( $priv_key_id );
 		if(! openssl_sign($data, $signature, $priv_key_id)) {
 			$this->flow_log("No se pudo firmar", "flow_sign");
 			throw new \Exception('It can not sign');
 		};
-		return base64_encode($signature);
+		return base64_encode($signature);*/
 	}
 	
 	private function flow_sign_validate($signature, $data) {
