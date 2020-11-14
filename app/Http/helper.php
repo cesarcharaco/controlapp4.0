@@ -533,7 +533,7 @@ function buscar_pasarelas()
 		    		echo ("<center><b>Pagar con " .$key->pasarelas->pasarela."</b> <input type='checkbox' onclick='FlowCheck()' name='flow' value='".$key->pasarelas->id."' id='checkFlow'></center><br>");
 		    		$num++;
 		    	}
-		    }			
+		    }
 	    }
 			
 	}

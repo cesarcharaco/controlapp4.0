@@ -881,19 +881,24 @@
                                                     <span>&times;</span>
                                                 </button>
                                             </div>
-                                            <div class="modal-body">
-                                              
-                                                <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-                                                <center><p>{{ buscar_pasarelas() }}</p></center>
-                                                <hr>
-                                                <center>
-                                                    <div id="muestraMesesAPagar">
-                                                        
-                                                    </div>
-                                                    <div id="muestraMesesAPagar2" style="display: none;">
-                                                        <h3 align="center">No hay inmuebles que pagar</h3>
-                                                    </div>
-                                                </center>
+                                            <div class="modal-body">                                              
+                                              <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
+
+                                              {{-- <center><p>{{ buscar_pasarelas() }}</p></center> --}}
+                                              <center>
+                                                <b>Pagar con Flow</b> 
+                                                <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
+                                              </center>
+
+                                              <hr>
+                                              <center>
+                                                  <div id="muestraMesesAPagar">
+                                                      
+                                                  </div>
+                                                  <div id="muestraMesesAPagar2" style="display: none;">
+                                                      <h3 align="center">No hay inmuebles que pagar</h3>
+                                                  </div>
+                                              </center>
                                             </div>
                                             <div class="modal-footer">
                                                 <input type="hidden" name="opcion" id="opcion" value="1">
@@ -922,14 +927,12 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                              @if(contar_buscar_pasarelas() ==0)
-                                                <center><h5>Admin no posee pasarelas de pago registradas</h5></center><br>
-                                                <hr>
-                                              @else
-                                                <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-                                                <p>{{ buscar_pasarelas() }}</p>
-                                                <hr>
-                                              @endif
+                                              <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
+                                              <center>
+                                                <b>Pagar con Flow</b> 
+                                                <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
+                                              </center>
+                                              <hr>
                                                 <center>
                                                     <div class="row">
                                                         <div class="col-md-12">

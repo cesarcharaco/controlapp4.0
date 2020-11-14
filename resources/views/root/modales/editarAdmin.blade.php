@@ -41,7 +41,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -53,7 +52,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
@@ -86,9 +84,7 @@
                                 </div>
                             </div>
                         </div>
-
-
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>¿Desea cambiar las plataformas de pago?</label>
@@ -119,7 +115,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col-md-12">
@@ -129,7 +125,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div id="verCambiarContraseña" style="display: none;">
                             <div class="row">
                                 <div class="col-md-12">
@@ -139,7 +134,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
