@@ -44,37 +44,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Agregar pasarelas de pago</label>
-                                    <input type="checkbox" name="cambiar_pagos" value="si" id="CheckagregarPasarelas" onclick="agregarPasarelas();">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" id="pasarelas_pago" style="display: none;">
-                            <div class="col-md-12" id="pasarelaPago1">
-                                <div class="form-group">
-                                    <label for="id_pasarela">Pasarelas de Pago <b style="color: red;">*</b>
-                                    </label>
-                                    @foreach($pasarelas as $key)
-                                        <div class="card-body border">
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-2">
-                                                    <input id="check_pasarela1-{{$key->id}}" type="checkbox" name="id_pasarela[]" value="{{$key->id}}" onclick="selectPasarela(1,'{{$key->id}}')">
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <span>{{$key->pasarela}}</span>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="text" name="link_pasarela[]" class="form-control" placeholder="Ingrese Link" id="link_pasarela1-{{$key->id}}" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div> -->
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
