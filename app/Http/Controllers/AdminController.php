@@ -66,13 +66,13 @@ class AdminController extends Controller
         $user->save();
 
         
-            for ($i=0; $i < count($request->id_pasarela); $i++) {
+            /*for ($i=0; $i < count($request->id_pasarela); $i++) {
                 \DB::table('admins_has_pasarelas')->insert([
                     'id_pasarela' => $request->id_pasarela[$i],
                     'id_admin' => $user->id,
                     'link_pasarela' => $request->link_pasarela[$i]
                 ]);
-            }
+            }*/
         
 
         $user2=new User();
