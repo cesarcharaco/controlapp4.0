@@ -55,12 +55,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-md-12">
                 		<label>Pasarelas de Pago</label>
                     	<div id="ver_pasarelas_pago"></div>
                     </div>
-                </div>
+                </div> -->
             </center>
         </div>
         <div class="modal-footer">
