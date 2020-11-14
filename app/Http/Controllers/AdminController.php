@@ -31,9 +31,9 @@ class AdminController extends Controller
     {
         $admin=UsersAdmin::all();
         $membresias = Membresias::all();
-        $pasarelas = Pasarelas::all();
+        //$pasarelas = Pasarelas::all();
 
-        return view('root.index',compact('admin','membresias','pasarelas'));
+        return view('root.index',compact('admin','membresias'));
     }
 
     /**
