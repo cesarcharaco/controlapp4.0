@@ -383,7 +383,7 @@ class PagosController extends Controller
                         }
                     }    
                 }
-                dd(count($id_mensualidad_i));
+                //dd(count($id_mensualidad_i));
                 for ($k=0; $k < count($id_mensualidad_i); $k++) { 
                     
                     $pago=Pagos::where('id_mensualidad',$id_mensualidad_i[$k])->orderby('id','DESC')->first();
