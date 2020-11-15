@@ -57,34 +57,53 @@ class AdminController extends Controller
         
         //dd('----------------');
         //dd($request->all());
-        $user=new UsersAdmin();
 
-        $user->name=$request->name;
-        $user->rut=$request->rut.'-'.$request->verificador;
-        $user->email=$request->email;
-        $user->id_membresia=$request->id_membresia;
-        $user->save();
 
+        //validando campos unicos
+        //corre
+        $buscar1=UsersAdmin::where('email',$request->email)->count();
+        $buscar2=UsersAdmin::where('rut',$request->rut.'-'.$request->verificador)->count();
+        if($buscar1>0){
+            toastr()->success('Verique otra vez!!', 'El correo electrónico ya se encuentra registrado');
         
-            /*for ($i=0; $i < count($request->id_pasarela); $i++) {
-                \DB::table('admins_has_pasarelas')->insert([
-                    'id_pasarela' => $request->id_pasarela[$i],
-                    'id_admin' => $user->id,
-                    'link_pasarela' => $request->link_pasarela[$i]
-                ]);
-            }*/
+            return redirect()->back();    
+        }else{
+            if($buscar2>0){
+            toastr()->success('Verique otra vez!!', 'El RUT ya se encuentra registrado');
         
+            return redirect()->back();    
+            }else{
+                $user=new UsersAdmin();
 
-        $user2=new User();
-        $user2->name=$request->name;
-        $user2->rut=$request->rut.'-'.$request->verificador;
-        $user2->email=$request->email;
-        $user2->tipo_usuario='Admin';
-        $user2->password=\Hash::make($request->password);
-        $user2->save();
-        toastr()->success('con éxito!', 'Usuario Admin registrado');
-        
-            return redirect()->back();
+                $user->name=$request->name;
+                $user->rut=$request->rut.'-'.$request->verificador;
+                $user->email=$request->email;
+                $user->id_membresia=$request->id_membresia;
+                $user->save();
+                
+                    /*for ($i=0; $i < count($request->id_pasarela); $i++) {
+                        \DB::table('admins_has_pasarelas')->insert([
+                            'id_pasarela' => $request->id_pasarela[$i],
+                            'id_admin' => $user->id,
+                            'link_pasarela' => $request->link_pasarela[$i]
+                        ]);
+                    }*/
+                
+
+                $user2=new User();
+                $user2->name=$request->name;
+                $user2->rut=$request->rut.'-'.$request->verificador;
+                $user2->email=$request->email;
+                $user2->tipo_usuario='Admin';
+                $user2->password=\Hash::make($request->password);
+                $user2->save();
+                toastr()->success('con éxito!', 'Usuario Admin registrado');
+                
+                    return redirect()->back();
+            
+            }
+        }
+
 
     }
 
@@ -121,13 +140,13 @@ class AdminController extends Controller
     {
 
         //dd($request->all());
-        $buscar=UsersAdmin::where('email',$request->email_e)->where('id','<>',$request->id)->get();
-        if (count($buscar)>0) {
+        $buscar=UsersAdmin::where('email',$request->email_e)->where('id','<>',$request->id)->count();
+        if ($buscar>0) {
             toastr()->warning('intente otra vez!!', 'El correo electrónico ya se encuentra registrado');
                 return redirect()->back();
         } else {
-            $buscar2=UsersAdmin::where('rut',$request->rut_e)->where('id','<>',$request->id)->get();
-            if (count($buscar2)) {
+            $buscar2=UsersAdmin::where('rut',$request->rut_e)->where('id','<>',$request->id)->count();
+            if ($buscar2) {
                 toastr()->warning('intente otra vez!!', 'El RUT ya se encuentra registrado');
                 return redirect()->back();
             } else {
