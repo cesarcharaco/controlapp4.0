@@ -685,7 +685,7 @@
 
 
     function EditarPago(id_residente, opcion) {
-        console.log('editar pago');
+        //console.log('editar pago');
         $('#MuestraEstacionamiento2').css('display','none');
         $('#verF').val(id_residente);
         $('#editar_p').modal('show');
@@ -709,11 +709,11 @@
             // $('#titleE').text('Editar pago de Inmuebles');
             $('#titleE').text('Editar pago común');
             $('#MuestraInmueble').show();
-            console.log(id_residente);
+            //console.log(id_residente);
             $.get("inmuebles/"+id_residente+"/buscar_anios",function (data) {
             })
             .done(function(data) {
-                    console.log(data.length);
+                    //console.log(data.length);
                     if (data.length>0) {
                         // $("#anio").empty();
                         $("#anio").append('<option value="0">Seleccione el año</option>');
@@ -847,7 +847,7 @@
         .done(function(data) {
             if (data.length>0) {
                 for(var i=0; i < data.length; i++){
-                    console.log(i);
+                    console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
                     $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mostrar_mes(data[i].mes)+'</font></font></option>');
                     // }
