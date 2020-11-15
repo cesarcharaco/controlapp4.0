@@ -850,6 +850,7 @@
                     console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
                         mes=mostrar_mes(data[i].mes);
+                        console.log(mes);
                     $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mmmmmmm'+mes+'</font></font></option>');
                     // }
                 }
