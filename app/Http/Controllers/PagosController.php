@@ -354,7 +354,7 @@ class PagosController extends Controller
     //referencia_edit
         switch ($request->opcion) {
             case 1:
-            dd('por la opcion 1');
+            
                 $id_mes=$request->id_inmueble;
                 $id_mensualidad_i=array();
                 $id_mensualidad_e=array();
