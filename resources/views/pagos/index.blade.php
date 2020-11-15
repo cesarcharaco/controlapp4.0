@@ -809,7 +809,7 @@
             })
             .done(function(data) {
                 
-                console.log(data.length);
+                //console.log(data.length);
                             
                 
             });
@@ -847,10 +847,10 @@
         .done(function(data) {
             if (data.length>0) {
                 for(var i=0; i < data.length; i++){
-                    console.log(data[i].mes);
+                    //console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
                         mes=mostrar_mes(parseInt(data[i].mes));
-                        console.log(mes);
+                        //console.log(mes);
                     $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mes+'</font></font></option>');
                     // }
                 }
@@ -1001,7 +1001,7 @@
             }
         })
         .done(function(data) {
-            console.log(data.length);
+            //console.log(data.length);
             //console.log('hola');
         
         });
@@ -1036,7 +1036,7 @@
             }
         })
         .done(function(data) {
-            console.log(data.length);
+            //console.log(data.length);
             
             
             $('#mis_inmuebles').removeAttr('disabled');
@@ -1480,7 +1480,7 @@
                     
                     for (var i = 0; i < data.length; i++) {
                             
-                            console.log(i);
+                            //console.log(i);
                             $('#createMensuality1').append(
                                 '<div class="row">'+
                                     '<div class="col-md-4">'+
@@ -1605,7 +1605,7 @@
             $.get("arriendos/"+id_estacionamiento+"/buscar_estacionamientos3",function (data) {
             })
             .done(function(data) {
-                console.log(data.length);
+                //console.log(data.length);
                 // for(var i=0; i < data.length; i++){
                 //     $('.inner'+id_estacionamiento).append(
                 //         '<div class="row">'+
