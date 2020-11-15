@@ -841,7 +841,7 @@
             });*/
     }
     function inmuebles_meses_editar(id_inmueble) {
-
+        var mes='';
         $.get("mostrar/"+id_inmueble+"/meses_inmuebles",function (data) {
         })
         .done(function(data) {
@@ -849,7 +849,8 @@
                 for(var i=0; i < data.length; i++){
                     console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
-                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mmmmmmm'+mostrar_mes(data[i].mes)+'</font></font></option>');
+                        mes=mostrar_mes(data[i].mes);
+                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mmmmmmm'+mes+'</font></font></option>');
                     // }
                 }
             
