@@ -849,7 +849,7 @@
                 for(var i=0; i < data.length; i++){
                     console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
-                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mostrar_mes(data[i].mes)+'</font></font></option>');
+                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mmmmmmm'+mostrar_mes(data[i].mes)+'</font></font></option>');
                     // }
                 }
             
@@ -867,7 +867,7 @@
         .done(function(data) {
             if (data.length>0) {
                 for(var i=0; i < data.length; i++){
-                    console.log(i);
+                    //console.log(i);
                     // if (data[i].status=="Pendiente") {
                     $('#id_estacionamientoEditar'+id_estacionamiento).append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mostrar_mes(data[i].mes)+'</font></font></option>');
                     // }
