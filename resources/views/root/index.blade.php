@@ -108,7 +108,7 @@
                             height: 35px;
                             margin-bottom: 5px;
                             margin-top: 5px;
-                            float: right;">
+                            float: right;" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo admin">
                             <span class="PalabraEditarPago ">Nuevo Admin</span>
                             <center>
                                 <span class="PalabraEditarPago2 ">
@@ -185,7 +185,7 @@
                         <tbody>
                             @php $num=0 @endphp
                             @foreach($admin as $key)
-                                <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                                <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver más opciones">
                                     <td align="center">
                                         {{$num=$num+1}}
                                     </td>
@@ -207,7 +207,7 @@
                                 </tr>
                                 <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
                                     <td width="10">
-                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
+                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
                                             <span class="PalabraEditarPago ">Regresar</span>
                                             <center>
                                                 <span class="PalabraEditarPago2 ">
@@ -226,7 +226,7 @@
                                     <td style="display: none"></td>
                                     <td align="center" colspan="2">
 
-                                        <a data-toggle="collapse" href="#verAdmin" role="button" aria-expanded="false" aria-controls="verAdmin" class="btn btn-success btn-sm" onclick="verAdmin('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}','{{$key->link_flow}}','{{$key->link_tb}}')">
+                                        <a data-toggle="collapse" href="#verAdmin" role="button" aria-expanded="false" aria-controls="verAdmin" class="btn btn-success btn-sm" onclick="verAdmin('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}','{{$key->link_flow}}','{{$key->link_tb}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver más datos">
                                             <span class="PalabraEditarPago ">Ver</span>
                                             <center>
                                                 <span class="PalabraEditarPago2 ">
@@ -235,7 +235,7 @@
                                             </center>
                                         </a>
 
-                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}','{{$key->link_flow}}','{{$key->link_tb}}')">
+                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}','{{$key->link_flow}}','{{$key->link_tb}}')"data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
                                             <span class="PalabraEditarPago ">Editar</span>
                                             <center>
                                                 <span class="PalabraEditarPago2 ">
@@ -244,7 +244,7 @@
                                             </center>
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')">
+                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar admin">
                                             <span class="PalabraEditarPago ">Eliminar</span>
                                             <center>
                                                 <span class="PalabraEditarPago2 ">

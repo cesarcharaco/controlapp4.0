@@ -1,7 +1,7 @@
 <div class="collapse multi-collapse" id="editarPlanPago" style=" margin-left: -8px; width: 100% !important; background-color: white !important; border-radius: 30px !important;">
 	<div class="card">
 		<div class="card-header">
-	      <a data-toggle="collapse" data-target="#editarPlanPago" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-primary btn-sm text-uppercase float-right text-white" style="border-radius: 5px; float: right;" onclick="cerrar(3)">
+	      <a data-toggle="collapse" data-target="#editarPlanPago" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-primary btn-sm text-uppercase float-right text-white" style="border-radius: 5px; float: right;" onclick="cerrar(3)" data-toggle="tooltip" data-placement="top" title="Cerrar cuadro de editar plan de pago">
 	        <strong>Cerrar</strong>
 	      </a>
 	    </div>

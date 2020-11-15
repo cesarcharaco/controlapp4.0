@@ -1,7 +1,7 @@
 <div class="collapse multi-collapse" id="EliminarPlanPago" style=" margin-left: -8px; width: 100% !important; background-color: white !important; border-radius: 30px !important;">
 	<div class="card">
 		<div class="card-header">
-	      <a data-toggle="collapse" data-target="#EliminarPlanPago" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-primary btn-sm text-uppercase float-right text-white" style="border-radius: 5px; float: right;" onclick="cerrar(4)">
+	      <a data-toggle="collapse" data-target="#EliminarPlanPago" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-primary btn-sm text-uppercase float-right text-white" style="border-radius: 5px; float: right;" onclick="cerrar(4)" data-toggle="tooltip" data-placement="top" title="Cerrar cuadro de eliminar plan de pago">
 	        <strong>Cerrar</strong>
 	      </a>
 	  	</div>

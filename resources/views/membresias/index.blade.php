@@ -260,6 +260,7 @@
     function cerrar(opcion) {
       $('#example1_wrapper').fadeIn('fast');
       $('#btnRegistrar_membresia').show();
+      $('.mostrarImagenEditar').empty();
     }
 
 	function mostrarEditarImagen(opcion) {
