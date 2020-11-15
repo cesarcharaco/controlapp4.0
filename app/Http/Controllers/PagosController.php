@@ -426,13 +426,16 @@ class PagosController extends Controller
                                 
                            }
                         }
-                    if($ref_encontrada > 0 && (count($id_mensualidad_i)>0 || count($id_mensualidad_e)>0)){
+                        //dd($ref_encontrada."-".count($id_mensualidad_i)."-".count($id_mensualidad_e));
+                    if($ref_encontrada > 0 && (count($id_mensualidad_i) > 0 || count($id_mensualidad_e) > 0)){
+                        //dd('entro');
                         $reporte_new=new Reportes();
                         $reporte_new->referencia=$request->referencia_edit;
                         $reporte_new->reporte=$reporte;
                         $reporte_new->tipo="Pendiente";
                         $reporte_new->id_residente=$request->id_residente_edit;
                         $reporte_new->save();
+
                         toastr()->success('con éxito!!', 'Se ha colocado como Pendiente el Pago Común del mes '.$mes.'');
                     }else{
                         toastr()->warning('Alerta!!', 'Verifique si ha suministrado los datos correctamente');
@@ -440,6 +443,7 @@ class PagosController extends Controller
                         return redirect()->back();
                     //-------------fin con estacionamientos---------------------
                 } else {
+                    
                     toastr()->warning('Verifique el código de transacción!!', 'La información no pudo ser encontrada');
                         return redirect()->back();
                 }
