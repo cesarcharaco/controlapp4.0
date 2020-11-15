@@ -923,7 +923,7 @@
                                                 @foreach($users_admin as $key)
                                                     <option value="{{$key->id}}">{{$key->name}} - RUT: {{$key->rut}}</option>
                                                 @endforeach
-                                                <option value="10">prueba</option>
+                                                
                                             </select>
 
                                             <div style="display: none">
@@ -931,7 +931,7 @@
                                                     @foreach($users_admin as $key)
                                                         <option value="{{$key->id}}">{{$key->name}} - RUT: {{$key->rut}}</option>
                                                     @endforeach
-                                                    <option value="10">prueba</option>
+                                                    
                                                 </select>
                                             </div>
                                         </div>
