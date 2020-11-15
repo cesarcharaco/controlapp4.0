@@ -54,7 +54,7 @@
                                 <div class="row justify-content-center">
                                     <div class="col-md-6">
                                         <div class="form-group" align="center">
-                                            <strong>Filtro de busqueda</strong>
+                                            <strong>Filtro de búsqueda</strong>
                                             <div class="col-md-12">
                                                 <form class="form-horizontal" action="{{ route('contabilidad.create') }}" method="GET">
                                                     @csrf

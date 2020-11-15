@@ -104,10 +104,10 @@
     <center>
     	<div class="row justify-content-center mb-3">
 	    	<div class="col-md-6" align="center">
-	    		<button onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;">Vista de Planes de Pagos</button>
+	    		<button onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para ver las lista de los planes de pagos">Vista de Planes de Pagos</button>
 	    	</div>
 	    	<div class="col-md-6" align="center text-white"  style="">
-	    		<button onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;">Vista de Promociones</button>
+	    		<button onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para la lista de promociones">Vista de Promociones</button>
 	    	</div>
     	</div>
     </center>
@@ -214,7 +214,7 @@
 							                <tbody>
 							                    @php $num=0 @endphp
 							                    @foreach($planes_pago as $key)
-							                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+							                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
 							                    		<td align="center">{{$key->nombre}}</td>
 					                                    <td align="center">{{$key->monto}} $</td>
 					                                    <td align="center">{{$key->dias}}</td>
@@ -235,7 +235,7 @@
 							                    	</tr>
 							                    	<tr class="vista2-{{$key->id}}" class="table-success" style="display: none;">
 				                                    <td>
-				                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
+				                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
 				                                            <span class="PalabraEditarPago ">Regresar</span>
 				                                            <center>
 				                                                <span class="PalabraEditarPago2 ">
@@ -261,7 +261,7 @@
 				                                       '{{$key->color}}',
 				                                       '{{$key->tipo}}',
 				                                       '{{$key->status}}',
-				                                       '{{$key->url_img}}')">
+				                                       '{{$key->url_img}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
 				                                            <span class="PalabraEditarPago ">Editar</span>
 				                                            <center>
 				                                                <span class="PalabraEditarPago2 ">
@@ -269,7 +269,7 @@
 				                                                </span>
 				                                            </center>
 				                                        </a>
-				                                    <a data-toggle="collapse" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')">
+				                                    <a data-toggle="collapse" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar plan de pago">
 				                                            <span class="PalabraEditarPago ">Eliminar</span>
 				                                            <center>
 				                                                <span class="PalabraEditarPago2 ">
@@ -400,7 +400,7 @@
 					                <tbody>
 					                    @php $num=0 @endphp
 					                    @foreach($promociones as $key)
-					                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+					                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
 					                    		<td align="center">{{$key->planP->nombre}}</td>
 			                                    <td align="center">{{$key->porcentaje}} %</td>
 			                                    <td align="center">{{$key->duracion}} días</td>
@@ -435,7 +435,7 @@
 		                                       '{{$key->planP->id}}',
 		                                       '{{$key->porcentaje}}',
 		                                       '{{$key->duracion}}',
-		                                       '{{$key->status}}')">
+		                                       '{{$key->status}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
 		                                            <span class="PalabraEditarPago ">Editar</span>
 		                                            <center>
 		                                                <span class="PalabraEditarPago2 ">
@@ -443,7 +443,7 @@
 		                                                </span>
 		                                            </center>
 		                                        </a>
-		                                    <a data-toggle="collapse" href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')">
+		                                    <a data-toggle="collapse" href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar promoción">
 		                                            <span class="PalabraEditarPago ">Eliminar</span>
 		                                            <center>
 		                                                <span class="PalabraEditarPago2 ">
@@ -498,6 +498,7 @@
     function nuevoPlanPago() {
     	$('#btnRegistrar_plan').fadeOut('fast');
       	$('#example1_wrapper').fadeOut('fast');
+      	$('.mostrarImagenEditar').empty();
     }
     function editarPlanP(id,nombre,monto,dias,color,tipo,status,nombre_img){
 		$('.id_PlanP').val(id);

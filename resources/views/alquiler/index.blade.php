@@ -793,6 +793,8 @@
     </div>
 @endsection
 
+@include('alquiler.layouts.incidencia')
+
 <script type="text/javascript">
 
 
@@ -905,6 +907,7 @@
         $('#example1_wrapper').fadeOut('fast');
     }
     function crearIncidencia(){
+        // alert('assas');
         $('#crearIncidencia').modal('show');
     }
     function VerTabla(opcion) {
