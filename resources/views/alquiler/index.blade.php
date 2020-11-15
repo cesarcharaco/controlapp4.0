@@ -548,7 +548,7 @@
                     <div class="mb-3" align="right">
                         <div class="row">
                             <div class="col-md-12 offset-md-12">
-                                <!-- <a class="btn btn-danger boton-tabla shadow" onclick="crearIncidencia()" style="
+                                <a class="btn btn-danger boton-tabla shadow" onclick="crearIncidencia()" style="
                                     border-radius: 10px;
                                     color: white;
                                     height: 35px;
@@ -561,7 +561,7 @@
                                             <i data-feather="plus" class="alert-octagon"></i>
                                         </span>
                                     </center>
-                                </a> -->
+                                </a>
                             </div>
                         </div>
                         <div class="form-group card shadow" style="border-radius: 30px !important;">
@@ -793,6 +793,8 @@
     </div>
 @endsection
 
+@include('alquiler.layouts.incidencia')
+
 <script type="text/javascript">
 
 
@@ -905,6 +907,7 @@
         $('#example1_wrapper').fadeOut('fast');
     }
     function crearIncidencia(){
+        // alert('assas');
         $('#crearIncidencia').modal('show');
     }
     function VerTabla(opcion) {
