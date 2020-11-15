@@ -426,7 +426,7 @@ class PagosController extends Controller
                                 
                            }
                         }
-                        //dd($ref_encontrada."-".count($id_mensualidad_i)."-".count($id_mensualidad_e));
+                        dd($ref_encontrada."-".count($id_mensualidad_i)."-".count($id_mensualidad_e));
                     if($ref_encontrada > 0 && (count($id_mensualidad_i) > 0 || count($id_mensualidad_e) > 0)){
                         //dd('entro');
                         $reporte_new=new Reportes();
