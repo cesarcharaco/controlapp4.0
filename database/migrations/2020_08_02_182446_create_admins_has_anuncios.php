@@ -18,8 +18,8 @@ class CreateAdminsHasAnuncios extends Migration
             $table->unsignedBigInteger('id_users_admin');
             $table->unsignedBigInteger('id_anuncios');
 
-            $table->foreign('id_users_admin')->references('id')->on('users_admin')->onDelete('cascade');
-            $table->foreign('id_anuncios')->references('id')->on('anuncios')->onDelete('cascade');
+            $table->foreign('id_users_admin')->references('id')->on('users_admin');
+            $table->foreign('id_anuncios')->references('id')->on('anuncios');
             $table->timestamps();
         });
     }
