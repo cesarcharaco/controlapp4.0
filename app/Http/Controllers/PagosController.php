@@ -347,13 +347,14 @@ class PagosController extends Controller
      */
     public function update(Request $request, $id_pago)
     {
-    dd($request->all());
+    //dd($request->all());
     //id_inmueble trae el numero del mes....
     //id_residente_edit 
     //anio
     //referencia_edit
         switch ($request->opcion) {
             case 1:
+            dd('por la opcion 1');
                 $id_mes=$request->id_inmueble;
                 $id_mensualidad_i=array();
                 $id_mensualidad_e=array();
