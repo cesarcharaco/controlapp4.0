@@ -355,7 +355,7 @@ class PagosController extends Controller
         switch ($request->opcion) {
             case 1:
             
-                $id_mes=$request->id_inmueble;
+                $id_mensualidad=$request->id_inmueble;
                 $id_mensualidad_i=array();
                 $id_mensualidad_e=array();
                 $j=0;
@@ -366,7 +366,7 @@ class PagosController extends Controller
                 foreach ($residente->inmuebles as $key) {
                     if($key->pivot->status=="En Uso"){
                         foreach ($key->mensualidades as $key2) {
-                            if($key2->mes==$id_mes && $key2->anio==$request->anio){
+                            if($key2->id==$id_mensualidad){
                                     $id_mensualidad_i[$i]=$key2->id;
                                     $i++;
                             }
@@ -376,7 +376,7 @@ class PagosController extends Controller
                 foreach ($residente->estacionamientos as $key) {
                     if($key->pivot->status=="En Uso"){
                         foreach ($key->mensualidad as $key2) {
-                            if($key2->mes==$id_mes && $key2->anio==$request->anio){
+                            if($key2->id==$id_mensualidad){
                                     $id_mensualidad_e[$j]=$key2->id;
                                     $j++;
                             }
