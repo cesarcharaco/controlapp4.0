@@ -395,6 +395,7 @@ $('#check_tb_edit').on('change',function () {
             $('#verificador_e').val(rut.substr(-1,(rut.length)));
             $('#email_e').val(email);
             $('#status_e').val(status);
+            $("#membresia_e").empty();
             $("#membresia_e").append('<input id="membresia_actual" class="form-control" value="'+membresia_nombre+' | Cant. Inmuebles: '+membresia_cant+' | Monto: '+membresia_monto+'" disabled="disabled">');
             $('#link_flow_edit').val(link_flow);
             $('#link_tb_edit').val(link_tb);
