@@ -849,9 +849,9 @@
                 for(var i=0; i < data.length; i++){
                     console.log(data[i].mes);
                     // if (data[i].status=="Pendiente") {
-                        mes=mostrar_mes(11);
+                        mes=mostrar_mes(parseInt(data[i].mes));
                         console.log(mes);
-                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">mmmmmmm'+mes+'</font></font></option>');
+                    $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mes+'</font></font></option>');
                     // }
                 }
             
