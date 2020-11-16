@@ -57,7 +57,12 @@
                           
                       <div class="form-group" align="center">
                         <label>Hora</label>
-                        <input type="text" id="basic-timepicker" class="form-control flatpickr-input" placeholder="Basic timepicker" readonly="readonly">
+                        <div class='input-group date' id='datetimepicker6'>
+                          <input type="time" id="basic-timepicker" class="form-control">
+                          <span class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                          </span>
+                      </div>
                       </div>
                     </div>
                   </div>
