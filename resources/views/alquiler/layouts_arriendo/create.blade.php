@@ -88,13 +88,15 @@
             </div>
             <div class="tab-pane fade" id="pills-pago" role="tabpanel" aria-labelledby="pills-pago-tab">
                 <center>
-                    <div class="form-group" id="pagoRealizado">
+                    <div class="form-group">
                         <div class="">                  
                             <label for="admins_todos">¿Se realizó el pago?</label>
-                            <input type="checkbox" name="pago_realizado" id="pagoRealizado"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
+                            <input type="checkbox" name="pago_realizado" onchange="pagoRealizadoA();" id="pagoRealizado"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
                         </div>
-                        <label>Referencia <b class="text-danger">*</b></label>
-                        <input type="text" class="form-control" name="referencia" maxlength="20" required>
+                        <div id="mostrarRefeC" class="mt-2 mb-2" style="display: none;">
+                          <label>Referencia <b class="text-danger">*</b></label>
+                          <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" required id="refeCreateA">
+                        </div>
                     </div>
                     <div class="row">
                         <?php $num=0; ?>

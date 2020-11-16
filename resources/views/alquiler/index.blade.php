@@ -1229,5 +1229,16 @@
     $('#seccionControl5').fadeIn('show');
     $('#seccionControl6').fadeIn('show');
   }
+
+    function pagoRealizadoA() {
+        // alert('ASDASD');
+        if($('#pagoRealizado').prop('checked')){
+            $('#mostrarRefeC').fadeIn(300);
+            $('#refeCreateA').attr('required',true);
+        }else{
+            $('#mostrarRefeC').fadeOut(300);
+            $('#refeCreateA').removeAttr('required',false);
+        }
+    }
   
 </script>
