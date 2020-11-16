@@ -712,6 +712,7 @@
                 for (var i = 0; i < data.length; i++) {
                     if(data[i].id_pivot == id_pivot){
                         referencia=parseInt(data[i].referencia);
+                        console.log(data[i].referencia);
                         $('#codigoActualRef').append(
                             '<center>'+
                                 '<div class="row">'+
