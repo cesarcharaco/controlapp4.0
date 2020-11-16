@@ -263,15 +263,13 @@ class PagosController extends Controller
     }
     public function pagarmultas(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         $total=0;
         $factura="";
         $statusP="";
-        if(\Auth::user()->tipo_usuario=="Residente"){
-        $residente=Residentes::where('id_usuario',$request->id_residente)->first();
-        }else{
-            $residente=Residentes::find($request->id_residente);
-        }
+        
+        $residente=Residentes::find($request->id_residente);
+        
             
             
         if(is_null($request->id_mensMulta)==false){

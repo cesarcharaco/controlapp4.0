@@ -1020,6 +1020,8 @@
 		 $('#TotalPagar').html(parseInt(0));
 		$('#total').val(0);
 		$('#pagarMultasModal').modal('show');
+		$('#id_residente_mr').empty();
+		$('#id_residente_mr').val(id_residente);
 		$.get('multas_residentes/'+id_residente+'/buscar', function(data) {
 		})
 		.done(function(data) {
