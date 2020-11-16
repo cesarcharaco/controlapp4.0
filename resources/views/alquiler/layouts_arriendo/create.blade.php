@@ -52,7 +52,7 @@
                     <div class="card-body">
                       <div class="form-group">
                         <label>Fecha</label>
-                        <input type="date" max="<?php echo date('Y-m-d');?>" name="fecha" class="form-control" id="fechaAlquiler">
+                        <input type="date" min="<?php echo date('Y-m-d');?>" name="fecha" class="form-control" id="fechaAlquiler">
                       </div>
                           
                       <div class="form-group" align="center">
