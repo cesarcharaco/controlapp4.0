@@ -269,7 +269,7 @@ class PagosController extends Controller
         $statusP="";
         $residente=Residentes::where('id_usuario',$request->id_residente)->first();
             if(is_null($residente)){
-                $residente=Residentes::find($request->id_residente)->first();
+                $residente=Residentes::find($request->id_residente);
             }
         if(is_null($request->id_mensMulta)==false){
             for ($i=0; $i < count($request->id_mensMulta) ; $i++) { 
