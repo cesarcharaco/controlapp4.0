@@ -1481,6 +1481,7 @@
         function FlowCheck(opcion) {
           if($('#checkFlow').prop('checked')){
             // alert('Si');
+            $('#referencia_p_arriendos').val(null);
             $('#referencia_p_arriendos').removeAttr('required',false);
             $('#referencia_p_arriendos').attr('disabled',true);
             $('#referencia_p_arriendos').removeClass('border').removeClass('border-primary');
