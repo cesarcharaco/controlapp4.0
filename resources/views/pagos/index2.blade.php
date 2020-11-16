@@ -704,20 +704,21 @@
         $('#editarReferencia').modal('show');
         $('#codigoActualRef').empty();
         $('#id_pivot').val(id_pivot);
-
+        var referencia;
         $.get('mr/'+id_multa+'/asignados', function(data) {
         })
         .done(function(data) {
             if(data.length>0){
                 for (var i = 0; i < data.length; i++) {
                     if(data[i].id_pivot == id_pivot){
+                        referencia=parseInt(data[i].referencia);
                         $('#codigoActualRef').append(
                             '<center>'+
                                 '<div class="row">'+
                                     '<div class="col-md-12">'+
                                         '<div class="form-group">'+
                                             '<label for="">Código de Trans. Actual</label>'+
-                                            '<h3 align="center" class="text-warning">'+data[i].referencia+'</h3>'+
+                                            '<h3 align="center" class="text-warning">'+referencia+'</h3>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
