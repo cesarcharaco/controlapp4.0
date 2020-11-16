@@ -58,7 +58,7 @@
                       <div class="form-group" align="center">
                         <label>Hora</label>
                         <div class='input-group date' id='datetimepicker6'>
-                          <input name="hora" type="time" id="basic-timepicker" class="form-control">
+                          <input name="hora" type="time" id="basic-timepicker" class="form-control" id="horaAlquiler">
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -74,7 +74,7 @@
                           <i data-feather="watch"></i>
                         </span>
                       </span>
-                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" required>
+                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" value="1" required>
                     </div>
                     </div>
                     <div class="form-group">
