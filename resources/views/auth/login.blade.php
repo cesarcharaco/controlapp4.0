@@ -16,34 +16,41 @@
                 <div class="container-login100">
                     <!-- <div class="wrap-login100"> -->
 
-                        <div class="card shadow">
-                            <!-- <div class="login100-pic js-tilt" data-tilt>
-                                <img src="{{ asset('assets/images/logo.jpg') }}" class="border shadow" alt="IMG" style="border-radius: 50%;">
+                            <!-- <div class="login100-pic js-tilt" data-tilt >
+                                <img src="{{ asset('assets/images/logo.jpg') }}" class="border shadow" alt="IMG" style="border-radius: 50%; margin-left: -50px;" width="350" height="350">
                             </div>
                             <div class="logo-mobile">
                                 <img src="{{ asset('assets/images/logo.jpg') }}" style="height: 280px;" alt="IMG" class="logo-mobile">
                             </div> -->
+                        <div class="card shadow">
                             <center>
                                 <div class="card-header">
-                                    <h4 style="font-family: Arial, Helvetica, sans-serif;">
-                                            <strong class="text-primary">{{ __('Login') }}</strong>
-                                        </h4>
-                                        @include('flash::message')
-                                        @if(count($errors))
-                                        <div class="alert alert-danger" role="alert">
-                                            <ul>
-                                                @foreach($errors->all() as $error)
-                                                <li>
-                                                    {{$error}}
-                                                </li>
-                                                @endforeach
-                                            </ul>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <img src="{{ asset('assets/images/logo.jpg') }}" width="70" height="70" alt="IMG" style="border-radius: 50% !important;" class="">
                                         </div>
-                                        @endif
+                                        <div class="col-9">
+                                            <h2 style="font-family: Arial, Helvetica, sans-serif; ">
+                                                <strong class="text-primary">{{ __('Login') }}</strong>
+                                            </h2>
+                                        </div>
+                                    </div>
                                 </div>
-                                <form class="login100-form validate-form" method="POST" action="{{ route('login') }}">
+                                <form class="validate-form" method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="card-body">
+                                        @include('flash::message')
+                                        @if(count($errors))
+                                            <div class="alert alert-danger shadow" role="alert">
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                    <li>
+                                                        {{$error}}
+                                                    </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
                                             
                                             <div class="alert" style="background-color: #e4eeee;" role="alert" style="border-radius: 30px;">
                                                 <strong style="font-family: italic;">La contraseña debe tener al menos 9 carácteres.</strong>
@@ -71,8 +78,15 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="container-login100-form-btn">
-                                                    <button class="login100-form-btn btn-success" type="submit">
-                                                        {{ __('Login') }}
+                                                    <button class="login100-form-btn btn-success shadow" type="submit" onclick="loginCargando()">
+                                                        <div id="textLogin">
+                                                            {{ __('Login') }}
+                                                        </div>
+                                                        <div class="cargandoLogin" style="display: none;">
+                                                            <div class="spinner-border text-white m-2" role="status" id="cargando_E">
+                                                                <span class="sr-only">Cargando <span class="titleModal"></span>...</span>
+                                                            </div>
+                                                        </div>
                                                     </button>
                                                 </div>
                                             </div>
@@ -110,4 +124,11 @@
     </footer>
     @include('layouts.scripts')
 </body>
+
+<script type="text/javascript">
+    function loginCargando() {
+        $('#textLogin').hide();
+        $('.cargandoLogin').fadeIn('fast');
+    }
+</script>
 </html>
