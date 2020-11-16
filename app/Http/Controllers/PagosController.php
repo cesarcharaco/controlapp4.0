@@ -267,10 +267,13 @@ class PagosController extends Controller
         $total=0;
         $factura="";
         $statusP="";
+        if(\Auth::user()->tipo_usuario=="Residente"){
         $residente=Residentes::where('id_usuario',$request->id_residente)->first();
-            if(is_null($residente)){
-                $residente=Residentes::find($request->id_residente);
-            }
+        }else{
+            $residente=Residentes::find($request->id_residente);
+        }
+            
+            
         if(is_null($request->id_mensMulta)==false){
             for ($i=0; $i < count($request->id_mensMulta) ; $i++) { 
                 $mr=MultasRecargas::find($request->id_mensMulta[$i]);
