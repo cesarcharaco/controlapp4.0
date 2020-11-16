@@ -791,9 +791,9 @@
             </a>
         </div>
     </div>
+@include('alquiler.layouts.incidencia')
 @endsection
 
-@include('alquiler.layouts.incidencia')
 
 <script type="text/javascript">
 
@@ -842,10 +842,10 @@
 
     function TipoAlquiler(tipo) {
         if(tipo == 'Permanente'){
-            $('.vistaTipoAlquiler').fadeOut('slow',
-            function() { 
-              $(this).hide();
-            });
+            $('.vistaTipoAlquiler').fadeOut('fast',
+                function() { 
+                  $(this).hide();
+                });
             $('#fechaAlquiler').removeAttr('required',false);
             $('#horaAlquiler').removeAttr('required',false);
         }else{

@@ -58,7 +58,7 @@
                       <div class="form-group" align="center">
                         <label>Hora</label>
                         <div class='input-group date' id='datetimepicker6'>
-                          <input type="time" id="basic-timepicker" class="form-control">
+                          <input name="hora" type="time" id="basic-timepicker" class="form-control">
                           <span class="input-group-addon">
                               <span class="glyphicon glyphicon-calendar"></span>
                           </span>
@@ -91,7 +91,7 @@
                     <div class="form-group" id="pagoRealizado">
                         <div class="">                  
                             <label for="admins_todos">¿Se realizó el pago?</label>
-                            <input type="checkbox" name="admins_todos" onchange="TodosAdmins()" id="todoAdmin"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
+                            <input type="checkbox" name="pago_realizado" id="pagoRealizado"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
                         </div>
                         <label>Referencia <b class="text-danger">*</b></label>
                         <input type="text" class="form-control" name="referencia" maxlength="20" required>
