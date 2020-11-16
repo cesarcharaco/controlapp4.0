@@ -77,6 +77,10 @@ class AlquilerController extends Controller
                         toastr()->warning('Alerta!!', 'Debe indicar el máximo de personas');
                         return redirect()->back();            
                     }else{
+                        if(strtotime($request->hora_desde) > strtotime($request->hora_hasta)){
+                        toastr()->warning('Alerta!!', 'La Hora Desde no puede ser mayor a la Hora hasta');
+                        return redirect()->back();               
+                        }
                             $instalacion = new Instalaciones();
                             $instalacion->nombre=$request->nombre;
                             $instalacion->hora_desde=$request->hora_desde;
@@ -105,7 +109,7 @@ class AlquilerController extends Controller
     public function registrar_alquiler(Request $request)
     {
         //dd($request->all());
-                    
+        
         if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
             toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
             return redirect()->back();
@@ -118,8 +122,8 @@ class AlquilerController extends Controller
                     toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
                     return redirect()->back();
                 }else{
+                    $buscar=Instalaciones::find($request->id_instalacion);
                     if($request->tipo_alquiler=="Temporal"){
-                        $buscar=Instalaciones::find($request->id_instalacion);
                         $cont=0;
                         $dia=date('N',strtotime($request->fecha));
                         foreach($buscar->dias as $key){
@@ -138,19 +142,18 @@ class AlquilerController extends Controller
                             return redirect()->back();  
                         }
                     
-                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)>0){
+                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
                             toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                             return redirect()->back();  
                         }
                     }else{
-                        $buscar=Instalaciones::find($request->id_instalacion);
+                        
                         $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
                         if($request->num_horas > $horas_disponibles){
                             toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                             return redirect()->back();
                         }
                     }
-
 
 
                     $alquiler = new Alquiler();
@@ -221,7 +224,7 @@ class AlquilerController extends Controller
                             return redirect()->back();  
                         }
                     
-                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)>0){
+                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
                             toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                             return redirect()->back();  
                         }
@@ -339,6 +342,11 @@ class AlquilerController extends Controller
                     return redirect()->back();            
                 }else{
 
+                    if(strtotime($request->hora_desde) > strtotime($request->hora_hasta)){
+                        toastr()->warning('Alerta!!', 'La Hora Desde no puede ser mayor a la Hora hasta');
+                        return redirect()->back();               
+                    }
+
                     //dd($request->all());
                     $instalacion = Instalaciones::find($request->id);
                     $instalacion->nombre=$request->nombre;
@@ -412,11 +420,11 @@ class AlquilerController extends Controller
         if($dateDesde > $dateHasta){ $dateHasta->modify('+1 day'); }
 
         for($i=1 ; $i <= $num_horas; $i++){
-            $dateHora->modify('+1 hours');
-            echo $dateHora->format('H:i')."| ";
-            if(!($dateDesde <= $dateHora && $dateHora <= $dateHasta) || ($dateDesde <= $dateHora->modify('+1 day') && $dateHora <= $dateHasta)){
+            if(($dateDesde <= $dateHora && $dateHora <= $dateHasta) || ($dateDesde <= $dateHora->modify('+1 day') && $dateHora <= $dateHasta)){
                 $cont++;
             }
+            $dateHora->modify('+1 hours');
+            /*echo $dateHora->format('H:i')."| ";*/
         }
         //dd($cont);
         return $cont;
