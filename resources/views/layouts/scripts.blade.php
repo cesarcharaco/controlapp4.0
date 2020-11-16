@@ -886,6 +886,7 @@
 
 
 	function BMesesResidente(id_residente) {
+		$('#mostrarFlow').hide();
 		$('#pagarMesesModal').modal('show');
 		$('#MesPagarResi').empty();
 		$('#muestraMesesAPagar').empty();
@@ -996,6 +997,7 @@
 		                '</div>'
 		            );
 		            $('#muestraMesesAPagar').append('<input type="hidden" name="id_user" value="'+id_residente+'" >');
+		            $('#mostrarFlow').show();
 				}else{
 					$('#muestraMesesAPagar2').css('display','block');
 				}

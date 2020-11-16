@@ -885,7 +885,7 @@
                                               <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
 
                                               {{-- <center><p>{{ buscar_pasarelas() }}</p></center> --}}
-                                              <center>
+                                              <center style="display: none;" id="mostrarFlow">
                                                 <b>Pagar con Flow</b> 
                                                 <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
                                               </center>

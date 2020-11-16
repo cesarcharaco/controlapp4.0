@@ -775,7 +775,7 @@
 
             $.get("inmuebles/"+id_residente+"/"+anio+"/buscar_inmuebles",function (data) {
                 if (data.length>0) {
-                    $('#id_inmuebleEditar').removeAttr('disabled',false);
+                    
                     $('#id_inmuebleEditar').append('<option selected disabled>Seleccione los meses</option>');
                     for(i=0 ; i<data.length ; i++){
                         // $('#id_inmuebleEditar').append(
@@ -784,7 +784,7 @@
 
                     }
                 }else{
-                        $('#id_inmuebleEditar').append('<option>El residente no tiene compras realizadas en los inmuebles</option>');
+                        $('#id_inmuebleEditar').append('<option>El residente no tiene pagos cancelados en los inmuebles</option>');
                 }
             })
             .done(function(data) {
@@ -845,6 +845,7 @@
         $.get("mostrar/"+id_inmueble+"/meses_inmuebles",function (data) {
         })
         .done(function(data) {
+            // alert(data.length);
             if (data.length>0) {
                 for(var i=0; i < data.length; i++){
                     //console.log(data[i].mes);
@@ -854,9 +855,11 @@
                     $('#id_inmuebleEditar').append('<option value="'+data[i].id+'"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">'+mes+'</font></font></option>');
                     // }
                 }
+                $('#id_inmuebleEditar').removeAttr('disabled',false);
             
             }else{
-                $('#id_inmuebleEditar').append('<option>No hay meses pagados en estos registros</option>');
+                $('#id_inmuebleEditar').append('<option>No hay meses cancelados en estos registros</option>');
+                $('#id_inmuebleEditar').attr('disabled',true);
             }
         });
     }
