@@ -110,7 +110,7 @@
                                                 <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
                                                <br>
                                                <center>
-                                                <img align="center" class="imagenAnun2" src="{{ asset($key->url_img) }}">
+                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
                                                </center>
                                             </div>
                                         </div>
@@ -128,7 +128,7 @@
                                                 <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
                                                <br>
                                                <center>
-                                                <img align="center" class="imagenAnun2" src="{{ asset($key->url_img) }}">
+                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
                                                </center>
                                             </div>
                                         </div>
