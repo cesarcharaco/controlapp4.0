@@ -141,7 +141,7 @@ class MultasRecargasController extends Controller
             $mr->anio=$anio;
 
             $mr->save();
-            toastr()->success('con éxito!!', 'La '.$request->tipo.' ha sido actualiza');
+            toastr()->success('con éxito!!', 'La '.$request->tipo.' ha sido actualizada');
             return redirect()->to('multas_recargas');
         }
     }
