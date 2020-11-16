@@ -225,6 +225,13 @@ class AlquilerController extends Controller
                             toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                             return redirect()->back();  
                         }
+                    }else{
+                        $buscar=Instalaciones::find($request->id_instalacion);
+                        $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
+                        if($request->num_horas > $horas_disponibles){
+                            toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
+                            return redirect()->back();
+                        }
                     }
 
                     $alquiler =  Alquiler::find($request->id);
