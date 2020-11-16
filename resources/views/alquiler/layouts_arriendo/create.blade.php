@@ -95,7 +95,7 @@
                         </div>
                         <div id="mostrarRefeC" class="mt-2 mb-2" style="display: none;">
                           <label>Referencia <b class="text-danger">*</b></label>
-                          <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" required id="refeCreateA">
+                          <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" id="refeCreateA">
                         </div>
                     </div>
                     <div class="row">
