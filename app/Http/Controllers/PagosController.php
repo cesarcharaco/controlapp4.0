@@ -263,7 +263,7 @@ class PagosController extends Controller
     }
     public function pagarmultas(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         $total=0;
         $factura="";
         $statusP="";
