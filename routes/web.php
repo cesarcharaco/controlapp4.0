@@ -78,6 +78,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('multas_recargas/{num}/buscar_mr_all','MultasRecargasController@buscar_mr_all');
 	Route::post('multas_recargas/confirmar','PagosController@confirmar_multa')->name('multas_recargas.confirmar');
 	Route::post('multas_recargas/editar_referencia','PagosController@editar_referencia')->name('editar_referencia');
+	Route::post('multas_recargas/eliminar_mr','PagosController@eliminar_mr')->name('eliminar_mr');
 	
 	// ------------------------Buscar multas del residente
 	Route::get('multas_residentes/{id_residente}/buscar','MultasRecargasController@multas_residentes');

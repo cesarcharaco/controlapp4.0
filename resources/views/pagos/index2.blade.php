@@ -126,12 +126,8 @@
                             <tbody>
                                 @foreach($residentes as $key)
                                     <tr>
-                                        <td align="center">
-                                                
+                                        <td align="center">                                                
                                             <img src="{{ asset('assets/images/avatar-user.png') }}" class="avatar-md rounded-circle avatar" />
-                                            
-
-
                                         </td>
                                         <td align="center">
                                             <div class="form-group">
@@ -140,13 +136,11 @@
                                                 <strong>{{$key->rut}}</strong>
                                             </div>
                                         </td>
-                                        <td>
-                                            
+                                        <td>                                            
                                             <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="verAsignadosM('{{$key->id}}')" >
                                                 <i data-feather="dollar-sign" class="iconosMetaforas" style="float:left;"></i>
                                                 <span class="PalabraPagoConfirmar">Ver Asignaciones</span>
-                                                <span class="PalabraEditarPago2"><i data-feather="eye" class="iconosMetaforas2"></i>
-                                                </span>
+                                                <span class="PalabraEditarPago2"><i data-feather="eye" class="iconosMetaforas2"></i></span>
                                             </a>                                                
                                         </td>
                                         <td>
@@ -154,8 +148,7 @@
                                                 <a href="#" class="btn btn-success btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="pagarMultasResidente('{{$key->id}}')" >
                                                     <i data-feather="dollar-sign" class="iconosMetaforas" style="float:left;"></i>
                                                     <span class="PalabraPagoConfirmar">Pagar</span>
-                                                    <span class="PalabraEditarPago2"><i data-feather="dollar-sign" class="iconosMetaforas2"></i>
-                                                    </span>
+                                                    <span class="PalabraEditarPago2"><i data-feather="dollar-sign" class="iconosMetaforas2"></i></span>
                                                 </a>
                                             </center>
                                             <br>
@@ -166,7 +159,14 @@
                                                     <span class="PalabraEditarPago2"><i data-feather="check-square" class="iconosMetaforas2"></i></span>
                                                 </a>
                                             </center>
-                                            
+                                            <br>
+                                            <center>
+                                                <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="eliminarMulta('{{$key->id}}')">
+                                                    <i data-feather="trash" class="iconosMetaforas" style="float:left;"></i>
+                                                    <span class="PalabraPagoConfirmar">Eliminar Multas y/o recargas</span>
+                                                    <span class="PalabraEditarPago2"><i data-feather="trash" class="iconosMetaforas2"></i></span>
+                                                </a>
+                                            </center>
                                         </td>
                                     </tr>
                                 @endforeach()
@@ -297,6 +297,40 @@
                                 </tr>
                             </thead>
                             <tbody id="ver_multas_asignadas">
+                                
+                            </tbody>
+                        </table>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PARA ELIMINAR MULTA Y/O RECARGA -->
+    <div class="modal fade" tabindex="-1" id="eliminarMulta" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Eliminar Multa/Recarga</h4>
+                    <div id="CargandoEliminarComprobar" style="display: none;">
+                        <div class="spinner-border text-warning m-2" role="status"></div>
+                    </div>
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <center>
+                        <table class="table dataTable table-curved table-striped tabla-estilo" style="width: 100%;">
+                            <thead>
+                                <tr class="bg-danger text-white" align="center">
+                                    <th>Motivo</th>
+                                    <th>Montos</th>
+                                    <th>Status</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="eliminar_multas_asignadas">
                                 
                             </tbody>
                         </table>
@@ -571,8 +605,35 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input type="hidden" id="id_pivot" name="id_pivot">
+                        <input type="text" id="id_pivot" name="id_pivot">
                         <button type="submit" class="btn btn-warning" >Editar Código de Trans.</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {!! Form::close() !!}
+
+    {!! Form::open(['route' => ['eliminar_mr'],'method' => 'POST', 'name' => 'eliminar_mr', 'id' => 'eliminar_mr', 'data-parsley-validate']) !!}
+        @csrf
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" id="eliminarMR" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Eliminar Multas y/o Recargas</h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card border border-danger rounded card-tabla shadow p-3 mb-5 bg-white rounded">
+                            <div class="card-body">
+                                <center>¿Seguro que desea elimiar esta Multa y/o Recarga, esta opción no se podrá deshacer en el futuro?</center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="id_pivot1" name="id_pivot">
+                        <button type="submit" class="btn btn-danger" >Eliminar.</button>
                     </div>
                 </div>
             </div>
@@ -699,6 +760,44 @@
         $('#CargandoAsignadosComprobar').css('display','none');
     }
 
+    function eliminarMulta(id_residente){
+        $('#CargandoEliminarComprobar').css('display','block');
+        $('#eliminar_multas_asignadas').empty();
+        $('#eliminarMulta').modal('show');
+        
+        $.get('mr/'+id_residente+'/asignados2', function(data) {
+        })
+        .done(function(data) {
+            if(data.length>0){
+                for (var i = 0; i < data.length; i++) {
+                    var clase="";
+                    $('#eliminar_multas_asignadas').append(
+                        '<tr class='+clase+'>'+
+                            '<td align="center"><center>'+data[i].motivo+'</center></td>'+
+                            '<td align="center"><center>'+data[i].monto+'</center></td>'+
+                            '<td align="center"><center><strong>'+data[i].status+'</strong></center></td>'+
+                            '<td align="center">'+
+                                '<center>'+
+                                    '<button style="width:100% !important;" class="btn btn-danger rounded btn-sm" onclick="eliminarMr('+data[i].id_pivot+');">'+
+                                        '<span class="PalabraPagoConfirmar">Eliminar</span>'+
+                                        '<span class="PalabraEditarPago2">Eliminar</span>'+
+                                    '</button>'+
+                                '</center>'+
+                            '</td>'+
+                        '</tr>'
+                    );
+                }
+            }else{
+                $('#eliminar_multas_asignadas').append(
+                    '<tr>'+
+                        '<td align="center" colspan="4"><center>El residente no tiene multas y/o recargas</center></td>'+
+                    '</tr>'
+                );
+            }
+        });
+        $('#CargandoEliminarComprobar').css('display','none');
+    }
+
     function editarReferencia(id_multa, id_pivot) {
         $('#verAsignadosMulta').modal('hide');
         $('#editarReferencia').modal('show');
@@ -731,6 +830,13 @@
                 alert('no hay');
             }
         });
+    }
+
+    function eliminarMr(id_pivot) {
+        $('#eliminarMulta').modal('hide');
+        $('#eliminarMR').modal('show');
+        $('#id_pivot1').val(id_pivot);
+        var referencia;
     }
 </script>
 @section('scripts')

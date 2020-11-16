@@ -710,6 +710,17 @@ class PagosController extends Controller
 
     }
 
+    public function eliminar_mr(Request $request)
+    {
+        //dd($request->all());
+        \DB::table('resi_has_mr')->where('id',$request->id_pivot)->delete([
+            'id' => $request->id_pivot,
+        ]);
+
+        toastr()->success('con éxito!!', 'Multa y/o Recarga eliminada satisfactoriamente');
+        return redirect()->back();
+    }
+
     public function editar_referencia2(Request $request)
     {
         //dd($request->all());
