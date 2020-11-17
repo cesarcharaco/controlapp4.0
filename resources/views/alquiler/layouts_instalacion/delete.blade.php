@@ -7,13 +7,14 @@
       </div>
     <div class="border card-body">
       
-      {!! Form::open(['route' => ['desactivar_instalacion'], 'method' => 'POST']) !!}
+      {!! Form::open(['route' => ['eliminarInstalacion'], 'method' => 'POST']) !!}
         @csrf
-        <h3>Desactivar instalacion <span id="NombreInstalacion"></span></h3> asdasdasd
-        Se DESACTIVARÁN, NO se ELIMINARÁN los datos de la instalación. Se cambiará el status a Inactivo.
+        <h3>Eliminar instalacion <span id="NombreInstalacion"></span></h3> 
+        ¿Estas seguro que desea eliminar la instalación?<br>
+        Se ELIMINARA, la instalación seleccionada. esta opción no se podrá deshacer en el futuro.
         <div class="float-right">
-          <input type="hidden" name="id" class="id_instalacion_des" id="id_instalacion_des">
-          <button type="submit" class="btn btn-warning btn-sm">Desactivar</button>
+          <input type="hidden" name="id" class="id_instalacion_eliminar" id="id_instalacion_eliminar">
+          <button type="submit" class="btn btn-danger btn-sm">Eliminar instalación</button>
         </div>
       {!! Form::close() !!}
     </div>

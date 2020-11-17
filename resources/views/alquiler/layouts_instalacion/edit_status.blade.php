@@ -7,12 +7,13 @@
       </div>
     <div class="border card-body">
       
-      {!! Form::open(['route' => ['desactivar_instalacion'], 'method' => 'POST']) !!}
+      {!! Form::open(['route' => ['statusinstalacion'], 'method' => 'POST']) !!}
         @csrf
         <h3>Desactivar instalación <span id="NombreInstalacion"></span></h3> 
         Se DESACTIVARÁN, NO se ELIMINARÁN los datos de la instalación. Se cambiará el status a Inactivo.
         <div class="float-right">
           <input type="hidden" name="id" class="id_instalacion_des" id="id_instalacion_des">
+          <input type="hidden" name="status" class="cambiarStatus" id="cambiarStatus">
           <button type="submit" class="btn btn-warning btn-sm">Desactivar</button>
         </div>
       {!! Form::close() !!}
@@ -29,12 +30,13 @@
       </div>
     <div class="border card-body">
       
-      {!! Form::open(['route' => ['desactivar_instalacion'], 'method' => 'POST']) !!}
+      {!! Form::open(['route' => ['statusinstalacion'], 'method' => 'POST']) !!}
         @csrf
         <h3>Activar instalación <span id="NombreInstalacion2"></span></h3> 
         Se ACTIVARÁ la instalación seleccionada, Se cambiará el status a Activo.
         <div class="float-right">
           <input type="hidden" name="id" class="id_instalacion_des2" id="id_instalacion_des2">
+          <input type="hidden" name="status" class="cambiarStatus2" id="cambiarStatus2">
           <button type="submit" class="btn btn-success btn-sm">Activar</button>
         </div>
       {!! Form::close() !!}

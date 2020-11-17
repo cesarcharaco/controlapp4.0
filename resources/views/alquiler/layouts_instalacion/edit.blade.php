@@ -64,14 +64,6 @@
               <input name="max_personas" min="1" minlength="1" max="50" data-toggle="touchspin" type="number" data-bts-prefix="$" class="form-control" placeholder="7" required id="npersonasInstalacion">
             </div>
           </div>
-          <div class="form-group">
-              <label>Status</label>
-              <select name="status" class="form-control select2" id="status_PlanP" id="statusInstalacion">
-                <option value="Activo">Activo</option>
-                <option value="Inactivo">Inactivo</option>
-              </select>
-          </div>
-          
           <input type="hidden" name="id" id="idInstalacion">
           <button type="submit" class="btn btn-warning">Editar</button>
         </center>

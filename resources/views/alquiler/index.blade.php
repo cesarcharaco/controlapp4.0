@@ -179,7 +179,7 @@
                                 margin-bottom: 5px;
                                 margin-top: 5px;
                                 float: right;">
-                                <span class="PalabraEditarPago ">Nueva Instalación</span>
+                                <span class="PalabraEditarPago" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación">Nueva Instalación</span>
                                 <center>
                                     <span class="PalabraEditarPago2 ">
                                         <i data-feather="plus" class="iconosMetaforas2"></i>
@@ -244,7 +244,7 @@
                             </thead>
                             <tbody>
                                 @foreach($instalaciones as $key)
-                                    <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                                    <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
                                         <td colspan="2" align="center">{{$key->nombre}}</td>
                                         <td>
                                             @foreach($key->dias as $key2)
@@ -290,7 +290,7 @@
                                     </tr>
                                     <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
                                         <td width="10" colspan="2">
-                                            <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
+                                            <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
                                                 <span class="PalabraEditarPago ">Regresar</span>
                                                 <center>
                                                     <span class="PalabraEditarPago2 ">
@@ -307,7 +307,7 @@
 
                                             <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
 
-                                                <span class="PalabraEditarPago "><strong>Ver</strong></span>
+                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas datos"><strong>Ver</strong></span>
                                                 <center>
                                                     <span class="PalabraEditarPago2 ">
                                                         <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
@@ -318,7 +318,7 @@
 
                                             <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="editarInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
 
-                                                <span class="PalabraEditarPago "><strong>Editar</strong></span>
+                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de la instalación"><strong>Editar</strong></span>
                                                 <center>
                                                     <span class="PalabraEditarPago2 ">
                                                         <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
@@ -326,8 +326,8 @@
                                                 </center>
                                             </a>
                                             @if($key->status == 'Activo')
-                                                <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}')">
-                                                    <span class="PalabraEditarPago ">Desactivar</span>
+                                                <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
                                                     <center>
                                                         <span class="PalabraEditarPago2 ">
                                                             <i data-feather="trash" class="iconosMetaforas2"></i>
@@ -335,8 +335,8 @@
                                                     </center>
                                                 </a>
                                             @else
-                                                <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}')">
-                                                    <span class="PalabraEditarPago ">Activar</span>
+                                                <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
                                                     <center>
                                                         <span class="PalabraEditarPago2 ">
                                                             <i data-feather="trash" class="iconosMetaforas2"></i>
@@ -345,7 +345,7 @@
                                                 </a>
                                             @endif
                                             <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
-                                                <span class="PalabraEditarPago ">Eliminar</span>
+                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">Eliminar</span>
                                                 <center>
                                                     <span class="PalabraEditarPago2 ">
                                                         <i data-feather="trash" class="iconosMetaforas2"></i>
@@ -1015,14 +1015,8 @@
         $('#example2_wrapper').fadeOut('fast');
     }
 
-    function editStatusInstalacion(id) {
-        $('#id_instalacionE').val(id);
-        $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
-    }
-
     function eliminarInstalacion(id) {
-        $('#id_instalacionE').val(id);
+        $('#id_instalacion_eliminar').val(id);
         $('#btnRegistrar_insta').fadeOut('fast');
         $('#example2_wrapper').fadeOut('fast');
     }
@@ -1369,11 +1363,13 @@
         }
     }
 
-    function statusInstalacion(id, nombre) {
+    function statusInstalacion(id, nombre, status) {
         $('#id_instalacion_des').val(id);
+        $('#cambiarStatus').val(status);
         $('#NombreInstalacion').html(nombre);
 
         $('#id_instalacion_des2').val(id);
+        $('#cambiarStatus2').val(status);
         $('#NombreInstalacion2').html(nombre);
 
         $('#btnRegistrar_insta').fadeOut('fast');

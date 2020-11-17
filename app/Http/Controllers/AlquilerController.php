@@ -353,7 +353,6 @@ class AlquilerController extends Controller
                     $instalacion->hora_desde=$request->hora_desde;
                     $instalacion->hora_hasta=$request->hora_hasta;
                     $instalacion->max_personas=$request->max_personas;
-                    $instalacion->status=$request->status;
                     $instalacion->save();
 
                     if(!is_null($request->dia)){
@@ -390,15 +389,46 @@ class AlquilerController extends Controller
         return redirect()->back();
     }
 
-    public function desactivar_instalacion(Request $request)
+    public function statusinstalacion(Request $request)
     {
         //dd($request->all());
-        $instalacion = Instalaciones::find($request->id);
-        $instalacion->status='Inactivo';
-        $instalacion->save();
-
-        toastr()->success('con éxito!', 'instalación deshabilitada');
+        if ($request->status=="Activo") {
+            $instalacion = Instalaciones::find($request->id);
+            $instalacion->status='Inactivo';
+            $instalacion->save();
+        } else {
+            $instalacion = Instalaciones::find($request->id);
+            $instalacion->status='Activo';
+            $instalacion->save();
+        }
+        toastr()->success('con éxito!', 'Status cambiado satisfactoriamente');
         return redirect()->back();
+    }
+
+    public function eliminarInstalacion(Request $request)
+    {
+        //dd($request->all());
+        $buscar_alquiler = Alquiler::join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+        ->select('alquiler.status AS status_alquiler','pagos_has_alquiler.id_alquiler AS id_alquiler')
+        ->where('alquiler.id_instalacion',$request->id)->first();
+
+        //dd($buscar_alquiler->status_alquiler);
+        if ($buscar_alquiler->status_alquiler=="Inactivo") {
+
+            $instalacion = Instalaciones::find($request->id);
+            $instalacion->delete();
+
+            $alquiler=Alquiler::where('id_instalacion',$request->id);
+            $alquiler->delete();
+
+            \DB::table('pagos_has_alquiler')->where('id_alquiler', $buscar_alquiler->id_alquiler)->delete();
+            
+            toastr()->success('con éxito!', 'Instalación eliminada satisfactoriamente');
+            return redirect()->back();
+        } else {
+            toastr()->success('Alerta!', 'No se puede eliminar instalación, posee un alquiler activo');
+            return redirect()->back();
+        }
     }
 
     protected function horasEntre($desde,$hasta,$hora){
