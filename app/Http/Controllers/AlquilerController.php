@@ -109,7 +109,7 @@ class AlquilerController extends Controller
     public function registrar_alquiler(Request $request)
     {
         //dd($request->all());
-        
+
         if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
             toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
             return redirect()->back();
@@ -382,11 +382,11 @@ class AlquilerController extends Controller
     public function destroy(Request $request, Alquiler $alquiler)
     {
         //dd($request->all());
-        $instalacion = Instalaciones::find($id);
+        /*$instalacion = Instalaciones::find($id);
         $instalacion->status='Inactivo';
-        $instalacion->save();
+        $instalacion->save();*/
 
-        toastr()->success('con éxito!', 'instalación deshabilitada');
+        toastr()->warning('Alerta!', 'Imposible eliminar la instalación comuníquese con su proveedor de servicio');
         return redirect()->back();
     }
 
