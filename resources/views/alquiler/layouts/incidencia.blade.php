@@ -4,7 +4,7 @@
         <div class="modal-dialog modals-default border border-danger">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4>Reportar incidencia <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
+                    <h4>Reportar incidencia <br><small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
