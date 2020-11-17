@@ -246,6 +246,7 @@
                                 @foreach($instalaciones as $key)
                                     <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
                                         <td colspan="2" align="center">{{$key->nombre}}</td>
+                                        <td style="display: none;"></td>
                                         <td>
                                             @foreach($key->dias as $key2)
                                                 <span class="PalabraEditarPago">
@@ -289,7 +290,7 @@
 
                                     </tr>
                                     <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                        <td width="10" colspan="2">
+                                        <td>
                                             <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
                                                 <span class="PalabraEditarPago ">Regresar</span>
                                                 <center>
@@ -298,7 +299,12 @@
                                                     </span>
                                                 </center>
                                             </button>
-                                            <span>{{$key->nombre}}</span>
+                                        </td>
+                                        <td width="10">
+                                            <span>{{$key->nombre}}</span><hr>
+                                            <span class="PalabraEditarPago">Max. personas {{$key->max_personas}}</span>
+                                            <span class="PalabraEditarPago2">Max. {{$key->max_personas}}</span>
+                                            
                                         </td>
                                         <td style="display: none;">
                                         </td>
@@ -330,7 +336,7 @@
                                                     <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
                                                     <center>
                                                         <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
                                                         </span>
                                                     </center>
                                                 </a>
@@ -339,7 +345,7 @@
                                                     <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
                                                     <center>
                                                         <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
                                                         </span>
                                                     </center>
                                                 </a>
@@ -374,6 +380,22 @@
                                                     <span class="PalabraEditarPago2">Dom.</span>
                                                 @endif
                                             @endforeach
+                                            <hr>
+                                            @if($key->status == 'Activo')
+                                                <span class="PalabraEditarPago">
+                                                    <strong class="text-success">{{$key->status}}</strong>
+                                                </span>
+                                                <span class="PalabraEditarPago2 text-success">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                                </span>
+                                            @else
+                                                <span class="PalabraEditarPago">
+                                                    <strong class="text-danger">{{$key->status}}</strong>
+                                                </span>
+                                                <span class="PalabraEditarPago2 text-danger">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                                                </span>
+                                            @endif
                                         </td>
                                     </tr>
                                     <tr style="display: none;">
@@ -429,7 +451,7 @@
                 <div class="col-md-12">
                     <div id="example1_wrapper">
                         <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
-                             <thead>
+                            <thead>
                                 <tr class="table-default text-white">
                                     <td colspan="6" align="center">
                                         <div class="card border border-info" style="background-color: #D6EAF8" role="alert">
@@ -578,10 +600,10 @@
                                                 </center>
                                             </a>
                                         </td>
-                                        
-
+                                        <td style="display: none;"></td>
                                     </tr>
                                     <tr style="display: none;">
+                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>

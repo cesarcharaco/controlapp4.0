@@ -219,6 +219,42 @@
 
 	    });
 
+	    $('#data-table-basic2').DataTable({
+	        "pageLength": 30,
+            // "paging": false,
+            // "bPaginate": false,
+            "ordering": false,
+            "lengthChange": false,
+            "lengthMenu": false,
+            "pagingType": "simple_numbers",
+            // "searching": false,
+            // "bFilter": false,
+            // "info":     false,
+	        language: {
+	        "decimal": "",
+	        "emptyTable": "No hay información",
+	        "info": "Mostrando la página _PAGE_ de _PAGES_",
+	        "infoEmpty": "Mostrando 0 de 0 Entradas",
+	        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+	        "infoPostFix": "",
+	        "thousands": ",",
+	        "lengthMenu": "Mostrar _MENU_ Entradas",
+	        "loadingRecords": "Cargando...",
+	        "processing": "Procesando...",
+	        "search": "",
+	        "zeroRecords": "Sin resultados encontrados",
+	        "paginate": {
+	            "first": "Primero",
+	            "last": "Ultimo",
+	            "next": "<buttom class='btn' style='border-radius:50%;"+colorPaginador+"'><strong> > </strong></buttom>",
+	            "previous": "<buttom class='btn' style='border-radius:50%;"+colorPaginador+"'><strong> < </strong></buttom>",
+            	// "pagingType": "scrolling",
+            	"sPaginationType": "four_button",
+	          }
+	        }
+
+	    });
+
 	    $('.dataTables_length').css('display','none');
 	    $('.dataTables_info').attr('align','center');
 
