@@ -35,7 +35,7 @@
         Se ACTIVARÁ la instalación seleccionada, Se cambiará el status a Activo.
         <div class="float-right">
           <input type="hidden" name="id" class="id_instalacion_des2" id="id_instalacion_des2">
-          <button type="submit" class="btn btn-warning btn-sm">Activar</button>
+          <button type="submit" class="btn btn-success btn-sm">Activar</button>
         </div>
       {!! Form::close() !!}
     </div>
