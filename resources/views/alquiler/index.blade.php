@@ -163,6 +163,7 @@
                         @include('alquiler.layouts_instalacion.show')
                         @include('alquiler.layouts_instalacion.create')
                         @include('alquiler.layouts_instalacion.edit')
+                        @include('alquiler.layouts_instalacion.edit_status')
                         @include('alquiler.layouts_instalacion.delete')
                     </div>
                 </div>
@@ -325,8 +326,25 @@
                                                 </center>
                                             </a>
 
-                                            <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
+                                            <a data-toggle="collapse" href="#desactivarInstalacion" role="button" aria-expanded="false" aria-controls="desactivarInstalacion"  class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="desactivarInstalacion('{{$key->id}}')">
                                                 <span class="PalabraEditarPago ">Desactivar</span>
+                                                <center>
+                                                    <span class="PalabraEditarPago2 ">
+                                                        <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                    </span>
+                                                </center>
+                                            </a>
+
+                                            <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="activarInstalacion('{{$key->id}}')">
+                                                <span class="PalabraEditarPago ">Activar</span>
+                                                <center>
+                                                    <span class="PalabraEditarPago2 ">
+                                                        <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                    </span>
+                                                </center>
+                                            </a>
+                                            <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
+                                                <span class="PalabraEditarPago ">Eliminar</span>
                                                 <center>
                                                     <span class="PalabraEditarPago2 ">
                                                         <i data-feather="trash" class="iconosMetaforas2"></i>
@@ -992,6 +1010,12 @@
 
         });
 
+        $('#btnRegistrar_insta').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
+    }
+
+    function editStatusInstalacion(id) {
+        $('#id_instalacionE').val(id);
         $('#btnRegistrar_insta').fadeOut('fast');
         $('#example2_wrapper').fadeOut('fast');
     }
