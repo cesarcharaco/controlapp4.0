@@ -45,7 +45,7 @@
                       <option value="Temporal">Temporal</option>
                     </select>
                   </div>
-                  <div class="form-group card shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none;">
+                  <div class="form-group card shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none;" id="vistaTemporal2">
                     <div class="card-body">
                       <div class="form-group">
                         <label>Fecha</label>
@@ -91,8 +91,8 @@
                     </div>
                     <br>
                     <div class="form-group">
-                        <label>Referencia <b class="text-danger">*</b></label>
-                        <input type="text" class="form-control" name="referencia" id="referenciaArriendoE" required maxlength="20">
+                        <label>Referencia </label>
+                        <input type="text" class="form-control" name="referencia" id="referenciaArriendoE" maxlength="20">
                     </div>
                     <div class="row">
                         <?php $num=0; ?>

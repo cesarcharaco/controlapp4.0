@@ -160,6 +160,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div style="height: 100%;">
+                        @include('alquiler.layouts_instalacion.show')
                         @include('alquiler.layouts_instalacion.create')
                         @include('alquiler.layouts_instalacion.edit')
                         @include('alquiler.layouts_instalacion.delete')
@@ -301,6 +302,18 @@
                                         <td style="display: none;">
                                         </td>
                                         <td colspan="2" align="center">
+                                            
+
+                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
+
+                                                <span class="PalabraEditarPago "><strong>Ver</strong></span>
+                                                <center>
+                                                    <span class="PalabraEditarPago2 ">
+                                                        <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
+                                                    </span>
+                                                </center>
+                                            </a>
+
 
                                             <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="editarInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
 
@@ -366,6 +379,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div style="height: 100%;">
+                        @include('alquiler.layouts_arriendo.show')
                         @include('alquiler.layouts_arriendo.create')
                         @include('alquiler.layouts_arriendo.edit')
                         @include('alquiler.layouts_arriendo.delete')
@@ -491,6 +505,29 @@
                                         </td>
                                         <td colspan="2" align="center">
                                             @foreach($key->pagos_has_alquiler as $key2)
+                                                
+                                            <a data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerArriendo(
+                                                        '{{$key->residente->nombres}}',
+                                                        '{{$key->residente->apellidos}}',
+                                                        '{{$key->residente->rut}}',
+                                                        '{{$key->instalacion->nombre}}',
+                                                        '{{$key->tipo_alquiler}}',
+                                                        '{{$key->fecha}}',
+                                                        '{{$key->hora}}',
+                                                        '{{$key->num_horas}}',
+                                                        '{{$key->status}}',
+                                                        '{{$key2->status}}',
+                                                        '{{$key2->referencia}}',
+                                                        '{{$key2->id_planesPago}}'
+                                                    )">
+                                                    <span class="PalabraEditarPago "><strong>Ver</strong></span>
+                                                    <center>
+                                                        <span class="PalabraEditarPago2 ">
+                                                            <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
+                                                        </span>
+                                                    </center>
+                                                </a>
+
                                                 <a data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="editarArriendo(
                                                         '{{$key->id}}',
                                                         '{{$key->id_residente}}',
@@ -805,11 +842,49 @@
       $('#btnRegistrar_insta').show();
     }
 
+    function VerArriendo(nombres,apellidos,rut,nombre_I,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
+        $('#btnRegistrar_arriendo').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
+
+        $('#id_residenteArriendo_2').html(nombres+' '+apellidos+' -'+rut);
+        $('#instalacionListArriendo_2').html(nombre_I);
+        $('#tipo_alquilerArriendo_2').html(tipo_alquiler);
+        $('#fechaAlquilerArriendo_2').html(fecha);
+        $('#horaAlquilerArriendo_2').html(hora);
+        $('#num_horasArriendo_2').html(num_horas);
+        $('#statusArriendo_2').html(status);
+
+        $('#pagadoArriendoE_2').html(status2);
+
+        if(status2 == 'Pagado'){
+            $('#pagadoArriendoE_2').prop('checked', true);
+        }else{
+            $('#pagadoArriendoE_2').removeAttr('checked', false);
+        }
+
+        $('#pagadoArriendoE2_2').html(status2);
+
+        if(referencia>0){
+            $('#referenciaArriendoE_2').html(referencia);
+        }else{
+            $('#referenciaArriendoE_2').html('Sin Referencia');
+        }
+        $('#planPArriendoE_2'+id).prop('checked', true);
+
+    }
+
     function editarArriendo(id,id_residente,id_instalacion,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
+        $('#btnRegistrar_arriendo').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
 
         $('#id_residenteArriendoE').val(id_residente);
         $('#instalacionListArriendoE').val(id_instalacion);
         $('#tipo_alquilerArriendoE').val(tipo_alquiler);
+        if (tipo_alquiler == 'Temporal') {
+            $('#vistaTemporal2').show();
+        }else{
+            $('#vistaTemporal2').hide();
+        }
         $('#fechaAlquilerArriendoE').val(fecha);
         $('#horaAlquilerArriendoE').val(hora);
         $('#num_horasArriendoE').val(num_horas);
@@ -829,8 +904,7 @@
         $('#planPArriendoE'+id).prop('checked', true);
 
         $('#id_editarArriendo').val(id);
-        $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+
     }
 
     function eliminarArriendo(id, id_instalacion) {
@@ -859,6 +933,35 @@
 
 
     function crearInstalacion() {
+        $('#btnRegistrar_insta').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
+    }
+
+    function VerInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,max_personas,status) {
+        $('#nombreInstalacion_2').html(nombre);
+        $('#id_diaInstalacion_2').html(id_dia);
+        $('#desdeInstalacion_2').html(hora_desde);
+        $('#hastaInstalacion_2').html(hora_hasta);
+        $('#npersonasInstalacion_2').html(max_personas);
+        $('#statusInstalacion_2').html(status);
+        $('#dias_insta_2').empty();
+
+        $.get("instalaciones/"+id+"/buscar_dias",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length>0) {
+                $('#dias_insta_2').append('<strong>Dias registrados:</strong>&nbsp;');
+                for (var i = 0; i < data.length; i++) {
+                   $('#dias_insta_2').append('<span class="text-primary">'+data[i].dia+'</span>&nbsp;');
+                }
+                $('#dias_insta_2').append('<br>');
+            }else{
+                $('#dias_insta_2').append('<strong>Sin dias registrados</strong>');
+            }
+
+        });
+
         $('#btnRegistrar_insta').fadeOut('fast');
         $('#example2_wrapper').fadeOut('fast');
     }
