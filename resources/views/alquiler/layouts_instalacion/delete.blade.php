@@ -9,10 +9,10 @@
       
       {!! Form::open(['route' => ['desactivar_instalacion'], 'method' => 'POST']) !!}
         @csrf
-        <h3>Desactivar instalacion</h3> 
+        <h3>Desactivar instalacion <span id="NombreInstalacion"></span></h3> asdasdasd
         Se DESACTIVARÁN, NO se ELIMINARÁN los datos de la instalación. Se cambiará el status a Inactivo.
         <div class="float-right">
-          <input type="hidden" name="id" class="id_instalacionE" id="id_instalacionE">
+          <input type="hidden" name="id" class="id_instalacion_des" id="id_instalacion_des">
           <button type="submit" class="btn btn-warning btn-sm">Desactivar</button>
         </div>
       {!! Form::close() !!}
