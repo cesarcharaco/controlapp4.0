@@ -574,11 +574,12 @@
                                                     <button type="button" class="btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
                                                         <span class="PalabraEditarPago ">
                                                             <strong>Editar</strong>
+                                                            <i class="uil uil-angle-down"></i>
                                                         </span>
                                                         <span class="PalabraEditarPago2 ">
-                                                                <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
+                                                                <strong>
+                                                                    <i data-feather="edit" class="iconosMetaforas2"></i></strong>
                                                             </span>
-                                                        <i class="uil uil-angle-down"></i>
                                                     </button>
                                                     
                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
@@ -595,10 +596,10 @@
                                                             '{{$key2->referencia}}',
                                                             '{{$key2->id_planesPago}}'
                                                             )">
-                                                            <span class="PalabraEditarPago ">Arriendo</span>
-                                                            <span class="PalabraEditarPago2 ">
+                                                            <span>Arriendo</span>
+                                                            <!-- <span class="PalabraEditarPago2 ">
                                                                 <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
-                                                            </span>
+                                                            </span> -->
                                                         </a>
                                                         <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
                                                             <span>Referencias</span>
