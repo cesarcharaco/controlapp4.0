@@ -123,9 +123,9 @@ class AlquilerController extends Controller
                     return redirect()->back();
                 }else{
                     $buscar=Instalaciones::find($request->id_instalacion);
+                    $dia=date('N',strtotime($request->fecha));
                     if($request->tipo_alquiler=="Temporal"){
                         $cont=0;
-                        $dia=date('N',strtotime($request->fecha));
                         foreach($buscar->dias as $key){
                             if($key->id==$dia){
                                 $cont++;
@@ -146,6 +146,37 @@ class AlquilerController extends Controller
                             toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                             return redirect()->back();  
                         }
+
+
+                        //buscando alquileres en status Activos para buscar fechas comunes
+                        $buscar_alquiler=Alquiler::where('id_instalacion',$request->id_instalacion)->where('status','Activo')->get();
+                        $cont=0;
+                        $fecha=\DateTime::createFromFormat('!Y-m-d',$request->fecha);
+                        foreach($buscar_alquiler as $key){
+                            $fechas_alquiler = \DateTime::createFromFormat('!Y-m-d',$key->fecha);
+                            if($fecha==$fechas_alquiler){
+                                $hora_desde=\DateTime::createFromFormat('!H:i',$key->hora);
+                                $hora_hasta=\DateTime::createFromFormat('!H:i',$key->hora);
+                                for($i=0;$i<$request->num_horas;$i++){
+                                    //sumando horas para obtener la hora_hasta
+                                    $hora_hasta->modify('+1 hours');
+                                }
+
+                                if(!$this->horasEntre($hora_desde,$hora_hasta,$request->hora)){
+                                    $cont++;
+                                }
+                            
+                                if($this->horasEntre2($hora_desde,$hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+                                    $cont++;
+                                }
+                            }
+                        }
+                        if($cont>0){
+                            toastr()->warning('Alerta!', 'No se encuentra disponible la instalación para dicha Fecha y/u Hora');
+                            return redirect()->back();  
+                        }
+
+
                     }else{
                         
                         $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
@@ -155,6 +186,8 @@ class AlquilerController extends Controller
                         }
                     }
 
+
+                    
 
                     $alquiler = new Alquiler();
                     $alquiler->id_residente=$request->id_residente;
@@ -178,10 +211,11 @@ class AlquilerController extends Controller
                         'status'=>'En Proceso'
                     ]);
 
-                    $instalacion=Instalaciones::find($alquiler->id_instalacion);
+                    //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
+                    /*$instalacion=Instalaciones::find($alquiler->id_instalacion);
                     $instalacion->status="Inactivo";
                     $instalacion->save();
-
+                    */
                     toastr()->success('con éxito!', 'Alquiler registrada');
                     return redirect()->to('alquiler');
                 }
@@ -407,28 +441,57 @@ class AlquilerController extends Controller
 
     public function eliminarInstalacion(Request $request)
     {
-        //dd($request->all());
-        $buscar_alquiler = Alquiler::join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
-        ->select('alquiler.status AS status_alquiler','pagos_has_alquiler.id_alquiler AS id_alquiler')
-        ->where('alquiler.id_instalacion',$request->id)->first();
+        
 
-        //dd($buscar_alquiler->status_alquiler);
-        if ($buscar_alquiler->status_alquiler=="Inactivo") {
+        $instalacion = Instalaciones::find($request->id);
 
-            $instalacion = Instalaciones::find($request->id);
-            $instalacion->delete();
+        if($instalacion->status=="Inactiva"){
+            //esta alquilada
+            $alquiler=Alquiler::where('id_instalacion',$request->id)->get();
+            $buscar_alquiler=Alquiler::where('id_instalacion',$request->id)->where('status','Inactivo')->count();
+            if($buscar_alquiler>0){
+                toastr()->warning('Alerta!', 'La Instalación no puede ser eliminada, tiene un Alquiler <b>Activo</b>');
+                    return redirect()->back();    
+            }else{
+                foreach($alquiler as $key){
 
-            $alquiler=Alquiler::where('id_instalacion',$request->id);
-            $alquiler->delete();
+                    //buscando pagos realizados
+                    $buscar = Alquiler::join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+                    ->select('alquiler.status AS status_alquiler','pagos_has_alquiler.id_alquiler AS id_alquiler')
+                    ->where('alquiler.id_instalacion',$request->id)->count();
+                    if($buscar>0){
+                        //hay pagos realizados
+                        \DB::table('pagos_has_alquiler')->where('id_alquiler', $buscar_alquiler->id_alquiler)->delete();
+                    }    
+                    $key->delete();
+                }
 
-            \DB::table('pagos_has_alquiler')->where('id_alquiler', $buscar_alquiler->id_alquiler)->delete();
+                $instalacion->delete();
+            }
+
             
+
+        }else{
+            //no esta alquilada
+            $alquiler=Alquiler::where('id_instalacion',$request->id)->get();
+            foreach($alquiler as $key){
+                //buscando pagos realizados
+                $buscar = Alquiler::join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+                ->select('alquiler.status AS status_alquiler','pagos_has_alquiler.id_alquiler AS id_alquiler')
+                ->where('alquiler.id_instalacion',$request->id)->count();
+                if($buscar>0){
+                    //hay pagos realizados
+                    \DB::table('pagos_has_alquiler')->where('id_alquiler', $buscar_alquiler->id_alquiler)->delete();
+                }    
+                $key->delete();
+            }
+            $instalacion->delete();
             toastr()->success('con éxito!', 'Instalación eliminada satisfactoriamente');
             return redirect()->back();
-        } else {
-            toastr()->success('Alerta!', 'No se puede eliminar instalación, posee un alquiler activo');
-            return redirect()->back();
         }
+
+            
+
     }
 
     protected function horasEntre($desde,$hasta,$hora){
