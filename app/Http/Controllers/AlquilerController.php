@@ -198,7 +198,9 @@ class AlquilerController extends Controller
                         $alquiler->hora=$request->hora;            
                     }
                     $alquiler->num_horas=$request->num_horas;
-                    $alquiler->status=$request->status;
+                    if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
+                        $alquiler->status='Activo';
+                    }
                     $alquiler->save();
 
                     $pagos=PlanesPago::find($request->planP);
@@ -280,7 +282,9 @@ class AlquilerController extends Controller
                         $alquiler->hora=$request->hora;            
                     }
                     $alquiler->num_horas=$request->num_horas;
-                    $alquiler->status=$request->status;
+                    if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
+                        $alquiler->status='Activo';
+                    }
                     $alquiler->save();
 
                     $pagos=PlanesPago::find($request->planP);
