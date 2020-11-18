@@ -423,6 +423,7 @@
                         @include('alquiler.layouts_arriendo.show')
                         @include('alquiler.layouts_arriendo.create')
                         @include('alquiler.layouts_arriendo.edit')
+                        @include('alquiler.layouts_arriendo.edit_status')
                         @include('alquiler.layouts_arriendo.delete')
                     </div>
                 </div>
@@ -568,8 +569,19 @@
                                                         </span>
                                                     </center>
                                                 </a>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
+                                                        <span class="PalabraEditarPago ">
+                                                            <strong>Editar</strong>
+                                                        </span>
+                                                        <span class="PalabraEditarPago2 ">
+                                                                <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
+                                                            </span>
+                                                        <i class="uil uil-angle-down"></i>
+                                                    </button>
 
-                                                <a data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="editarArriendo(
+                                                    <div data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
+                                                        <a class="dropdown-item" href="#" onclick="editarArriendo(
                                                         '{{$key->id}}',
                                                         '{{$key->id_residente}}',
                                                         '{{$key->id_instalacion}}',
@@ -581,15 +593,39 @@
                                                         '{{$key2->status}}',
                                                         '{{$key2->referencia}}',
                                                         '{{$key2->id_planesPago}}'
-                                                    )">
-                                                    <span class="PalabraEditarPago "><strong>Editar</strong></span>
+                                                        )">
+                                                            <span class="PalabraEditarPago ">Arriendo</span>
+                                                            <span class="PalabraEditarPago2 ">
+                                                                <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
+                                                            </span>
+                                                        </a>
+                                                        <a class="dropdown-item" href="#">Referencias</a>
+                                                    </div>
+                                                </div>
+
+
+                                                
+                                            @endforeach()
+
+                                            @if($key->status == 'Activo')
+                                                <a data-toggle="collapse" href="#statusArriendo" role="button" aria-expanded="false" aria-controls="statusArriendo"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
                                                     <center>
                                                         <span class="PalabraEditarPago2 ">
-                                                            <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
+                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
                                                         </span>
                                                     </center>
                                                 </a>
-                                            @endforeach()
+                                            @else
+                                                <a data-toggle="collapse" href="#activarArriendo" role="button" aria-expanded="false" aria-controls="activarArriendo"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
+                                                    <center>
+                                                        <span class="PalabraEditarPago2 ">
+                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
+                                                        </span>
+                                                    </center>
+                                                </a>
+                                            @endif
 
                                             <a data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
                                                 <span class="PalabraEditarPago ">Eliminar</span>
@@ -1396,6 +1432,19 @@
 
         $('#btnRegistrar_insta').fadeOut('fast');
         $('#example2_wrapper').fadeOut('fast');
+    }
+
+    function statusArriendos(id, nombre, status) {
+        $('#id_Arriendo_des').val(id);
+        $('#cambiarStatusA').val(status);
+        $('#NombreArriendo').html(nombre);
+
+        $('#id_Arriendo_des_A_2').val(id);
+        $('#cambiarStatus_A_2').val(status);
+        $('#NombreArriendo2').html(nombre);
+
+        $('#btnRegistrar_arriendo').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
   
 </script>

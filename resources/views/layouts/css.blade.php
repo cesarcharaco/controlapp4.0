@@ -20,16 +20,15 @@
 {{-- <script src="{{ asset('resources/css/toastr.css') }}"></script>  --}}
 {{-- timepicker --}}
 
- 
-
-<!-- Data Table CSS
-		============================================ -->
-<!-- <link rel="stylesheet" href="{{ asset('assets/css/jquery.dataTables.min.css') }}"> -->
-<!-- <link href="https://cdn.datatables.net/1.10.21/css/dataTables.jqueryui.min.css" rel="stylesheet"> -->
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/buttons.bootstrap4.min.css') }}">
+<!-- <link rel="stylesheet" href="{{ asset('assets/css/data-table/css/buttons.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/data-table/css/dataTables.bootstrap4.min.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/data-table/css/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/select.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/select.bootstrap4.min.css') }}"> -->
+
+
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap4.min.css') }}">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA==" crossorigin="anonymous" />
 
