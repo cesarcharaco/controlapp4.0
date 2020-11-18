@@ -20,7 +20,8 @@
           </ul>
           <div class="tab-content" id="pills-tabContent" style="width: 100% !important">
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                <center>
+              <div class="row">                
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Residente <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="id_residente" onchange="buscarTodo(this.value)" name="id_residente" required>
@@ -30,9 +31,11 @@
                         @endforeach()
                     </select>
                   </div>
-                   <div class="form-group">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
                     <label>Instalación <b class="text-danger">*</b></label>
-                    <select class="form-control select2" id="instalacionList" name="id_instalacion">
+                    <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required">
                         <option disabled required>Seleccione instalación</option>
                         @foreach($instalaciones as $key)
                         @if($key->status=="Activo")
@@ -41,31 +44,40 @@
                         @endforeach
                     </select>
                   </div>
+                </div>
+              </div>
+              <center>
+                 <div class="form-group">
+                </div>
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control select2" id="tipo_alquiler" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                  </select>
+                </div>
+              </center>
+              <div class="row justify-content-center shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none !important; padding: 10px !important;">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                    <select class="form-control select2" id="tipo_alquiler" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
-                      <option value="Permanente">Permanente</option>
-                      <option value="Temporal">Temporal</option>
-                    </select>
+                    <label>Fecha</label>
+                    <input type="date" min="<?php echo date('Y-m-d');?>" name="fecha" class="form-control" id="fechaAlquiler">
                   </div>
-                  <div class="form-group card shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none;">
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label>Fecha</label>
-                        <input type="date" min="<?php echo date('Y-m-d');?>" name="fecha" class="form-control" id="fechaAlquiler">
-                      </div>
-                          
-                      <div class="form-group" align="center">
-                        <label>Hora</label>
-                        <div class='input-group date' id='datetimepicker6'>
-                          <input name="hora" type="time" id="basic-timepicker" class="form-control" id="horaAlquiler">
-                          <span class="input-group-addon">
-                              <span class="glyphicon glyphicon-calendar"></span>
-                          </span>
-                      </div>
-                      </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Hora</label>
+                    <div class='input-group date' id='datetimepicker6'>
+                      <input name="hora" type="time" id="basic-timepicker" class="form-control" id="horaAlquiler">
+                      <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
                     </div>
                   </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Nro. de horas <b class="text-danger">*</b></label>
                     <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -76,15 +88,18 @@
                       </span>
                       <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" value="1" required>
                     </div>
-                    </div>
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select name="status" class="form-control select2" id="status_PlanP">
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                      </select>
-                    </div>                                  
-                </center>
+                  </div>                    
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Status</label>
+                    <select name="status" class="form-control select2" id="status_PlanP">
+                      <option value="Activo">Activo</option>
+                      <option value="Inactivo">Inactivo</option>
+                    </select>
+                  </div>                    
+                </div>
+              </div>
             </div>
             <div class="tab-pane fade" id="pills-pago" role="tabpanel" aria-labelledby="pills-pago-tab">
                 <center>
@@ -102,7 +117,7 @@
                         <?php $num=0; ?>
                             @foreach($planesPago as $key)
                                 @if($num==0)
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
                                             <div class="card-body">
                                                 <div class="custom-control custom-radio mb-2">
@@ -120,7 +135,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
                                             <div class="card-body">
                                                 <div class="custom-control custom-radio mb-2">
