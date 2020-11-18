@@ -109,205 +109,215 @@ class AlquilerController extends Controller
     public function registrar_alquiler(Request $request)
     {
         //dd($request->all());
-
-        if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
-            toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
+        if(is_null($request->id_instalacion)){
+            toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
         }else{
-            if(empty($request->num_horas)){
-                toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
+            if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
+                toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
                 return redirect()->back();
             }else{
-                if(empty($request->referencia) && $request->pago_realizado==1){
-                    toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
+                if(empty($request->num_horas)){
+                    toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
                     return redirect()->back();
                 }else{
-                    $buscar=Instalaciones::find($request->id_instalacion);
-                    $dia=date('N',strtotime($request->fecha));
-                    if($request->tipo_alquiler=="Temporal"){
-                        $cont=0;
-                        foreach($buscar->dias as $key){
-                            if($key->id==$dia){
-                                $cont++;
-                            }
-                        }
-                        if($cont==0){
-                            toastr()->warning('Alerta!', 'Para la fecha seleccionada no está disponible la instalación');
-                            return redirect()->back();  
-                        }
-
-                        
-                        if(!$this->horasEntre($buscar->hora_desde,$buscar->hora_hasta,$request->hora)){
-                            toastr()->warning('Alerta!', 'Para la hora seleccionada no está disponible la instalación');
-                            return redirect()->back();  
-                        }
-                    
-                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
-                            toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
-                            return redirect()->back();  
-                        }
-
-
-                        //buscando alquileres en status Activos para buscar fechas comunes
-                        $buscar_alquiler=Alquiler::where('id_instalacion',$request->id_instalacion)->where('status','Activo')->get();
-                        $cont=0;
-                        $fecha=\DateTime::createFromFormat('!Y-m-d',$request->fecha);
-                        foreach($buscar_alquiler as $key){
-                            $fechas_alquiler = \DateTime::createFromFormat('!Y-m-d',$key->fecha);
-                            if($fecha==$fechas_alquiler){
-                                $hora_desde=\DateTime::createFromFormat('!H:i',$key->hora);
-                                $hora_hasta=\DateTime::createFromFormat('!H:i',$key->hora);
-                                for($i=0;$i<$request->num_horas;$i++){
-                                    //sumando horas para obtener la hora_hasta
-                                    $hora_hasta->modify('+1 hours');
-                                }
-
-                                if(!$this->horasEntre($hora_desde,$hora_hasta,$request->hora)){
-                                    $cont++;
-                                }
-                            
-                                if($this->horasEntre2($hora_desde,$hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
-                                    $cont++;
-                                }
-                            }
-                        }
-                        if($cont>0){
-                            toastr()->warning('Alerta!', 'No se encuentra disponible la instalación para dicha Fecha y/u Hora');
-                            return redirect()->back();  
-                        }
-
-
+                    if(empty($request->referencia) && $request->pago_realizado==1){
+                        toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
+                        return redirect()->back();
                     }else{
+                        $buscar=Instalaciones::find($request->id_instalacion);
+                        $dia=date('N',strtotime($request->fecha));
+                        if($request->tipo_alquiler=="Temporal"){
+                            $cont=0;
+                            foreach($buscar->dias as $key){
+                                if($key->id==$dia){
+                                    $cont++;
+                                }
+                            }
+                            if($cont==0){
+                                toastr()->warning('Alerta!', 'Para la fecha seleccionada no está disponible la instalación');
+                                return redirect()->back();  
+                            }
+
+                            
+                            if(!$this->horasEntre($buscar->hora_desde,$buscar->hora_hasta,$request->hora)){
+                                toastr()->warning('Alerta!', 'Para la hora seleccionada no está disponible la instalación');
+                                return redirect()->back();  
+                            }
                         
-                        $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
-                        if($request->num_horas > $horas_disponibles){
-                            toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
-                            return redirect()->back();
+                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+                                toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
+                                return redirect()->back();  
+                            }
+
+
+                            //buscando alquileres en status Activos para buscar fechas comunes
+                            $buscar_alquiler=Alquiler::where('id_instalacion',$request->id_instalacion)->where('status','Activo')->get();
+                            $cont=0;
+                            $fecha=\DateTime::createFromFormat('!Y-m-d',$request->fecha);
+                            foreach($buscar_alquiler as $key){
+                                $fechas_alquiler = \DateTime::createFromFormat('!Y-m-d',$key->fecha);
+                                if($fecha==$fechas_alquiler){
+                                    $hora_desde=\DateTime::createFromFormat('!H:i',$key->hora);
+                                    $hora_hasta=\DateTime::createFromFormat('!H:i',$key->hora);
+                                    for($i=0;$i<$request->num_horas;$i++){
+                                        //sumando horas para obtener la hora_hasta
+                                        $hora_hasta->modify('+1 hours');
+                                    }
+
+                                    if(!$this->horasEntre($hora_desde,$hora_hasta,$request->hora)){
+                                        $cont++;
+                                    }
+                                
+                                    if($this->horasEntre2($hora_desde,$hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+                                        $cont++;
+                                    }
+                                }
+                            }
+                            if($cont>0){
+                                toastr()->warning('Alerta!', 'No se encuentra disponible la instalación para dicha Fecha y/u Hora');
+                                return redirect()->back();  
+                            }
+
+
+                        }else{
+                            
+                            $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
+                            if($request->num_horas > $horas_disponibles){
+                                toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
+                                return redirect()->back();
+                            }
                         }
+
+
+                        
+
+                        $alquiler = new Alquiler();
+                        $alquiler->id_residente=$request->id_residente;
+                        $alquiler->id_instalacion=$request->id_instalacion;
+                        $alquiler->tipo_alquiler=$request->tipo_alquiler;
+                        if($request->tipo_alquiler=="Temporal") {
+                            $alquiler->fecha=$request->fecha;
+                            $alquiler->hora=$request->hora;            
+                        }
+                        $alquiler->num_horas=$request->num_horas;
+                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
+                            $alquiler->status='Activo';
+                        }
+                        $alquiler->save();
+
+                        $pagos=PlanesPago::find($request->planP);
+
+                        \DB::table('pagos_has_alquiler')->insert([
+                            'referencia'=> $request->referencia,
+                            'monto'     => $pagos->monto,
+                            'id_alquiler' => $alquiler->id,
+                            'id_planesPago' => $request->planP,
+                            'status'=>'En Proceso'
+                        ]);
+
+                        //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
+                        /*$instalacion=Instalaciones::find($alquiler->id_instalacion);
+                        $instalacion->status="Inactivo";
+                        $instalacion->save();
+                        */
+                        toastr()->success('con éxito!', 'Alquiler registrada');
+                        return redirect()->to('alquiler');
                     }
-
-
-                    
-
-                    $alquiler = new Alquiler();
-                    $alquiler->id_residente=$request->id_residente;
-                    $alquiler->id_instalacion=$request->id_instalacion;
-                    $alquiler->tipo_alquiler=$request->tipo_alquiler;
-                    if($request->tipo_alquiler=="Temporal") {
-                        $alquiler->fecha=$request->fecha;
-                        $alquiler->hora=$request->hora;            
-                    }
-                    $alquiler->num_horas=$request->num_horas;
-                    if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
-                        $alquiler->status='Activo';
-                    }
-                    $alquiler->save();
-
-                    $pagos=PlanesPago::find($request->planP);
-
-                    \DB::table('pagos_has_alquiler')->insert([
-                        'referencia'=> $request->referencia,
-                        'monto'     => $pagos->monto,
-                        'id_alquiler' => $alquiler->id,
-                        'id_planesPago' => $request->planP,
-                        'status'=>'En Proceso'
-                    ]);
-
-                    //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
-                    /*$instalacion=Instalaciones::find($alquiler->id_instalacion);
-                    $instalacion->status="Inactivo";
-                    $instalacion->save();
-                    */
-                    toastr()->success('con éxito!', 'Alquiler registrada');
-                    return redirect()->to('alquiler');
                 }
             }
+
         }
     }
 
     public function editar_alquiler(Request $request)
     {
         //dd($request->all());
-        if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
-            toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
+        if(is_null($request->id_instalacion)){
+            toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
         }else{
-            if(empty($request->num_horas)){
-                toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
+            if($request->tipo_alquiler=="Temporal" && (empty($request->fecha) || empty($request->hora))){
+                toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
                 return redirect()->back();
             }else{
-                if(empty($request->referencia) && $request->pago_realizado==1){
-                    toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
+                if(empty($request->num_horas)){
+                    toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
                     return redirect()->back();
                 }else{
-                    if($request->tipo_alquiler=="Temporal"){
-                        $buscar=Instalaciones::find($request->id_instalacion);
-                        $cont=0;
-                        $dia=date('N',strtotime($request->fecha));
-                        foreach($buscar->dias as $key){
-                            if($key->id==$dia){
-                                $cont++;
+                    if(empty($request->referencia) && $request->pago_realizado==1){
+                        toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
+                        return redirect()->back();
+                    }else{
+                        if($request->tipo_alquiler=="Temporal"){
+                            $buscar=Instalaciones::find($request->id_instalacion);
+                            $cont=0;
+                            $dia=date('N',strtotime($request->fecha));
+                            foreach($buscar->dias as $key){
+                                if($key->id==$dia){
+                                    $cont++;
+                                }
+                            }
+                            if($cont==0){
+                                toastr()->warning('Alerta!', 'Para la fecha seleccionada no está disponible la instalación');
+                                return redirect()->back();  
+                            }
+
+                            
+                            if(!$this->horasEntre($buscar->hora_desde,$buscar->hora_hasta,$request->hora)){
+                                toastr()->warning('Alerta!', 'Para la hora seleccionada no está disponible la instalación');
+                                return redirect()->back();  
+                            }
+                        
+                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+                                toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
+                                return redirect()->back();  
+                            }
+                        }else{
+                            $buscar=Instalaciones::find($request->id_instalacion);
+                            $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
+                            if($request->num_horas > $horas_disponibles){
+                                toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
+                                return redirect()->back();
                             }
                         }
-                        if($cont==0){
-                            toastr()->warning('Alerta!', 'Para la fecha seleccionada no está disponible la instalación');
-                            return redirect()->back();  
-                        }
 
+                        $alquiler =  Alquiler::find($request->id);
+                        $alquiler->id_residente=$request->id_residente;
+                        $alquiler->id_instalacion=$request->id_instalacion;
+                        $alquiler->tipo_alquiler=$request->tipo_alquiler;
+                        if($request->tipo_alquiler=="Temporal") {
+                            $alquiler->fecha=$request->fecha;
+                            $alquiler->hora=$request->hora;            
+                        }
+                        $alquiler->num_horas=$request->num_horas;
+                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
+                            $alquiler->status='Activo';
+                        }
+                        $alquiler->save();
+
+                        $pagos=PlanesPago::find($request->planP);
+                        if($request->admins_todos=="En Proceso"){
+                            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id)
+                            ->update([
+                                'referencia'=> $request->referencia,
+                                'monto'     => $pagos->monto,
+                                'id_planesPago' => $request->planP,
+                                'status'=> "Pagado"
+                            ]);
+                        } else {
+                            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id)
+                            ->update([
+                                'referencia'=> $request->referencia,
+                                'monto'     => $pagos->monto,
+                                'id_planesPago' => $request->planP,
+                                'status'=> "En Proceso"
+                            ]);
+                        }
                         
-                        if(!$this->horasEntre($buscar->hora_desde,$buscar->hora_hasta,$request->hora)){
-                            toastr()->warning('Alerta!', 'Para la hora seleccionada no está disponible la instalación');
-                            return redirect()->back();  
-                        }
-                    
-                        if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
-                            toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
-                            return redirect()->back();  
-                        }
-                    }else{
-                        $buscar=Instalaciones::find($request->id_instalacion);
-                        $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
-                        if($request->num_horas > $horas_disponibles){
-                            toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
-                            return redirect()->back();
-                        }
+                        toastr()->success('con éxito!', 'Alquiler actualizado');
+                        return redirect()->to('alquiler');
                     }
-
-                    $alquiler =  Alquiler::find($request->id);
-                    $alquiler->id_residente=$request->id_residente;
-                    $alquiler->id_instalacion=$request->id_instalacion;
-                    $alquiler->tipo_alquiler=$request->tipo_alquiler;
-                    if($request->tipo_alquiler=="Temporal") {
-                        $alquiler->fecha=$request->fecha;
-                        $alquiler->hora=$request->hora;            
-                    }
-                    $alquiler->num_horas=$request->num_horas;
-                    if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
-                        $alquiler->status='Activo';
-                    }
-                    $alquiler->save();
-
-                    $pagos=PlanesPago::find($request->planP);
-                    if($request->admins_todos=="En Proceso"){
-                        \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id)
-                        ->update([
-                            'referencia'=> $request->referencia,
-                            'monto'     => $pagos->monto,
-                            'id_planesPago' => $request->planP,
-                            'status'=> "Pagado"
-                        ]);
-                    } else {
-                        \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id)
-                        ->update([
-                            'referencia'=> $request->referencia,
-                            'monto'     => $pagos->monto,
-                            'id_planesPago' => $request->planP,
-                            'status'=> "En Proceso"
-                        ]);
-                    }
-                    
-                    toastr()->success('con éxito!', 'Alquiler actualizado');
-                    return redirect()->to('alquiler');
                 }
             }
         }
