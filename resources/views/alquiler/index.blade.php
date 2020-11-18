@@ -424,6 +424,7 @@
                         @include('alquiler.layouts_arriendo.create')
                         @include('alquiler.layouts_arriendo.edit')
                         @include('alquiler.layouts_arriendo.edit_status')
+                        @include('alquiler.layouts_arriendo.edit_referencias')
                         @include('alquiler.layouts_arriendo.delete')
                     </div>
                 </div>
@@ -579,27 +580,29 @@
                                                             </span>
                                                         <i class="uil uil-angle-down"></i>
                                                     </button>
-
-                                                    <div data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
-                                                        <a class="dropdown-item" href="#" onclick="editarArriendo(
-                                                        '{{$key->id}}',
-                                                        '{{$key->id_residente}}',
-                                                        '{{$key->id_instalacion}}',
-                                                        '{{$key->tipo_alquiler}}',
-                                                        '{{$key->fecha}}',
-                                                        '{{$key->hora}}',
-                                                        '{{$key->num_horas}}',
-                                                        '{{$key->status}}',
-                                                        '{{$key2->status}}',
-                                                        '{{$key2->referencia}}',
-                                                        '{{$key2->id_planesPago}}'
-                                                        )">
+                                                    
+                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
+                                                            <a data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="dropdown-item" onclick="editarArriendo(
+                                                            '{{$key->id}}',
+                                                            '{{$key->id_residente}}',
+                                                            '{{$key->id_instalacion}}',
+                                                            '{{$key->tipo_alquiler}}',
+                                                            '{{$key->fecha}}',
+                                                            '{{$key->hora}}',
+                                                            '{{$key->num_horas}}',
+                                                            '{{$key->status}}',
+                                                            '{{$key2->status}}',
+                                                            '{{$key2->referencia}}',
+                                                            '{{$key2->id_planesPago}}'
+                                                            )">
                                                             <span class="PalabraEditarPago ">Arriendo</span>
                                                             <span class="PalabraEditarPago2 ">
                                                                 <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
                                                             </span>
                                                         </a>
-                                                        <a class="dropdown-item" href="#">Referencias</a>
+                                                        <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                            <span>Referencias</span>
+                                                        </a>
                                                     </div>
                                                 </div>
 
@@ -1445,6 +1448,50 @@
 
         $('#btnRegistrar_arriendo').fadeOut('fast');
         $('#example1_wrapper').fadeOut('fast');
+    }
+
+    function EditReferenciasArriendos(id_arriendo) {
+        $('#id_arriendoEditReferencia').val(id_arriendo);
+        $('#vistaRefeArriendosE').hide();
+        $('#cargandoRefeArriendos').css('display','block');
+        $('#btnRegistrar_arriendo').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
+
+        $('#codigoActualRefArr').empty();
+        
+
+        $.get("arriendos/"+id_arriendo+"/buscar_referencias",function (data) {
+        })
+        .done(function(data) {
+            if (data[0].refer!= null) {
+                console.log(data.length);
+                $('#codigoActualRefArr').append(
+                    '<center>'+
+                        '<div class="row">'+
+                            '<div class="col-md-12">'+
+                                '<div class="form-group">'+
+                                    '<label for="">Código de Refer. Actual</label>'+
+                                    '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</center>'
+                );
+            }else{
+                $('#codigoActualRefArr').append(
+                    '<h3 align="center">El alquiler no posee referencia</h3>'
+                );
+            }
+
+            $('#cargandoRefeArriendos').fadeOut('slow',
+                function() { 
+                    $(this).hide();
+                    $('#vistaRefeArriendosE').fadeIn(300);
+            });
+            // $('#cargandoRefeArriendos').fadeOut('fast');
+            // $('#codigoActualRefArr').fadeIn();
+
+        });
     }
   
 </script>

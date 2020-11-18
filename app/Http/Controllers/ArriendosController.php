@@ -314,4 +314,17 @@ class ArriendosController extends Controller
         }
         return redirect()->back();
     }
+
+
+    public function buscarResidentesArriendos($id)
+    {
+        // return 1;
+        return \DB::table('alquiler')
+        ->join('residentes','residentes.id','=','alquiler.id_residente')
+        ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
+        ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+        ->where('alquiler.id',$id)
+        ->select('residentes.*','instalaciones.nombre as instalacion','pagos_has_alquiler.referencia as refer')
+        ->get();
+    }
 }

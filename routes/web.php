@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('arriendos/{id_residente}/buscar_estacionamientos','ResidentesController@buscar_estacionamientos');
 	Route::get('arriendos/{id_residente}/buscar_estacionamientos2','ResidentesController@buscar_estacionamientos2');
 	Route::get('arriendos/{id_estacionamiento}/buscar_estacionamientos3','ResidentesController@buscar_estacionamientos3');
+	Route::get('arriendos/{id_arriendo}/buscar_referencias','ArriendosController@buscarResidentesArriendos');
 	Route::get('arriendos/{id_residente}/buscar_mr','ResidentesController@buscar_mr');
 	Route::post('arriendos/asignando','ArriendosController@asignando')->name('arriendos.asignando');
 

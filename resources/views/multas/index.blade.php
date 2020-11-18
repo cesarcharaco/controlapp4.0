@@ -383,7 +383,7 @@
         .done(function(data) {
             if(data.length>0){
                 for (var i = 0; i < data.length; i++) {
-                    alert(data[i].refer);
+                    // alert(data[i].refer);
                     if(data[i].id_pivot == id_pivot){
                         $('#codigoActualRef').append(
                             '<center>'+
@@ -391,7 +391,7 @@
                                     '<div class="col-md-12">'+
                                         '<div class="form-group">'+
                                             '<label for="">Código de Trans. Actual</label>'+
-                                            '<h3 align="center" class="text-warning">'+data[i].refer+'</h3>'+
+                                            '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
                                         '</div>'+
                                     '</div>'+
                                 '</div>'+
