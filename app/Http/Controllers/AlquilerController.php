@@ -187,10 +187,7 @@ class AlquilerController extends Controller
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();
                             }
-                        }
-
-
-                        
+                        }                        
 
                         $alquiler = new Alquiler();
                         $alquiler->id_residente=$request->id_residente;
@@ -201,26 +198,39 @@ class AlquilerController extends Controller
                             $alquiler->hora=$request->hora;            
                         }
                         $alquiler->num_horas=$request->num_horas;
-                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!=""){
+                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia=="" && $request->pago_realizado!=1){
+                            $alquiler->status='Inactivo';
+                        } else {
                             $alquiler->status='Activo';
                         }
                         $alquiler->save();
 
                         $pagos=PlanesPago::find($request->planP);
+                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
+                            \DB::table('pagos_has_alquiler')->insert([
+                                'referencia'=> $request->referencia,
+                                'monto'     => $pagos->monto,
+                                'id_alquiler' => $alquiler->id,
+                                'id_planesPago' => $request->planP,
+                                'status'=>'Pagado'
+                            ]);
+                        } else {
+                            \DB::table('pagos_has_alquiler')->insert([
+                                'referencia'=> $request->referencia,
+                                'monto'     => $pagos->monto,
+                                'id_alquiler' => $alquiler->id,
+                                'id_planesPago' => $request->planP,
+                                'status'=>'En Proceso'
+                            ]);
+                        }
 
-                        \DB::table('pagos_has_alquiler')->insert([
-                            'referencia'=> $request->referencia,
-                            'monto'     => $pagos->monto,
-                            'id_alquiler' => $alquiler->id,
-                            'id_planesPago' => $request->planP,
-                            'status'=>'En Proceso'
-                        ]);
+                        if ($request->pago_realizado==1 && $request->tipo_alquiler=="Permanente") {
+                            //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
+                            $instalacion=Instalaciones::find($alquiler->id_instalacion);
+                            $instalacion->status="Inactivo";
+                            $instalacion->save();                            
+                        }                        
 
-                        //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
-                        /*$instalacion=Instalaciones::find($alquiler->id_instalacion);
-                        $instalacion->status="Inactivo";
-                        $instalacion->save();
-                        */
                         toastr()->success('con éxito!', 'Alquiler registrada');
                         return redirect()->to('alquiler');
                     }
@@ -262,7 +272,6 @@ class AlquilerController extends Controller
                                 toastr()->warning('Alerta!', 'Para la fecha seleccionada no está disponible la instalación');
                                 return redirect()->back();  
                             }
-
                             
                             if(!$this->horasEntre($buscar->hora_desde,$buscar->hora_hasta,$request->hora)){
                                 toastr()->warning('Alerta!', 'Para la hora seleccionada no está disponible la instalación');
@@ -322,6 +331,22 @@ class AlquilerController extends Controller
             }
         }
     }
+
+    public function edit_ref_alquiler(Request $request)
+    {
+        if(!empty($request->referencia)){
+            toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+            return redirect()->back();
+        } else {
+            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id)
+            ->update([
+                'referencia'=> $request->ReferenciaNueva,
+            ]);
+
+            toastr()->success('con éxito!', 'Referencia de transacción actualizado satisfactoriamente');
+            return redirect()->to('alquiler');
+        }
+    }    
 
     public function eliminar_alquiler(Request $request)
     {
@@ -439,15 +464,22 @@ class AlquilerController extends Controller
 
     public function statusinstalacion(Request $request)
     {
-        //dd($request->all());
+        $buscar_alquiler = Alquiler::where('id_instalacion',$request->id)->where('status','Activo')->count();
+        //dd($buscar_alquiler);
+
         if ($request->status=="Activo") {
             $instalacion = Instalaciones::find($request->id);
             $instalacion->status='Inactivo';
             $instalacion->save();
         } else {
-            $instalacion = Instalaciones::find($request->id);
-            $instalacion->status='Activo';
-            $instalacion->save();
+            if($buscar_alquiler==1) {
+                toastr()->warning('Alerta!', 'Esta instalación posee un arriendo activo');
+                return redirect()->back();
+            } else {
+                $instalacion = Instalaciones::find($request->id);
+                $instalacion->status='Activo';
+                $instalacion->save();                
+            }
         }
         toastr()->success('con éxito!', 'Status cambiado satisfactoriamente');
         return redirect()->back();

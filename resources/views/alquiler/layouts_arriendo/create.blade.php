@@ -77,7 +77,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div class="form-group">
                     <label>Nro. de horas <b class="text-danger">*</b></label>
                     <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -88,15 +88,6 @@
                       </span>
                       <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" value="1" required>
                     </div>
-                  </div>                    
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select name="status" class="form-control select2" id="status_PlanP">
-                      <option value="Activo">Activo</option>
-                      <option value="Inactivo">Inactivo</option>
-                    </select>
                   </div>                    
                 </div>
               </div>
@@ -110,7 +101,7 @@
                         </div>
                         <div id="mostrarRefeC" class="mt-2 mb-2" style="display: none;">
                           <label>Referencia <b class="text-danger">*</b></label>
-                          <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" id="refeCreateA">
+                          <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" id="refeCreateA" placeholder="Ingrese número de referencia">
                         </div>
                     </div>
                     <div class="row">

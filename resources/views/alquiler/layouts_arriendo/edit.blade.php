@@ -98,7 +98,7 @@
                         <?php $num=0; ?>
                             @foreach($planesPago as $key)
                                 @if($num==0)
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
                                             <div class="card-body">
                                                 <div class="custom-control custom-radio mb-2">
@@ -116,7 +116,7 @@
                                         </div>
                                     </div>
                                 @else
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
                                             <div class="card-body">
                                                 <div class="custom-control custom-radio mb-2">

@@ -8,7 +8,7 @@
       </div>
     <div class="border card-body">
       
-      {!! Form::open(['route' => ['statusinstalacion'], 'method' => 'POST']) !!}
+      {!! Form::open(['route' => ['edit_ref_alquiler'], 'method' => 'POST']) !!}
         @csrf
         <center>
 	        <div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded">
@@ -27,7 +27,7 @@
 		                       <div class="col-md-12">
 		                           <div class="form-group">
 		                               <label for="">Código de Refer. Nueva <b class="text-danger">*</b></label>
-		                               <input type="text" name="ReferenciaNueva" class="form-control" required>
+		                               <input type="text" name="ReferenciaNueva" class="form-control" required placeholder="Ingrese su nueva referencia">
 		                           </div>
 		                       </div>
 		                   </div>
@@ -40,7 +40,6 @@
 	            </div>
 	        </div>
         </center>
-
       {!! Form::close() !!}
     </div>
   </div>

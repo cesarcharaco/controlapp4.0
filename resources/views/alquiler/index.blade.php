@@ -601,16 +601,18 @@
                                                                 <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
                                                             </span> -->
                                                         </a>
+                                                        @if($key2->status=="En Proceso")
                                                         <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
                                                             <span>Referencias</span>
                                                         </a>
+                                                        @endif
                                                     </div>
                                                 </div>
 
 
                                                 
                                             @endforeach()
-
+                                            {{--
                                             @if($key->status == 'Activo')
                                                 <a data-toggle="collapse" href="#statusArriendo" role="button" aria-expanded="false" aria-controls="statusArriendo"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
                                                     <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
@@ -630,6 +632,7 @@
                                                     </center>
                                                 </a>
                                             @endif
+                                            --}}
 
                                             <a data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
                                                 <span class="PalabraEditarPago ">Eliminar</span>
