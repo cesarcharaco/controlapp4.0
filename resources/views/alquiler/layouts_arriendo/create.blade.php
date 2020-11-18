@@ -36,7 +36,7 @@
                   <div class="form-group">
                     <label>Instalación <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required">
-                        <option disabled required>Seleccione instalación</option>
+                        <option disabled value="" selected="">Seleccione instalación</option>
                         @foreach($instalaciones as $key)
                         @if($key->status=="Activo")
                             <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
