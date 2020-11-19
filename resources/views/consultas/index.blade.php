@@ -34,7 +34,7 @@
                 @endif
                 @if(\Auth::user()->tipo_usuario != 'Admin')
                     <div class="row">
-                        <div class="col-md-6 col-xl-6">
+                        <div class="col-md-4 col-xl-4">
                             <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <input type="hidden" name="id_residente" id="id_reside" value="{{\Auth::user()->id}}">
                                 <div class="card-body p-0">
@@ -55,7 +55,28 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 col-xl-6">
+
+                        <div class="col-md-4 col-xl-4">
+                            <div class="card border border-success rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+                                <div class="card-body p-0">
+                                    <div class="media p-3">
+                                        <div class="media-body">
+                                            <span class="text-muted text-uppercase font-size-12 font-weight-bold">Pago de alquileres</span>
+                                            <!-- <h6 class="mb-0">Pagos retrasados: </h6> -->
+                                        </div>
+                                     
+                                        <div class="form-group">
+                                            <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
+                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoAlquileres()" class="btn btn-success">Pagar</a></h6>
+                                        </div>
+
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-4">
                             <div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <div class="card-body p-0">
                                     <div class="media p-3">
@@ -75,22 +96,6 @@
                             </div>
                         </div>
 
-                        <!-- <div class="col-md-6 col-xl-6">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <div class="media p-3">
-                                        <div class="media-body">
-                                            <span class="text-muted text-muted text-uppercase font-size-12 font-weight-bold">Multas asignadas</span>
-                                            <h6 class="mb-0">Total de multas: </h6>
-                                        </div>
-                                        
-                                        <div class="form-group">
-                                            <h6 class="mb-0"><a href="#" style="width: 100% !important; position: relative;" onclick="pagarMultasResidente()" class="btn btn-danger">Pagar</a></h6>
-                                        </div>
-                                    </div>
-                                </div>                            
-                            </div>
-                        </div> -->
                     </div>
                 @endif
             </div>
@@ -217,6 +222,8 @@
 
 
     @include('consultas.layouts.editar_referencias')
+    @include('consultas.layouts.pagar_alquiler')
+    
 @endsection
 
 
@@ -358,6 +365,67 @@
 
         });
     }
+
+    function pagoAlquileres() {
+        $('#example3_wrapper').hide();
+        var id_residente= $('#id_reside').val();
+        $('#cargandoPagoAlquileres').show();
+        $('#pagarAlquilerResidente').modal('show');
+        $('#mostrarAlquileresR').empty();
+
+        $.get("residentes/"+id_residente+"/buscar_alquileres",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length > 0) {
+                $('#example3_wrapper').show();
+
+                for (var i = 0; i < data.length; i++) {
+                    $('#mostrarAlquileresR').append(
+                        '<tr>'+
+                            '<td colsan="1" colspan="1">'+data[i].nombre+'<td>'+
+                            '<td>'+data[i].tipo_alquiler+'<td>'+
+                            '<td>'+data[i].plan_pago+'<td>'+
+                            '<td>'+data[i].refer+'<td>'+
+                            '<td>'+data[i].status+'<td>'+
+                            '<td>Pagar<td>'+
+                        '</tr>'
+                    );
+                }
+
+                if (i == data.length) {
+                    $("#tablaArriendosR").DataTable({
+                        "responsive": true,
+                        "autoWidth": true,
+                        // language: {
+                        //     "decimal": "",
+                        //     "emptyTable": "No hay información",
+                        //     "info": "Mostrando la página _PAGE_ de _PAGES_",
+                        //     "infoEmpty": "Mostrando 0 de 0 Entradas",
+                        //     "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        //     "infoPostFix": "",
+                        //     "thousands": ",",
+                        //     "lengthMenu": "Mostrar _MENU_ Entradas",
+                        //     "loadingRecords": "Cargando...",
+                        //     "processing": "Procesando...",
+                        //     "search": "",
+                        //     "zeroRecords": "Sin resultados encontrados",
+                        //     "first": "Primero",
+                        //     "last": "Ultimo",
+                        //     "next": "Próximo",
+                        //     "previous": "Anterior",
+                        // }
+                    });
+                }
+            }else{
+                $('#MensajeBsucarArriendo').empty();
+                $('#MensajeBsucarArriendo').append('<h3>No tiene asignado ningún alquiler</h3>');
+            }
+            $('#cargandoPagoAlquileres').hide();
+        });
+        
+    }
+
 </script>
 @section('scripts')
 
