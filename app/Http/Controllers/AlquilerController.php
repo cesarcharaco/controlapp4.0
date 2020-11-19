@@ -220,7 +220,7 @@ class AlquilerController extends Controller
                                 'monto'     => $pagos->monto,
                                 'id_alquiler' => $alquiler->id,
                                 'id_planesPago' => $request->planP,
-                                'status'=>'En Proceso'
+                                'status'=>'No Pagado'
                             ]);
                         }
 
@@ -320,7 +320,7 @@ class AlquilerController extends Controller
                                 'referencia'=> $request->referencia,
                                 'monto'     => $pagos->monto,
                                 'id_planesPago' => $request->planP,
-                                'status'=> "En Proceso"
+                                'status'=> "No Pagado"
                             ]);
                         }
                         
@@ -334,7 +334,7 @@ class AlquilerController extends Controller
 
     public function edit_ref_alquiler(Request $request)
     {
-        if(!empty($request->referencia)){
+        if(empty($request->ReferenciaNueva)){
             toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
             return redirect()->back();
         } else {
@@ -344,9 +344,27 @@ class AlquilerController extends Controller
             ]);
 
             toastr()->success('con éxito!', 'Referencia de transacción actualizado satisfactoriamente');
-            return redirect()->to('alquiler');
+            return redirect()->back();
         }
-    }    
+    }
+
+    public function pagar_alquiler_resi(Request $request)
+    {
+        //dd($request->all());
+        if(empty($request->referencia)){
+            toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+            return redirect()->back();
+        } else {
+            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+            ->update([
+                'referencia'=> $request->referencia,
+                'status'=> "En Proceso"
+            ]);
+
+            toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');
+            return redirect()->back();
+        }
+    }
 
     public function eliminar_alquiler(Request $request)
     {

@@ -13,7 +13,7 @@
                 </button>
             </div>
             <div class="modal-body">
-			    {!! Form::open(['route' => ['statusinstalacion'], 'method' => 'POST']) !!}
+			    {!! Form::open(['route' => ['pagar_alquiler_resi'], 'method' => 'POST']) !!}
 			        @csrf
 			        <center>
 			        	<div id="example3_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">

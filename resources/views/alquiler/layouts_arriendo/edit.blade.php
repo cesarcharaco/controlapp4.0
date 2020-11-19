@@ -81,13 +81,13 @@
             <div class="tab-pane fade" id="pills-pagoE" role="tabpanel" aria-labelledby="pills-pago-tab">
                 <center>
                     <div class="form-group" id="pagoRealizado">
-                            <div>                  
-                                <label for="admins_todos">¿Se realizó el pago?</label>
-                                <input type="checkbox" name="admins_todos" id="pagadoArriendoE"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
-                            </div>
-                            <div>  
-                                <span id="pagadoArriendoE2"></span>
-                            </div>
+                      <div>                  
+                          <label for="admins_todos">¿Se realizó el pago?</label>
+                          <input type="checkbox" name="admins_todos" id="pagadoArriendoE"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
+                      </div>
+                      <div>  
+                          <span id="pagadoArriendoE2"></span>
+                      </div>
                     </div>
                     <br>
                     <div class="form-group">

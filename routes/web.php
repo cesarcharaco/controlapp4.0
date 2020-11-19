@@ -155,6 +155,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::post('statusinstalacion', 'AlquilerController@statusinstalacion')->name('statusinstalacion');
 	Route::post('eliminarInstalacion', 'AlquilerController@eliminarInstalacion')->name('eliminarInstalacion');
 	Route::post('edit_ref_alquiler', 'AlquilerController@edit_ref_alquiler')->name('edit_ref_alquiler');
+	Route::post('pagar_alquiler_resi', 'AlquilerController@pagar_alquiler_resi')->name('pagar_alquiler_resi');
 
 	route::resource('empresas','EmpresasController');
 

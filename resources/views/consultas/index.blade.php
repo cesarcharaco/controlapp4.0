@@ -34,7 +34,7 @@
                 @endif
                 @if(\Auth::user()->tipo_usuario != 'Admin')
                     <div class="row">
-                        <div class="col-md-4 col-xl-4">
+                        <div class="col-md-6 col-xl-6">
                             <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <input type="hidden" name="id_residente" id="id_reside" value="{{\Auth::user()->id}}">
                                 <div class="card-body p-0">
@@ -56,7 +56,7 @@
                         </div>
 
 
-                        <div class="col-md-4 col-xl-4">
+                        <div class="col-md-6 col-xl-6">
                             <div class="card border border-success rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <div class="card-body p-0">
                                     <div class="media p-3">
@@ -68,15 +68,18 @@
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
                                             <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoAlquileres()" class="btn btn-success">Pagar</a></h6>
+                                        </div>&nbsp;
+                                        <div class="form-group">
+                                            <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
+                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar referencias</a></h6>
                                         </div>
-
                                     
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4 col-xl-4">
+                        {{--<div class="col-md-4 col-xl-4">
                             <div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <div class="card-body p-0">
                                     <div class="media p-3">
@@ -94,7 +97,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>--}}
 
                     </div>
                 @endif
@@ -401,8 +404,13 @@
                         var nombre= data[i].nombre;
                         var pagar = '<a href="#" class="btn btn-warning" onclick="PagarAlquileres2('+data[i].id_alquiler+')">Pagar</a>';
                     }else{
-                        var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
-                        var pagar = '<span class="text-success">Pagado</span>';
+                        if(data[i].status == 'En Proceso'){
+                            var nombre= '<span class="text-warning">'+data[i].nombre+'</span>';
+                            var pagar = '<span class="text-warning">Su pago esta siendo verificado</span>';
+                        } else if(data[i].status == 'Pagado') {
+                            var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
+                            var pagar = '<span class="text-success">Alquiler pagado</span>';
+                        }
                     }
                     $('#mostrarAlquileresR').append(
                         '<tr>'+
