@@ -351,6 +351,8 @@
                         '</div>'+
                     '</center>'
                 );
+
+                $('#id_arriendoEditReferencia').val(data[0].id_alquiler);
             }else{
                 $('#codigoActualRefArr2').append(
                     '<h3 align="center">El residente no posee instalaciones</h3>'

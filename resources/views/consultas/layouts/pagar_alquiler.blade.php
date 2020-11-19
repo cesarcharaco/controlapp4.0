@@ -27,7 +27,7 @@
 			        			<label>Referencia</label>
 			        			<input type="text" name="referencia" placeholder="Nro. de referencia" id="referencia_p_arriendos" maxlength="20" max="20" class="form-control border border-primary" required="required">
 			        		</div>
-			        		<input type="hidden" name="id_alquiler" id="id_alquier_arriendo">
+			        		<input type="text" name="id_alquiler" id="id_alquier_arriendo">
 			        		<button type="submit" class="btn btn-danger">Pagar</button>
 			        	</div>
 			        </center>
