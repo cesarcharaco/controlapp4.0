@@ -60,13 +60,13 @@
                                 <div class="card-body p-0">
                                     <div class="media p-3">
                                         <div class="media-body">
-                                            <span class="text-muted text-uppercase font-size-12 font-weight-bold">Pago de arriendo</span>
+                                            <span class="text-muted text-uppercase font-size-12 font-weight-bold">Editar referencias</span>
                                             <!-- <h6 class="mb-0">Pagos retrasados: </h6> -->
                                         </div>
                                      
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Pagar</a></h6>
+                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar</a></h6>
                                         </div>
 
                                     
