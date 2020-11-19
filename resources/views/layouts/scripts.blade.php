@@ -201,6 +201,10 @@
 	        "processing": "Procesando...",
 	        "search": "",
 	        "zeroRecords": "Sin resultados encontrados",
+	        "first": "Primero",
+	        "last": "Ultimo",
+	        "next": "Próximo",
+	        "previous": "Anterior",
 	        
 	        }
 		});
@@ -229,6 +233,10 @@
 	        "processing": "Procesando...",
 	        "search": "",
 	        "zeroRecords": "Sin resultados encontrados",
+	        "first": "Primero",
+	        "last": "Ultimo",
+	        "next": "Próximo",
+	        "previous": "Anterior",
 	        
 	        }
 
