@@ -15,7 +15,7 @@
 
 
 
-<!-- <script src="{{ asset('assets/js/data-table/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('assets/js/data-table/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/data-table/buttons.bootstrap4.min.js') }}"></script>
 <script src="{{ asset('assets/js/data-table/buttons.flash.min.js') }}"></script>
 <script src="{{ asset('assets/js/data-table/buttons.html5.min.js') }}"></script>
@@ -27,13 +27,21 @@
 <script src="{{ asset('assets/js/data-table/dataTables.select.min.js') }}"></script>
 <script src="{{ asset('assets/js/data-table/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('assets/js/data-table/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/four_button.js') }}"></script> -->
+<script src="{{ asset('assets/js/data-table/four_button.js') }}"></script>
 
 
-<script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}" defer></script>
+<!-- <script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.js') }}" defer></script>
 <script src="{{ asset('plugins/dataTables/dataTables.responsive.min.js') }}" defer></script>
-<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script>
+<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script> -->
+
+
+
+<!-- <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/1.10.22/js/dataTables.dataTables.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js" defer></script> -->
+<!-- <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js" defer></script> -->
+
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
@@ -190,6 +198,8 @@
 		}else{
 			colorPaginador = "background-color: aqua";
 		}
+
+		$("#example1").DataTable();
 
 		$('.data-table-basic').DataTable({
 	        "pageLength": 30,

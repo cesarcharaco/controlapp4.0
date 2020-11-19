@@ -55,6 +55,26 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6 col-xl-6">
+                            <div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+                                <div class="card-body p-0">
+                                    <div class="media p-3">
+                                        <div class="media-body">
+                                            <span class="text-muted text-uppercase font-size-12 font-weight-bold">Pago de arriendo</span>
+                                            <!-- <h6 class="mb-0">Pagos retrasados: </h6> -->
+                                        </div>
+                                     
+                                        <div class="form-group">
+                                            <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
+                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Pagar</a></h6>
+                                        </div>
+
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- <div class="col-md-6 col-xl-6">
                             <div class="card">
                                 <div class="card-body p-0">
@@ -200,6 +220,8 @@
         </div>
     {!! Form::close() !!}
 
+
+    @include('consultas.layouts.editar_referencias')
 @endsection
 
 
@@ -243,6 +265,103 @@
         $('#editarReferenciaPC').modal('show');
         $('#CodeRefActual').html(codigo_referencia);
         $('#id_pago').val(id_pago);
+    }
+
+
+    function pagoArriendos() {
+        $('#selectInstalacionesArr').hide();
+        $('#editar_referencia_residente').modal('show');
+        $('#vistaRefeArriendosE').hide();
+        $('#cargandoRefeArriendos').css('display','block');
+
+        $('#codigoActualRefArr2').empty();
+        $('#codigoActualRefArr').empty();
+        $('#id_instalacion_arriendos').empty();
+        var id_residente= $('#id_reside').val();
+
+        $.get("residentes/"+id_residente+"/buscar_referencias",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length > 0) {
+                $('#selectInstalacionesArr').fadeIn(300);
+                $('#cargandoRefeArriendos').fadeOut('slow');
+                $('#id_instalacion_arriendos').append(
+                        '<option selected disabled>Seleccione instalación</option>'
+                    );
+                for (var i = 0; i < data.length; i++) {
+                    $('#id_instalacion_arriendos').append(
+                        '<option value="'+data[i].id+'">'+data[i].nombre+' - '+data[i].status+'</option>'
+                    );
+                }
+                // $('#codigoActualRefArr').append(
+                //     '<center>'+
+                //         '<div class="row">'+
+                //             '<div class="col-md-12">'+
+                //                 '<div class="form-group">'+
+                //                     '<label for="">Código de Refer. Actual</label>'+
+                //                     '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                //                 '</div>'+
+                //             '</div>'+
+                //         '</div>'+
+                //     '</center>'
+                // );
+            }else{
+                $('#codigoActualRefArr2').append(
+                    '<h3 align="center">El residente no posee instalaciones</h3>'
+                );
+                $('#cargandoRefeArriendos').fadeOut('slow');
+            }
+
+            // $('#cargandoRefeArriendos').fadeOut('slow',
+            //     function() { 
+            //         $(this).hide();
+            //         $('#vistaRefeArriendosE').fadeIn(300);
+            // });
+            // $('#cargandoRefeArriendos').fadeOut('fast');
+            // $('#codigoActualRefArr').fadeIn();
+
+        });
+    }
+
+    function buscarReferenciasInsta(id_instalacion) {
+        $('#cargandoRefeArriendos').fadeIn(300);
+        $('#codigoActualRefArr').empty();
+        $('#ReferenciaNueva').val(null);
+        $.get("residentes/"+id_instalacion+"/buscar_referencias2",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length > 0) {
+
+                $('#codigoActualRefArr').append(
+                    '<center>'+
+                        '<div class="row">'+
+                            '<div class="col-md-12">'+
+                                '<div class="form-group">'+
+                                    '<label for="">Código de Refer. Actual</label>'+
+                                    '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</center>'
+                );
+            }else{
+                $('#codigoActualRefArr2').append(
+                    '<h3 align="center">El residente no posee instalaciones</h3>'
+                );
+                $('#cargandoRefeArriendos').fadeOut('slow');
+            }
+
+            $('#cargandoRefeArriendos').fadeOut('slow',
+                function() { 
+                    $(this).hide();
+                    $('#vistaRefeArriendosE').fadeIn(300);
+            });
+            // $('#cargandoRefeArriendos').fadeOut('fast');
+            // $('#codigoActualRefArr').fadeIn();
+
+        });
     }
 </script>
 @section('scripts')
