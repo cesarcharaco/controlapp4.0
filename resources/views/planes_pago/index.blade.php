@@ -1,73 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-     <style type="text/css">
-        .card {
-            border: 1px solid #f6f6f7!important;
-            border-color: #43d39e !important;
-        }
-        .palabraVerPlanesPago2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
-
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerPlanesPago{
-                display: none;
-            }
-            .palabraVerPlanesPago2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .botonesEditEli{
-                width: 15px;
-                height: 15px;
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .botonesEditEli{
-                width: 30px;
-                height: 30px;
-                margin-top: 5px;
-                    
-            }
-        }
-
-    </style>
+     
     <input type="hidden" id="colorView" value="#43d39e !important">
     <div class="container">
         <div class="row page-title">
@@ -125,7 +59,6 @@
 	        <div class="row justify-content-center">
 			    <div class="col-md-12">
 			    	<div class="listarPlanPago" id="listarPlanPago">
-				        <div class="row justify-content-center">
 				            <div class="col-md-12">
 				                <div class="row">
 				                    <div class="col-md-12 offset-md-12">
@@ -139,170 +72,78 @@
 				                            border: 1px solid #f6f6f7!important;
 				                            border-color: #43d39e !important;
 				                            background-color: #43d39e !important">
-				                            <span class="PalabraEditarPago text-white">Nuevo Plan de pago</span>
-				                            <center>
-				                                <span class="PalabraEditarPago2 text-white">
-				                                    <i data-feather="plus" class="iconosMetaforas2"></i>
-				                                </span>
-				                            </center>
+				                            <span class=" text-white"><i data-feather="plus"></i>Nuevo Plan de pago</span>
 				                        </a>
 				                    </div>
 				                </div>
 				            </div>
 				            <div class="row">
-				            	<div class="col-md-12" style="position: relative !important;">
-						            <div id="example1_wrapper">
-							            <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+				            	<div class="col-md-12">
+						            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
 							                <thead>
-							                    <tr class="table-default text-white">
-							                        <td colspan="5" align="center">
-						                                <div class="card border border-info" role="alert">
-						                                    <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione un plan de pago para ver mas opciones.</span>
-						                                </div>
-						                            </td>
-							                    </tr>
-							                    <tr class="text-white" id="th1" style="background-color: #43d39e;">
-							                        <th>
-							                            <span class="PalabraEditarPago">Nombre</span>
-							                            <span class="PalabraEditarPago2">N</span>
-							                        </th>
-							                        <th>
-							                            <span class="PalabraEditarPago">Monto</span>
-							                            <span class="PalabraEditarPago2">
-							                            	<i data-feather="dollar-sign" class="iconosMetaforas2"></i>
-							                            </span>
-							                        </th>
-							                        <th>
-							                            <span class="PalabraEditarPago">Dias</span>
-							                            <span class="PalabraEditarPago2">
-							                            	<i data-feather="calendar" class="iconosMetaforas2"></i>
-							                            </span>
-							                        </th>
-							                        <!-- <th>Estacionamientos</th> -->
-							                        <th></th>
-							                        <th>
-							                            <span class="PalabraEditarPago">Status</span>
-							                            <span class="PalabraEditarPago2">
-							                                <i data-feather="sliders" class="iconosMetaforas2"></i>
-							                            </span>
-							                        </th>
-							                        <!-- <th>Mensualidades</th> -->
-							                    </tr>
-							                    <tr class="bg-primary text-white" id="th2" style="display: none">
-							                        <th width="10"></th>
-							                        <th>
-							                            <span class="PalabraEditarPago">Nombre</span>
-							                            <span class="PalabraEditarPago2">N</span>
-							                        </th>
-							                        <th>
-							                            <center>
-							                                <span class="PalabraEditarPago">Opciones</span>
-							                                <span class="PalabraEditarPago2">
-							                                    <i data-feather="settings" class="iconosMetaforas2"></i>
-							                                </span>
-							                            </center>
-							                        </th>
-							                        <th></th>
-							                        <th>
-							                            <span class="PalabraEditarPago">Status</span>
-							                            <span class="PalabraEditarPago2">
-							                                <i data-feather="sliders" class="iconosMetaforas2"></i>
-							                            </span>
-							                        </th>
+							                    <tr>
+							                    	<th>#</th>
+							                        <th>Nombre</th>
+							                        <th>Monto</th>
+							                        <th>Dias</th>
+							                        <th>Imagen</th>
+							                        <th>Status</th>
+							                        <th>Opciones</th>
 							                    </tr>
 							                </thead>
 							                <tbody>
 							                    @php $num=0 @endphp
 							                    @foreach($planes_pago as $key)
-							                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
-							                    		<td align="center">{{$key->nombre}}</td>
-					                                    <td align="center">{{$key->monto}} $</td>
-					                                    <td align="center">{{$key->dias}}</td>
-							                    		<td align="center">
+							                    	<tr>
+							                    		<td>{{$num=$num+1}}</td>
+							                    		<td>{{$key->nombre}}</td>
+					                                    <td>{{$key->monto}} $</td>
+					                                    <td>{{$key->dias}}</td>
+							                    		<td>
 							                    			<img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:50%;max-width:640px;">
 							                    		</td>
 					                                    @if($key->status == 'Activo')
 					                                        <td style="position: all;">
-				                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-				                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
+				                                                <span class="text-success"><strong>Activo</strong></span>
 					                                        </td>
 					                                    @else
 					                                        <td style="position: all;">
-				                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-				                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
+				                                                <span class="text-danger"><strong>Inactivo</strong></span>
 					                                        </td>
 					                                    @endif
-							                    	</tr>
-							                    	<tr class="vista2-{{$key->id}}" class="table-success" style="display: none;">
-				                                    <td>
-				                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
-				                                            <span class="PalabraEditarPago ">Regresar</span>
-				                                            <center>
-				                                                <span class="PalabraEditarPago2 ">
-				                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-				                                                </span>
-				                                            </center>
-				                                        </button>
-				                                    </td>
-				                                    <td>
-				                                        	
-				                                        <span>{{$key->nombre}}</span>
-				                                    </td>
-				                                    <td>
-				                                        <span>{{$key->monto}}</span>
-				                                    </td>
-				                                    <td colspan="2" align="center">
+					                                    <td>
+					                                       	<a data-toggle="collapse" href="#editarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-warning btn-sm" onclick="editarPlanP(
+					                                       '{{$key->id}}',
+					                                       '{{$key->nombre}}',
+					                                       '{{$key->monto}}',
+					                                       '{{$key->dias}}',
+					                                       '{{$key->color}}',
+					                                       '{{$key->tipo}}',
+					                                       '{{$key->status}}',
+					                                       '{{$key->url_img}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
+					                                            <span ><i data-feather="edit"></i>Editar</span>
+					                                        </a>
 
-				                                       <a data-toggle="collapse" href="#editarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-warning btn-sm" onclick="editarPlanP(
-				                                       '{{$key->id}}',
-				                                       '{{$key->nombre}}',
-				                                       '{{$key->monto}}',
-				                                       '{{$key->dias}}',
-				                                       '{{$key->color}}',
-				                                       '{{$key->tipo}}',
-				                                       '{{$key->status}}',
-				                                       '{{$key->url_img}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
-				                                            <span class="PalabraEditarPago ">Editar</span>
-				                                            <center>
-				                                                <span class="PalabraEditarPago2 ">
-				                                                    <i data-feather="edit" class="iconosMetaforas2"></i>
-				                                                </span>
-				                                            </center>
-				                                        </a>
-				                                    <a data-toggle="collapse" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar plan de pago">
-				                                            <span class="PalabraEditarPago ">Eliminar</span>
-				                                            <center>
-				                                                <span class="PalabraEditarPago2 ">
-				                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-				                                                </span>
-				                                            </center>
-				                                        </a>
-				                                    </td>
-				                                    <td style="display: none"></td>
-				                                    
 
-				                                </tr>
-							                        <tr style="display: none;">
-							                            <td></td>
-							                            <td></td>
-							                            <td></td>
-							                            <td></td>
-							                            <td></td>
-							                        </tr>
+					                                    	<a data-toggle="collapse" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar plan de pago">
+					                                            <span ><i data-feather="trash"></i>Eliminar</span>
+					                                        </a>
+					                                    </td>
+							                    	</tr>							                    	
 							                    @endforeach()
 							                </tbody>
 							            </table>
 							        </div>
 				            	</div>
 				            </div>
-				        </div>
 				    </div>
 			    </div>
 		    </div>
 	    </div>
     </div>
-    <div class="vistaPromociones" style="display: none;">
-    	<div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;border: 1px solid #f6f6f7!important;border-color: #ff7043 !important;">
+    <div class="vistaPromociones">
+    	<div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="border: 1px solid #f6f6f7!important;border-color: #ff7043 !important;">
     		<div class="row justify-content-center">
 			    <div class="col-md-12">
 			    	<div style="width: 100%;">
@@ -330,149 +171,55 @@
 				                            border-color: #ff7043 !important;
 				                            background-color: #ff7043 !important;
 				                            ">
-				                            <span class="PalabraEditarPago text-white">Nueva Promoción</span>
-				                            <center>
-				                                <span class="PalabraEditarPago2 text-white">
-				                                    <i data-feather="plus" class="iconosMetaforas2"></i>
-				                                </span>
-				                            </center>
+				                            <span class=" text-white"><i data-feather="plus"></i>Nueva Promoción</span>
 				                        </a>
 				                    </div>
 				                </div>
 				            </div>
-				            <div id="example2_wrapper">
-					            <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+				            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                                <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
 					                <thead>
-					                    <tr class="text-white">
-					                        <td colspan="4" align="center">
-				                                <div class="card border border-info" style="border-color: #ff7043 !important;" role="alert">
-				                                    <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione una promoción para ver mas opciones.</span>
-				                                </div>
-				                            </td>
-					                    </tr>
-					                    <tr class="text-white" id="th1-2" style="background-color: #ff7043 !important;">
-					                        <th>
-					                            <span class="PalabraEditarPago">Plan de pago</span>
-					                            <span class="PalabraEditarPago2">Plan P</span>
-					                        </th>
-					                        <th>
-					                            <span class="PalabraEditarPago">Porcentaje</span>
-					                            <span class="PalabraEditarPago2">
-					                            	<i data-feather="percent" class="iconosMetaforas2"></i>
-					                            </span>
-					                        </th>
-					                        <th>
-					                            <span class="PalabraEditarPago">Duracion</span>
-					                            <span class="PalabraEditarPago2">
-					                            	<i data-feather="calendar" class="iconosMetaforas2"></i>
-					                            </span>
-					                        </th>
-					                        <th>
-					                            <span class="PalabraEditarPago">Status</span>
-					                            <span class="PalabraEditarPago2">
-					                                <i data-feather="sliders" class="iconosMetaforas2"></i>
-					                            </span>
-					                        </th>
-					                        <!-- <th>Mensualidades</th> -->
-					                    </tr>
-					                    <tr class="bg-primary text-white" id="th2-2" style="display: none">
-					                        <th width="10"></th>
-					                        <th>
-					                            <span class="PalabraEditarPago">Plan de pago</span>
-					                            <span class="PalabraEditarPago2">Plan P</span>
-					                        </th>
-					                        <th>
-					                            <center>
-					                                <span class="PalabraEditarPago">Opciones</span>
-					                                <span class="PalabraEditarPago2">
-					                                    <i data-feather="settings" class="iconosMetaforas2"></i>
-					                                </span>
-					                            </center>
-					                        </th>
-					                        <th>
-					                            <span class="PalabraEditarPago">Status</span>
-					                            <span class="PalabraEditarPago2">
-					                                <i data-feather="sliders" class="iconosMetaforas2"></i>
-					                            </span>
-					                        </th>
+					                    <tr style="background-color: #ff7043 !important;">
+					                        <th>Plan de pago</th>
+					                        <th>Porcentaje</th>
+					                        <th>Duracion</th>
+					                        <th>Status</th>
+					                        <th>Opciones</th>
 					                    </tr>
 					                </thead>
 					                <tbody>
 					                    @php $num=0 @endphp
 					                    @foreach($promociones as $key)
-					                    	<tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
-					                    		<td align="center">{{$key->planP->nombre}}</td>
-			                                    <td align="center">{{$key->porcentaje}} %</td>
-			                                    <td align="center">{{$key->duracion}} días</td>
+					                    	<tr>
+					                    		<td>{{$key->planP->nombre}}</td>
+			                                    <td>{{$key->porcentaje}} %</td>
+			                                    <td>{{$key->duracion}} días</td>
 			                                    @if($key->status == 'Activo')
 			                                        <td style="position: all;">
-		                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-		                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
+		                                                <span class="text-success"><strong>Activo</strong></span>
 			                                        </td>
 			                                    @else
 			                                        <td style="position: all;">
-		                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-		                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
+		                                                <span class="text-danger"><strong>Inactivo</strong></span>
 			                                        </td>
 			                                    @endif
+			                                    <td align="center">
+
+			                                       <a data-toggle="collapse" href="#editarPromocion" role="button" aria-expanded="false" aria-controls="editarPromocion" class="btn btn-warning btn-sm" onclick="editarPromocion(
+			                                       '{{$key->id}}',
+			                                       '{{$key->planP->id}}',
+			                                       '{{$key->porcentaje}}',
+			                                       '{{$key->duracion}}',
+			                                       '{{$key->status}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
+			                                            <span><i data-feather="edit"></i>Editar</span>
+			                                        </a>
+
+			                                    	<a data-toggle="collapse" href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar promoción">
+			                                            <span><i data-feather="trash"></i>Eliminar</span>
+			                                        </a>
+			                                    </td>
 					                    	</tr>
-					                    	<tr class="vista2-{{$key->id}}" class="table-success" style="display: none;">
-		                                    <td>
-		                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-		                                            <span class="PalabraEditarPago ">Regresar</span>
-		                                            <center>
-		                                                <span class="PalabraEditarPago2 ">
-		                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-		                                                </span>
-		                                            </center>
-		                                        </button>
-		                                    </td>
-		                                    <td>{{$key->planP->nombre}}</td>
-		                                    <td align="center">
-
-		                                       <a data-toggle="collapse" href="#editarPromocion" role="button" aria-expanded="false" aria-controls="editarPromocion" class="btn btn-warning btn-sm" onclick="editarPromocion(
-		                                       '{{$key->id}}',
-		                                       '{{$key->planP->id}}',
-		                                       '{{$key->porcentaje}}',
-		                                       '{{$key->duracion}}',
-		                                       '{{$key->status}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
-		                                            <span class="PalabraEditarPago ">Editar</span>
-		                                            <center>
-		                                                <span class="PalabraEditarPago2 ">
-		                                                    <i data-feather="edit" class="iconosMetaforas2"></i>
-		                                                </span>
-		                                            </center>
-		                                        </a>
-		                                    <a data-toggle="collapse" href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar promoción">
-		                                            <span class="PalabraEditarPago ">Eliminar</span>
-		                                            <center>
-		                                                <span class="PalabraEditarPago2 ">
-		                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-		                                                </span>
-		                                            </center>
-		                                        </a>
-		                                    </td>
-		                                    @if($key->status == 'Activo')
-			                                        <td style="position: all;">
-		                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-		                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
-			                                        </td>
-			                                    @else
-			                                        <td style="position: all;">
-		                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-		                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
-			                                        </td>
-			                                    @endif
-
-		                                    
-
-		                                </tr>
-					                        <tr style="display: none;">
-					                            <td></td>
-					                            <td></td>
-					                            <td></td>
-					                            <td></td>
-					                        </tr>
+					                    	
 					                    @endforeach()
 					                </tbody>
 					            </table>

@@ -272,12 +272,17 @@
 
 	    $('.dataTables_length').css('display','none');
 	    $('.dataTables_info').attr('align','center');
-	    
+
 	    $('#tablaInstalaciones').hide();
         $('#tablaArriendos').hide();
         $('#tablaControl').hide();
 
+		$('.vistaPromociones').hide();
+
+
 	    // $('.dataTables_paginate').removeChild('span');
+		$('#tablaAnucios').hide();
+		$('#tablaEmpresas').hide();
 	    $('.card').fadeIn(500);
 
 	    // $('.paginate_button').addClass('btn btn-sm text-dark').attr('onclick="paginateButton();"');

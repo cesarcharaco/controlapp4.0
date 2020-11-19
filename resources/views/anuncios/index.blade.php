@@ -2,100 +2,21 @@
 
 @section('content')
 
-        <style type="text/css">
+<style type="text/css">
+    .card-header, .card-footer{        
+        /*-webkit-linear-gradient(to left, #d87602, #d64322);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;*/
 
+        /*background-image:
+        linear-gradient(to right, white, gray);*/
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: gray;
+        font: 18px Arial, sans-serif;
+    }
+</style>
 
-
-        .card-header, .card-footer{        
-            /*-webkit-linear-gradient(to left, #d87602, #d64322);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;*/
-
-            /*background-image:
-            linear-gradient(to right, white, gray);*/
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            color: gray;
-            font: 18px Arial, sans-serif;
-        }
-        .palabraVerInmueble2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
-
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerInmueble{
-                display: none;
-            }
-            .palabraVerInmueble2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-            .imagenAnun3{
-                width: 30%;
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .botonesEditEli{
-                width: 15px;
-                height: 15px;
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-            .imagenAnun2{
-                width: 30%;
-            }
-            .imagenAnun3{
-                width: 20%;
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .botonesEditEli{
-                width: 30px;
-                height: 30px;
-                margin-top: 5px;
-                    
-            }
-            .imagenAnun2{
-                width: 30%;
-            }
-            .imagenAnun3{
-                width: 20%;
-            }
-        }
-
-
-    </style>
 <div class="container">
     <input type="hidden" id="colorView" value="#25c2e3 !important">
 
@@ -167,7 +88,7 @@
             </div>
         </div>
     @endif
-    <div id="tablaAnucios" style="display: none;">
+    <div id="tablaAnucios">
         <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded tabla-estilo">
             <div class="row justify-content-center">
                 <div class="col-md-12">
@@ -180,12 +101,7 @@
                                 margin-bottom: 5px;
                                 margin-top: 5px;
                                 float: right;">
-                                <span class="PalabraEditarPago ">Nuevo Anuncio</span>
-                                <center>
-                                    <span class="PalabraEditarPago2 ">
-                                        <i data-feather="plus" class="iconosMetaforas2"></i>
-                                    </span>
-                                </center>
+                                <span><i data-feather="plus"></i>Nuevo Anuncio</span>
                             </a>
                         </div>
                     </div>
@@ -193,133 +109,52 @@
                 
 
                 <div class="col-md-8">
-                    <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
-                         <thead>
-                            <tr class="table-default text-white">
-                                <td colspan="5" align="center">
-                                    <div class="card border border-info" style="background-color: #D6EAF8" role="alert">
-                                        <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione un anuncio para ver mas opciones.</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-primary text-white" id="th2" style="display: none">
-                                <th width="10"></th>
-                                <th>
-                                    <span class="PalabraEditarPago">Título</span>
-                                    <span class="PalabraEditarPago2">T</span>
-                                </th>
-                                <th>
-                                    <span class="PalabraEditarPago">URL</span>
-                                    <span class="PalabraEditarPago2">@</span>
-                                </th>
-                                <th colspan="2">
-                                    <center>
-                                        <span class="PalabraEditarPago">Opciones</span>
-                                        <span class="PalabraEditarPago2">O</span>
-                                    </center>
-                                </th>
-                            </tr>
-                            <tr class="bg-info text-white" id="th1">
-                                <th>#</th>
-                                <th>
-                                    <span class="tituloTabla">Título</span>
-                                    <span class="tituloTabla2">T</span>
-                                </th>
-                                <th>
-                                    <span class="tituloTabla">URL</span>
-                                    <span class="tituloTabla2">@</span>
-                                </th>
-                                <!-- <th>Estacionamientos</th> -->
-                                <th>
-                                    <span class="tituloTabla">Descripción</span>
-                                    <span class="tituloTabla2">S</span>
-                                </th>
-                                <th>
-                                    <span class="tituloTabla">Imagen</span>
-                                    <span class="tituloTabla2">I</span>
-                                </th>
-                                <!-- <th>Mensualidades</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $num=0 @endphp
-                            @foreach($anuncios as $key)
-                                
-                                <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
-                                    <td align="center">
-                                        {{$num=$num+1}}
-                                    </td>
-                                    <td>{{$key->titulo}}</td>
-                                    <td>{{$key->link}}</td>
-                                    <td>{{$key->descripcion}}</td>
-                                    <td><img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;"></td>
+                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
+                            <thead>
+                                <tr class="bg-info text-white">
+                                    <th>#</th>
+                                    <th>Título</th>
+                                    <th>URL</th>
+                                    <th>Descripción</th>
+                                    <th>Imagen</th>
+                                    <th>Opciones</th>
                                 </tr>
-                                <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                    <td width="10">
-                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                            <span class="PalabraEditarPago ">Regresar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        
-                                        <span>{{$key->titulo}}</span>
-                                    </td>
-                                    <td>
-                                        <span>{{$key->link}}</span>
-                                    </td>
-                                    <td colspan="2" align="center">
+                            </thead>
+                            <tbody>
+                                @php $num=0 @endphp
+                                @foreach($anuncios as $key)
+                                    <tr>
+                                        <td>{{$num=$num+1}}</td>
+                                        <td>{{$key->titulo}}</td>
+                                        <td>{{$key->link}}</td>
+                                        <td>{{$key->descripcion}}</td>
+                                        <td>
+                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;">
+                                        </td>
+                                        <td>
+                                            <a href="#" class="border border-light btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')">
+                                                <span><strong><i data-feather="eye"></i>Ver Asignados</strong></span>
+                                            </a>
+                                            @php $count=0 @endphp
+                                            @foreach($EmpresasAnuncios as $key2)
+                                                @if($count == 0)
+                                                    <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EditarAnuncio('{{$key->id}}','{{$key->id_empresa}}','{{$key->titulo}}','{{$key->descripcion}}','{{$key->url_img}}','{{$key->link}}','{{$key2->referencia}}','{{$key2->id_planP}}')">
+                                                        <span><i data-feather="edit"></i>Editar</span>
+                                                    </a>
+                                                    @php $count++ @endphp
+                                                @endif
+                                            @endforeach()
 
-                                        <a href="#" class="border border-light btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')">
-                                            <span class="PalabraEditarPago "><strong>Ver Asignados</strong></span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
-                                                </span>
-                                            </center>
-                                        </a>
-                                        @php $count=0 @endphp
-                                        @foreach($EmpresasAnuncios as $key2)
-                                            @if($count == 0)
-                                                <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="EditarAnuncio('{{$key->id}}','{{$key->id_empresa}}','{{$key->titulo}}','{{$key->descripcion}}','{{$key->url_img}}','{{$key->link}}','{{$key2->referencia}}','{{$key2->id_planP}}')">
-                                                    <span class="PalabraEditarPago ">Editar</span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="edit" class="iconosMetaforas2"></i>
-                                                        </span>
-                                                    </center>
-                                                </a>
-                                                @php $count++ @endphp
-                                            @endif
-                                        @endforeach()
-
-                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="EliminarAnuncio('{{$key->id}}')">
-                                            <span class="PalabraEditarPago ">Eliminar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </a>
-                                    </td>
-                                    <td style="display: none"></td>
-                                    
-
-                                </tr>
-                                <tr style="display: none;">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            @endforeach()
-                        </tbody>
-                    </table>
+                                            <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EliminarAnuncio('{{$key->id}}')">
+                                                <span><i data-feather="trash"></i>Eliminar</span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach()
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -331,7 +166,7 @@
                                         <center>
                                             <h3 alt="{{$num=$num+1}} slide"><strong class="text-dark">{{$key->titulo}}</strong></h3>
                                             <br>
-                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;">
+                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avtar" style="width:100%;max-width:640px;">
                                             <div class="row justify-content-center">
                                                 <div class="col-md-12">
                                                     
@@ -373,7 +208,7 @@
     </div>
 
 
-    <div id="tablaEmpresas" style="display: none;">
+    <div id="tablaEmpresas">
         <div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded tabla-estilo">
             
 
@@ -390,10 +225,10 @@
                                         margin-bottom: 5px;
                                         margin-top: 5px;
                                         float: right;">
-                                        <span class="PalabraEditarPago ">Nueva Empresa</span>
+                                        <span>Nueva Empresa</span>
                                         <center>
-                                            <span class="PalabraEditarPago2 ">
-                                                <i data-feather="plus" class="iconosMetaforas2"></i>
+                                            <span>
+                                                <i data-feather="plus"></i>
                                             </span>
                                         </center>
                                     </a>
@@ -401,127 +236,53 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
-                        <thead>
-                            <tr class="table-default text-white">
-                                <td colspan="5" align="center">
-                                    <div class="card border border-info" style="background-color: #D6EAF8" role="alert">
-                                        <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione una empresa para ver mas opciones.</span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="bg-primary text-white th2" style="display: none">
-                                <th width="10"></th>
-                                <th>
-                                    <span class="PalabraEditarPago">Nombre</span>
-                                    <span class="PalabraEditarPago2">N</span>
-                                </th>
-                                <th>
-                                    <span class="PalabraEditarPago">RUT</span>
-                                    <span class="PalabraEditarPago2">#</span>
-                                </th>
-                                <th colspan="2">
-                                    <center>
-                                        <span class="PalabraEditarPago">Opciones</span>
-                                        <span class="PalabraEditarPago2">O</span>
-                                    </center>
-                                </th>
-                            </tr>
-                            <tr class="bg-info text-white th1">
-                                <th>#</th>
-                                <th>
-                                    <span class="tituloTabla">Nombre</span>
-                                    <span class="tituloTabla2">T</span>
-                                </th>
-                                <th>
-                                    <span class="tituloTabla">Rut</span>
-                                    <span class="tituloTabla2">@</span>
-                                </th>
-                                <!-- <th>Estacionamientos</th> -->
-                                <th>
-                                    <span class="tituloTabla">Descripción</span>
-                                    <span class="tituloTabla2">S</span>
-                                </th>
-                                <th>
-                                    <span class="tituloTabla">Status</span>
-                                    <span class="tituloTabla2">S</span>
-                                </th>
-                                <!-- <th>Mensualidades</th> -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $num=0 @endphp
-                            @foreach($empresas as $key)
-                                <tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
-                                    <td align="center">
-                                        {{$num=$num+1}}
-                                    </td>
-                                    <td>{{$key->nombre}}</td>
-                                    <td>{{$key->rut_empresa}}</td>
-                                    <td>{{$key->descripcion}}</td>
-                                    @if($key->status == 'Activo')
-                                        <td style="position: all;">
-                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
+                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
+                            <thead>
+                                <tr class="bg-info text-white">
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>RUT</th>
+                                    <th>Descripción</th>
+                                    <th>Status</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php $num=0 @endphp
+                                @foreach($empresas as $key)
+                                    <tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                                        <td align="center">
+                                            {{$num=$num+1}}
                                         </td>
-                                    @else
-                                        <td style="position: all;">
-                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
+                                        <td>{{$key->nombre}}</td>
+                                        <td>{{$key->rut_empresa}}</td>
+                                        <td>{{$key->descripcion}}</td>
+                                        @if($key->status == 'Activo')
+                                            <td style="position: all;">
+                                                    <span class="tituloTabla text-success"><strong>Activo</strong></span>
+                                                    <span class="tituloTabla2 text-success"><strong>A</strong></span>
+                                            </td>
+                                        @else
+                                            <td style="position: all;">
+                                                    <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
+                                                    <span class="tituloTabla2 text-danger"><strong>I</strong></span>
+                                            </td>
+                                        @endif
+                                        <td>
+
+                                           <a href="#" class="btn btn-warning btn-sm" onclick="editarEmpresa('{{$key->id}}','{{$key->nombre}}','{{$key->rut_empresa}}','{{$key->descripcion}}','{{$key->status}}')">
+                                                <span><i data-feather="edit"></i>Editar</span>
+                                            </a>
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="eliminarEmpresa('{{$key->id}}')">
+                                                <span><i data-feather="trash"></i>Eliminar</span>
+                                            </a>
                                         </td>
-                                    @endif
-                                </tr>
-                                <tr class="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                    <td width="10">
-                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                            <span class="PalabraEditarPago ">Regresar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        
-                                        <span>{{$key->nombre}}</span>
-                                    </td>
-                                    <td>
-                                        <span>{{$key->rut_empresa}}</span>
-                                    </td>
-                                    <td colspan="2" align="center">
-
-                                       <a href="#" class="btn btn-warning btn-sm" onclick="editarEmpresa('{{$key->id}}','{{$key->nombre}}','{{$key->rut_empresa}}','{{$key->descripcion}}','{{$key->status}}')">
-                                            <span class="PalabraEditarPago ">Editar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="edit" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </a>
-                                    <a href="#" class="btn btn-danger btn-sm" onclick="eliminarEmpresa('{{$key->id}}')">
-                                            <span class="PalabraEditarPago ">Eliminar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </a>
-                                    </td>
-                                    <td style="display: none"></td>
-                                    
-
-                                </tr>
-                                <tr style="display: none;">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            @endforeach()
-                        </tbody>
-                    </table>
+                                    </tr>
+                                @endforeach()
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -675,6 +436,11 @@
                 </div>
                 <div class="controlAnuncios">
                     <div class="row justify-content-center">
+                        @if(!is_null($anuncios))
+                            <center>
+                                <h1>¡No hay anuncios que gestionar!</h1>
+                            </center>
+                        @endif
                         <div class="col-md-6">
                             <div class="overflow-auto" style="height: 350px !important;">
                                 @foreach($anuncios as $key)
@@ -779,37 +545,37 @@
                                                 display: none;">
                                                     <div class="card-header">
                                                         <button type="button" class="btn btn-success rounded" onclick="verInfoControl('{{$key->id}}',2,'{{$key2->status}}')" style="border-radius: 30px !important; float: left !important;">
-                                                            <span class="PalabraEditarPago ">Regresar</span>
+                                                            <span>Regresar</span>
                                                             <center>
-                                                                <span class="PalabraEditarPago2 ">
-                                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
+                                                                <span>
+                                                                    <i data-feather="arrow-left"></i>
                                                                 </span>
                                                             </center>
                                                         </button>
                                                         <div class="button-list float-right">
 
                                                             <button type="button" class="btn btn-info rounded" onclick="RenovarPagoPublicidad('{{$key2->id_anuncios}}')" style="border-radius: 30px !important;">
-                                                                <span class="PalabraEditarPago ">Renovar</span>
+                                                                <span>Renovar</span>
                                                                 <center>
-                                                                    <span class="PalabraEditarPago2 ">
-                                                                        <i data-feather="dollar-sign" class="iconosMetaforas2"></i>
+                                                                    <span>
+                                                                        <i data-feather="dollar-sign"></i>
                                                                     </span>
                                                                 </center>
                                                             </button>
                                                            <!--  <button type="button" class="btn btn-warning rounded" onclick="editarPagoPublcidad('{{$key2->id}}','{{$key2->planP->id}}',0)" style="border-radius: 30px !important;">
-                                                                <span class="PalabraEditarPago ">Editar</span>
+                                                                <span>Editar</span>
                                                                 <center>
-                                                                    <span class="PalabraEditarPago2 ">
-                                                                        <i data-feather="edit" class="iconosMetaforas2"></i>
+                                                                    <span>
+                                                                        <i data-feather="edit"></i>
                                                                     </span>
                                                                 </center>
                                                             </button> -->
                                                            
                                                             <!-- <button type="button" class="btn btn-danger rounded" onclick="diaNegocio(3)" style="border-radius: 30px !important;">
-                                                                <span class="PalabraEditarPago ">Eliminar</span>
+                                                                <span>Eliminar</span>
                                                                 <center>
-                                                                    <span class="PalabraEditarPago2 ">
-                                                                        <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                                    <span>
+                                                                        <i data-feather="trash"></i>
                                                                     </span>
                                                                 </center>
                                                             </button> -->
@@ -876,10 +642,10 @@
                                                                         <tr>
                                                                             <td>
                                                                                 <button type="button" class="btn btn-warning rounded btn-sm" onclick="editarPagoPublcidad('{{$key2->id}}','{{$key2->planP->id}}','{{$key3->referencia}}','{{$key3->id}}')" style="border-radius: 30px !important;">
-                                                                                    <span class="PalabraEditarPago ">Editar</span>
+                                                                                    <span>Editar</span>
                                                                                     <center>
-                                                                                        <span class="PalabraEditarPago2 ">
-                                                                                            <i data-feather="edit" class="iconosMetaforas2"></i>
+                                                                                        <span>
+                                                                                            <i data-feather="edit"></i>
                                                                                         </span>
                                                                                     </center>
                                                                                 </button>
