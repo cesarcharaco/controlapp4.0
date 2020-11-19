@@ -367,7 +367,7 @@
     }
 
     function pagoAlquileres() {
-        $('#example3_wrapper').hide();
+        $('#example3_wrapper').empty();
         var id_residente= $('#id_reside').val();
         $('#cargandoPagoAlquileres').show();
         $('#pagarAlquilerResidente').modal('show');
@@ -378,17 +378,40 @@
         .done(function(data) {
             console.log(data.length);
             if (data.length > 0) {
-                $('#example3_wrapper').show();
+                $('#example3_wrapper').append(
+                    '<table id="tablaArriendosR" class="table table-bordered table-hover table-striped display nowrap" style="width: 100% !important;">'+
+                        '<thead>'+
+                            '<tr>'+
+                                '<th>Alquiler</th>'+
+                                '<th>Tipo de alquiler</th>'+
+                                '<th>Plan de Pago</th>'+
+                                '<th>Referencia</th>'+
+                                '<th>Status</th>'+
+                                '<th>Opciones</th>'+
+                            '</tr>'+
+                        '</thead>'+
+                        '<tbody id="mostrarAlquileresR">'+
+                            
+                        '</tbody>'+
+                    '</table>'
+                );
 
                 for (var i = 0; i < data.length; i++) {
+                    if (data[i].status == 'No Pagado') {
+                        var nombre= data[i].nombre;
+                        var pagar = '<a href="#" class="btn btn-warning" onclick="PagarAlquileres2('+data[i].id_alquiler+')">Pagar</a>';
+                    }else{
+                        var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
+                        var pagar = '<span class="text-success">Pagado</span>';
+                    }
                     $('#mostrarAlquileresR').append(
                         '<tr>'+
-                            '<td colsan="1" colspan="1">'+data[i].nombre+'<td>'+
-                            '<td>'+data[i].tipo_alquiler+'<td>'+
-                            '<td>'+data[i].plan_pago+'<td>'+
-                            '<td>'+data[i].refer+'<td>'+
-                            '<td>'+data[i].status+'<td>'+
-                            '<td>Pagar<td>'+
+                            '<td>'+nombre+'</td>'+
+                            '<td>'+data[i].tipo_alquiler+'</td>'+
+                            '<td>'+data[i].plan_pago+'</td>'+
+                            '<td>'+data[i].refer+'</td>'+
+                            '<td>'+data[i].status+'</td>'+
+                            '<td>'+pagar+'</td>'+
                         '</tr>'
                     );
                 }
@@ -397,24 +420,24 @@
                     $("#tablaArriendosR").DataTable({
                         "responsive": true,
                         "autoWidth": true,
-                        // language: {
-                        //     "decimal": "",
-                        //     "emptyTable": "No hay información",
-                        //     "info": "Mostrando la página _PAGE_ de _PAGES_",
-                        //     "infoEmpty": "Mostrando 0 de 0 Entradas",
-                        //     "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                        //     "infoPostFix": "",
-                        //     "thousands": ",",
-                        //     "lengthMenu": "Mostrar _MENU_ Entradas",
-                        //     "loadingRecords": "Cargando...",
-                        //     "processing": "Procesando...",
-                        //     "search": "",
-                        //     "zeroRecords": "Sin resultados encontrados",
-                        //     "first": "Primero",
-                        //     "last": "Ultimo",
-                        //     "next": "Próximo",
-                        //     "previous": "Anterior",
-                        // }
+                        language: {
+                            "decimal": "",
+                            "emptyTable": "No hay información",
+                            "info": "Mostrando la página _PAGE_ de _PAGES_",
+                            "infoEmpty": "Mostrando 0 de 0 Entradas",
+                            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                            "infoPostFix": "",
+                            "thousands": ",",
+                            "lengthMenu": "Mostrar _MENU_ Entradas",
+                            "loadingRecords": "Cargando...",
+                            "processing": "Procesando...",
+                            "search": "",
+                            "zeroRecords": "Sin resultados encontrados",
+                            "first": "Primero",
+                            "last": "Ultimo",
+                            "next": "Próximo",
+                            "previous": "Anterior",
+                        }
                     });
                 }
             }else{
@@ -424,6 +447,16 @@
             $('#cargandoPagoAlquileres').hide();
         });
         
+    }
+
+    function PagarAlquileres2(id_alquiler) {
+
+        $('#example3_wrapper').fadeOut('slow',
+            function() { 
+                $(this).hide();
+                $('#referenciaBuscarArriendo').fadeIn(300);
+        });
+        $('#id_alquier_arriendo').val(id_alquiler);
     }
 
 </script>

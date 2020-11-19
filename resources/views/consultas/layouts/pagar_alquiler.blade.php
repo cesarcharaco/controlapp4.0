@@ -17,23 +17,19 @@
 			        @csrf
 			        <center>
 			        	<div id="example3_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                    		<table id="tablaArriendosR" class="table table-bordered table-hover table-striped dataTable display nowrap" style="width: 100% !important;">
-			        			<thead>
-			        				<tr>
-			        					<th>Alquiler</th>
-			        					<th>Tipo de alquiler</th>
-			        					<th>Plan de Pago</th>
-			        					<th>Referencia</th>
-			        					<th>Status</th>
-			        					<th>Opciones</th>
-			        				</tr>
-			        			</thead>
-			        			<tbody id="mostrarAlquileresR">
-			        				
-			        			</tbody>
-			        		</table>
+                    		
 			        	</div>
 			        	<div id="MensajeBsucarArriendo"></div>
+
+			        	<div id="referenciaBuscarArriendo" style="display: none;">
+			        		<h1 id="nombreA"></h1>
+			        		<div class="form-group">
+			        			<label>Referencia</label>
+			        			<input type="text" name="referencia" placeholder="Nro. de referencia" id="referencia_p_arriendos" maxlength="20" max="20" class="form-control border border-primary" required="required">
+			        		</div>
+			        		<input type="hidden" name="id_alquiler" id="id_alquier_arriendo">
+			        		<button type="submit" class="btn btn-danger">Pagar</button>
+			        	</div>
 			        </center>
 
 			    {!! Form::close() !!}
