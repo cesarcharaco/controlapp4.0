@@ -92,7 +92,7 @@
                         <h4 class="header-title mt-0 mb-3" align="center">Balance General (Contabilidad) 
                             <i class='uil uil-comment-exclamation' data-toggle="tooltip" data-placement="right" data-original-title="Aviso: Balance del mes en curso"></i>
                         </h4>
-                        <table id="#" class="table dt-responsive nowrap table-bordered" style="width: 100%;">
+                        <table id="#" class="table dataTable dt-responsive nowrap table-bordered" style="width: 100%;">
                             <thead>
                                 <tr bgcolor="#3490dc" class="text-white">
                                     <th>Fecha</th>

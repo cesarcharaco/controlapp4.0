@@ -2,6 +2,10 @@
 <!-- <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script> -->
 {{-- <script src="{{ asset('assets/js/jquery.js') }}"></script> --}}
 
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script> -->
+
 
 <!-- <script src="{{ asset('assets/js/app.min.js') }}" ></script> -->
 <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
@@ -12,35 +16,12 @@
 
 {{-- timepicker --}}
 
-
-
-
-<script src="{{ asset('assets/js/data-table/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/buttons.flash.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/dataTables.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/dataTables.keyTable.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/dataTables.responsive.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/dataTables.select.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/responsive.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/js/data-table/four_button.js') }}"></script>
-
-
-<!-- <script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}"></script>
+<!-- dataTables -->
+<script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}" defer></script>
 <script src="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.js') }}" defer></script>
 <script src="{{ asset('plugins/dataTables/dataTables.responsive.min.js') }}" defer></script>
-<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script> -->
+<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script>
 
-
-
-<!-- <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/1.10.22/js/dataTables.dataTables.min.js"></script> -->
-<!-- <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js" defer></script> -->
-<!-- <script src="https://cdn.datatables.net/responsive/2.2.6/js/responsive.bootstrap4.min.js" defer></script> -->
 
 
 
@@ -54,7 +35,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 
-<!-- <script src="{{ asset('assets/js/data-table/data-table-act.js') }}"></script> -->
 
 
 
@@ -63,6 +43,10 @@
 
 
 <script type="text/javascript">
+
+
+
+
 	$(document).ready(function() {
 	    var anunAnioActualMonto= $('#anunAnioActualMonto').val();
 	    var anunAnioAnteriorMonto= $('#anunAnioAnteriorMonto').val();
@@ -192,6 +176,8 @@
     }
 	$(function () {
 
+		
+
 		if( $('#colorView').val() != 0 ){
 			colorP=$('#colorView').val();
 			colorPaginador = "background-color: "+colorP+";";
@@ -199,7 +185,25 @@
 			colorPaginador = "background-color: aqua";
 		}
 
-		$("#example1").DataTable();
+		$(".dataTable").DataTable({
+			"responsive": true,
+      		"autoWidth": true,
+      		language: {
+	        "decimal": "",
+	        "emptyTable": "No hay información",
+	        "info": "Mostrando la página _PAGE_ de _PAGES_",
+	        "infoEmpty": "Mostrando 0 de 0 Entradas",
+	        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+	        "infoPostFix": "",
+	        "thousands": ",",
+	        "lengthMenu": "Mostrar _MENU_ Entradas",
+	        "loadingRecords": "Cargando...",
+	        "processing": "Procesando...",
+	        "search": "",
+	        "zeroRecords": "Sin resultados encontrados",
+	        
+	        }
+		});
 
 		$('.data-table-basic').DataTable({
 	        "pageLength": 30,
@@ -268,6 +272,10 @@
 
 	    $('.dataTables_length').css('display','none');
 	    $('.dataTables_info').attr('align','center');
+	    
+	    $('#tablaInstalaciones').hide();
+        $('#tablaArriendos').hide();
+        $('#tablaControl').hide();
 
 	    // $('.dataTables_paginate').removeChild('span');
 	    $('.card').fadeIn(500);

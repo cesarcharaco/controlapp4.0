@@ -123,52 +123,47 @@
                         Regresar a Pagos de Condominio
                     </a>
                 @endif
-                <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
-                    <thead>
-                        <tr class="bg-primary text-white">
-                            <th>Mes</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="muestraConsultas">
-                        @for($i=0; $i < count($status_pago); $i++)
-                            
-                            <tr>
-                                <td>{{ $status_pago[$i][0] }}</td>
-                                @if ($status_pago[$i][1] == 'Pendiente') 
-                                        <td class="text-warning"><strong>{{ $status_pago[$i][1] }}</strong></td>
-                                @elseif ($status_pago[$i][1] == 'Por Confirmar') 
-                                        <td class="text-warning"><strong>{{ $status_pago[$i][1] }}</strong> | CÓDIGO DE TRANS.: <b>{{ $status_pago[$i][2] }}</b>
-                                            @if(\Auth::user()->tipo_usuario == 'Residente')
-                                                <br>
-                                                <button class="btn btn-warning btn-sm" onclick="editarReferenciaCP('{{ $status_pago[$i][3] }}','{{ $status_pago[$i][2] }}')">
-                                                    <span class="PalabraPagoConfirmar">Editar Código de Trans.</span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2">
-                                                            <i data-feather="edit" class="iconosMetaforas2"></i></span>
-                                                    </center>
-                                                </button>
-                                            @endif
-                                        </td>
-                                @elseif ($status_pago[$i][1]== 'Cancelado')
-                                        <td class="text-success"><strong>{{ $status_pago[$i][1] }}</strong> | CÓDIGO DE TRANS.: <b>{{ $status_pago[$i][2] }}</b>
-                                            @if(\Auth::user()->tipo_usuario == 'Admin')
-                                                <button class="btn btn-warning btn-sm" onclick="editarReferenciaCP('{{ $status_pago[$i][3] }}','{{ $status_pago[$i][2] }}')">
-                                                    <span class="PalabraPagoConfirmar">Editar Código de Trans.</span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2">
-                                                            <i data-feather="eye" class="iconosMetaforas2"></i></span>
-                                                    </center>
-                                                </button>
-                                            @endif
-                                        </td>
-                                @else ($status_pago[$i][1]== 'No aplica')
-                                        <td class="text-danger"><strong>{{ $status_pago[$i][1] }}</strong></td>
-                                @endif
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                    <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                        <thead>
+                            <tr class="bg-primary text-white">
+                                <th>Mes</th>
+                                <th>Status</th>
                             </tr>
-                        @endfor
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody id="muestraConsultas">
+                            @for($i=0; $i < count($status_pago); $i++)
+                                
+                                <tr>
+                                    <td>{{ $status_pago[$i][0] }}</td>
+                                    @if ($status_pago[$i][1] == 'Pendiente') 
+                                            <td class="text-warning"><strong>{{ $status_pago[$i][1] }}</strong></td>
+                                    @elseif ($status_pago[$i][1] == 'Por Confirmar') 
+                                            <td class="text-warning"><strong>{{ $status_pago[$i][1] }}</strong> <br> CÓDIGO DE TRANS.: <b><br>{{ $status_pago[$i][2] }}</b>
+                                                @if(\Auth::user()->tipo_usuario == 'Residente')
+                                                    <br>
+                                                    <button class="btn btn-warning btn-sm" onclick="editarReferenciaCP('{{ $status_pago[$i][3] }}','{{ $status_pago[$i][2] }}')">
+                                                        <span><i data-feather="edit"></i>Editar Código de Trans.</span>
+                                                    </button>
+                                                @endif
+                                            </td>
+                                    @elseif ($status_pago[$i][1]== 'Cancelado')
+                                            <td class="text-success"><strong>{{ $status_pago[$i][1] }}</strong> <br> CÓDIGO DE TRANS.: <b><br>{{ $status_pago[$i][2] }}</b>
+                                                @if(\Auth::user()->tipo_usuario == 'Admin')
+                                                    <br>
+                                                    <button class="btn btn-warning btn-sm" onclick="editarReferenciaCP('{{ $status_pago[$i][3] }}','{{ $status_pago[$i][2] }}')">
+                                                        <span><i data-feather="edit"></i>Editar Código de Trans.</span>
+                                                    </button>
+                                                @endif
+                                            </td>
+                                    @else ($status_pago[$i][1]== 'No aplica')
+                                            <td class="text-danger"><strong>{{ $status_pago[$i][1] }}</strong></td>
+                                    @endif
+                                </tr>
+                            @endfor
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>                           

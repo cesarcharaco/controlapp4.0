@@ -1,71 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<style type="text/css">
-    .card {
-        border: 1px solid #f6f6f7!important;
-        border-color: #2d572c !important;
-    }
-    .palabraVerInmueble2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-    {
-        display: none;
-    }
-    @media only screen and (max-width: 800px)  {
-        .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-            display: none;
-        }
-        .palabraVerInmueble{
-            display: none;
-        }
-        .palabraVerInmueble2{
-            display: block;
-        }
-        .palabraVerEstaciona{
-            display: none;
-        }
-        .palabraVerEstaciona2{
-            display: block;
-        }
-        .PalabraEditarPago2{
-            display: block;
-        }
-        .iconosMetaforas{
-            display: none;    
-        }
-        .card-table{
-            width: 100%
-        }
 
-    }
-    @media only screen and (max-width: 200px)  {
-        .botonesEditEli{
-            width: 15px;
-            height: 15px;
-        }
-        .iconosMetaforas2{
-            width: 5px;
-            height: 5px;    
-        }
-    }
-    @media screen and (max-width: 480px) {
-        .tituloTabla{
-            display: none;
-        }
-        .tituloTabla2{
-            display: block;
-        }
-        .iconosMetaforas2{
-            width: 15px;
-            height: 15px;    
-        }
-        .botonesEditEli{
-            width: 30px;
-            height: 30px;
-            margin-top: 5px;
-                
-        }
-    }
-</style>
 <div class="container">
     <input type="hidden" id="colorView" value="#2d572c !important">
     <div class="row page-title">
@@ -95,7 +31,7 @@
         </div>
     @endif
 </div>
-<div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+<div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded">
     <div class="row justify-content-center">
         @if(\Auth::user()->tipo_usuario == 'Admin')
         <div class="col-md-12">
@@ -112,137 +48,73 @@
                         border-color: #2d572c !important;
                         background-color: #2d572c !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar a un residente nuevo">
 
-                        <span class="PalabraEditarPago">Nuevo Residente</span>
-                        <center>
-                            <span class="PalabraEditarPago2">
-                                <i data-feather="plus" class="iconosMetaforas2"></i>
-                            </span>
-                        </center>
+                        <span><i data-feather="plus"></i>Nuevo Residente</span>
                     </a>
                 </div>
             </div>
         </div>
         @endif
         <div class="col-md-12">                
-            <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" id="tablaResidentes" style="width: 100%;">
-                <thead>
-                    <tr class="table-default text-white">
-                        <td colspan="5" align="center">
-                            <div class="card border border-info" style="" role="alert">
-                                <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione a un residente para ver mas opciones.</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-white" id="th1" style="background-color: #2d572c !important;">
-                        <th width="10">#</th>
-                        <th>
-                            <span class="PalabraEditarPago">Nombres</span>
-                            <span class="PalabraEditarPago2">N</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Rut</span>
-                            <span class="PalabraEditarPago2">R</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Correo</span>
-                            <span class="PalabraEditarPago2">@</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Teléfono</span>
-                            <span class="PalabraEditarPago2">Tel</span>
-                        </th>
-                    </tr>
-                    <tr class="bg-primary text-white" id="th2" style="display: none">
-                        <th width="10"></th>
-                        <th>
-                            <span class="PalabraEditarPago">Nombres</span>
-                            <span class="PalabraEditarPago2">N</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Opciones</span>
-                            <span class="PalabraEditarPago2">O</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Inmuebles</span>
-                            <span class="PalabraEditarPago2">I</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Estacionamientos</span>
-                            <span class="PalabraEditarPago2">E</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @php $num=0 @endphp
-                    @foreach($residentes as $key)
-                        <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
-                            <td align="center">{{$num=$num+1}}</td>
-                            <td>{{$key->nombres}} {{$key->apellidos}}</td>
-                            <td>{{$key->rut}}</td>
-                            <td>{{$key->usuario->email}}</td>
-                            <td>{{$key->telefono}}</td>
+            <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                <table id="example1" class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
+                    <thead>
+                        <tr class="text-white" style="background-color: #2d572c !important;">
+                            <th width="10">#</th>
+                            <th>Nombres</th>
+                            <th>Rut</th>
+                            <th>Correo</th>
+                            <th>Teléfono</th>
+                            <th>Inmuebles</th>
+                            <th>Estacionamientos</th>
+                            <th>Opciones</th>
                         </tr>
-                        <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                            <td width="10">
-                                <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
-                                    <span class="PalabraEditarPago ">Regresar</span>
-                                    <center>
-                                        <span class="PalabraEditarPago2 ">
-                                            <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                        </span>
-                                    </center>
-                                </button>
-                            </td>
-                            <td>                                
-                                <span>{{$key->nombres}} {{$key->apellidos}}</span>
-                            </td>
-                            <td align="center">
-                                @if(\Auth::user()->tipo_usuario == 'Admin')
-                                    <a href="#" data-toggle="modal" data-target="#editarResidente" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px; width: auto;" onclick="Editar('{{$key->id}}','{{$key->nombres}}','{{$key->apellidos}}','{{$key->rut}}','{{$key->telefono}}','{{$key->usuario->email}}')">
-                                        <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">Editar</span>
-                                        <center>
-                                            <span class="PalabraEditarPago2 ">
-                                                <i data-feather="edit" class="iconosMetaforas2"></i>
+                    </thead>
+                    <tbody>
+                        @php $num=0 @endphp
+                        @foreach($residentes as $key)
+                            <tr>
+                                <td align="center">{{$num=$num+1}}</td>
+                                <td>{{$key->nombres}} {{$key->apellidos}}</td>
+                                <td>{{$key->rut}}</td>
+                                <td>{{$key->usuario->email}}</td>
+                                <td>{{$key->telefono}}</td>
+                                <td>
+                                    <?php $j=0; ?>
+                                    @foreach($key->inmuebles as $key2)
+                                        @if($key2->pivot->status=="En Uso")
+                                        <span class="text-primary"><strong>{{$j=$j+1}}.-{{$key2->idem}}</strong></span><br>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <?php $k=0; ?>
+                                    @foreach($key->estacionamientos as $key2)
+                                        @if($key2->pivot->status=="En Uso")
+                                        <span class="text-warning"><strong>{{$k=$k+1}}.-{{$key2->idem}}</strong></span><br>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td align="center">
+                                    @if(\Auth::user()->tipo_usuario == 'Admin')
+                                        <a href="#" data-toggle="modal" data-target="#editarResidente" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px; width: auto;" onclick="Editar('{{$key->id}}','{{$key->nombres}}','{{$key->apellidos}}','{{$key->rut}}','{{$key->telefono}}','{{$key->usuario->email}}')">
+                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos">
+                                                <i data-feather="edit"></i>Editar
                                             </span>
-                                        </center>
-                                    </a>
-                                    <a href="#" data-toggle="modal" data-target="#eliminarResidente" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px; width: auto;" onclick="Eliminar('{{$key->id}}')">
-                                        <span class="PalabraEditarPago" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar residente">Eliminar</span>
-                                        <center>
-                                            <span class="PalabraEditarPago2 ">
-                                                <i data-feather="trash" class="iconosMetaforas2"></i>
+                                                    
+                                        </a>
+                                        <a href="#" data-toggle="modal" data-target="#eliminarResidente" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px; width: auto;" onclick="Eliminar('{{$key->id}}')">
+                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar residente">
+                                                <i data-feather="trash"></i>Eliminar
                                             </span>
-                                        </center>
-                                    </a>
-                                @endif
-                            </td>
-                            <td>
-                                <?php $j=0; ?>
-                                @foreach($key->inmuebles as $key2)
-                                    @if($key2->pivot->status=="En Uso")
-                                    <span class="text-primary"><strong>{{$j=$j+1}}.-{{$key2->idem}}</strong></span><br>
+                                                    
+                                        </a>
                                     @endif
-                                @endforeach
-                            </td>
-                            <td>
-                                <?php $k=0; ?>
-                                @foreach($key->estacionamientos as $key2)
-                                    @if($key2->pivot->status=="En Uso")
-                                    <span class="text-warning"><strong>{{$k=$k+1}}.-{{$key2->idem}}</strong></span><br>
-                                    @endif
-                                @endforeach
-                            </td>
-                        </tr>
-                        <tr style="display: none;">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    @endforeach()
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        @endforeach()
+                    </tbody>
+                </table>
+            </thead>
         </div>
     </div>
     @include('residentes.layouts.delete')

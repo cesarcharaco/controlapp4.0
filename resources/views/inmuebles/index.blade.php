@@ -100,7 +100,7 @@
             </div>
         @endif
     </div>
-    <div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+    <div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded">
         <div class="row justify-content-center">
             @if(\Auth::user()->tipo_usuario == 'Admin')
                 <div class="col-md-12">
@@ -116,12 +116,7 @@
                                 border: 1px solid #f6f6f7!important;
                                 border-color: #CB8C4D !important;
                                 background-color: #CB8C4D !important">
-                                <span class="PalabraEditarPago text-white">Nuevo Inmueble</span>
-                                <center>
-                                    <span class="PalabraEditarPago2 text-white">
-                                        <i data-feather="plus" class="iconosMetaforas2"></i>
-                                    </span>
-                                </center>
+                                <span class="text-white"><i data-feather="plus"></i>Nuevo Inmueble</span>
                             </a>
                         </div>
                     </div>
@@ -129,18 +124,18 @@
             @endif
             <div class="col-md-12">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                  <table id="example1" class="table table-bordered table-hover table-striped dataTable dtr-inline collapsed border border-orange" style="width: 100% !important;">
+                  <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                     <thead class="text-capitalize bg-primary">
-                            <tr class="text-white" id="th1" style="background-color: #CB8C4D;">
-                                <th>#</th>
-                                <th>Idem</th>
-                                <th>Tipo</th>
-                                <th>Status</th>
-                                <th>Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $num=0 @endphp
+                        <tr class="text-white" style="background-color: #CB8C4D;">
+                            <th>#</th>
+                            <th>Idem</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $num=0 @endphp
                             @foreach($inmuebles as $key)
                                 <tr>
                                     <td align="center">{{$num=$num+1}}</td>
@@ -181,8 +176,16 @@
                                     </td>
                                 </tr>
                             @endforeach()
-                        </tbody>
-                    </table>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Idem</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

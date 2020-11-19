@@ -28,68 +28,6 @@
             color: gray;
             font: 18px Arial, sans-serif;
         }
-        .palabraVerAlquiler2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
-
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerAlquiler{
-                display: none;
-            }
-            .palabraVerAlquiler2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .botonesEditEli{
-                width: 15px;
-                height: 15px;
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .botonesEditEli{
-                width: 30px;
-                height: 30px;
-                margin-top: 5px;
-                    
-            }
-        }
-
-
     </style>
     <input type="hidden" id="colorView" value="#CB8C4D !important">
     <div class="row page-title" id="tituloP">
@@ -155,8 +93,8 @@
         </div>
     @endif
 
-    <div id="tablaInstalaciones" style="display: none;">
-        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded tabla-estilo">
+    <div id="tablaInstalaciones">
+        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div style="height: 100%;">
@@ -179,12 +117,7 @@
                                 margin-bottom: 5px;
                                 margin-top: 5px;
                                 float: right;">
-                                <span class="PalabraEditarPago" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación">Nueva Instalación</span>
-                                <center>
-                                    <span class="PalabraEditarPago2 ">
-                                        <i data-feather="plus" class="iconosMetaforas2"></i>
-                                    </span>
-                                </center>
+                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
                             </a>
                         </div>
                     </div>
@@ -192,218 +125,74 @@
                 
 
                 <div class="col-md-12">
-                    <div id="example2_wrapper">
-                        <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
                             <thead>
-                                <tr class="table-default text-white">
-                                    <td colspan="5" align="center">
-                                        <div class="card border border-info" style="background-color: #D6EAF8" role="alert">
-                                            <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione una instalación para ver mas opciones.</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="bg-primary text-white" id="th2" style="display: none">
+                                <tr class="bg-primary text-white">
                                     <th width="10"></th>
-                                    <th>
-                                        <span class="PalabraEditarPago">Nombre</span>
-                                        <span class="PalabraEditarPago2">N</span>
-                                    </th>
-                                    <th colspan="2">
-                                        <center>
-                                            <span class="PalabraEditarPago">Opciones</span>
-                                            <span class="PalabraEditarPago2">O</span>
-                                        </center>
-                                    </th>
-                                    <th>
-                                        <span class="PalabraEditarPago">Dias</span>
-                                        <span class="PalabraEditarPago2">D</span>
-                                    </th>
-                                </tr>
-                                <tr class="bg-info text-white" id="th1">
-                                    <th colspan="2" align="center">
-                                        <center>
-                                            <span class="PalabraEditarPago">Nombre</span>
-                                            <span class="PalabraEditarPago2">N</span>
-                                        </center>
-                                    </th>
-                                    <th>
-                                        <span class="PalabraEditarPago">Horario Disponible</span>
-                                        <span class="PalabraEditarPago2">H</span>
-                                    </th>
-                                    <!-- <th>Estacionamientos</th> -->
-                                    <th>
-                                        <span class="PalabraEditarPago">Max. personas</span>
-                                        <span class="PalabraEditarPago2">Max.</span>
-                                    </th>
-                                    <th>
-                                        <span class="PalabraEditarPago">Status</span>
-                                        <span class="PalabraEditarPago2">S</span>
-                                    </th>
-                                    <!-- <th>Mensualidades</th> -->
+                                    <th>Nombre</th>
+                                    <th>Horario Disponible</th>
+                                    <th>Max. personas</th>
+                                    <th>Status</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($instalaciones as $key)
-                                    <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas opciones">
-                                        <td colspan="2" align="center">{{$key->nombre}}</td>
-                                        <td style="display: none;"></td>
+                                    <tr>
+                                        <td></td>
+                                        <td align="center">{{$key->nombre}}</td>
                                         <td>
                                             @foreach($key->dias as $key2)
-                                                <span class="PalabraEditarPago">
+                                                <span>
                                                     <strong>{{ $key2->dia }}</strong><br>
                                                 </span>
                                                 @if($key2->dia == 'Lunes')
-                                                    <span class="PalabraEditarPago2">Lunes</span>
                                                 @elseif($key2->dia == 'Martes')
-                                                    <span class="PalabraEditarPago2">Martes</span>
                                                 @elseif($key2->dia == 'Miércoles')
-                                                    <span class="PalabraEditarPago2">Mier.</span>
                                                 @elseif($key2->dia == 'Jueves')
-                                                    <span class="PalabraEditarPago2">Jueves</span>
                                                 @elseif($key2->dia == 'Viernes')
-                                                    <span class="PalabraEditarPago2">Vie.</span>
                                                 @elseif($key2->dia == 'Sábado')
-                                                    <span class="PalabraEditarPago2">Sábado</span>
                                                 @else
-                                                    <span class="PalabraEditarPago2">Dom.</span>
                                                 @endif
                                             @endforeach
                                         </td>
                                         <td>{{$key->max_personas}}</td>
                                         <td>
                                             @if($key->status == 'Activo')
-                                                <span class="PalabraEditarPago">
                                                     <strong class="text-success">{{$key->status}}</strong>
-                                                </span>
-                                                <span class="PalabraEditarPago2 text-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                </span>
                                             @else
-                                                <span class="PalabraEditarPago">
                                                     <strong class="text-danger">{{$key->status}}</strong>
-                                                </span>
-                                                <span class="PalabraEditarPago2 text-danger">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                                </span>
                                             @endif
                                         </td>
+                                        <td align="center">
+                                            <br>
 
-                                    </tr>
-                                    <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                        <td>
-                                            <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para regresar">
-                                                <span class="PalabraEditarPago ">Regresar</span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                    </span>
-                                                </center>
-                                            </button>
-                                        </td>
-                                        <td width="10">
-                                            <span>{{$key->nombre}}</span><hr>
-                                            <span class="PalabraEditarPago">Max. personas {{$key->max_personas}}</span>
-                                            <span class="PalabraEditarPago2">Max. {{$key->max_personas}}</span>
-                                            
-                                        </td>
-                                        <td style="display: none;">
-                                        </td>
-                                        <td colspan="2" align="center">
-                                            
+                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
 
-                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
-
-                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para ver mas datos"><strong>Ver</strong></span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
-                                                    </span>
-                                                </center>
+                                                <span><strong>Ver</strong></span>
                                             </a>
 
 
-                                            <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="editarInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
+                                            <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
 
-                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de la instalación"><strong>Editar</strong></span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
-                                                    </span>
-                                                </center>
+                                                <span><strong>Editar</strong></span>
                                             </a>
                                             @if($key->status == 'Activo')
-                                                <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
-                                                        </span>
-                                                    </center>
+                                                <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
                                                 </a>
                                             @else
-                                                <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
-                                                        </span>
-                                                    </center>
+                                                <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
                                                 </a>
                                             @endif
-                                            <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
-                                                <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">Eliminar</span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                    </span>
-                                                </center>
+                                            <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
+                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">Eliminar</span>
                                             </a>
                                         </td>
-                                        <td>
-                                            @foreach($key->dias as $key2)
-                                                <span class="PalabraEditarPago">
-                                                    <strong>{{ $key2->dia }}</strong><br>
-                                                </span>
-                                                @if($key2->dia == 'Lunes')
-                                                    <span class="PalabraEditarPago2">Lunes</span>
-                                                @elseif($key2->dia == 'Martes')
-                                                    <span class="PalabraEditarPago2">Martes</span>
-                                                @elseif($key2->dia == 'Miércoles')
-                                                    <span class="PalabraEditarPago2">Mier.</span>
-                                                @elseif($key2->dia == 'Jueves')
-                                                    <span class="PalabraEditarPago2">Jueves</span>
-                                                @elseif($key2->dia == 'Viernes')
-                                                    <span class="PalabraEditarPago2">Vie.</span>
-                                                @elseif($key2->dia == 'Sábado')
-                                                    <span class="PalabraEditarPago2">Sábado</span>
-                                                @else
-                                                    <span class="PalabraEditarPago2">Dom.</span>
-                                                @endif
-                                            @endforeach
-                                            <hr>
-                                            @if($key->status == 'Activo')
-                                                <span class="PalabraEditarPago">
-                                                    <strong class="text-success">{{$key->status}}</strong>
-                                                </span>
-                                                <span class="PalabraEditarPago2 text-success">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                                </span>
-                                            @else
-                                                <span class="PalabraEditarPago">
-                                                    <strong class="text-danger">{{$key->status}}</strong>
-                                                </span>
-                                                <span class="PalabraEditarPago2 text-danger">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                                                </span>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                    <tr style="display: none;">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -415,8 +204,8 @@
     </div>
 
 
-    <div id="tablaArriendos" style="display: none;">
-        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded tabla-estilo">
+    <div id="tablaArriendos">
+        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <div style="height: 100%;">
@@ -440,74 +229,31 @@
                                 margin-bottom: 5px;
                                 margin-top: 5px;
                                 float: right;">
-                                <span class="PalabraEditarPago ">Nuevo Arrendamiento</span>
-                                <center>
-                                    <span class="PalabraEditarPago2 ">
-                                        <i data-feather="plus" class="iconosMetaforas2"></i>
-                                    </span>
-                                </center>
+                                <span><i data-feather="plus"></i>Nuevo Arrendamiento</span>
+                                        
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <div id="example1_wrapper">
-                        <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+                    <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                        <table id="example1" class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
                             <thead>
-                                <tr class="table-default text-white">
-                                    <td colspan="6" align="center">
-                                        <div class="card border border-info" style="background-color: #D6EAF8" role="alert">
-                                            <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione un Arriendo para ver mas opciones.</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="bg-primary text-white" class="th2" style="display: none">
-                                    <th width="10"></th>
-                                    <th>
-                                        <span class="PalabraEditarPago">Título</span>
-                                        <span class="PalabraEditarPago2">T</span>
-                                    </th>
-                                    <th>
-                                        <span class="PalabraEditarPago">URL</span>
-                                        <span class="PalabraEditarPago2">@</span>
-                                    </th>
-                                    <th colspan="2">
-                                        <center>
-                                            <span class="PalabraEditarPago">Opciones</span>
-                                            <span class="PalabraEditarPago2">O</span>
-                                        </center>
-                                    </th>
-                                </tr>
-                                <tr class="bg-info text-white" class="th1">
+                                <tr class="bg-info text-white">
                                     <th>#</th>
-                                    <th>
-                                        <span class="tituloTabla">Residente</span>
-                                        <span class="tituloTabla2">Re</span>
-                                    </th>
-                                    <th>
-                                        <span class="tituloTabla">Instalación</span>
-                                        <span class="tituloTabla2">ins</span>
-                                    </th>
-                                    <!-- <th>Estacionamientos</th> -->
-                                    <th>
-                                        <span class="tituloTabla">Tipo de alquiler</span>
-                                        <span class="tituloTabla2">TA</span>
-                                    </th>
-                                    <th>
-                                        <span class="tituloTabla">Fecha</span>
-                                        <span class="tituloTabla2">F</span>
-                                    </th>
-                                    <th>
-                                        <span class="tituloTabla">Hora</span>
-                                        <span class="tituloTabla2">H</span>
-                                    </th>
-                                    <!-- <th>Mensualidades</th> -->
+                                    <th>Residente</th>
+                                    <th>Instalación</th>
+                                    <th>Tipo de alquiler</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @php $num=0; @endphp
                                 @foreach($alquiler as $key)
-                                    <tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
-                                        <td>{{$key->id}}</td>
+                                    <tr>
+                                        <td>{{$num=$num+1}}</td>
                                         <td>{{$key->residente->nombres}}</td>
                                         <td>{{$key->instalacion->nombre}}</td>
                                         <td>{{$key->tipo_alquiler}}</td>
@@ -525,61 +271,31 @@
                                                 <strong class="text-warning">Temporal</strong>
                                             @endif
                                         </td>
-                                    </tr>
-                                    <tr class="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                        <td width="10">
-                                            <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                                <span class="PalabraEditarPago ">Regresar</span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                    </span>
-                                                </center>
-                                            </button>
-                                        </td>
-                                        <td>
-                                            <span>{{$key->residente->nombres}}</span><br>
-                                        </td>
-                                        <td>
-                                            <span>{{$key->instalacion->nombre}}</span>
-                                        </td>
-                                        <td>
-                                            <span>{{$key->tipo_alquiler}}</span>
-                                        </td>
-                                        <td colspan="2" align="center">
+                                        <td align="center">
                                             @foreach($key->pagos_has_alquiler as $key2)
                                                 
-                                            <a data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="VerArriendo(
-                                                        '{{$key->residente->nombres}}',
-                                                        '{{$key->residente->apellidos}}',
-                                                        '{{$key->residente->rut}}',
-                                                        '{{$key->instalacion->nombre}}',
-                                                        '{{$key->tipo_alquiler}}',
-                                                        '{{$key->fecha}}',
-                                                        '{{$key->hora}}',
-                                                        '{{$key->num_horas}}',
-                                                        '{{$key->status}}',
-                                                        '{{$key2->status}}',
-                                                        '{{$key2->referencia}}',
-                                                        '{{$key2->id_planesPago}}'
-                                                    )">
-                                                    <span class="PalabraEditarPago "><strong>Ver</strong></span>
-                                                    <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <strong><i data-feather="eye" class="iconosMetaforas2"></i></strong>
-                                                        </span>
-                                                    </center>
-                                                </a>
+                                            <a data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerArriendo(
+                                                    '{{$key->residente->nombres}}',
+                                                    '{{$key->residente->apellidos}}',
+                                                    '{{$key->residente->rut}}',
+                                                    '{{$key->instalacion->nombre}}',
+                                                    '{{$key->tipo_alquiler}}',
+                                                    '{{$key->fecha}}',
+                                                    '{{$key->hora}}',
+                                                    '{{$key->num_horas}}',
+                                                    '{{$key->status}}',
+                                                    '{{$key2->status}}',
+                                                    '{{$key2->referencia}}',
+                                                    '{{$key2->id_planesPago}}'
+                                                )">
+                                                <strong><i data-feather="eye"></i>Ver</strong>
+                                            </a>
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
-                                                        <span class="PalabraEditarPago ">
+                                                        <span>
                                                             <strong>Editar</strong>
                                                             <i class="uil uil-angle-down"></i>
                                                         </span>
-                                                        <span class="PalabraEditarPago2 ">
-                                                                <strong>
-                                                                    <i data-feather="edit" class="iconosMetaforas2"></i></strong>
-                                                            </span>
                                                     </button>
                                                     
                                                     <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
@@ -597,61 +313,42 @@
                                                             '{{$key2->id_planesPago}}'
                                                             )">
                                                             <span>Arriendo</span>
-                                                            <!-- <span class="PalabraEditarPago2 ">
-                                                                <strong><i data-feather="edit" class="iconosMetaforas2"></i></strong>
-                                                            </span> -->
+                                                                <strong><i data-feather="edit"></i></strong>
+                                                            </span>
                                                         </a>
                                                         @if($key2->status=="En Proceso")
-                                                        <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
-                                                            <span>Referencias</span>
-                                                        </a>
+                                                            <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                                <span>Referencias</span>
+                                                            </a>
                                                         @endif
                                                     </div>
                                                 </div>
-
-
                                                 
                                             @endforeach()
                                             {{--
                                             @if($key->status == 'Activo')
-                                                <a data-toggle="collapse" href="#statusArriendo" role="button" aria-expanded="false" aria-controls="statusArriendo"  class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
+                                                <a data-toggle="collapse" href="#statusArriendo" role="button" aria-expanded="false" aria-controls="statusArriendo"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
                                                     <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
+                                                            <i data-feather="sliders"></i>
                                                         </span>
                                                     </center>
                                                 </a>
                                             @else
-                                                <a data-toggle="collapse" href="#activarArriendo" role="button" aria-expanded="false" aria-controls="activarArriendo"  class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span class="PalabraEditarPago " data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
+                                                <a data-toggle="collapse" href="#activarArriendo" role="button" aria-expanded="false" aria-controls="activarArriendo"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
                                                     <center>
-                                                        <span class="PalabraEditarPago2 ">
-                                                            <i data-feather="sliders" class="iconosMetaforas2"></i>
+                                                            <i data-feather="sliders"></i>
                                                         </span>
                                                     </center>
                                                 </a>
                                             @endif
                                             --}}
 
-                                            <a data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo"  class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
-                                                <span class="PalabraEditarPago ">Eliminar</span>
-                                                <center>
-                                                    <span class="PalabraEditarPago2 ">
-                                                        <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                    </span>
-                                                </center>
+                                            <a data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
+                                                <span><i data-feather="trash"></i>Eliminar</span>
                                             </a>
                                         </td>
-                                        <td style="display: none;"></td>
-                                    </tr>
-                                    <tr style="display: none;">
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -662,8 +359,8 @@
         </div>
     </div>
 
-    <div id="tablaControl" style="display: none;">
-        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded tabla-estilo">
+    <div id="tablaControl">
+        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
             <div class="row">
                 <div class="col-md-12">
                     <div class="mb-3" align="right">
@@ -676,9 +373,8 @@
                                     margin-bottom: 5px;
                                     margin-top: 5px;
                                     float: right;">
-                                    <span class="PalabraEditarPago ">¿Algún problema?</span>
+                                    <span>¿Algún problema?</span>
                                     <center>
-                                        <span class="PalabraEditarPago2 ">
                                             <i data-feather="plus" class="alert-octagon"></i>
                                         </span>
                                     </center>
@@ -693,7 +389,7 @@
                                             <div class="col-md-12">
                                                 <div class="card shadow card-tabla border border-success">
                                                     <div class="card-body">
-                                                        <table class="tablaControl table table-striped tabla-estilo">
+                                                        <table class="tablaControl table table-striped">
                                                             <thead>
                                                                 <tr align="center">
                                                                     <th colspan="2">Estado de alquileres</th>
@@ -733,7 +429,7 @@
                                             <div class="col-md-12">
                                                 <div class="card shadow card-tabla border border-success">
                                                     <div class="card-body">
-                                                        <table class="tablaControl table table-striped tabla-estilo">
+                                                        <table class="tablaControl table table-striped">
                                                             <thead>
                                                                 <tr align="center">
                                                                     <th colspan="3">Nro. de alquileres por año</th>
@@ -780,7 +476,7 @@
                                             <div class="col-md-12">
                                                 <div class="card shadow card-tabla border border-success">
                                                     <div class="card-body">
-                                                        <table class="tablaControl table table-striped tabla-estilo">
+                                                        <table class="tablaControl table table-striped">
                                                             <thead>
                                                                 <tr align="center">
                                                                     <th colspan="2">Estado de instalaciones</th>
@@ -823,7 +519,7 @@
                                                 <div class="card shadow card-tabla border border-success">
                                                     <div class="card-body">
                                                         <canvas id="myChart"></canvas>
-                                                        <table class="tablaControl table table-striped tabla-estilo">
+                                                        <table class="tablaControl table table-striped">
                                                             <thead>
                                                                 <tr align="center">
                                                                     <th colspan="3">Total de ingresos</th>
@@ -918,7 +614,6 @@
 
 <script type="text/javascript">
 
-
     function cerrar(opcion) {
       $('#example1_wrapper').fadeIn('fast');
       $('#btnRegistrar_arriendo').show();
@@ -927,8 +622,8 @@
     }
 
     function VerArriendo(nombres,apellidos,rut,nombre_I,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
-        $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#btnRegistrar_arriendo').hide();
+        $('#example1_wrapper').hide();
 
         $('#id_residenteArriendo_2').html(nombres+' '+apellidos+' -'+rut);
         $('#instalacionListArriendo_2').html(nombre_I);

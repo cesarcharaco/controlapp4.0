@@ -2,74 +2,6 @@
 
 @section('content')
 
-        <style type="text/css">
-        .card {
-            border: 1px solid #f6f6f7!important;
-            border-color: #ff3e36 !important;
-        }
-        .palabraVerInmueble2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
-
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerInmueble{
-                display: none;
-            }
-            .palabraVerInmueble2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .botonesEditEli{
-                width: 15px;
-                height: 15px;
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .botonesEditEli{
-                width: 30px;
-                height: 30px;
-                margin-top: 5px;
-                    
-            }
-        }
-
-
-    </style>
     <div class="container">
         <input type="hidden" id="colorView" value="#ff3e36 !important">
         <div class="row page-title">
@@ -101,7 +33,7 @@
             </div>
         @endif
     </div>
-    <div class="card border border-danger rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+    <div class="card border border-danger rounded card-tabla shadow p-3 mb-5 bg-white rounded">
             <div class="row justify-content-center">
                 @if(\Auth::user()->tipo_usuario == 'Admin')
                     <div class="col-md-12">
@@ -117,12 +49,7 @@
                                     border: 1px solid #f6f6f7!important;
                                     border-color: #35e930  !important;
                                     background-color: #35e930  !important;">
-                                    <span class="PalabraEditarPago "><strong>Asignar M/R</strong>   </span>
-                                    <center>
-                                        <span class="PalabraEditarPago2 ">
-                                            <i data-feather="plus" class="iconosMetaforas2"></i>
-                                        </span>
-                                    </center>
+                                    Asignar M/R
                                 </a>
                                 <a class="btn btn-success boton-tabla shadow" data-toggle="modal" data-target="#crearMulta" onclick="asignar_mr()" style="
                                     border-radius: 10px;
@@ -134,12 +61,7 @@
                                     border: 1px solid #f6f6f7!important;
                                     border-color: #ff3e36 !important;
                                     background-color: #ff3e36 !important;">
-                                    <span class="PalabraEditarPago "><strong>Nuevo Multa/Recarga</strong>   </span>
-                                    <center>
-                                        <span class="PalabraEditarPago2 ">
-                                            <i data-feather="key" class="iconosMetaforas2"></i>
-                                        </span>
-                                    </center>
+                                    Nueva Multa/Recarga
                                 </a>
                             </div>
                         </div>
@@ -148,143 +70,60 @@
                 
     
             <div class="col-md-12">
-                <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                  <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                     <thead>
-                        @if(\Auth::user()->tipo_usuario == 'Admin')
-                            <tr class="table-default text-white">
-                                <td colspan="5" align="center">
-                                    <div class="card border border-danger" style="" role="alert">
-                                        <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione a una multa/recarga para ver mas opciones.</span>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
-                        <tr class="bg-primary text-white" id="th2" style="display: none">
-                            <th width="10">
-                            </th>
-                            <th>
-                                <span class="PalabraEditarPago">Motivo</span>
-                                <span class="PalabraEditarPago2">M</span>
-                            </th>
-                            <th colspan="2" align="center">
-                                <center>
-                                    <span class="PalabraEditarPago">Opciones</span>
-                                    <span class="PalabraEditarPago2">O</span>
-                                </center>
-                            </th>
-                            <th><span class="PalabraEditarPago">Asignados</span>
-                                <span class="PalabraEditarPago2">A</span></th>
-                        </tr>
                         <tr class="text-white" id="th1" style="background-color: #ff3e36 !important;">
                             <th>#</th>
-                            <th>
-                                <span class="PalabraEditarPago" align="center">Motivo</span>
-                                <span class="PalabraEditarPago2" align="center">M</span>
-                            </th>
-                            <th>
-                                <span class="PalabraEditarPago" align="center">Observación</span>
-                                <span class="PalabraEditarPago2" align="center">O</span>
-                            </th>
-                            <th>
-                                <span class="PalabraEditarPago" align="center">Monto</span>
-                                <span class="PalabraEditarPago2" align="center">$</span>
-                            </th>
-                            <th>
-                                <span class="PalabraEditarPago" align="center">Tipo</span>
-                                <span class="PalabraEditarPago2" align="center">T</span>
-                            </th>
+                            <th>Motivo</th>
+                            <th>Observación</th>
+                            <th>Monto</th>
+                            <th>Tipo</th>
+                            <th>Opciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $num=0; ?>
                         @if(\Auth::user()->tipo_usuario == 'Admin')
                             @foreach($mr as $key)
-                                <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                                <tr>
                                     <td align="center">{{$num=$num+1}}</td>
                                     <td>{{$key->motivo}}</td>
                                     <td>{{$key->observacion}}</td>
                                     <td>{{$key->monto}}</td>
                                     <td>{{$key->tipo}}</td>
-                                </tr>
-                                <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                    <td width="10">
-                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                            <span class="PalabraEditarPago ">Regresar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <span>{{$key->motivo}}</span>
-                                    </td>
-                                    <td colspan="2" align="center">
-                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" data-toggle="modal" data-target="#editarMulta" onclick="EditarMR('{{$key->id}}','{{$key->motivo}}','{{$key->monto}}','{{$key->tipo}}','{{$key->observacion}}')" >
-                                            <span class="PalabraEditarPago ">Editar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="edit" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
+                                    <td align="center">
+                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" data-toggle="modal" data-target="#editarMulta" onclick="EditarMR('{{$key->id}}','{{$key->motivo}}','{{$key->monto}}','{{$key->tipo}}','{{$key->observacion}}')" >
+                                            <i data-feather="edit"></i>Editar
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli"data-toggle="modal" data-target="#eliminarMulta" onclick="eliminar('{{$key->id}}')" class="btn btn-danger btn-sm">
-                                            <span class="PalabraEditarPago ">Eliminar</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
-                                        </a>
-
-                                        
-                                    </td>
-                                    <td style="display: none"></td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-sm boton-tabla shadow botonesEditEli" onclick="verAsignados('{{$key->id}}')" class="btn btn-danger btn-sm">
-                                            <span class="PalabraEditarPago ">Ver Asignados</span>
-                                            <center>
-                                                <span class="PalabraEditarPago2 ">
-                                                    <i data-feather="eye" class="iconosMetaforas2"></i>
-                                                </span>
-                                            </center>
+                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow"data-toggle="modal" data-target="#eliminarMulta" onclick="eliminar('{{$key->id}}')" class="btn btn-danger btn-sm">
+                                            <i data-feather="trash"></i>Eliminar
                                         </a>
                                     </td>
-                                    
-
-                                </tr>
-                                <tr style="display: none;">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
                                 </tr>
                             @endforeach()
                         @else
                             @foreach($asignacion as $key)
                                 <tr>
-                                    <td>
-                                        <button class="btn btn-warning rounded btn-sm" onclick="editarReferencia('{{$key->id}}','{{$key->id_pivot}}');">
-                                            <span class="PalabraEditarPago" align="center">Editar Código de Trans.</span>
-                                            <span class="PalabraEditarPago2" align="center">
-                                                <i data-feather="edit" class="iconosMetaforas2"></i>
-                                            </span>
-                                        </button>
-                                    </td>
+                                    <td>{{$num=$num+1}}</td>
                                     <td>{{$key->motivo}}</td>
                                     <td>{{$key->observacion}}</td>
                                     <td>{{$key->monto}}</td>
                                     <td>{{$key->tipo}}</td>
+                                    <td>
+                                        <button class="btn btn-warning rounded btn-sm" onclick="editarReferencia('{{$key->id}}','{{$key->id_pivot}}');">
+                                            <i data-feather="edit"></i>Editar Código de Trans.
+                                        </button>
+                                    </td>
                                 </tr>
                             @endforeach()
                         @endif
                         
                     </tbody>
                     
-                </table>
+                    </table>
+                </thead>
             </div>
     </div>
 

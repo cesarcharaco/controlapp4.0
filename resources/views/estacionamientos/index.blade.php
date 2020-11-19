@@ -2,74 +2,6 @@
 
 @section('content')
 
-<style type="text/css">
-    .card {
-            border: 1px solid #f6f6f7!important;
-            border-color: #cccc00 !important;
-        }
-        .palabraVerInmueble2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
-
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerInmueble{
-                display: none;
-            }
-            .palabraVerInmueble2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .botonesEditEli{
-                width: 15px;
-                height: 15px;
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .botonesEditEli{
-                width: 30px;
-                height: 30px;
-                margin-top: 5px;
-                    
-            }
-        }
-
-
-    </style>
     <div class="container">
         <input type="hidden" id="colorView" value="#cccc00 !important">
         <div class="row page-title">
@@ -101,7 +33,7 @@
             </div>
         @endif
     </div>
-    <div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+    <div class="card rounded card-tabla shadow p-3 mb-5 bg-white rounded">
         <div class="row justify-content-center">
             @if(\Auth::user()->tipo_usuario == 'Admin')
                 <div class="col-md-12">
@@ -118,12 +50,7 @@
                                 border-color: #cccc00 !important;
                                 background-color: #cccc00 !important;">
 
-                                <span class="PalabraEditarPago text-white">Nuevo Estacionamientos</span>
-                                <center>
-                                    <span class="PalabraEditarPago2 text-white">
-                                        <i data-feather="plus" class="iconosMetaforas2"></i>
-                                    </span>
-                                </center>
+                                <span class="text-white"><i data-feather="plus"></i>Nuevo Estacionamientos</span>
                             </a>
                         </div>
                     </div>
@@ -131,116 +58,38 @@
             @endif
             
 
-        <div class="col-md-12">
-            <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
+        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+            <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                 <thead>
-                    <tr class="table-default text-white">
-                        <td colspan="4" align="center">
-                            <div class="card" style="" role="alert">
-                                <span class="text-dark p-1 mb-1"><strong>Aviso: </strong><br>-Seleccione un estacionamiento para ver mas opciones.</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr class="text-white" id="th1" style="background-color: #cccc00 ;">
+                    <tr class="bg-primary text-white">
                         <th>#</th>
-                        <th colspan="2">
-                            <span class="tituloTabla">Idem</span>
-                            <span class="tituloTabla2">I</span>
-                        </th>
-                        <th>
-                            <span class="tituloTabla">Status</span>
-                            <span class="tituloTabla2">S</span>
-                        </th>
-                    </tr>
-                    <tr class="bg-primary text-white" id="th2" style="display: none">
-                        <th width="10"></th>
-                        <th>
-                            <span class="PalabraEditarPago">Idem</span>
-                            <span class="PalabraEditarPago2">I</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Opciones</span>
-                            <span class="PalabraEditarPago2">O</span>
-                        </th>
-                        <th>
-                            <span class="PalabraEditarPago">Status</span>
-                            <span class="PalabraEditarPago2">S</span>
-                        </th>
+                        <th>Idem</th>
+                        <th>Status</th>
+                        <th>Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php $num=0 @endphp
                     @foreach($estacionamientos as $key)
-                        <tr id="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                        <tr>
                             <td align="center">{{$num=$num+1}}</td>
-                            <th colspan="2">{{$key->idem}}</th>
-                            <td style="display: none"></td>
+                            <td>{{$key->idem}}</td>
                             @if($key->status == 'Libre')
-                                <td style="position: all;">
-                                        <span class="tituloTabla text-success"><strong>En Uso</strong></span>
-                                        <span class="tituloTabla2 text-success"><strong>U</strong></span>
-                                </td>
+                                <td>En Uso</td>
                             @else
-                                <td style="position: all;">
-                                        <span class="tituloTabla text-danger"><strong>Retirado</strong></span>
-                                        <span class="tituloTabla2 text-danger"><strong>R</strong></span>
-                                </td>
+                                <td>Retirado</td>
                             @endif
-                        </tr>
-                        <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                            <td width="10">
-                                <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                    <span class="PalabraEditarPago ">Regresar</span>
-                                    <center>
-                                        <span class="PalabraEditarPago2 ">
-                                            <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                        </span>
-                                    </center>
-                                </button>
-                            </td>
                             <td>
-                                
-                                <span>{{$key->idem}}</span>
-                            </td>
-                            <td align="center">
                                 @if(\Auth::user()->tipo_usuario == 'Admin')
-                                    <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="select(2,'{{$key->id}}','{{$key->idem}}','{{$key->status}}')">
-                                        <span class="PalabraEditarPago ">Editar</span>
-                                        <center>
-                                            <span class="PalabraEditarPago2 ">
-                                                <i data-feather="edit" class="iconosMetaforas2"></i>
-                                            </span>
-                                        </center>
+                                    <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="select(2,'{{$key->id}}','{{$key->idem}}','{{$key->status}}')">
+                                        <i data-feather="edit"></i>Editar
                                     </a>
 
-                                    <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="select(3,'{{$key->id}}','{{$key->idem}}','{{$key->status}}')">
-                                        <span class="PalabraEditarPago ">Eliminar</span>
-                                        <center>
-                                            <span class="PalabraEditarPago2 ">
-                                                <i data-feather="trash" class="iconosMetaforas2"></i>
-                                            </span>
-                                        </center>
+                                    <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="select(3,'{{$key->id}}','{{$key->idem}}','{{$key->status}}')">
+                                        <i data-feather="trash"></i>Eliminar
                                     </a>
                                 @endif
                             </td>
-                            @if($key->status == 'Libre')
-                                <td style="position: all;">
-                                        <span class="tituloTabla text-success"><strong>En Uso</strong></span>
-                                        <span class="tituloTabla2 text-success"><strong>U</strong></span>
-                                </td>
-                            @else
-                                <td style="position: all;">
-                                        <span class="tituloTabla text-danger"><strong>Retirado</strong></span>
-                                        <span class="tituloTabla2 text-danger"><strong>R</strong></span>
-                                </td>
-                            @endif
-
-                        </tr>
-                        <tr style="display: none;">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
                         </tr>
                     @endforeach()
                 </tbody>

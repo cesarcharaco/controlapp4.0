@@ -38,14 +38,9 @@
 	}
 </style>
 
-<!-- DataTables -->
-
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/buttons.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('assets/css/data-table/css/select.bootstrap4.min.css') }}">
-
 <link rel="stylesheet" href="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap4.min.css') }}">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css"/>
-<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap4.min.css"/>
+<link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap4.min.css') }}" defer>
+<!-- <link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap4.css') }}"> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/r-2.2.6/datatables.min.css"/>
+<link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('plugins/dataTables/responsive.bootstrap.min.css') }}">

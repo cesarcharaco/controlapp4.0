@@ -389,7 +389,7 @@
                     
                     <div class="col-md-8" style="float: left; position: relative;">
                         <div style="width: 100%;" id="vistaAdminRoot">
-                            <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
+                            <div class="card border border-info rounded shadow p-3 mb-5 bg-white rounded">
                                 <div class="card-body p-0">
                                         <span class="text-info text-uppercase font-size-12 font-weight-bold">Usuarios administradores</span>
                                         <div class="row">
@@ -406,123 +406,51 @@
                                             </div>
                                         </div>
 
-                                    <table class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width: 100%;">
-                                        <thead>
-                                            <tr class="bg-primary text-white" id="th2" style="display: none">
-                                                <th>
-                                                    <span>Nombres</span>
-                                                </th>
-                                                <th>
-                                                    <span>Rut</span>
-                                                </th>
-                                                <th colspan="2">
-                                                    <center>
-                                                        <span>Opciones</span>
-                                                    </center>
-                                                </th>
-                                                <th>
-                                                    <span>Status</span>
-                                                </th>
-                                            </tr>
-                                            <tr class="bg-info text-white" id="th1">
-                                                <th>
-                                                    <span>Nombres</span>
-                                                </th>
-                                                <th>
-                                                    <span>Rut</span>
-                                                </th>
-                                                <th>
-                                                    <span>Email</span>
-                                                </th>
-                                                <th>
-                                                    <span>Registrado el</span>
-                                                </th>
-                                                <th>
-                                                    <span>Status</span>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($admin as $key)
-                                                <tr id="vista1-{{$key->id}}">
-
-                                                    <td style="position: all;">{{$key->name}}</td>
-                                                    <td style="position: all;">{{$key->rut}}</td>
-                                                    <td style="position: all;">{{$key->email}}</td>
-                                                    <td style="position: all;">{{$key->created_at}}</td>
-                                                     @if($key->status == 'activo')
-                                                        <td style="position: all;">
-                                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-                                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
-                                                        </td>
-                                                    @else
-                                                        <td style="position: all;">
-                                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-                                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
-                                                        </td>
-                                                    @endif
+                                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
+                                            <thead>
+                                                <tr class="bg-primary text-white">
+                                                    <th>Nombres</th>
+                                                    <th>Rut</th>
+                                                    <th>Email</th>
+                                                    <th>Registrado el</th>
+                                                    <th>Status</th>
+                                                    <th>Opciones</th>
                                                 </tr>
-                                                <tr id="vista2-{{$key->id}}" class="table-success" style="display: none;">
-                                                    <td width="10">
-                                                        <button class="btn btn-success btn-sm boton-tabla shadow botonesEditEli" onclick="opcionesTabla(2,'{{$key->id}}')">
-                                                            <span class="PalabraEditarPago ">Regresar</span>
-                                                            <center>
-                                                                <span class="PalabraEditarPago2 ">
-                                                                    <i data-feather="arrow-left" class="iconosMetaforas2"></i>
-                                                                </span>
-                                                            </center>
-                                                        </button>
-                                                    </td>
-                                                    <td>
-                                                        <span>{{$key->name}}</span>
-                                                    </td>
-                                                    <td>
-                                                        
-                                                        <span>{{$key->rut}}</span>
-                                                    </td>
-                                                    <td style="display: none"></td>
-                                                    <td align="center" colspan="2">
-                                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}')">
-                                                            <span class="PalabraEditarPago ">Editar</span>
-                                                            <center>
-                                                                <span class="PalabraEditarPago2 ">
-                                                                    <i data-feather="edit" class="iconosMetaforas2"></i>
-                                                                </span>
-                                                            </center>
-                                                        </a>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($admin as $key)
+                                                    <tr>
 
-                                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')">
-                                                            <span class="PalabraEditarPago ">Eliminar</span>
-                                                            <center>
-                                                                <span class="PalabraEditarPago2 ">
-                                                                    <i data-feather="trash" class="iconosMetaforas2"></i>
-                                                                </span>
-                                                            </center>
-                                                        </a>
-                                                    </td>
-                                                    @if($key->status == 'activo')
-                                                        <td style="position: all;">
-                                                                <span class="tituloTabla text-success"><strong>Activo</strong></span>
-                                                                <span class="tituloTabla2 text-success"><strong>A</strong></span>
+                                                        <td>{{$key->name}}</td>
+                                                        <td>{{$key->rut}}</td>
+                                                        <td>{{$key->email}}</td>
+                                                        <td>{{$key->created_at}}</td>
+                                                         @if($key->status == 'activo')
+                                                            <td style="position: all;">
+                                                                    <span class="tituloTabla text-success"><strong>Activo</strong></span>
+                                                                    <span class="tituloTabla2 text-success"><strong>A</strong></span>
+                                                            </td>
+                                                        @else
+                                                            <td style="position: all;">
+                                                                    <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
+                                                                    <span class="tituloTabla2 text-danger"><strong>I</strong></span>
+                                                            </td>
+                                                        @endif
+                                                        <td>
+                                                            <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}')">
+                                                                <span class="PalabraEditarPago "><i data-feather="edit" class="iconosMetaforas2"></i>Editar</span>
+                                                            </a>
+
+                                                            <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')">
+                                                                <span class="PalabraEditarPago "><i data-feather="trash" class="iconosMetaforas2"></i>Eliminar</span>
+                                                            </a>
                                                         </td>
-                                                    @else
-                                                        <td style="position: all;">
-                                                                <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-                                                                <span class="tituloTabla2 text-danger"><strong>I</strong></span>
-                                                        </td>
-                                                    @endif
-
-
-                                                </tr>
-                                            <!-- <tr style="display: none;">
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr> -->
-                                            @endforeach()
-                                        </tbody>
-                                    </table>
+                                                    </tr>
+                                                @endforeach()
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

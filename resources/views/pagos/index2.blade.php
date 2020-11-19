@@ -2,69 +2,7 @@
 
 
 @section('content')
-    <style type="text/css">
-        .palabraVerInmueble2, .palabraVerEstaciona2,.PalabraEditarPago2, .tituloTabla2
-        {
-            display: none;
-        }
-        @media only screen and (max-width: 800px)  {
 
-            .PalabraEditarPago, .PalabraRealizarPago, .PalabraPagoConfirmar{
-                display: none;
-            }
-            .palabraVerInmueble{
-                display: none;
-            }
-            .palabraVerInmueble2{
-                display: block;
-            }
-            .palabraVerEstaciona{
-                display: none;
-            }
-            .palabraVerEstaciona2{
-                display: block;
-            }
-            .PalabraEditarPago2{
-                display: block;
-            }
-            .iconosMetaforas{
-                display: none;    
-            }
-            .card-table{
-                width: 100%
-            }
-
-        }
-        @media only screen and (max-width: 200px)  {
-            .avatar{
-                width: 25px;
-                height: 25px;
-                /*display: none;   */
-            }
-            .iconosMetaforas2{
-                width: 5px;
-                height: 5px;    
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .tituloTabla{
-                display: none;
-            }
-            .tituloTabla2{
-                display: block;
-            }
-            .iconosMetaforas2{
-                width: 15px;
-                height: 15px;    
-            }
-            .avatar{
-                width: 45px;
-                height: 45px;    
-            }
-        }
-
-
-    </style>
     <div class="container">
         <input type="hidden" id="colorView" value="#ff5c75!important">
         <div class="row page-title">
@@ -105,73 +43,60 @@
             @if(\Auth::user()->tipo_usuario == 'Admin')
                 <div class="card border border-danger rounded card-tabla shadow p-3 mb-5 bg-white rounded">
                     <div class="card-body">
-                        <table class="data-table-basic table table-hover mb-0 tabla-estilo" id="myTable" width="100%" style="position: relative; table-layout: fixed;">
-                            <thead>
-                                <tr class="bg-danger text-white">
-                                    <th></th>
-                                    <th>
-                                        <span class="tituloTabla">Nombres</span>
-                                        <span class="tituloTabla2">N</span>
-                                    </th>
-                                    <th>
-                                        <span class="tituloTabla">Asignaciones</span>
-                                        <span class="tituloTabla2">A</span>
-                                    </th>
-                                    <th>
-                                        <span class="tituloTabla">Opciones</span>
-                                        <span class="tituloTabla2">O</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($residentes as $key)
-                                    <tr>
-                                        <td align="center">                                                
-                                            <img src="{{ asset('assets/images/avatar-user.png') }}" class="avatar-md rounded-circle avatar" />
-                                        </td>
-                                        <td align="center">
-                                            <div class="form-group">
-                                                {{$key->nombres}} {{$key->apellidos}}
-                                                <br>
-                                                <strong>{{$key->rut}}</strong>
-                                            </div>
-                                        </td>
-                                        <td>                                            
-                                            <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="verAsignadosM('{{$key->id}}')" >
-                                                <i data-feather="dollar-sign" class="iconosMetaforas" style="float:left;"></i>
-                                                <span class="PalabraPagoConfirmar">Ver Asignaciones</span>
-                                                <span class="PalabraEditarPago2"><i data-feather="eye" class="iconosMetaforas2"></i></span>
-                                            </a>                                                
-                                        </td>
-                                        <td>
-                                            <center>
-                                                <a href="#" class="btn btn-success btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="pagarMultasResidente('{{$key->id}}')" >
-                                                    <i data-feather="dollar-sign" class="iconosMetaforas" style="float:left;"></i>
-                                                    <span class="PalabraPagoConfirmar">Pagar</span>
-                                                    <span class="PalabraEditarPago2"><i data-feather="dollar-sign" class="iconosMetaforas2"></i></span>
-                                                </a>
-                                            </center>
-                                            <br>
-                                            <center>
-                                                <a href="#" class="btn btn-info btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="multasPorComprobar('{{$key->id}}')">
-                                                    <i data-feather="check-square" class="iconosMetaforas" style="float:left;"></i>
-                                                    <span class="PalabraPagoConfirmar">Confirmar</span>
-                                                    <span class="PalabraEditarPago2"><i data-feather="check-square" class="iconosMetaforas2"></i></span>
-                                                </a>
-                                            </center>
-                                            <br>
-                                            <center>
-                                                <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="eliminarMulta('{{$key->id}}')">
-                                                    <i data-feather="trash" class="iconosMetaforas" style="float:left;"></i>
-                                                    <span class="PalabraPagoConfirmar">Eliminar Multas y/o recargas</span>
-                                                    <span class="PalabraEditarPago2"><i data-feather="trash" class="iconosMetaforas2"></i></span>
-                                                </a>
-                                            </center>
-                                        </td>
+                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                            <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                                <thead>
+                                    <tr class="bg-danger text-white">
+                                        <th>Nombres</th>
+                                        <th></th>
+                                        <th>Asignaciones</th>
+                                        <th>Opciones</th>
                                     </tr>
-                                @endforeach()
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($residentes as $key)
+                                        <tr>
+                                            <td align="center">
+                                                <div class="form-group">
+                                                    {{$key->nombres}} {{$key->apellidos}}
+                                                    <br>
+                                                    <strong>{{$key->rut}}</strong>
+                                                </div>
+                                            </td>
+                                            <td align="center">                                                
+                                                <img src="{{ asset('assets/images/avatar-user.png') }}" class="avatar-md rounded-circle avatar" />
+                                            </td>
+                                            <td>
+                                                <br>
+                                                <a href="#" class="btn btn-warning btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="verAsignadosM('{{$key->id}}')" >
+                                                    <span><i data-feather="eye" style="float: left;"></i>Asignaciones</span>
+                                                </a>                                                
+                                            </td>
+                                            <td>
+                                                <br>
+                                                <center>
+                                                    <a href="#" class="btn btn-success btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="pagarMultasResidente('{{$key->id}}')" >
+                                                        <span><i data-feather="dollar-sign" style="float: left;"></i>Pagar</span>
+                                                    </a>
+                                                </center>
+                                                <br>
+                                                <center>
+                                                    <a href="#" class="btn btn-info btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="multasPorComprobar('{{$key->id}}')">
+                                                        <span><i data-feather="check-square" style="float: left;"></i>Confirmar</span>
+                                                    </a>
+                                                </center>
+                                                <br>
+                                                <center>
+                                                    <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="eliminarMulta('{{$key->id}}')">
+                                                        <span><i data-feather="trash" style="float: left;"></i>Eliminar Multas y/o recargas</span>
+                                                    </a>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    @endforeach()
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             @endif
@@ -241,7 +166,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Total a pagar</label>
-                            <center style="color: grey; font-size: 100px; width:100%; font-size: 10vw;">$<span id="TotalPag class="iconosMetaforas2"ar">0</span></center>
+                            <center style="color: grey; font-size: 100px; width:100%; font-size: 10vw;">$<span id="TotalPagar">0</span></center>
                             <input type="hidden" name="total" id="total" value="0">
                         </div>
                     </div>
@@ -723,8 +648,7 @@
                                     '<td align="center"><center>'+data[i].monto+'</center></td>'+
                                     '<td align="center" class="text-success"><center><strong>'+data[i].status+'</strong>'+referencia+'</center>'+
                                         '<button style="width:100% !important;" class="btn btn-warning rounded btn-sm" onclick="editarReferencia('+data[i].id+','+data[i].id_pivot+');">'+
-                                            '<span class="PalabraPagoConfirmar">Editar Código de Trans.</span>'+
-                                            '<span class="PalabraEditarPago2">Editar</span>'+
+                                            '<span>Editar</Editar Código de Trans.</span>'+
                                         '</button>'+
                                     '</td>'+
                                 '</tr>'
@@ -779,8 +703,7 @@
                             '<td align="center">'+
                                 '<center>'+
                                     '<button style="width:100% !important;" class="btn btn-danger rounded btn-sm" onclick="eliminarMr('+data[i].id_pivot+');">'+
-                                        '<span class="PalabraPagoConfirmar">Eliminar</span>'+
-                                        '<span class="PalabraEditarPago2">Eliminar</span>'+
+                                        '<span>Eliminar</Eliminar</span>'+
                                     '</button>'+
                                 '</center>'+
                             '</td>'+
