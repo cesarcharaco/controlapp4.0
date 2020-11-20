@@ -252,7 +252,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @php $num=0; @endphp
+                                @php 
+                                    $num=0;
+                                    $date=Date('Y-m-d');
+                                @endphp
                                 @foreach($alquiler as $key)
                                 @foreach($key->pagos_has_alquiler as $key3)
                                     <tr>
@@ -274,7 +277,13 @@
                                                 <strong class="text-warning">Temporal</strong>
                                             @endif
                                         </td>
-                                        <td>{{$key3->status}}</td>
+                                        <td>
+                                            @if($date <= $key->fecha)
+                                                <span class="text-success"><strong>Activo</strong></span>
+                                            @else
+                                                <span class="text-success"><strong>Pagado</strong></span>
+                                            @endif
+                                        </td>
                                         <td align="center">
                                             @foreach($key->pagos_has_alquiler as $key2)
                                                 
