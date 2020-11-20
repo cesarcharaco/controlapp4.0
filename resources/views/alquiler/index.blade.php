@@ -214,6 +214,7 @@
                         @include('alquiler.layouts_arriendo.edit')
                         @include('alquiler.layouts_arriendo.edit_status')
                         @include('alquiler.layouts_arriendo.edit_referencias')
+                        @include('alquiler.layouts_arriendo.pagar')
                         @include('alquiler.layouts_arriendo.delete')
                     </div>
                 </div>
@@ -246,12 +247,14 @@
                                     <th>Tipo de alquiler</th>
                                     <th>Fecha</th>
                                     <th>Hora</th>
+                                    <th>Status de pago</th>
                                     <th>Opciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @php $num=0; @endphp
                                 @foreach($alquiler as $key)
+                                @foreach($key->pagos_has_alquiler as $key3)
                                     <tr>
                                         <td>{{$num=$num+1}}</td>
                                         <td>{{$key->residente->nombres}}</td>
@@ -271,85 +274,59 @@
                                                 <strong class="text-warning">Temporal</strong>
                                             @endif
                                         </td>
+                                        <td>{{$key3->status}}</td>
                                         <td align="center">
                                             @foreach($key->pagos_has_alquiler as $key2)
                                                 
                                             <a data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerArriendo(
-                                                    '{{$key->residente->nombres}}',
-                                                    '{{$key->residente->apellidos}}',
-                                                    '{{$key->residente->rut}}',
-                                                    '{{$key->instalacion->nombre}}',
-                                                    '{{$key->tipo_alquiler}}',
-                                                    '{{$key->fecha}}',
-                                                    '{{$key->hora}}',
-                                                    '{{$key->num_horas}}',
-                                                    '{{$key->status}}',
-                                                    '{{$key2->status}}',
-                                                    '{{$key2->referencia}}',
-                                                    '{{$key2->id_planesPago}}'
+                                                '{{$key->residente->nombres}}',
+                                                '{{$key->residente->apellidos}}',
+                                                '{{$key->residente->rut}}',
+                                                '{{$key->instalacion->nombre}}',
+                                                '{{$key->tipo_alquiler}}',
+                                                '{{$key->fecha}}',
+                                                '{{$key->hora}}',
+                                                '{{$key->num_horas}}',
+                                                '{{$key->status}}',
+                                                '{{$key2->status}}',
+                                                '{{$key2->referencia}}',
+                                                '{{$key2->id_planesPago}}'
                                                 )">
-                                                <strong><i data-feather="eye"></i>Ver</strong>
+                                                <strong data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</strong>
                                             </a>
-                                                <div class="btn-group">
-                                                    <button type="button" class="btn btn-warning dropdown-toggle btn-sm" data-toggle="dropdown" aria-expanded="false">
-                                                        <span>
-                                                            <strong>Editar</strong>
-                                                            <i class="uil uil-angle-down"></i>
-                                                        </span>
-                                                    </button>
-                                                    
-                                                    <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 115px, 0px);">
-                                                            <a data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="dropdown-item" onclick="editarArriendo(
-                                                            '{{$key->id}}',
-                                                            '{{$key->id_residente}}',
-                                                            '{{$key->id_instalacion}}',
-                                                            '{{$key->tipo_alquiler}}',
-                                                            '{{$key->fecha}}',
-                                                            '{{$key->hora}}',
-                                                            '{{$key->num_horas}}',
-                                                            '{{$key->status}}',
-                                                            '{{$key2->status}}',
-                                                            '{{$key2->referencia}}',
-                                                            '{{$key2->id_planesPago}}'
-                                                            )">
-                                                            <span>Arriendo</span>
-                                                                <strong><i data-feather="edit"></i></strong>
-                                                            </span>
-                                                        </a>
-                                                        @if($key2->status=="En Proceso")
-                                                            <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="dropdown-item" onclick="EditReferenciasArriendos('{{$key->id}}')">
-                                                                <span>Referencias</span>
-                                                            </a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                
-                                            @endforeach()
-                                            {{--
-                                            @if($key->status == 'Activo')
-                                                <a data-toggle="collapse" href="#statusArriendo" role="button" aria-expanded="false" aria-controls="statusArriendo"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
-                                                    <center>
-                                                            <i data-feather="sliders"></i>
-                                                        </span>
-                                                    </center>
-                                                </a>
-                                            @else
-                                                <a data-toggle="collapse" href="#activarArriendo" role="button" aria-expanded="false" aria-controls="activarArriendo"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
-                                                    <center>
-                                                            <i data-feather="sliders"></i>
-                                                        </span>
-                                                    </center>
+                                            <a data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" class="btn btn-warning dropdown-toggle btn-sm" onclick="editarArriendo(
+                                                '{{$key->id}}',
+                                                '{{$key->id_residente}}',
+                                                '{{$key->id_instalacion}}',
+                                                '{{$key->tipo_alquiler}}',
+                                                '{{$key->fecha}}',
+                                                '{{$key->hora}}',
+                                                '{{$key->num_horas}}',
+                                                '{{$key->status}}',
+                                                '{{$key2->status}}',
+                                                '{{$key2->referencia}}',
+                                                '{{$key2->id_planesPago}}'
+                                                )">
+                                                <strong data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</strong>                                                        
+                                            </a>
+                                            @if($key2->status == 'No Pagado')
+                                                <a data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
                                                 </a>
                                             @endif
-                                            --}}
-
+                                            @if($key2->status == 'En Proceso')
+                                                <a data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
+                                                </a>
+                                            @endif
                                             <a data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
-                                                <span><i data-feather="trash"></i>Eliminar</span>
+                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo"><i data-feather="trash"></i> Eliminar</span>
                                             </a>
+
+                                            @endforeach()
                                         </td>
                                     </tr>
+                                @endforeach
                                 @endforeach
                             </tbody>
                         </table>
@@ -1169,8 +1146,8 @@
                         '<div class="row">'+
                             '<div class="col-md-12">'+
                                 '<div class="form-group">'+
-                                    '<label for="">Código de Refer. Actual</label>'+
-                                    '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                                    '<h3>Monto de la operación: '+data[0].monto+'</h3>'+
+                                    '<h3>Código de Referencia Actual: <b class="text-warning">'+data[0].refer+'</b></h3>'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -1189,6 +1166,47 @@
             });
             // $('#cargandoRefeArriendos').fadeOut('fast');
             // $('#codigoActualRefArr').fadeIn();
+
+        });
+    }
+
+    function pagarArriendos(id_arriendo) {
+        $('#id_pagar_arriendo').val(id_arriendo);
+        $('#vistaPagarArriendos').hide();
+        $('#cargandoPagarArriendos').css('display','block');
+        $('#btnRegistrar_arriendo').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
+
+        $('#monto_pagar').empty();
+        
+
+        $.get("arriendos/"+id_arriendo+"/buscar_pagar_arriendo",function (data) {
+        })
+        .done(function(data) {
+            if (data[0].status=='No Pagado') {
+                console.log(data[0].status);
+                $('#monto_pagar').append(
+                    '<center>'+
+                        '<div class="row">'+
+                            '<div class="col-md-12">'+
+                                '<div class="form-group">'+
+                                    '<h3>Monto de la operación: '+data[0].monto+'</h3>'+
+                                '</div>'+
+                            '</div>'+
+                        '</div>'+
+                    '</center>'
+                );
+            }else{
+                $('#monto_pagar').append(
+                    '<h3 align="center">El alquiler no posee se puede pagar, su status actual es: '+data[0].status+'</h3>'
+                );
+            }
+
+            $('#cargandoPagarArriendos').fadeOut('slow',
+                function() { 
+                    $(this).hide();
+                    $('#vistaPagarArriendos').fadeIn(300);
+            });
 
         });
     }

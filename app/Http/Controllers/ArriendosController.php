@@ -327,6 +327,18 @@ class ArriendosController extends Controller
         ->select('residentes.*','instalaciones.nombre as instalacion','pagos_has_alquiler.referencia as refer')
         ->get();
     }
+    
+    public function buscar_pagar_arriendo($id)
+    {
+        // return 1;
+        return \DB::table('alquiler')
+        ->join('residentes','residentes.id','=','alquiler.id_residente')
+        ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
+        ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+        ->where('alquiler.id',$id)
+        ->select('residentes.*','instalaciones.nombre as instalacion','pagos_has_alquiler.referencia as refer','pagos_has_alquiler.monto','pagos_has_alquiler.status')
+        ->get();
+    }
 
     public function buscarArriendosResidentes($id)
     {

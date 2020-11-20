@@ -351,19 +351,36 @@ class AlquilerController extends Controller
     public function pagar_alquiler_resi(Request $request)
     {
         //dd($request->all());
-        if(empty($request->referencia)){
-            toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
-            return redirect()->back();
-        } else {
-            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-            ->update([
-                'referencia'=> $request->referencia,
-                'status'=> "En Proceso"
-            ]);
+        if (\Auth::user()->tipo_usuario=="Admin") {
+            if(empty($request->referencia)){
+                toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+                return redirect()->back();
+            } else {
+                \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                ->update([
+                    'referencia'=> $request->referencia,
+                    'status'=> "Pagado"
+                ]);
 
-            toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');
-            return redirect()->back();
+                toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
+                return redirect()->back();
+            }
+        } else {
+            if(empty($request->referencia)){
+                toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+                return redirect()->back();
+            } else {
+                \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                ->update([
+                    'referencia'=> $request->referencia,
+                    'status'=> "En Proceso"
+                ]);
+
+                toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');
+                return redirect()->back();
+            }
         }
+        
     }
 
     public function eliminar_alquiler(Request $request)

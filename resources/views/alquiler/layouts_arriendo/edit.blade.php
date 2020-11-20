@@ -19,7 +19,8 @@
         </ul>
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-homeE" role="tabpanel" aria-labelledby="pills-home-tab">
-                <center>
+              <div class="row">
+                <div class="col-md-6">
                   <div class="form-group">
                     <label>Residente <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="id_residenteArriendoE" onchange="buscarTodo(this.value)" name="id_residente" required>
@@ -29,7 +30,9 @@
                         @endforeach()
                     </select>
                   </div>
-                   <div class="form-group">
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
                     <label>Instalación <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
                         <option disabled required>Seleccione instalación</option>
@@ -37,7 +40,10 @@
                         <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
                         @endforeach
                     </select>
-                  </div>
+                  </div>                  
+                </div>
+              </div>
+                <center>                  
                   <div class="form-group">
                     <label>Tipo de Alquiler</label>
                     <select class="form-control select2" id="tipo_alquilerArriendoE" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
@@ -68,18 +74,12 @@
                       </span>
                       <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" required id="num_horasArriendoE">
                     </div>
-                    </div>
-                    <div class="form-group">
-                      <label>Status</label>
-                      <select name="status" class="form-control select2" id="statusArriendoE">
-                        <option value="Activo">Activo</option>
-                        <option value="Inactivo">Inactivo</option>
-                      </select>
-                    </div>                                  
+                  </div>
                 </center>
             </div>
             <div class="tab-pane fade" id="pills-pagoE" role="tabpanel" aria-labelledby="pills-pago-tab">
                 <center>
+                  {{--
                     <div class="form-group" id="pagoRealizado">
                       <div>                  
                           <label for="admins_todos">¿Se realizó el pago?</label>
@@ -94,48 +94,49 @@
                         <label>Referencia </label>
                         <input type="text" class="form-control" name="referencia" id="referenciaArriendoE" maxlength="20">
                     </div>
+                    --}}
                     <div class="row">
-                        <?php $num=0; ?>
-                            @foreach($planesPago as $key)
-                                @if($num==0)
-                                    <div class="col-md-4">
-                                        <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
-                                            <div class="card-body">
-                                                <div class="custom-control custom-radio mb-2">
-                                                  <input type="radio" id="planPArriendoE{{$key->id}}" name="planP" value="{{$key->id}}" checked>
-                                                </div>
-                                               <h3>{{$key->nombre}}</h3>
-                                               <span>{{$key->dias}} dias</span>
-                                               <br>
-                                                <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
-                                               <br>
-                                               <center>
-                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
-                                               </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="col-md-4">
-                                        <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
-                                            <div class="card-body">
-                                                <div class="custom-control custom-radio mb-2">
-                                                  <input type="radio" id="planPArriendoE{{$key->id}}" name="planP" value="{{$key->id}}">
-                                                </div>
-                                               <h3>{{$key->nombre}}</h3>
-                                               <span>{{$key->dias}} dias</span>
-                                               <br>
-                                                <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
-                                               <br>
-                                               <center>
-                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
-                                               </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                                <?php $num++; ?>
-                            @endforeach()
+                      <?php $num=0; ?>
+                      @foreach($planesPago as $key)
+                          @if($num==0)
+                              <div class="col-md-4">
+                                  <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
+                                      <div class="card-body">
+                                          <div class="custom-control custom-radio mb-2">
+                                            <input type="radio" id="planPArriendoE{{$key->id}}" name="planP" value="{{$key->id}}" checked>
+                                          </div>
+                                         <h3>{{$key->nombre}}</h3>
+                                         <span>{{$key->dias}} dias</span>
+                                         <br>
+                                          <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
+                                         <br>
+                                         <center>
+                                          <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
+                                         </center>
+                                      </div>
+                                  </div>
+                              </div>
+                          @else
+                              <div class="col-md-4">
+                                  <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
+                                      <div class="card-body">
+                                          <div class="custom-control custom-radio mb-2">
+                                            <input type="radio" id="planPArriendoE{{$key->id}}" name="planP" value="{{$key->id}}">
+                                          </div>
+                                         <h3>{{$key->nombre}}</h3>
+                                         <span>{{$key->dias}} dias</span>
+                                         <br>
+                                          <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
+                                         <br>
+                                         <center>
+                                          <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
+                                         </center>
+                                      </div>
+                                  </div>
+                              </div>
+                          @endif
+                          <?php $num++; ?>
+                      @endforeach()
                     </div>
                 </center>
 
