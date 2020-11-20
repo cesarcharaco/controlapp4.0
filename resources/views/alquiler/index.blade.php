@@ -1175,7 +1175,7 @@
         $('#vistaPagarArriendos').hide();
         $('#cargandoPagarArriendos').css('display','block');
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
 
         $('#monto_pagar').empty();
         
