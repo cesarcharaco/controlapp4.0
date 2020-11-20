@@ -278,6 +278,8 @@
 
 	    });
 
+	    $('.page-link').css('font-size', '12px');
+
 	    $('.dataTables_length').css('display','none');
 	    $('.dataTables_info').attr('align','center');
 
