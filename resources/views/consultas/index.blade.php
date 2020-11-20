@@ -71,7 +71,7 @@
                                         </div>&nbsp;
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                            @if($buscar_alquiler)
+                                            @if($buscar_alquiler > 0)
                                                 <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar referencias</a></h6>
                                             @endif
                                         </div>
