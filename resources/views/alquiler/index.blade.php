@@ -600,7 +600,7 @@
 
     function VerArriendo(nombres,apellidos,rut,nombre_I,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
         $('#btnRegistrar_arriendo').hide();
-        $('#example1_wrapper').hide();
+        $('#example2_wrapper').hide();
 
         $('#id_residenteArriendo_2').html(nombres+' '+apellidos+' -'+rut);
         $('#instalacionListArriendo_2').html(nombre_I);
@@ -625,13 +625,13 @@
         }else{
             $('#referenciaArriendoE_2').html('Sin Referencia');
         }
-        $('#planPArriendoE_2'+id).prop('checked', true);
+        $('#planPArriendoE_2'+id_planesPago).prop('checked', true);
 
     }
 
     function editarArriendo(id,id_residente,id_instalacion,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
 
         $('#id_residenteArriendoE').val(id_residente);
         $('#instalacionListArriendoE').val(id_instalacion);
@@ -667,7 +667,7 @@
         $('#id_ArriendoE').val(id);
         $('#id_instalacion').val(id_instalacion);
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
     }
 
     function TipoAlquiler(tipo) {
@@ -690,7 +690,7 @@
 
     function crearInstalacion() {
         $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
 
     function VerInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,max_personas,status) {
@@ -719,7 +719,7 @@
         });
 
         $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
 
     function editarInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,max_personas,status) {
@@ -749,13 +749,13 @@
         });
 
         $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
 
     function eliminarInstalacion(id) {
         $('#id_instalacion_eliminar').val(id);
         $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
 
 
@@ -763,7 +763,7 @@
 
     function nuevoArriendo() {
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
     }
     function crearIncidencia(){
         // alert('assas');
@@ -1110,7 +1110,7 @@
         $('#NombreInstalacion2').html(nombre);
 
         $('#btnRegistrar_insta').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
     }
 
     function statusArriendos(id, nombre, status) {
@@ -1123,7 +1123,7 @@
         $('#NombreArriendo2').html(nombre);
 
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
     }
 
     function EditReferenciasArriendos(id_arriendo) {
@@ -1131,7 +1131,7 @@
         $('#vistaRefeArriendosE').hide();
         $('#cargandoRefeArriendos').css('display','block');
         $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example1_wrapper').fadeOut('fast');
+        $('#example2_wrapper').fadeOut('fast');
 
         $('#codigoActualRefArr').empty();
         
