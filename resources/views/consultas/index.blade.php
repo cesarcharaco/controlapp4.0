@@ -339,7 +339,7 @@
         .done(function(data) {
             console.log(data.length);
             if (data.length > 0) {
-                if (data[0].status != 'No Pagado') {
+                if (data[0].status == 'En Proceso') {
                     $('#codigoActualRefArr').append(
                         '<center>'+
                             '<div class="row">'+
@@ -357,6 +357,14 @@
                             $(this).hide();
                             $('#vistaRefeArriendosE').fadeIn(300);
                     });
+                }else if(data[0].status == 'Pagado'){
+
+                    $('#vistaRefeArriendosE').hide();
+                    $('#codigoActualRefArr2').append(
+                        '<h3 align="center" class="text-success">El arriendo fué pagado con éxito</h3>'
+                    );
+                    $('#cargandoRefeArriendos').fadeOut('slow');
+
                 }else{
                     $('#vistaRefeArriendosE').hide();
                     $('#codigoActualRefArr2').append(
