@@ -309,7 +309,7 @@
                                                 )">
                                                 <strong data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</strong>                                                        
                                             </a>
-                                            @if($key2->status == 'No Pagado')
+                                            @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
                                                 <a data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
                                                     <span data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
                                                 </a>
