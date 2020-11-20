@@ -71,7 +71,9 @@
                                         </div>&nbsp;
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar referencias</a></h6>
+                                            @if($buscar_alquiler)
+                                                <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar referencias</a></h6>
+                                            @endif
                                         </div>
                                     
                                     </div>
@@ -132,7 +134,7 @@
                     </a>
                 @endif
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                    <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                    <table id="tableConsultas" class="table table-bordered table-hover table-striped display nowrap" cellspacing="0" style="width: 100% !important;">
                         <thead>
                             <tr class="bg-primary text-white">
                                 <th>Mes</th>
@@ -334,6 +336,8 @@
         $('#cargandoRefeArriendos').fadeIn(300);
         $('#codigoActualRefArr').empty();
         $('#ReferenciaNueva').val(null);
+        $('#ReferenciaNueva').attr('disabled',true);
+        $('#botonEditarRefe').attr('disabled',true);
         $.get("residentes/"+id_instalacion+"/buscar_referencias2",function (data) {
         })
         .done(function(data) {
@@ -356,12 +360,14 @@
                         function() { 
                             $(this).hide();
                             $('#vistaRefeArriendosE').fadeIn(300);
+                            $('#ReferenciaNueva').removeAttr('disabled',false);
+                            $('#botonEditarRefe').removeAttr('disabled',false);
                     });
                 }else if(data[0].status == 'Pagado'){
 
                     $('#vistaRefeArriendosE').hide();
                     $('#codigoActualRefArr2').append(
-                        '<h3 align="center" class="text-success">El arriendo fué pagado con éxito</h3>'
+                        '<h3 align="center" class="text-success">¡El arriendo está pagado!</h3>'
                     );
                     $('#cargandoRefeArriendos').fadeOut('slow');
 

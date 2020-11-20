@@ -39,7 +39,7 @@
 					                </center>
 							        <div align="center">
 							            <input type="hidden" name="id" id="id_arriendoEditReferencia">
-							            <button type="submit" class="btn btn-warning">Editar</button>
+							            <button type="submit" class="btn btn-warning" id="botonEditarRefe">Editar</button>
 							        </div>
 							    </div>
 				            </div>
