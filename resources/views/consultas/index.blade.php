@@ -344,13 +344,20 @@
             console.log(data.length);
             if (data.length > 0) {
                 if (data[0].status == 'En Proceso') {
+
+                    if (data[0].refer) {
+                        var refer = data[0].refer;
+                    }else{
+                        var refer = 'Sin referencia registrada';
+                    }
+
                     $('#codigoActualRefArr').append(
                         '<center>'+
                             '<div class="row">'+
                                 '<div class="col-md-12">'+
                                     '<div class="form-group">'+
                                         '<label for="">Código de Refer. Actual</label>'+
-                                        '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                                        '<h3 align="center" class="text-warning">'+refer+'</h3>'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
