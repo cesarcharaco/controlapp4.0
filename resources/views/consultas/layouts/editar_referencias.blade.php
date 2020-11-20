@@ -13,15 +13,20 @@
                 </button>
             </div>
             <div class="modal-body">
+	        	<a class="btn btn-info text-white shadow btn-sm mb-2" onclick="volverTablaPagarC()">
+                	<i data-feather="arrow-left-circle"></i>
+                    Regresar
+                </a>
+                <br>
 			    {!! Form::open(['route' => ['edit_ref_alquiler'], 'method' => 'POST']) !!}
 			        @csrf
 			        <center>
-			        	<div id="selectInstalacionesArr" class="form-group" data-toggle="tooltip" data-placement="top" title="Seleccione instalación para editar referencia">
+			        	{{--<div id="selectInstalacionesArr" class="form-group" data-toggle="tooltip" data-placement="top" title="Seleccione instalación para editar referencia">
 			        		<label>Instalaciones <b class="text-danger">*</b></label>
 			        		<select name="id_instalacion" class="form-control select2" required id="id_instalacion_arriendos" onchange="buscarReferenciasInsta(this.value)">
 			        			
 			        		</select>
-			        	</div>
+			        	</div>--}}
 			        	<div id="codigoActualRefArr2"></div>
 						<div id="vistaRefeArriendosE">
 				        	<div class="card border border-warning rounded card-tabla shadow p-3 mb-5 bg-white rounded">

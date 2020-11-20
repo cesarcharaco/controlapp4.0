@@ -278,7 +278,11 @@
 
     function pagoArriendos() {
         $('#selectInstalacionesArr').hide();
-        $('#editar_referencia_residente').modal('show');
+        $('#pagarAlquilerResidente').modal('hide');
+
+        setTimeout(function(){
+            $('#editar_referencia_residente').modal('show');
+        }, 500);
         $('#vistaRefeArriendosE').hide();
         $('#cargandoRefeArriendos').css('display','block');
 
@@ -334,11 +338,21 @@
 
     function buscarReferenciasInsta(id_instalacion) {
         $('#codigoActualRefArr2').empty();
-        $('#cargandoRefeArriendos').fadeIn(300);
+
+
+        $('#cargandoRefeArriendos').show();
+
+
         $('#codigoActualRefArr').empty();
         $('#ReferenciaNueva').val(null);
         $('#ReferenciaNueva').attr('disabled',true);
         $('#botonEditarRefe').attr('disabled',true);
+
+        $('#pagarAlquilerResidente').modal('hide');
+        setTimeout(function(){
+            $('#editar_referencia_residente').modal('show');
+        }, 500);
+
         $.get("residentes/"+id_instalacion+"/buscar_referencias2",function (data) {
         })
         .done(function(data) {
@@ -367,7 +381,7 @@
                     $('#cargandoRefeArriendos').fadeOut('slow',
                         function() { 
                             $(this).hide();
-                            $('#vistaRefeArriendosE').fadeIn(300);
+                            $('#vistaRefeArriendosE').show();
                             $('#ReferenciaNueva').removeAttr('disabled',false);
                             $('#botonEditarRefe').removeAttr('disabled',false);
                     });
@@ -439,7 +453,7 @@
                     }else{
                         if(data[i].status == 'En Proceso'){
                             var nombre= '<span class="text-warning">'+data[i].nombre+'</span>';
-                            var pagar = '<a href="#" onclick="pagoArriendos()" class="btn btn-warning">Editar</a>';
+                            var pagar = '<a href="#" onclick="buscarReferenciasInsta('+data[i].id_instalacion+')" class="btn btn-warning">Editar</a>';
                         } else if(data[i].status == 'Pagado') {
                             var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
                             var pagar = '<span class="text-success">Alquiler pagado</span>';
@@ -461,6 +475,7 @@
                     $("#tablaArriendosR").DataTable({
                         "responsive": true,
                         "autoWidth": true,
+                        "sort": false,
                         language: {
                             "decimal": "",
                             "emptyTable": "No hay información",
@@ -492,12 +507,68 @@
 
     function PagarAlquileres2(id_alquiler) {
 
+        $('#datosPagarAlquiler').hide();
+        var id_residente= $('#id_reside').val();
+
+        $.get("residentes/"+id_residente+"/buscar_alquileres",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length > 0) {
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].id_alquiler == id_alquiler) {
+                        $('#datosPagarAlquiler').show();
+
+                        $('#nombreA').html(data[i].nombre);
+                        $('#tipoAlquilerA').html(data[i].tipo_alquiler);
+                        $('#PlanPagoA').html(data[i].plan_pago);
+                    }
+                }
+            }else{
+            }
+        });
+
+
         $('#example3_wrapper').fadeOut('slow',
             function() { 
                 $(this).hide();
                 $('#referenciaBuscarArriendo').fadeIn(300);
         });
         $('#id_alquier_arriendo').val(id_alquiler);
+    }
+
+    function volverTablaPagarC() {
+
+        $('#editar_referencia_residente').modal('hide');
+        // $('#pagarAlquilerResidente').modal('show');
+        setTimeout(function(){
+            $('#pagarAlquilerResidente').modal('show');
+        }, 500);
+    }
+    function volverTablaPagarC2() {
+
+        $('#referenciaBuscarArriendo').fadeOut('slow',
+            function() { 
+                $(this).hide();
+                $('#example3_wrapper').fadeIn(300);
+        });
+        // example3_wrapper
+        // referenciaBuscarArriendo
+    }
+
+    function FlowCheckConsulta() {
+      if($('#checkFlow').prop('checked')){
+        // alert('Si');
+        $('#referencia_p_arriendos').val(null);
+        $('#referencia_p_arriendos').removeAttr('required',false);
+        $('#referencia_p_arriendos').attr('disabled',true);
+        $('#referencia_p_arriendos').removeClass('border').removeClass('border-primary');
+      }else{
+        // alert('No');
+        $('#referencia_p_arriendos').attr('required',true);
+        $('#referencia_p_arriendos').removeAttr('disabled',false);
+        $('#referencia_p_arriendos').addClass('border').addClass('border-primary');
+      }
     }
 
 </script>
