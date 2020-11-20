@@ -1198,8 +1198,13 @@
                 );
             }else{
                 $('#monto_pagar').append(
-                    '<h3 align="center">El alquiler no posee se puede pagar, su status actual es: '+data[0].status+'</h3>'
+                    '<h3 align="center">¿Está seguro que desea pagar este alquiler ?</h3>'+
+                    '<h3 align="center">Status actual es: <span class="text-warning">'+data[0].status+'</span></h3>'+
+                    '<h3 align="center">Referencia de la operación es: <span class="text-warning">'+data[0].refer+'</span></h3>'+
+                    '<h3 align="center">Monto de la operación es: '+data[0].monto+'</h3>'
                 );
+                $('#status_arriendo').val(data[0].status);
+                $('#quitar_ref').empty();
             }
 
             $('#cargandoPagarArriendos').fadeOut('slow',

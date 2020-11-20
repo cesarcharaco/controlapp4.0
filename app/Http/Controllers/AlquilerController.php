@@ -352,19 +352,30 @@ class AlquilerController extends Controller
     {
         //dd($request->all());
         if (\Auth::user()->tipo_usuario=="Admin") {
-            if(empty($request->referencia)){
-                toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
-                return redirect()->back();
-            } else {
+            if ($request->status_arriendo=="En Proceso") {
                 \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-                ->update([
-                    'referencia'=> $request->referencia,
-                    'status'=> "Pagado"
-                ]);
+                    ->update([
+                        'status'=> "Pagado"
+                    ]);
 
                 toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
                 return redirect()->back();
+            } else {
+                if(empty($request->referencia)){
+                    toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+                    return redirect()->back();
+                } else {
+                    \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                    ->update([
+                        'referencia'=> $request->referencia,
+                        'status'=> "Pagado"
+                    ]);
+
+                    toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
+                    return redirect()->back();
+                }
             }
+            
         } else {
             if(empty($request->referencia)){
                 toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');

@@ -22,7 +22,7 @@
 					    <div id="vistaPagarArriendos">
 			                <div id="monto_pagar"></div>
 			                <center>
-			                   <div class="row">
+			                   <div class="row" id="quitar_ref">
 			                       <div class="col-md-12">
 			                           <div class="form-group">
 			                               <label for="">Código de Referencia <b class="text-danger">*</b></label>
@@ -33,6 +33,7 @@
 			                </center>
 					        <div align="center">
 					            <input type="hidden" name="id_alquiler" id="id_pagar_arriendo">
+					            <input type="hidden" name="status_arriendo" id="status_arriendo">
 					            <button type="submit" class="btn btn-success">Pagar arriendo</button>
 					        </div>
 					    </div>
