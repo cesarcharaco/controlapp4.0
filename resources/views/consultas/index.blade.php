@@ -330,6 +330,7 @@
     }
 
     function buscarReferenciasInsta(id_instalacion) {
+        $('#codigoActualRefArr2').empty();
         $('#cargandoRefeArriendos').fadeIn(300);
         $('#codigoActualRefArr').empty();
         $('#ReferenciaNueva').val(null);
@@ -338,21 +339,34 @@
         .done(function(data) {
             console.log(data.length);
             if (data.length > 0) {
-
-                $('#codigoActualRefArr').append(
-                    '<center>'+
-                        '<div class="row">'+
-                            '<div class="col-md-12">'+
-                                '<div class="form-group">'+
-                                    '<label for="">Código de Refer. Actual</label>'+
-                                    '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                if (data[0].status != 'No Pagado') {
+                    $('#codigoActualRefArr').append(
+                        '<center>'+
+                            '<div class="row">'+
+                                '<div class="col-md-12">'+
+                                    '<div class="form-group">'+
+                                        '<label for="">Código de Refer. Actual</label>'+
+                                        '<h3 align="center" class="text-warning">'+data[0].refer+'</h3>'+
+                                    '</div>'+
                                 '</div>'+
                             '</div>'+
-                        '</div>'+
-                    '</center>'
-                );
+                        '</center>'
+                    );
+                    $('#cargandoRefeArriendos').fadeOut('slow',
+                        function() { 
+                            $(this).hide();
+                            $('#vistaRefeArriendosE').fadeIn(300);
+                    });
+                }else{
+                    $('#vistaRefeArriendosE').hide();
+                    $('#codigoActualRefArr2').append(
+                        '<h3 align="center">¡Este arriendo aún no ha sido pagado!</h3>'
+                    );
+                    $('#cargandoRefeArriendos').fadeOut('slow');
+                }
 
                 $('#id_arriendoEditReferencia').val(data[0].id_alquiler);
+
             }else{
                 $('#codigoActualRefArr2').append(
                     '<h3 align="center">El residente no posee instalaciones</h3>'
@@ -360,11 +374,6 @@
                 $('#cargandoRefeArriendos').fadeOut('slow');
             }
 
-            $('#cargandoRefeArriendos').fadeOut('slow',
-                function() { 
-                    $(this).hide();
-                    $('#vistaRefeArriendosE').fadeIn(300);
-            });
             // $('#cargandoRefeArriendos').fadeOut('fast');
             // $('#codigoActualRefArr').fadeIn();
 
