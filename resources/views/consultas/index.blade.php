@@ -69,12 +69,13 @@
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
                                             <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoAlquileres()" class="btn btn-success">Pagar</a></h6>
                                         </div>&nbsp;
-                                        <div class="form-group">
+                                        {{--<div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
                                             @if($buscar_alquiler > 0)
                                                 <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoArriendos()" class="btn btn-warning">Editar referencias</a></h6>
                                             @endif
                                         </div>
+                                        --}}
                                     
                                     </div>
                                 </div>
@@ -438,7 +439,7 @@
                     }else{
                         if(data[i].status == 'En Proceso'){
                             var nombre= '<span class="text-warning">'+data[i].nombre+'</span>';
-                            var pagar = '<span class="text-warning">Su pago esta siendo verificado</span>';
+                            var pagar = '<a href="#" onclick="pagoArriendos()" class="btn btn-warning">Editar</a>';
                         } else if(data[i].status == 'Pagado') {
                             var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
                             var pagar = '<span class="text-success">Alquiler pagado</span>';
