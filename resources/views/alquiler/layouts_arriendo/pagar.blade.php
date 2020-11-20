@@ -33,9 +33,9 @@
 			                </center>
 					        <div align="center">
 					            <input type="hidden" name="id_alquiler" id="id_pagar_arriendo">
-					            <input type="text" name="id_instalacion" id="id_instalacion">
-					            <input type="text" name="status_arriendo" id="status_arriendo">
-					            <input type="text" name="tipo_alq" id="tipo_alq">
+					            <input type="hidden" name="id_instalacion" id="id_instalacion">
+					            <input type="hidden" name="status_arriendo" id="status_arriendo">
+					            <input type="hidden" name="tipo_alq" id="tipo_alq">
 					           	@if(\Auth::user()->tipo_usuario=="Admin")
 					            	<button type="submit" class="btn btn-primary" name="opcion" value="2">Confirmación de pago</button>
 					            @else
