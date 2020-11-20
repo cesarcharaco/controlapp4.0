@@ -562,8 +562,20 @@ class ResidentesController extends Controller
         for ($i=0; $i < count(anios_registros()); $i++) { 
             $anio[$i]=$a[$i]['anio'];
         }
+
+        /*$buscar_alquiler = \DB::table('pagos_has_alquiler')->join('alquiler','alquiler.id','=','pagos_has_alquiler.id_alquiler')
+        ->join('residentes','residentes.id','=','alquiler.id_residente')
+        ->where('pagos_has_status','En Proceso')
+        ->where('residentes.id',\Auth::User()->id)->groupBy('id_residente')->get();*/
+
+        $buscar_alquiler = \DB::table('alquiler')->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+        ->join('residentes','residentes.id','=','alquiler.id_residente')
+        ->join('users','users.id','=','residentes.id_usuario')
+        ->where('pagos_has_alquiler.status','En Proceso')
+        ->where('users.id',\Auth::user()->id)->count();
+        //dd($buscar_alquiler);
         //dd($status_pago);
-        return view('consultas.index',compact('status_pago','buscar','anio'));
+        return view('consultas.index',compact('status_pago','buscar','anio','buscar_alquiler'));
     }
 
     public function consulta_anual($anio)
