@@ -1196,6 +1196,10 @@
                         '</div>'+
                     '</center>'
                 );
+                $('#status_arriendo').val(data[0].status);
+                $('#tipo_alq').val(data[0].tipo);
+                $('#id_instalacion').val(data[0].id_instalacion);
+                $('#quitar_ref').css('display','block');
             }else{
                 $('#monto_pagar').append(
                     '<h3 align="center">¿Está seguro que desea pagar este alquiler ?</h3>'+
@@ -1204,7 +1208,10 @@
                     '<h3 align="center">Monto de la operación es: '+data[0].monto+'</h3>'
                 );
                 $('#status_arriendo').val(data[0].status);
-                $('#quitar_ref').empty();
+                $('#tipo_alq').val(data[0].tipo);
+                $('#id_instalacion').val(data[0].id_instalacion);
+                $('#quitar_ref').css('display','none');
+                $('#referencia').removeAttr('required',false);
             }
 
             $('#cargandoPagarArriendos').fadeOut('slow',

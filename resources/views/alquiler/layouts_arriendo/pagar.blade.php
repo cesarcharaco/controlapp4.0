@@ -22,18 +22,20 @@
 					    <div id="vistaPagarArriendos">
 			                <div id="monto_pagar"></div>
 			                <center>
-			                   <div class="row" id="quitar_ref">
+			                   <div class="row" id="quitar_ref" style="display: none;">
 			                       <div class="col-md-12">
 			                           <div class="form-group">
 			                               <label for="">Código de Referencia <b class="text-danger">*</b></label>
-			                               <input type="text" name="referencia" class="form-control" required placeholder="Ingrese su nueva referencia">
+			                               <input type="text" name="referencia" class="form-control" required placeholder="Ingrese su nueva referencia" id="referencia">
 			                           </div>
 			                       </div>
 			                   </div>
 			                </center>
 					        <div align="center">
 					            <input type="hidden" name="id_alquiler" id="id_pagar_arriendo">
-					            <input type="hidden" name="status_arriendo" id="status_arriendo">
+					            <input type="text" name="id_instalacion" id="id_instalacion">
+					            <input type="text" name="status_arriendo" id="status_arriendo">
+					            <input type="text" name="tipo_alq" id="tipo_alq">
 					           	@if(\Auth::user()->tipo_usuario=="Admin")
 					            	<button type="submit" class="btn btn-primary" name="opcion" value="2">Confirmación de pago</button>
 					            @else

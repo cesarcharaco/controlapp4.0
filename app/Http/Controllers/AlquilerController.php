@@ -228,7 +228,7 @@ class AlquilerController extends Controller
                             //solo cambia a inactivo cuando es permanente y se ha confirmado el pago
                             $instalacion=Instalaciones::find($alquiler->id_instalacion);
                             $instalacion->status="Inactivo";
-                            $instalacion->save();                            
+                            $instalacion->save();
                         }                        
 
                         toastr()->success('con éxito!', 'Alquiler registrada');
@@ -353,10 +353,18 @@ class AlquilerController extends Controller
         //dd($request->all());
         if (\Auth::user()->tipo_usuario=="Admin") {
             if ($request->status_arriendo=="En Proceso") {
+                if ($request->tipo_alq=="Permanente") {
+                    $instalacion=Instalaciones::find($request->id_instalacion);
+                    $instalacion->status="Inactivo";
+                    $instalacion->save();
+                }
                 \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
                     ->update([
                         'status'=> "Pagado"
-                    ]);
+                ]);
+                $instalacion=Alquiler::find($request->id_alquiler);
+                $instalacion->status="Activo";
+                $instalacion->save();
 
                 toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
                 return redirect()->back();
@@ -365,11 +373,19 @@ class AlquilerController extends Controller
                     toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
                     return redirect()->back();
                 } else {
+                    if ($request->tipo_alq=="Permanente") {
+                        $instalacion=Instalaciones::find($request->id_instalacion);
+                        $instalacion->status="Inactivo";
+                        $instalacion->save();
+                    }
                     \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
                     ->update([
                         'referencia'=> $request->referencia,
                         'status'=> "Pagado"
                     ]);
+                    $instalacion=Alquiler::find($request->id_alquiler);
+                    $instalacion->status="Activo";
+                    $instalacion->save();
 
                     toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
                     return redirect()->back();
