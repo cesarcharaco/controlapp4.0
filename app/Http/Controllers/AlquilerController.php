@@ -88,7 +88,9 @@ class AlquilerController extends Controller
                             $instalacion->hora_desde=$request->hora_desde;
                             $instalacion->hora_hasta=$request->hora_hasta;
                             $instalacion->max_personas=$request->max_personas;
-                            $instalacion->status=$request->status;
+                            $instalacion->costo_permanente=$request->costo_permanente;
+                            $instalacion->costo_temporal=$request->costo_temporal;
+                            $instalacion->status="Activo";
                             $instalacion->save();
 
                             if (count($request->id_dia)>0) {
@@ -520,6 +522,8 @@ class AlquilerController extends Controller
                     $instalacion->hora_desde=$request->hora_desde;
                     $instalacion->hora_hasta=$request->hora_hasta;
                     $instalacion->max_personas=$request->max_personas;
+                    $instalacion->costo_permanente=$request->costo_permanente;
+                    $instalacion->costo_temporal=$request->costo_temporal;
                     $instalacion->save();
 
                     if(!is_null($request->dia)){
