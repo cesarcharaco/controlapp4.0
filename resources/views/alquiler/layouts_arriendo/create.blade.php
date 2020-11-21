@@ -92,7 +92,7 @@
                           <i data-feather="dollar-sign"></i>
                         </span>
                       </span>
-                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required readonly="readonly" id="montoTArriendo">
+                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control soloNumeros" placeholder="Monto total a pagar" required readonly="readonly" id="montoTArriendo">
                     </div>
                   </div>                    
                 </div>
@@ -120,12 +120,10 @@
           <div class="row">
           </div>
         </center>
-
-
-            
+                    
         <div align="center">
-            <input type="text" id="costo_temporal" name="costo_temporal">
-            <input type="text" id="costo_permanente" name="costo_permanente">
+            <input type="hidden" id="costo_temporal" name="costo_temporal">
+            <input type="hidden" id="costo_permanente" name="costo_permanente">
             <button type="submit" class="btn btn-success">Guardar</button>
         </div>
       {!! Form::close() !!}

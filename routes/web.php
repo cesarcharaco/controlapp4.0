@@ -171,13 +171,22 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::resource('membresias','MembresiasController');
 	// Route::get('membresias/{id}/buscar','MembresiasController');
 	//-----------flow----------------
-		Route::group(['prefix' => 'payment/flow'], function(){
+	Route::group(['prefix' => 'payment/flow'], function(){
 	    Route::get('index', 'FlowController@index');
 	    Route::post('orden', 'FlowController@orden');
 	    Route::get('confirm', 'FlowController@confirm');
 	    Route::match(['get', 'post'], 'success', 'FlowController@success');
 	    Route::match(['get', 'post'], 'failure', 'FlowController@failure');
 	    Route::post('index', 'FlowController@orden');
-		});
+	});
+
+	Route::group(['prefix' => 'payment/flowA'], function(){
+	    Route::get('index', 'FlowAController@index');
+	    Route::post('orden', 'FlowAController@orden');
+	    Route::get('confirm', 'FlowAController@confirm');
+	    Route::match(['get', 'post'], 'success', 'FlowAController@success');
+	    Route::match(['get', 'post'], 'failure', 'FlowAController@failure');
+	    Route::post('index', 'FlowAController@orden');
+	});
 	//-------------------------------
 });

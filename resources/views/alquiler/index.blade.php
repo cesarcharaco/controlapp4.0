@@ -1,21 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
-
-
     <style type="text/css">
       .seccionControl,#seccionControl1,#seccionControl2,#seccionControl3,#seccionControl4,#seccionControl5,#seccionControl6{
         display: none;
       }
     </style>
-
-
-
-
-
-
-     <style type="text/css">
+    <style type="text/css">
         .card-header, .card-footer{        
             /*-webkit-linear-gradient(to left, #d87602, #d64322);
             -webkit-background-clip: text;
@@ -182,7 +173,7 @@
                                                 <span><strong>Ver</strong></span>
                                             </a>
 
-
+                                            @if(\Auth::User()->tipo_usuario=="Admin")
                                             <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
                                                 '{{$key->id}}',
                                                 '{{$key->nombre}}',
@@ -208,6 +199,7 @@
                                             <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
                                                 <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">Eliminar</span>
                                             </a>
+                                            @endif
                                         </td>
 
 
@@ -328,6 +320,8 @@
                                                             )">
                                                             <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
                                                         </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        @if(\Auth::user()->tipo_usuario=="Admin")
                                                         <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
                                                             '{{$key->id}}',
                                                             '{{$key->id_residente}}',
@@ -344,20 +338,24 @@
                                                             <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
                                                         </a>
                                                         <div class="dropdown-divider"></div>
+                                                        @endif
                                                         @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
                                                             <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
                                                                 <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
                                                             </a>
                                                         @endif
+                                                        <div class="dropdown-divider"></div>
                                                         @if($key2->status == 'En Proceso')
                                                             <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
                                                                 <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
                                                             </a>
                                                         @endif
+                                                        @if(\Auth::user()->tipo_usuario=="Admin")
                                                         <div class="dropdown-divider"></div>
                                                         <a href="#EliminarArriendo" class="dropdown-item" data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
                                                             <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo"><i data-feather="trash"></i> Eliminar</span>
                                                         </a>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 
@@ -604,6 +602,7 @@
                 </div>
             </a>
         </div>
+        @if(\Auth::User()->tipo_usuario=="Admin")
         <div class="col-md-4 center" id="VerTabla3">
             <a href="#" onclick="VerTabla(3)" id="verTabla2-3" style="display: none; width: 100%;">
                 <div class="card border border-dark shadow rounded m-7" style="height: 400px;
@@ -623,13 +622,13 @@
                 </div>
             </a>
         </div>
+        @endif
     </div>
-@include('alquiler.layouts.incidencia')
+    @include('alquiler.layouts.incidencia')
 @endsection
 
 
 <script type="text/javascript">
-
     function cerrar(opcion) {
       $('#example1_wrapper').fadeIn('fast');
       $('#btnRegistrar_arriendo').show();
@@ -1219,9 +1218,20 @@
                 $('#monto_pagar').append(
                     '<center>'+
                         '<div class="row">'+
-                            '<div class="col-md-12">'+
+                            '<div class="col-md-4">'+
+                                '<div class="form-group">'+
+                                    '<h3>alquiler: '+data[0].instalacion+'</h3>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="col-md-4">'+
+                                '<div class="form-group">'+
+                                    '<h3>Tipo de alquiler: '+data[0].tipo+'</h3>'+
+                                '</div>'+
+                            '</div>'+
+                            '<div class="col-md-4">'+
                                 '<div class="form-group">'+
                                     '<h3>Monto de la operación: '+data[0].monto+'</h3>'+
+                                    '<input type="hidden" name="monto_alquiler" id="monto_alquiler" value="'+data[0].monto+'">'+
                                 '</div>'+
                             '</div>'+
                         '</div>'+
@@ -1252,6 +1262,21 @@
             });
 
         });
+    }
+
+    function FlowCheckConsulta() {
+      if($('#checkFlow').prop('checked')){
+        // alert('Si');
+        $('#referencia_p_arriendos').val(null);
+        $('#referencia_p_arriendos').removeAttr('required',false);
+        $('#referencia_p_arriendos').attr('disabled',true);
+        $('#referencia_p_arriendos').removeClass('border').removeClass('border-primary');
+      }else{
+        // alert('No');
+        $('#referencia_p_arriendos').attr('required',true);
+        $('#referencia_p_arriendos').removeAttr('disabled',false);
+        $('#referencia_p_arriendos').addClass('border').addClass('border-primary');
+      }
     }
 
     function calcularMontoT(key) {

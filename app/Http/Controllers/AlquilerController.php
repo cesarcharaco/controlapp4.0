@@ -9,7 +9,7 @@ use App\Residentes;
 use App\Dias;
 use App\Instalaciones;
 // use App\Instalaciones;
-use App\Http\Controllers\FlowController;
+use App\Http\Controllers\FlowAController;
 use App\Http\FlowBuilder1;
 
 class AlquilerController extends Controller
@@ -22,8 +22,15 @@ class AlquilerController extends Controller
     public function index()
     {
         $dias= Dias::all();
-        $alquiler = Alquiler::all();
-        $instalaciones = Instalaciones::all();
+        if (\Auth::user()->tipo_usuario=="Residente") {
+            $residente=Residentes::where('id_usuario',\Auth::user()->id)->first();
+            $alquiler = Alquiler::where('id_residente',$residente->id)->get();
+            $instalaciones = Instalaciones::where('status','Activo')->get();
+        } else {
+            $alquiler = Alquiler::all();
+            $instalaciones = Instalaciones::all();
+        }
+        
         $id_admin=id_admin(\Auth::user()->email);
         $residentes=Residentes::where('id_admin',$id_admin)->get();
         $planesPago=PlanesPago::where('tipo','Alquiler')->where('status','Activo')->get();
@@ -112,7 +119,7 @@ class AlquilerController extends Controller
 
     public function registrar_alquiler(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
         if(is_null($request->id_instalacion)){
             toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
@@ -382,6 +389,7 @@ class AlquilerController extends Controller
             //dd($buscar_alquiler);
             $nombre_instalacion = strtoupper($buscar_alquiler->instalacion);
             $tipo_alquiler = strtoupper($buscar_alquiler->tipo);
+            $tipo_alq = $buscar_alquiler->tipo;
             if ($request->monto_alquiler >= 350) {
                 //dd($request->all());
                 $total = $request->monto_alquiler;
@@ -389,9 +397,9 @@ class AlquilerController extends Controller
                 $flowbuilder->setMontoA($request->monto_alquiler);
                 $email_pagador = \Auth::User()->email;
                 $concepto= "Pagar arriendo  de ".$nombre_instalacion.", tipo de alquiler ".$tipo_alquiler.".";
-                $flowcontroller=new FlowController();
+                $flowcontroller=new FlowAController();
                 //Con este return nos vamos al controlador de FLOW
-                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra);
+                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra,$tipo_alq);
             } else {
                 toastr()->error('ERROR!!', 'El monto a pagar debe ser mayor a 350 pesos chilenos');
                 return redirect()->back();

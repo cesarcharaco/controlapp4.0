@@ -170,7 +170,7 @@
                         </li>
                     @endif
 
-                    @if(\Auth::user()->tipo_usuario == 'Admin')
+                    @if(\Auth::user()->tipo_usuario == 'Admin' || \Auth::user()->tipo_usuario == 'Residente')
                         <li>
                             <a href="{{ url('alquiler') }}">
                                 <i data-feather="clock"></i>

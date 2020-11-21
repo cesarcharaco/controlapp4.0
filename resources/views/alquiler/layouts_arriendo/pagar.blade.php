@@ -18,15 +18,19 @@
 					        </div>
 					        <h3>Cargando pagar operación</h3>
 					    </div>
-
+					    <hr>
 					    <div id="vistaPagarArriendos">
 			                <div id="monto_pagar"></div>
+			                <center id="mostrarFlow" class="mb-2 mt-2">
+	                            <b>Pagar con Flow</b> 
+	                            <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
+	                        </center>
 			                <center>
 			                   <div class="row" id="quitar_ref" style="display: none;">
 			                       <div class="col-md-12">
 			                           <div class="form-group">
 			                               <label for="">Código de Referencia <b class="text-danger">*</b></label>
-			                               <input type="text" name="referencia" class="form-control" required placeholder="Ingrese su nueva referencia" id="referencia">
+			                               <input type="text" name="referencia" class="form-control" required placeholder="Ingrese su nueva referencia" id="referencia_p_arriendos">
 			                           </div>
 			                       </div>
 			                   </div>
