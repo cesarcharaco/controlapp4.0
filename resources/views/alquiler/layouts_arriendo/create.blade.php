@@ -12,7 +12,7 @@
         @csrf
           
         <div class="row">                
-          <div class="col-md-12">
+          <div class="col-md-4">
             <div class="form-group">
               <label>Residente <b class="text-danger">*</b></label>
               <select class="form-control select2" id="id_residente" onchange="buscarTodo(this.value)" name="id_residente" required="required">
@@ -23,7 +23,7 @@
               </select>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div class="form-group">
               <label>Instalación <b class="text-danger">*</b></label>
               <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required">
@@ -36,7 +36,7 @@
               </select>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <center>
               <div class="form-group">
                 <label>Tipo de Alquiler <b class="text-danger">*</b></label>
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Nro. de horas <b class="text-danger">*</b></label>
               <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -79,7 +79,20 @@
                     <i data-feather="watch"></i>
                   </span>
                 </span>
-                <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" value="1" required>
+                <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas">
+              </div>
+            </div>                    
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Monto total a pagar <b class="text-danger">*</b></label>
+              <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                  <span class="input-group-text" style="width:39px; height:39px;">
+                    <i data-feather="dollar-sign"></i>
+                  </span>
+                </span>
+                <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required disabled="disabled">
               </div>
             </div>                    
           </div>
