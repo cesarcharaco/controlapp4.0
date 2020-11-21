@@ -10,6 +10,7 @@ use App\MensualidadE;
 use App\Pagos;
 use App\PagosE;
 use App\Residentes;
+use App\Instalaciones;
 class ArriendosController extends Controller
 {
 
@@ -372,9 +373,14 @@ class ArriendosController extends Controller
         ->join('residentes','residentes.id','=','alquiler.id_residente')
         ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
         ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
-        ->join('planes_pago','planes_pago.id','=','pagos_has_alquiler.id_planesPago')
         ->where('residentes.id',$residente->id)
-        ->select('alquiler.*','pagos_has_alquiler.*','instalaciones.nombre','pagos_has_alquiler.status as status','pagos_has_alquiler.referencia as refer','planes_pago.nombre as plan_pago','instalaciones.id as id_instalacion','pagos_has_alquiler.monto as monto_alquiler')
+        ->select('alquiler.*','pagos_has_alquiler.*','instalaciones.nombre','pagos_has_alquiler.status as status','pagos_has_alquiler.referencia as refer','instalaciones.id as id_instalacion','pagos_has_alquiler.monto as monto_alquiler')
         ->get();
+    }
+
+    public function buscar_instalacion($id_instalacion)
+    {
+        // return 1;
+        return $instalaciones=Instalaciones::where('id',$id_instalacion)->get();
     }
 }

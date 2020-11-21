@@ -15,8 +15,8 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Residente <b class="text-danger">*</b></label>
-              <select class="form-control select2" id="id_residente" onchange="buscarTodo(this.value)" name="id_residente" required="required">
-                  <option disabled selected>Seleccione residente</option>
+              <select class="form-control select2" id="id_residente" name="id_residente" required="required">
+                  <option disabled value selected>Seleccione residente</option>
                   @foreach($residentes as $key)
                       <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
                   @endforeach()
@@ -26,8 +26,8 @@
           <div class="col-md-4">
             <div class="form-group">
               <label>Instalación <b class="text-danger">*</b></label>
-              <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required">
-                  <option disabled value="" selected="">Seleccione instalación</option>
+              <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
+                  <option disabled value selected>Seleccione instalación</option>
                   @foreach($instalaciones as $key)
                   @if($key->status=="Activo")
                       <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
@@ -69,32 +69,43 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Nro. de horas <b class="text-danger">*</b></label>
-              <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
-                  <span class="input-group-text" style="width:39px; height:39px;">
-                    <i data-feather="watch"></i>
-                  </span>
-                </span>
-                <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas">
+        <div class="card border rounded">
+          <div class="card-body">
+            <div id="vistaCostoT" style="display: none;">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Nro. de horas <b class="text-danger">*</b></label>
+                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                      <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                        <span class="input-group-text" style="width:39px; height:39px;">
+                          <i data-feather="watch"></i>
+                        </span>
+                      </span>
+                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas" id="num_horas" onkeyup="calcularMontoT(this.value)">
+                    </div>
+                  </div>                    
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Monto total a pagar <b class="text-danger">*</b></label>
+                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                      <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                        <span class="input-group-text" style="width:39px; height:39px;">
+                          <i data-feather="dollar-sign"></i>
+                        </span>
+                      </span>
+                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required disabled="disabled" id="montoTArriendo">
+                    </div>
+                  </div>                    
+                </div>
               </div>
-            </div>                    
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Monto total a pagar <b class="text-danger">*</b></label>
-              <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
-                  <span class="input-group-text" style="width:39px; height:39px;">
-                    <i data-feather="dollar-sign"></i>
-                  </span>
-                </span>
-                <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required disabled="disabled">
-              </div>
-            </div>                    
+            </div>
+
+            <div id="vistaCostoP" style="display: none;">
+              <label>Costo por alquiler permanente: </label>
+              <h3><span id="total_costo_p"></span>$</h3>
+            </div>
           </div>
         </div>
 
@@ -116,6 +127,7 @@
 
             
         <div align="center">
+            <input type="hidden" id="costo_temporal">
             <button type="submit" class="btn btn-success">Guardar</button>
         </div>
       {!! Form::close() !!}

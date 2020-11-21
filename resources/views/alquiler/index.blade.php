@@ -1266,5 +1266,42 @@
 
         });
     }
+
+    function calcularMontoT(key) {
+        var costo = $('#costo_temporal').val();
+        var total = key * costo;
+        $('#montoTArriendo').val(total);
+    }
+
+
+    function buscarInslatacion(id) {
+        
+        $.get("instalacion/"+id+"/buscar",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length>0) {
+                $('#num_horas').val(1);
+                $('#montoTArriendo').val(data[0].costo_temporal);
+                $('#costo_temporal').val(data[0].costo_temporal);
+                $('#total_costo_p').html(data[0].costo_permanente);
+            }
+        });
+    }
+    function TipoAlquiler(opcion) {
+        if(opcion == 'Permanente'){
+            $("#vistaCostoT").fadeOut("slow",
+              function() {
+                $(this).hide();
+                $('#vistaCostoP').fadeIn('show');
+            });
+        }else{
+            $("#vistaCostoP").fadeOut("slow",
+              function() {
+                $(this).hide();
+                $('#vistaCostoT').fadeIn('show');
+            });
+        }
+    }
   
 </script>
