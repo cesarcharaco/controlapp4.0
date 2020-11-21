@@ -19,6 +19,8 @@ class CreateInstalacionesTable extends Migration
             $table->string('hora_desde');
             $table->string('hora_hasta');
             $table->string('max_personas');
+            $table->string('costo_permanente')->nullable();
+            $table->string('costo_temporal')->nullable();
             $table->enum('status',['Activo','Inactivo'])->default('Activo');
             $table->timestamps();
         });
