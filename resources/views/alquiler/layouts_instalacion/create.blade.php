@@ -62,59 +62,38 @@
             </div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-md-6">
-              <div class="card border border-success shadow">
-                <div class="card-body">
-                  <div class="row justify-content-center">
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                              <div class="input-group-text">$</div>
-                          </div>
-                          <input name="costo_permanente" type="number" class="form-control" id="inlineFormInputGroup" placeholder="1000000">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <div class="form-group">
-                        <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                              <div class="input-group-text">$</div>
-                          </div>
-                          <input name="costo_temporal" type="number" class="form-control" id="inlineFormInputGroup" placeholder="10">
-                        </div>
-                      </div>
-                    </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text">$</div>
                   </div>
+                  <input name="costo_permanente" type="number" class="form-control" id="inlineFormInputGroup" placeholder="1000000">
                 </div>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class="row justify-content-center">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Nro. máximo de personas <b class="text-danger">*</b></label>
-                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                      <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
-                        <span class="input-group-text" style="width:39px; height:39px;">
-                          <i data-feather="users"></i>
-                        </span>
-                      </span>
-                      <input name="max_personas" min="1" minlength="1" max="50" data-toggle="touchspin" type="number" data-bts-prefix="$" class="form-control" placeholder="7" required>
-                    </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text">$</div>
                   </div>
+                  <input name="costo_temporal" type="number" class="form-control" id="inlineFormInputGroup" placeholder="10">
                 </div>
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select name="status" class="form-control select2" id="status_PlanP">
-                      <option value="Activo">Activo</option>
-                      <option value="Inactivo">Inactivo</option>
-                    </select>
-                  </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Nro. máximo de personas <b class="text-danger">*</b></label>
+                <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                  <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                    <span class="input-group-text" style="width:39px; height:39px;">
+                      <i data-feather="users"></i>
+                    </span>
+                  </span>
+                  <input name="max_personas" min="1" minlength="1" max="50" data-toggle="touchspin" type="number" data-bts-prefix="$" class="form-control" placeholder="7" required>
                 </div>
               </div>
             </div>

@@ -44,13 +44,15 @@
                 </div>
               </div>
                 <center>                  
-                  <div class="form-group">
-                    <label>Tipo de Alquiler</label>
-                    <select class="form-control select2" id="tipo_alquilerArriendoE" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
-                      <option value="Permanente">Permanente</option>
-                      <option value="Temporal">Temporal</option>
-                    </select>
-                  </div>
+                  <<div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Permanente/Temporal">Permanente/Temporal</option>
+                  </select>
+                </div>
                   <div class="form-group card shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none;" id="vistaTemporal2">
                     <div class="card-body">
                       <div class="form-group">

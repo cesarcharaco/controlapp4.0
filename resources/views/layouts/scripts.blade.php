@@ -326,13 +326,14 @@
     
 		
 		$('.VerEstaciona').carousel();
+		$('#id_residente').select2();
 		$('select').each(function () {
-		$(this).select2({
-		  theme: 'bootstrap4',
-		  width: 'style',
-		  placeholder: $(this).attr('placeholder'),
-		  allowClear: Boolean($(this).data('allow-clear')),
-		});
+			$(this).select2({
+			  theme: 'bootstrap4',
+			  width: 'style',
+			  placeholder: $(this).attr('placeholder'),
+			  allowClear: Boolean($(this).data('allow-clear')),
+			});
 		});
 
 		$('.carrousel').slick({
