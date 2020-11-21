@@ -95,14 +95,14 @@
                           <i data-feather="dollar-sign"></i>
                         </span>
                       </span>
-                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required disabled="disabled" id="montoTArriendo">
+                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="Monto total a pagar" required readonly="readonly" id="montoTArriendo">
                     </div>
                   </div>                    
                 </div>
               </div>
             </div>
 
-            <div id="vistaCostoP" style="display: none;">
+            <div id="vistaCostoP" style="display: none; text-align: center;">
               <label>Costo por alquiler permanente: </label>
               <h3><span id="total_costo_p"></span>$</h3>
             </div>
@@ -127,7 +127,8 @@
 
             
         <div align="center">
-            <input type="hidden" id="costo_temporal">
+            <input type="text" id="costo_temporal" name="costo_temporal">
+            <input type="text" id="costo_permanente" name="costo_permanente">
             <button type="submit" class="btn btn-success">Guardar</button>
         </div>
       {!! Form::close() !!}

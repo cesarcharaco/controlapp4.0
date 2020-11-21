@@ -112,7 +112,7 @@ class AlquilerController extends Controller
 
     public function registrar_alquiler(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         if(is_null($request->id_instalacion)){
             toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
@@ -208,25 +208,40 @@ class AlquilerController extends Controller
                             $alquiler->status='Activo';
                         }
                         $alquiler->save();
-
-                        $pagos=PlanesPago::find($request->planP);
-                        if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
-                            \DB::table('pagos_has_alquiler')->insert([
-                                'referencia'=> $request->referencia,
-                                'monto'     => $pagos->monto,
-                                'id_alquiler' => $alquiler->id,
-                                'id_planesPago' => $request->planP,
-                                'status'=>'Pagado'
-                            ]);
+                        if ($request->tipo_alquiler=="Permanente") {
+                            if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
+                                \DB::table('pagos_has_alquiler')->insert([
+                                    'referencia'=> $request->referencia,
+                                    'monto'     => $request->costo_permanente,
+                                    'id_alquiler' => $alquiler->id,
+                                    'status'=>'Pagado'
+                                ]);
+                            } else {
+                                \DB::table('pagos_has_alquiler')->insert([
+                                    'referencia'=> $request->referencia,
+                                    'monto'     => $request->costo_permanente,
+                                    'id_alquiler' => $alquiler->id,
+                                    'status'=>'No Pagado'
+                                ]);
+                            }
                         } else {
-                            \DB::table('pagos_has_alquiler')->insert([
-                                'referencia'=> $request->referencia,
-                                'monto'     => $pagos->monto,
-                                'id_alquiler' => $alquiler->id,
-                                'id_planesPago' => $request->planP,
-                                'status'=>'No Pagado'
-                            ]);
+                            if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
+                                \DB::table('pagos_has_alquiler')->insert([
+                                    'referencia'=> $request->referencia,
+                                    'monto'     => $request->monto,
+                                    'id_alquiler' => $alquiler->id,
+                                    'status'=>'Pagado'
+                                ]);
+                            } else {
+                                \DB::table('pagos_has_alquiler')->insert([
+                                    'referencia'=> $request->referencia,
+                                    'monto'     => $request->monto,
+                                    'id_alquiler' => $alquiler->id,
+                                    'status'=>'No Pagado'
+                                ]);
+                            }
                         }
+                        
 
                         if ($request->pago_realizado==1 && $request->tipo_alquiler=="Permanente") {
                             //solo cambia a inactivo cuando es permanente y se ha confirmado el pago

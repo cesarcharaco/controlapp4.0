@@ -1284,6 +1284,7 @@
                 $('#num_horas').val(1);
                 $('#montoTArriendo').val(data[0].costo_temporal);
                 $('#costo_temporal').val(data[0].costo_temporal);
+                $('#costo_permanente').val(data[0].costo_permanente);
                 $('#total_costo_p').html(data[0].costo_permanente);
             }
         });
