@@ -54,29 +54,18 @@
             </div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="form-group">
-                <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                      <div class="input-group-text">$</div>
-                  </div>
-                  <input name="costo_permanente" type="number" class="form-control" placeholder="1000000" id="costoPinstala">
-                </div>
+                <label>Tipo de Alquiler</label>
+                <select class="form-control" name="tipo_alquiler" required onchange="modalidadAlquiler(this.value)">
+                  <option selected disabled>Modalidad de alquiler</option>
+                  <option value="1">Permanente</option>
+                  <option value="2">Por Hora</option>
+                  <option value="3">Ambos</option>
+                </select>
               </div>
             </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                      <div class="input-group-text">$</div>
-                  </div>
-                  <input name="costo_temporal" type="number" class="form-control" placeholder="10" id="costoTinstala">
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
               <div class="form-group">
                 <label>Nro. máximo de personas <b class="text-danger">*</b></label>
                 <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -86,6 +75,35 @@
                     </span>
                   </span>
                   <input name="max_personas" min="1" minlength="1" max="50" data-toggle="touchspin" type="number" data-bts-prefix="$" class="form-control" placeholder="7" required id="npersonasInstalacion">
+                </div>
+              </div>
+            </div>
+            
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-12">
+              <div class="modalidadAlquiler1" style="display: none">
+                <div class="form-group">
+                  <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input name="costo_permanente" type="number" class="form-control costo_permanente" placeholder="1000000" id="costoPinstala">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="modalidadAlquiler2" style="display: none">
+                <div class="form-group">
+                  <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input name="costo_temporal" type="number" class="form-control costo_temporal" placeholder="10" id="costoTinstala">
+                  </div>
                 </div>
               </div>
             </div>

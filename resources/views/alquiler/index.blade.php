@@ -1341,5 +1341,31 @@
             $('.horaAlquiler').attr('required',true);
         }
     }
+
+    function modalidadAlquiler(opcion) {
+        if (opcion == 1) {
+            $(".modalidadAlquiler2").fadeOut("slow",
+              function() {
+                $(this).hide();
+                $('.modalidadAlquiler1').fadeIn('show');
+            });
+            $('.costo_permanente').attr('required',true);
+            $('.costo_temporal').removeAttr('required',false);
+        }else if(opcion == 2){
+            $(".modalidadAlquiler1").fadeOut("slow",
+              function() {
+                $(this).hide();
+                $('.modalidadAlquiler2').fadeIn('show');
+            });
+            $('.costo_permanente').removeAttr('required',false);
+            $('.costo_temporal').attr('required',true);
+        }else{
+            $('.modalidadAlquiler1').fadeIn(300);
+            $('.modalidadAlquiler2').fadeIn(300);
+
+            $('.costo_permanente').attr('required',true);
+            $('.costo_temporal').attr('required',true);
+        }
+    }
   
 </script>
