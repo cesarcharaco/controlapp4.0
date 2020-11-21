@@ -174,7 +174,7 @@
                         <li>
                             <a href="{{ url('alquiler') }}">
                                 <i data-feather="clock"></i>
-                                <span> Alquiler </span>
+                                <span> Instalaciones </span>
                             </a>
                         </li>
                     @endif
