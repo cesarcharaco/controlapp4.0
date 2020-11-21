@@ -168,13 +168,31 @@
                                         <td align="center">
                                             <br>
 
-                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
+                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion(
+                                                '{{$key->id}}',
+                                                '{{$key->nombre}}',
+                                                '{{$key->id_dia}}',
+                                                '{{$key->hora_desde}}',
+                                                '{{$key->hora_hasta}}',
+                                                '{{$key->costo_permanente}}',
+                                                '{{$key->costo_temporal}}',
+                                                '{{$key->max_personas}}',
+                                                '{{$key->status}}')">
 
                                                 <span><strong>Ver</strong></span>
                                             </a>
 
 
-                                            <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->id_dia}}','{{$key->hora_desde}}','{{$key->hora_hasta}}','{{$key->max_personas}}','{{$key->status}}')">
+                                            <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
+                                                '{{$key->id}}',
+                                                '{{$key->nombre}}',
+                                                '{{$key->id_dia}}',
+                                                '{{$key->hora_desde}}',
+                                                '{{$key->hora_hasta}}',
+                                                '{{$key->costo_permanente}}',
+                                                '{{$key->costo_temporal}}',
+                                                '{{$key->max_personas}}',
+                                                '{{$key->status}}')">
 
                                                 <span><strong>Editar</strong></span>
                                             </a>
@@ -714,11 +732,13 @@
         $('#example1_wrapper').fadeOut('fast');
     }
 
-    function VerInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,max_personas,status) {
+    function VerInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,costo_permanente,costo_temporal,max_personas,status) {
         $('#nombreInstalacion_2').html(nombre);
         $('#id_diaInstalacion_2').html(id_dia);
         $('#desdeInstalacion_2').html(hora_desde);
         $('#hastaInstalacion_2').html(hora_hasta);
+        $('#costoPInstalacion2').html(costo_permanente);
+        $('#costoTInstalacion2').html(costo_temporal);
         $('#npersonasInstalacion_2').html(max_personas);
         $('#statusInstalacion_2').html(status);
         $('#dias_insta_2').empty();
@@ -743,12 +763,15 @@
         $('#example1_wrapper').fadeOut('fast');
     }
 
-    function editarInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,max_personas,status) {
+    function editarInstalacion(id,nombre,id_dia,hora_desde,hora_hasta,costo_permanente,costo_temporal,max_personas,status) {
+
         $('#idInstalacion').val(id);
         $('#nombreInstalacion').val(nombre);
         $('#id_diaInstalacion').val(id_dia);
         $('#desdeInstalacion').val(hora_desde);
         $('#hastaInstalacion').val(hora_hasta);
+        $('#costoPinstala').val(costo_permanente);
+        $('#costoTinstala').val(costo_temporal);
         $('#npersonasInstalacion').val(max_personas);
         $('#statusInstalacion').val(status);
         $('#dias_insta').empty();

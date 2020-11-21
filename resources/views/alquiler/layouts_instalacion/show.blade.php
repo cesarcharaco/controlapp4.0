@@ -9,7 +9,7 @@
 
         <center>
           <div class="form-group">
-            <label>Nombre </label>
+            <label>Nombre:</label>
             <strong><span id="nombreInstalacion_2"></span></strong>
           </div>
           <div class="form-group card shadow" style="border-radius: 30px !important;">
@@ -20,25 +20,41 @@
               	</div>
                 <div class="col-md-4">
                   <div class="form-group" align="center">
-                    <label>Desde</label>
+                    <label>Desde:</label>
                     <strong><span id="desdeInstalacion_2"></span></strong>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group" align="center">
-                    <label>Hasta</label>
+                    <label>Hasta:</label>
                     <strong><span id="hastaInstalacion_2"></span></strong>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label>Nro. máximo de personas</label>
-            <strong><span id="npersonasInstalacion_2"></span></strong>
+          <div class="row justify-content-center">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Costo por alquiler permanente:</label>
+                <strong><span id="costoPInstalacion2"></span>$</strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Costo por alquiler por hora:</label>
+                <strong><span id="costoTInstalacion2"></span>$</strong>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Nro. máximo de personas:</label>
+                <strong><span id="npersonasInstalacion_2"></span></strong>
+              </div>
+            </div>
           </div>
           <div class="form-group">
-              <label>Status</label>
+              <label>Status:</label>
               <strong><span id="statusInstalacion_2"></span></strong>
           </div>          
         </center>
