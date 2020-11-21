@@ -266,107 +266,191 @@
                                     $num=0;
                                     $date=Date('Y-m-d');
                                 @endphp
-                                @foreach($alquiler as $key)
-                                @foreach($key->pagos_has_alquiler as $key3)
-                                    <tr>
-                                        <td>{{$num=$num+1}}</td>
-                                        <td>{{$key->residente->nombres}}</td>
-                                        <td>{{$key->instalacion->nombre}}</td>
-                                        <td>{{$key->tipo_alquiler}}</td>
-                                        <td>
-                                            @if($key->fecha)
-                                                {{$key->fecha}}
-                                            @else
-                                                <strong class="text-warning">Temporal</strong>
+                                @if(\Auth::user()->tipo_usuario=="Admin")
+                                    @foreach($alquiler as $key)
+                                        @foreach($key->pagos_has_alquiler as $key3)
+                                            <tr>
+                                                <td>{{$num=$num+1}}</td>
+                                                <td>{{$key->residente->nombres}}</td>
+                                                <td>{{$key->instalacion->nombre}}</td>
+                                                <td>{{$key->tipo_alquiler}}</td>
+                                                <td>
+                                                    @if($key->fecha)
+                                                        {{$key->fecha}}
+                                                    @else
+                                                        <strong class="text-warning">Temporal</strong>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($key->hora)
+                                                        {{$key->hora}}
+                                                    @else
+                                                        <strong class="text-warning">Temporal</strong>
+                                                    @endif
+                                                </td>
+                                                @foreach($key->pagos_has_alquiler as $key2)
+                                                    <td>
+                                                        @if($date <= $key->fecha && $key2->status == 'Pagado')
+                                                            <span class="text-success"><strong>Pagado</strong></span>
+                                                        @elseif($date <= $key->fecha && $key2->status == 'No Pagado')
+                                                            <span class="text-danger"><strong>No Pagado</strong></span>
+                                                        @else
+                                                            <span class="text-primary"><strong>Activo</strong></span>
+                                                        @endif
+                                                    </td>
+                                                    <td align="center">
+                                                        <div class="btn-group mt-2 dropleft mr-1">
+                                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></i>
+                                                                Acciones
+                                                            </button>
+
+                                                            <div class="dropdown-menu" x-placement="left-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 0px, 0px);">
+
+                                                                <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
+                                                                    '{{$key->residente->nombres}}',
+                                                                    '{{$key->residente->apellidos}}',
+                                                                    '{{$key->residente->rut}}',
+                                                                    '{{$key->instalacion->nombre}}',
+                                                                    '{{$key->tipo_alquiler}}',
+                                                                    '{{$key->fecha}}',
+                                                                    '{{$key->hora}}',
+                                                                    '{{$key->num_horas}}',
+                                                                    '{{$key->status}}',
+                                                                    '{{$key2->status}}',
+                                                                    '{{$key2->referencia}}',
+                                                                    '{{$key2->id_planesPago}}'
+                                                                    )">
+                                                                    <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
+                                                                </a>
+                                                                <div class="dropdown-divider"></div>
+                                                                @if(\Auth::user()->tipo_usuario=="Admin")
+                                                                <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
+                                                                    '{{$key->id}}',
+                                                                    '{{$key->id_residente}}',
+                                                                    '{{$key->id_instalacion}}',
+                                                                    '{{$key->instalacion->costo_permanente}}',
+                                                                    '{{$key->instalacion->costo_temporal}}',
+                                                                    '{{$key->tipo_alquiler}}',
+                                                                    '{{$key->fecha}}',
+                                                                    '{{$key->hora}}',
+                                                                    '{{$key->num_horas}}',
+                                                                    '{{$key->status}}',
+                                                                    '{{$key2->status}}',
+                                                                    '{{$key2->referencia}}',
+                                                                    '{{$key2->monto}}'
+                                                                    )">
+                                                                    <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
+                                                                </a>
+                                                                <div class="dropdown-divider"></div>
+                                                                @endif
+                                                                @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
+                                                                    <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                                        <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
+                                                                    </a>
+                                                                @endif
+                                                                <div class="dropdown-divider"></div>
+                                                                @if($key2->status == 'En Proceso')
+                                                                    <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                                        <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
+                                                                    </a>
+                                                                @endif
+                                                                @if(\Auth::user()->tipo_usuario=="Admin")
+                                                                <div class="dropdown-divider"></div>
+                                                                <a href="#EliminarArriendo" class="dropdown-item" data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
+                                                                    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo"><i data-feather="trash"></i> Eliminar</span>
+                                                                </a>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                        
+
+                                                    </td>
+                                                @endforeach()
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
+                                @else
+                                    @foreach($alquiler as $key)
+                                        @foreach($key->pagos_has_alquiler as $key3)
+                                            @if($key->residente->id == \Auth::User()->residente->id)
+                                                <tr>
+                                                    <td>{{$num=$num+1}}</td>
+                                                    <td>{{$key->residente->nombres}}</td>
+                                                    <td>{{$key->instalacion->nombre}}</td>
+                                                    <td>{{$key->tipo_alquiler}}</td>
+                                                    <td>
+                                                        @if($key->fecha)
+                                                            {{$key->fecha}}
+                                                        @else
+                                                            <strong class="text-warning">Temporal</strong>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($key->hora)
+                                                            {{$key->hora}}
+                                                        @else
+                                                            <strong class="text-warning">Temporal</strong>
+                                                        @endif
+                                                    </td>
+                                                    @foreach($key->pagos_has_alquiler as $key2)
+                                                        <td>
+                                                            @if($date <= $key->fecha && $key2->status == 'Pagado')
+                                                                <span class="text-success"><strong>Pagado</strong></span>
+                                                            @elseif($date <= $key->fecha && $key2->status == 'No Pagado')
+                                                                <span class="text-danger"><strong>No Pagado</strong></span>
+                                                            @else
+                                                                <span class="text-primary"><strong>Activo</strong></span>
+                                                            @endif
+                                                        </td>
+                                                        <td align="center">
+                                                            <div class="btn-group mt-2 dropleft mr-1">
+                                                                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                    <i class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></i>
+                                                                    Acciones
+                                                                </button>
+
+                                                                <div class="dropdown-menu" x-placement="left-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 0px, 0px);">
+
+                                                                    <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
+                                                                        '{{$key->residente->nombres}}',
+                                                                        '{{$key->residente->apellidos}}',
+                                                                        '{{$key->residente->rut}}',
+                                                                        '{{$key->instalacion->nombre}}',
+                                                                        '{{$key->tipo_alquiler}}',
+                                                                        '{{$key->fecha}}',
+                                                                        '{{$key->hora}}',
+                                                                        '{{$key->num_horas}}',
+                                                                        '{{$key->status}}',
+                                                                        '{{$key2->status}}',
+                                                                        '{{$key2->referencia}}',
+                                                                        '{{$key2->id_planesPago}}'
+                                                                        )">
+                                                                        <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
+                                                                    </a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
+                                                                        <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                                            <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
+                                                                        </a>
+                                                                    @endif
+                                                                    <div class="dropdown-divider"></div>
+                                                                    @if($key2->status == 'En Proceso')
+                                                                        <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                                            <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
+                                                                        </a>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                            
+
+                                                        </td>
+                                                    @endforeach()
+                                                </tr>
                                             @endif
-                                        </td>
-                                        <td>
-                                            @if($key->hora)
-                                                {{$key->hora}}
-                                            @else
-                                                <strong class="text-warning">Temporal</strong>
-                                            @endif
-                                        </td>
-                                        @foreach($key->pagos_has_alquiler as $key2)
-                                            <td>
-                                                @if($date <= $key->fecha && $key2->status == 'Pagado')
-                                                    <span class="text-success"><strong>Pagado</strong></span>
-                                                @else
-                                                        <span class="text-success"><strong>Activo</strong></span>
-                                                @endif
-                                            </td>
-                                            <td align="center">
-                                                <div class="btn-group mt-2 dropleft mr-1">
-                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg></i>
-                                                        Acciones
-                                                    </button>
-
-                                                    <div class="dropdown-menu" x-placement="left-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 0px, 0px);">
-
-                                                        <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
-                                                            '{{$key->residente->nombres}}',
-                                                            '{{$key->residente->apellidos}}',
-                                                            '{{$key->residente->rut}}',
-                                                            '{{$key->instalacion->nombre}}',
-                                                            '{{$key->tipo_alquiler}}',
-                                                            '{{$key->fecha}}',
-                                                            '{{$key->hora}}',
-                                                            '{{$key->num_horas}}',
-                                                            '{{$key->status}}',
-                                                            '{{$key2->status}}',
-                                                            '{{$key2->referencia}}',
-                                                            '{{$key2->id_planesPago}}'
-                                                            )">
-                                                            <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
-                                                        </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        @if(\Auth::user()->tipo_usuario=="Admin")
-                                                        <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
-                                                            '{{$key->id}}',
-                                                            '{{$key->id_residente}}',
-                                                            '{{$key->id_instalacion}}',
-                                                            '{{$key->instalacion->costo_permanente}}',
-                                                            '{{$key->instalacion->costo_temporal}}',
-                                                            '{{$key->tipo_alquiler}}',
-                                                            '{{$key->fecha}}',
-                                                            '{{$key->hora}}',
-                                                            '{{$key->num_horas}}',
-                                                            '{{$key->status}}',
-                                                            '{{$key2->status}}',
-                                                            '{{$key2->referencia}}',
-                                                            '{{$key2->monto}}'
-                                                            )">
-                                                            <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
-                                                        </a>
-                                                        <div class="dropdown-divider"></div>
-                                                        @endif
-                                                        @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
-                                                            <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                                <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
-                                                            </a>
-                                                        @endif
-                                                        <div class="dropdown-divider"></div>
-                                                        @if($key2->status == 'En Proceso')
-                                                            <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
-                                                                <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
-                                                            </a>
-                                                        @endif
-                                                        @if(\Auth::user()->tipo_usuario=="Admin")
-                                                        <div class="dropdown-divider"></div>
-                                                        <a href="#EliminarArriendo" class="dropdown-item" data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
-                                                            <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo"><i data-feather="trash"></i> Eliminar</span>
-                                                        </a>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                                
-
-                                            </td>
-                                        @endforeach()
-                                    </tr>
-                                @endforeach
-                                @endforeach
+                                        @endforeach
+                                    @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

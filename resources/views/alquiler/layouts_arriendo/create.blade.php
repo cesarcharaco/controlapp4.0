@@ -11,45 +11,78 @@
       {!! Form::open(['route' => ['registrar_alquiler'], 'enctype' => 'multipart/form-data', 'method' => 'POST', 'name' => 'registrar_alquiler', 'id' => 'registrar_alquiler', 'data-parsley-validate']) !!}
         @csrf
           
-        <div class="row">                
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Residente <b class="text-danger">*</b></label>
-              <select class="form-control select2" id="id_residente" name="id_residente" required="required">
-                  <option disabled value selected>Seleccione residente</option>
-                  @foreach($residentes as $key)
-                      <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
-                  @endforeach()
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="form-group">
-              <label>Instalación <b class="text-danger">*</b></label>
-              <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
-                  <option disabled value selected>Seleccione instalación</option>
-                  @foreach($instalaciones as $key)
-                  @if($key->status=="Activo")
-                      <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
-                  @endif
-                  @endforeach
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <center>
+
+        @if(\Auth::User()->tipo_usuario=="Admin")
+          <div class="row">
+            <div class="col-md-4">
               <div class="form-group">
-                <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                <select class="form-control" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
-                  <option selected disabled>Seleccione tipo de alquiler</option>
-                  <option value="Permanente">Permanente</option>
-                  <option value="Temporal">Temporal</option>
-                  <option value="Permanente/Temporal">Permanente/Temporal</option>
+                <label>Residente <b class="text-danger">*</b></label>
+                <select class="form-control select2" id="id_residente" name="id_residente" required="required">
+                    <option disabled value selected>Seleccione residente</option>
+                    @foreach($residentes as $key)
+                        <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
+                    @endforeach()
                 </select>
               </div>
-            </center>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Instalación <b class="text-danger">*</b></label>
+                <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
+                    <option disabled value selected>Seleccione instalación</option>
+                    @foreach($instalaciones as $key)
+                    @if($key->status=="Activo")
+                        <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                    @endif
+                    @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <center>
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
+                    <option selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Permanente/Temporal">Permanente/Temporal</option>
+                  </select>
+                </div>
+              </center>
+            </div>
           </div>
-        </div>
+        @else
+          <input type="hidden" name="id_residente" value="{{\Auth::User()->residente->id}}">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Instalación <b class="text-danger">*</b></label>
+                <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
+                    <option disabled value selected>Seleccione instalación</option>
+                    @foreach($instalaciones as $key)
+                    @if($key->status=="Activo")
+                        <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                    @endif
+                    @endforeach
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <center>
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
+                    <option selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Permanente/Temporal">Permanente/Temporal</option>
+                  </select>
+                </div>
+              </center>
+            </div>
+          </div>
+        @endif
         <center>
         </center>
         <div class="card border rounded">
