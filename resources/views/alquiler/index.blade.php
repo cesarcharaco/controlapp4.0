@@ -326,6 +326,8 @@
                                                             '{{$key->id}}',
                                                             '{{$key->id_residente}}',
                                                             '{{$key->id_instalacion}}',
+                                                            '{{$key->instalacion->costo_permanente}}',
+                                                            '{{$key->instalacion->costo_temporal}}',
                                                             '{{$key->tipo_alquiler}}',
                                                             '{{$key->fecha}}',
                                                             '{{$key->hora}}',
@@ -333,7 +335,7 @@
                                                             '{{$key->status}}',
                                                             '{{$key2->status}}',
                                                             '{{$key2->referencia}}',
-                                                            '{{$key2->id_planesPago}}'
+                                                            '{{$key2->monto}}'
                                                             )">
                                                             <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
                                                         </a>
@@ -667,18 +669,35 @@
 
     }
 
-    function editarArriendo(id,id_residente,id_instalacion,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,id_planesPago) {
+    function editarArriendo(id,id_residente,id_instalacion,costo_permanente,costo_temporal,tipo_alquiler,fecha,hora,num_horas,status,status2,referencia,monto) {
+
         $('#btnRegistrar_arriendo').fadeOut('fast');
         $('#example2_wrapper').fadeOut('fast');
 
         $('#id_residenteArriendoE').val(id_residente);
         $('#instalacionListArriendoE').val(id_instalacion);
         $('#tipo_alquilerArriendoE').val(tipo_alquiler);
-        if (tipo_alquiler == 'Temporal') {
-            $('#vistaTemporal2').show();
+
+
+        $('#costo_temporal').val(costo_temporal);
+        $('#costo_permanente').val(costo_permanente);
+
+        $('#monto_t_a').val(monto);
+        $('#montoTArriendoE').val(monto);
+        $('#monto_p_a2').html(costo_permanente);
+
+        if(tipo_alquiler == 'Permanente'){
+            $(".vistaCostoT").hide();
+            $('.vistaCostoP').show();
+            $('.fechaAlquiler').removeAttr('required',false);
+            $('.horaAlquiler').removeAttr('required',false);
         }else{
-            $('#vistaTemporal2').hide();
+            $(".vistaCostoT").show();
+            $('.vistaCostoP').hide();
+            $('.fechaAlquiler').attr('required',true);
+            $('.horaAlquiler').attr('required',true);
         }
+        $('#tipo_alquiler_s').html(tipo_alquiler);
         $('#fechaAlquilerArriendoE').val(fecha);
         $('#horaAlquilerArriendoE').val(hora);
         $('#num_horasArriendoE').val(num_horas);
@@ -686,11 +705,11 @@
 
         $('#pagadoArriendoE').val(status2);
 
-        if(status2 == 'Pagado'){
-            $('#pagadoArriendoE').prop('checked', true);
-        }else{
-            $('#pagadoArriendoE').removeAttr('checked', false);
-        }
+        // if(status2 == 'Pagado'){
+        //     $('#pagadoArriendoE').prop('checked', true);
+        // }else{
+        //     $('#pagadoArriendoE').removeAttr('checked', false);
+        // }
 
         $('#pagadoArriendoE2').html(status2);
 
@@ -1283,6 +1302,7 @@
         var costo = $('#costo_temporal').val();
         var total = key * costo;
         $('#montoTArriendo').val(total);
+        $('#monto_t_a').val(total);
     }
 
 
@@ -1304,18 +1324,18 @@
     function TipoAlquiler(opcion) {
 
         if(opcion == 'Permanente'){
-            $("#vistaCostoT").fadeOut("slow",
+            $(".vistaCostoT").fadeOut("slow",
               function() {
                 $(this).hide();
-                $('#vistaCostoP').fadeIn('show');
+                $('.vistaCostoP').fadeIn('show');
             });
             $('.fechaAlquiler').removeAttr('required',false);
             $('.horaAlquiler').removeAttr('required',false);
         }else{
-            $("#vistaCostoP").fadeOut("slow",
+            $(".vistaCostoP").fadeOut("slow",
               function() {
                 $(this).hide();
-                $('#vistaCostoT').fadeIn('show');
+                $('.vistaCostoT').fadeIn('show');
             });
             $('.fechaAlquiler').attr('required',true);
             $('.horaAlquiler').attr('required',true);

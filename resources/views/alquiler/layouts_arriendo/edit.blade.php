@@ -11,7 +11,7 @@
         @csrf
 
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Residente <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="id_residenteArriendoE" onchange="buscarTodo(this.value)" name="id_residente" required>
@@ -22,7 +22,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label>Instalación <b class="text-danger">*</b></label>
                     <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
@@ -33,42 +33,72 @@
                     </select>
                   </div>                  
                 </div>
-              </div>
-                <center>                  
+                <div class="col-md-4">
                   <div class="form-group">
-                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
-                    <option selected disabled>Seleccione tipo de alquiler</option>
-                    <option value="Permanente">Permanente</option>
-                    <option value="Temporal">Temporal</option>
-                    <option value="Permanente/Temporal">Permanente/Temporal</option>
-                  </select>
+                    <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                    <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                      <option selected disabled>Seleccione tipo de alquiler</option>
+                      <option value="Permanente">Permanente</option>
+                      <option value="Temporal">Temporal</option>
+                      <option value="Permanente/Temporal">Permanente/Temporal</option>
+                    </select>
+                  </div>
                 </div>
-                  <div class="form-group card shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none;" id="vistaTemporal2">
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label>Fecha</label>
-                        <input type="date" name="fecha" class="form-control" id="fechaAlquilerArriendoE">
+              </div>
+                <div class="card border rounded">
+                  <div class="card-body">
+                    <h4 align="center">Tipo de alquiler actual: <span id="tipo_alquiler_s" class="text-warning"></span></h4>
+                    <div class="vistaCostoT" style="display: none;">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group" align="center">
+                            <label>Fecha <b class="text-danger">*</b></label>
+                            <input type="date" name="fecha" class="form-control fechaAlquiler" id="fechaAlquilerArriendoE">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group" align="center">
+                            <label>Hora <b class="text-danger">*</b></label>
+                            <input class="form-control horaAlquiler" type="time" name="hora" id="horaAlquilerArriendoE">
+                          </div>
+                        </div>
                       </div>
-                          
-                      <div class="form-group" align="center">
-                        <label>Hora</label>
-                        <input class="form-control" type="time" name="hora"  id="horaAlquilerArriendoE">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nro. de horas <b class="text-danger">*</b></label>
+                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                              <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                                <span class="input-group-text" style="width:39px; height:39px;">
+                                  <i data-feather="watch"></i>
+                                </span>
+                              </span>
+                              <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas" id="num_horasArriendoE" onkeyup="calcularMontoT(this.value)">
+                            </div>
+                          </div>                    
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Monto total a pagar <b class="text-danger">*</b></label>
+                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                              <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
+                                <span class="input-group-text" style="width:39px; height:39px;">
+                                  <i data-feather="dollar-sign"></i>
+                                </span>
+                              </span>
+                              <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control soloNumeros" placeholder="Monto total a pagar" required readonly="readonly" id="monto_t_a">
+                            </div>
+                          </div>                    
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label>Nro. de horas <b class="text-danger">*</b></label>
-                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                      <span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend">
-                        <span class="input-group-text" style="width:39px; height:39px;">
-                          <i data-feather="watch"></i>
-                        </span>
-                      </span>
-                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control" placeholder="7" required id="num_horasArriendoE">
+
+                    <div class="vistaCostoP" style="display: none; text-align: center;">
+                      <label>Costo por alquiler permanente: </label>
+                      <h3><span id="monto_p_a2"></span>$</h3>
                     </div>
                   </div>
-                </center>
+                </div>
                 <center>
                   {{--
                     <div class="form-group" id="pagoRealizado">
@@ -93,7 +123,7 @@
 
         <div align="center">
             <input type="hidden" name="id" id="id_editarArriendo">
-            <button type="submit" class="btn btn-success">Guardar</button>
+            <button type="submit" class="btn btn-warning">Guardar</button>
         </div>
       {!! Form::close() !!}
     </div>

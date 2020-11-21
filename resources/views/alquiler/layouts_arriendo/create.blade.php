@@ -54,7 +54,7 @@
         </center>
         <div class="card border rounded">
           <div class="card-body">
-            <div id="vistaCostoT" style="display: none;">
+            <div class="vistaCostoT" style="display: none;">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group" align="center">
@@ -99,7 +99,7 @@
               </div>
             </div>
 
-            <div id="vistaCostoP" style="display: none; text-align: center;">
+            <div class="vistaCostoP" style="display: none; text-align: center;">
               <label>Costo por alquiler permanente: </label>
               <h3><span id="total_costo_p"></span>$</h3>
             </div>
