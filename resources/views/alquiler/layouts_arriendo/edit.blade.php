@@ -9,16 +9,7 @@
       <h4>Editar Arriendo <br> <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
       {!! Form::open(['route' => ['editar_alquiler'], 'enctype' => 'multipart/form-data', 'method' => 'POST', 'name' => 'update_arriendo', 'id' => 'update_arriendo', 'data-parsley-validate']) !!}
         @csrf
-        <ul class="nav nav-pills nav-fill mb-3" id="pills-tab" role="tablist" style="background-color: #C5C5C5 !important;">
-          <li class="nav-item">
-            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-homeE" role="tab" aria-controls="pills-empresaE" aria-selected="true">1</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-pagoE" role="tab" aria-controls="pills-datosE" aria-selected="false">2</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-homeE" role="tabpanel" aria-labelledby="pills-home-tab">
+
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
@@ -44,7 +35,7 @@
                 </div>
               </div>
                 <center>                  
-                  <<div class="form-group">
+                  <div class="form-group">
                   <label>Tipo de Alquiler <b class="text-danger">*</b></label>
                   <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
                     <option selected disabled>Seleccione tipo de alquiler</option>
@@ -78,8 +69,6 @@
                     </div>
                   </div>
                 </center>
-            </div>
-            <div class="tab-pane fade" id="pills-pagoE" role="tabpanel" aria-labelledby="pills-pago-tab">
                 <center>
                   {{--
                     <div class="form-group" id="pagoRealizado">
@@ -102,8 +91,6 @@
                     </div>
                 </center>
 
-            </div>
-        </div>
         <div align="center">
             <input type="hidden" name="id" id="id_editarArriendo">
             <button type="submit" class="btn btn-success">Guardar</button>

@@ -709,20 +709,7 @@
         $('#example2_wrapper').fadeOut('fast');
     }
 
-    function TipoAlquiler(tipo) {
-        if(tipo == 'Permanente'){
-            $('.vistaTipoAlquiler').fadeOut('fast',
-                function() { 
-                  $(this).hide();
-                });
-            $('#fechaAlquiler').removeAttr('required',false);
-            $('#horaAlquiler').removeAttr('required',false);
-        }else{
-            $('.vistaTipoAlquiler').fadeIn(300);
-            $('#fechaAlquiler').attr('required',true);
-            $('#horaAlquiler').attr('required',true);
-        }
-    }
+
 
 
 
@@ -1290,18 +1277,23 @@
         });
     }
     function TipoAlquiler(opcion) {
+
         if(opcion == 'Permanente'){
             $("#vistaCostoT").fadeOut("slow",
               function() {
                 $(this).hide();
                 $('#vistaCostoP').fadeIn('show');
             });
+            $('.fechaAlquiler').removeAttr('required',false);
+            $('.horaAlquiler').removeAttr('required',false);
         }else{
             $("#vistaCostoP").fadeOut("slow",
               function() {
                 $(this).hide();
                 $('#vistaCostoT').fadeIn('show');
             });
+            $('.fechaAlquiler').attr('required',true);
+            $('.horaAlquiler').attr('required',true);
         }
     }
   

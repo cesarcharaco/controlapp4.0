@@ -50,28 +50,25 @@
             </center>
           </div>
         </div>
-        <div class="row justify-content-center shadow vistaTipoAlquiler" style="border-radius: 30px !important; display: none !important; padding: 10px !important;">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Fecha</label>
-              <input type="date" min="<?php echo date('Y-m-d');?>" name="fecha" class="form-control" id="fechaAlquiler">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Hora</label>
-              <div class='input-group date' id='datetimepicker6'>
-                <input name="hora" type="time" id="basic-timepicker" class="form-control" id="horaAlquiler">
-                <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <center>
+        </center>
         <div class="card border rounded">
           <div class="card-body">
             <div id="vistaCostoT" style="display: none;">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" align="center">
+                    <label>Fecha <b class="text-danger">*</b></label>
+                    <input type="date" name="fecha" class="form-control fechaAlquiler">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group" align="center">
+                    <label>Hora <b class="text-danger">*</b></label>
+                    <input class="form-control horaAlquiler" type="time" name="hora">
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
