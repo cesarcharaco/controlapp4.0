@@ -105,47 +105,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <?php $num=0; ?>
-                            @foreach($planesPago as $key)
-                                @if($num==0)
-                                    <div class="col-md-4">
-                                        <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
-                                            <div class="card-body">
-                                                <div class="custom-control custom-radio mb-2">
-                                                  <input type="radio" id="customRadio1" name="planP" value="{{$key->id}}" checked>
-                                                </div>
-                                               <h3>{{$key->nombre}}</h3>
-                                               <span>{{$key->dias}} dias</span>
-                                               <br>
-                                                <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
-                                               <br>
-                                               <center>
-                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
-                                               </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="col-md-4">
-                                        <div class="card shadow border card-tabla rounded" style="border-color: {{$key->color}} !important; height: 400px;">
-                                            <div class="card-body">
-                                                <div class="custom-control custom-radio mb-2">
-                                                  <input type="radio" id="customRadio1" name="planP" value="{{$key->id}}">
-                                                </div>
-                                               <h3>{{$key->nombre}}</h3>
-                                               <span>{{$key->dias}} dias</span>
-                                               <br>
-                                                <span style="font-size: 30px;">$</span><span style="font-size: 70px;">{{$key->monto}}</span><strong>/Mes</strong>
-                                               <br>
-                                               <center>
-                                                <img align="center" class="img-responsive" width="180" height="180" src="{{ asset($key->url_img) }}">
-                                               </center>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endif
-                                <?php $num++; ?>
-                            @endforeach()
                     </div>
                 </center>
             </div>
