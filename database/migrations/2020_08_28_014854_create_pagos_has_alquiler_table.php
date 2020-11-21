@@ -21,7 +21,6 @@ class CreatePagosHasAlquilerTable extends Migration
             $table->enum('status',['Pagado','En Proceso','No Pagado'])->default('En Proceso');;
 
             $table->foreign('id_alquiler')->references('id')->on('alquiler')->onDelete('cascade');
-            $table->foreign('id_planesPago')->references('id')->on('planes_pago')->onDelete('cascade');
 
             $table->timestamps();
         });
