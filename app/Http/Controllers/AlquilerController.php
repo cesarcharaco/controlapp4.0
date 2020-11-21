@@ -9,6 +9,8 @@ use App\Residentes;
 use App\Dias;
 use App\Instalaciones;
 // use App\Instalaciones;
+use App\Http\Controllers\FlowController;
+use App\Http\FlowBuilder1;
 
 class AlquilerController extends Controller
 {
@@ -350,38 +352,45 @@ class AlquilerController extends Controller
 
     public function pagar_alquiler_resi(Request $request)
     {
-        //dd($request->all());
-        if (\Auth::user()->tipo_usuario=="Admin") {
-            if ($request->status_arriendo=="En Proceso") {
-                if ($request->tipo_alq=="Permanente") {
-                    $instalacion=Instalaciones::find($request->id_instalacion);
-                    $instalacion->status="Inactivo";
-                    $instalacion->save();
-                }
-                \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-                    ->update([
-                        'status'=> "Pagado"
-                ]);
-                $instalacion=Alquiler::find($request->id_alquiler);
-                $instalacion->status="Activo";
-                $instalacion->save();
-
-                toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
-                return redirect()->back();
+        if ($request->flow==1) {
+            //dd('flow');
+            $request->referencia=$this->generarOrden();
+            $orden_compra=$request->referencia;
+            $buscar_alquiler = \DB::table('alquiler')
+            ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
+            ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+            ->where('alquiler.id',$request->id_alquiler)
+            ->select('instalaciones.nombre as instalacion','alquiler.tipo_alquiler as tipo')
+            ->first();
+            //dd($buscar_alquiler);
+            $nombre_instalacion = strtoupper($buscar_alquiler->instalacion);
+            $tipo_alquiler = strtoupper($buscar_alquiler->tipo);
+            if ($request->monto_alquiler >= 350) {
+                //dd($request->all());
+                $total = $request->monto_alquiler;
+                $flowbuilder=new FlowBuilder1();
+                $flowbuilder->setMontoA($request->monto_alquiler);
+                $email_pagador = \Auth::User()->email;
+                $concepto= "Pagar arriendo  de ".$nombre_instalacion.", tipo de alquiler ".$tipo_alquiler.".";
+                $flowcontroller=new FlowController();
+                //Con este return nos vamos al controlador de FLOW
+                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra);
             } else {
-                if(empty($request->referencia)){
-                    toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
-                    return redirect()->back();
-                } else {
+                toastr()->error('ERROR!!', 'El monto a pagar debe ser mayor a 350 pesos chilenos');
+                return redirect()->back();
+            }
+        } else {
+            //dd($request->all());
+            if (\Auth::user()->tipo_usuario=="Admin") {
+                if ($request->status_arriendo=="En Proceso") {
                     if ($request->tipo_alq=="Permanente") {
                         $instalacion=Instalaciones::find($request->id_instalacion);
                         $instalacion->status="Inactivo";
                         $instalacion->save();
                     }
                     \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-                    ->update([
-                        'referencia'=> $request->referencia,
-                        'status'=> "Pagado"
+                        ->update([
+                            'status'=> "Pagado"
                     ]);
                     $instalacion=Alquiler::find($request->id_alquiler);
                     $instalacion->status="Activo";
@@ -389,24 +398,47 @@ class AlquilerController extends Controller
 
                     toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
                     return redirect()->back();
+                } else {
+                    if(empty($request->referencia)){
+                        toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+                        return redirect()->back();
+                    } else {
+                        if ($request->tipo_alq=="Permanente") {
+                            $instalacion=Instalaciones::find($request->id_instalacion);
+                            $instalacion->status="Inactivo";
+                            $instalacion->save();
+                        }
+                        \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                        ->update([
+                            'referencia'=> $request->referencia,
+                            'status'=> "Pagado"
+                        ]);
+                        $instalacion=Alquiler::find($request->id_alquiler);
+                        $instalacion->status="Activo";
+                        $instalacion->save();
+
+                        toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
+                        return redirect()->back();
+                    }
+                }
+                
+            } else {
+                if(empty($request->referencia)){
+                    toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
+                    return redirect()->back();
+                } else {
+                    \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                    ->update([
+                        'referencia'=> $request->referencia,
+                        'status'=> "En Proceso"
+                    ]);
+
+                    toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');
+                    return redirect()->back();
                 }
             }
-            
-        } else {
-            if(empty($request->referencia)){
-                toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
-                return redirect()->back();
-            } else {
-                \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-                ->update([
-                    'referencia'=> $request->referencia,
-                    'status'=> "En Proceso"
-                ]);
-
-                toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');
-                return redirect()->back();
-            }
         }
+        
         
     }
 
@@ -629,5 +661,15 @@ class AlquilerController extends Controller
         }
         //dd($cont);
         return $cont;
+    }
+    protected function generarOrden()
+    {
+        $characters = '0123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < 8; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;   
     }
 }

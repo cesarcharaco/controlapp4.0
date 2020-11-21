@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Flow;
 use App\Http\FlowBuilder;
+use App\Http\FlowBuilder1;
 use Illuminate\Http\Request;
 //llamando a los facades
 use App\Http\Requests;
@@ -19,6 +20,34 @@ class FlowController extends Controller
         return view('flow.index');
     }
 
+    public function orden_alquiler(Request $request,$monto,$concepto,$email_pagador,$orden_compra){
+        //echo "concepto: ".$concepto;
+        //dd($request->all());
+        //dd($monto);
+        $flow=new FlowBuilder1();
+        $orden = [
+            'orden_compra' => $orden_compra,
+            'monto'           => $monto,
+            // 'concepto'        => $factura,
+            'concepto'        => $concepto,
+            'email_pagador'   => $email_pagador,
+            //'medio_pago'     => $request->medio_pago,
+        ];
+
+        
+        #Aqui debemos verificar la entrada...
+        /*if (!is_numeric($orden['orden_compra'])) {
+            dd("Error #1: Orden debe ser number");
+        }*/
+
+        //dd($orden);
+        // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
+        $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
+
+        // Si desea enviar el medio de pago usar la siguiente línea
+        //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
+        return view('flow.orden', compact('orden'));
+    }
     public function orden2(Request $request,$monto,$concepto,$email_pagador,$orden_compra){
         //echo "concepto: ".$concepto;
         //dd($request->all());

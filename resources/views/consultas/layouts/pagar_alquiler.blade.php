@@ -1,5 +1,5 @@
-<div class="modal fade" id="pagarAlquilerResidente" role="dialog">
-    <div class="modal-dialog modals-default">
+<div class="modal fade bd-example-modal-lg" id="pagarAlquilerResidente" role="dialog">
+    <div class="modal-dialog modals-lg">
         <div class="modal-content">
             <div class="modal-header">
             	<h3>Pagar Alquiler</h3>
@@ -38,19 +38,28 @@
 		                                	<div class="col-md-4">
 		                                		<div class="form-group">
 			                                		<label>Alquiler</label>
-						        					<h4 id="nombreA"></h4>
+						        					<h5 id="nombreA"></h5>
 		                                		</div>
 		                                	</div>
 		                                	<div class="col-md-4">
 		                                		<div class="form-group">
 			                                		<label>Tipo de Alquiler</label>
-			                                		<h4 id="tipoAlquilerA"></h4>
+			                                		<h5 id="tipoAlquilerA"></h5>
 		                                		</div>
 		                                	</div>
 		                                	<div class="col-md-4">
 		                                		<div class="form-group">
 			                                		<label>Plan de Pagos</label>
-			                                		<h4 id="PlanPagoA"></h4>
+			                                		<h5 id="PlanPagoA"></h5>
+		                                		</div>
+		                                	</div>
+		                                </div>
+		                                <div class="row">
+		                                	<div class="col-md-12 text-center">
+		                                		<div class="form-group">
+			                                		<label>Monto a pagar</label>
+						        					<h5 id="montoA"></h5>
+						        					<input type="hidden" name="monto_alquiler" id="monto_alquiler">
 		                                		</div>
 		                                	</div>
 		                                </div>

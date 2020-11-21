@@ -374,7 +374,7 @@ class ArriendosController extends Controller
         ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
         ->join('planes_pago','planes_pago.id','=','pagos_has_alquiler.id_planesPago')
         ->where('residentes.id',$residente->id)
-        ->select('alquiler.*','pagos_has_alquiler.*','instalaciones.nombre','pagos_has_alquiler.status as status','pagos_has_alquiler.referencia as refer','planes_pago.nombre as plan_pago','instalaciones.id as id_instalacion')
+        ->select('alquiler.*','pagos_has_alquiler.*','instalaciones.nombre','pagos_has_alquiler.status as status','pagos_has_alquiler.referencia as refer','planes_pago.nombre as plan_pago','instalaciones.id as id_instalacion','pagos_has_alquiler.monto as monto_alquiler')
         ->get();
     }
 }

@@ -10,11 +10,9 @@ namespace App\Http;
  * Author:  flow.cl                                                     	   *
  *******************************************************************************/
 
-class FlowBuilder
+class FlowBuilder1
 {
 	protected $order = array();
-	protected $pagos_i=array();
-	protected $pagos_e=array();
 	protected $factura;
 	//Constructor de la clase
 	public function __construct() {
@@ -34,29 +32,6 @@ class FlowBuilder
 
 	// Metodos SET
 	
-	//---- set de los id_pagos de inmuebles
-	public function setPagosI($pagos_i) {
-		if(!empty($pagos_i)) {
-
-			for($i=0 ; $i < count($pagos_i) ; $i++){
-				$this->pagos_i[$i]=$pagos_i[$i];
-			}
-		}
-		
-		return !empty($pagos_i);	
-	}
-	//---------------------------------------
-	//set de los id_pagose e estacionamientos
-	public function setPagosI($pagos_e) {
-		if(!empty($pagos_e)) {
-
-			for($i=0 ; $i < count($pagos_e) ; $i++){
-				$this->pagos_e[$i]=$pagos_e[$i];
-			}
-		}
-		
-		return !empty($pagos_e);	
-	}
 	// set para factura
 	public function setFactura($factura) {
 		if(!empty($factura)) {
@@ -64,6 +39,14 @@ class FlowBuilder
 		}
 		//$this->flow_log("Asigna Orden N°: ". $this->order["OrdenNumero"], '');
 		return !empty($factura);	
+	} 
+	//---- set de los id_pagos de inmuebles
+	public function setMontoA($monto_a) {
+		if(!empty($monto_a)) {
+			$this->monto_a = $monto_a;
+		}
+		
+		return !empty($monto_a);	
 	}
 	//---------------------------------------
 
