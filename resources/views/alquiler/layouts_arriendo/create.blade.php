@@ -39,11 +39,11 @@
               </div>
             </div>
             <div class="col-md-4">
-              <center>
+              <center id="tipo_alquiler_v" style="display: none;">
                 <div class="form-group">
                   <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                  <select class="form-control" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
-                    <option selected disabled>Seleccione tipo de alquiler</option>
+                  <select class="form-control buscarInslatacion tipo_alquiler" id="tipo_alquiler_c"  name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required disabled>
+                    <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
                     <option value="Permanente/Temporal">Permanente/Temporal</option>
@@ -61,17 +61,19 @@
                 <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
                     <option disabled value selected>Seleccione instalación</option>
                     @foreach($instalaciones as $key)
-                      <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                      @if($key->status=="Activo")
+                        <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                      @endif
                     @endforeach
                 </select>
               </div>
             </div>
             <div class="col-md-6">
-              <center>
+              <center id="tipo_alquiler_v" style="display: none;">
                 <div class="form-group">
                   <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                  <select class="form-control" name="tipo_alquiler" onchange="TipoAlquiler(this.value)" required>
-                    <option selected disabled>Seleccione tipo de alquiler</option>
+                  <select class="form-control tipo_alquiler border" name="tipo_alquiler" id="tipo_alquiler_c" onchange="TipoAlquiler(this.value)" required disabled>
+                    <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
                     <option value="Permanente/Temporal">Permanente/Temporal</option>

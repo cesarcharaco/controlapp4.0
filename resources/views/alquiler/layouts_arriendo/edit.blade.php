@@ -38,8 +38,8 @@
               <div class="col-md-4">
                 <div class="form-group">
                   <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
-                    <option selected disabled>Seleccione tipo de alquiler</option>
+                  <select class="form-control tipo_alquiler border" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
                     <option value="Permanente/Temporal">Permanente/Temporal</option>
@@ -64,8 +64,8 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
-                    <option selected disabled>Seleccione tipo de alquiler</option>
+                  <select class="form-control buscarInslatacion border" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
                     <option value="Permanente/Temporal">Permanente/Temporal</option>
