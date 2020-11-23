@@ -125,7 +125,6 @@
                         <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
                             <thead>
                                 <tr class="bg-primary text-white">
-                                    <th width="10"></th>
                                     <th>Nombre</th>
                                     <th>Horario Disponible</th>
                                     <th>Max. personas</th>
@@ -136,7 +135,6 @@
                             <tbody>
                                 @foreach($instalaciones as $key)
                                     <tr>
-                                        <td></td>
                                         <td align="center">{{$key->nombre}}</td>
                                         <td>
                                             @foreach($key->dias as $key2)
@@ -1452,6 +1450,9 @@
 
 
     function buscarInslatacion(id) {
+
+        $('#montoTArriendo').val(null).removeAttr('disabled',false);
+        $('#costo_temporal').val(null).removeAttr('disabled',false);
         
         $.get("instalacion/"+id+"/buscar",function (data) {
         })
@@ -1464,11 +1465,27 @@
                 $('.vistaCostoT').hide();
                 $('.vistaCostoP').hide();
 
+                if(data[0].costo_permanente > 0){
+                    $('#total_costo_p').html(data[0].costo_permanente+'$');
+                    $('#costo_permanente').val(data[0].costo_permanente);
+                }else{
+                    $('#total_costo_p').html('Sin costo permanente');
+                    $('#costo_permanente').val(0);
+                }
+
+
+                if (data[0].costo_temporal > 0) {
+                    $('#montoTArriendo').val(data[0].costo_temporal);
+                    $('#costo_temporal').val(data[0].costo_temporal);
+                    $('.num_horas').removeAttr('disabled', false);
+                }else{
+                    $('#montoTArriendo').val(null).attr('disabled',true);
+                    $('#costo_temporal').val(null).attr('disabled',true);
+                    $('.num_horas').attr('disabled',true);
+                }
+
+
                 $('#num_horas').val(1);
-                $('#montoTArriendo').val(data[0].costo_temporal);
-                $('#costo_temporal').val(data[0].costo_temporal);
-                $('#costo_permanente').val(data[0].costo_permanente);
-                $('#total_costo_p').html(data[0].costo_permanente);
             }
         });
     }
@@ -1478,18 +1495,25 @@
             $(".vistaCostoT").fadeOut("slow",
               function() {
                 $(this).hide();
-                $('.vistaCostoP').fadeIn('show');
+                $('.vistaCostoP').fadeIn(300);
             });
             $('.fechaAlquiler').removeAttr('required',false);
             $('.horaAlquiler').removeAttr('required',false);
-        }else{
+        }else if(opcion == 'Temporal'){
             $(".vistaCostoP").fadeOut("slow",
               function() {
                 $(this).hide();
-                $('.vistaCostoT').fadeIn('show');
+                $('.vistaCostoT').fadeIn(300);
             });
             $('.fechaAlquiler').attr('required',true);
             $('.horaAlquiler').attr('required',true);
+        }
+        else{
+            $('.fechaAlquiler').attr('required',true);
+            $('.horaAlquiler').attr('required',true);
+
+            $('.vistaCostoT').fadeIn(300);
+            $('.vistaCostoP').fadeIn(300);
         }
     }
 

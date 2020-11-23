@@ -102,7 +102,7 @@
                                   <i data-feather="watch"></i>
                                 </span>
                               </span>
-                              <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas" id="num_horasArriendoE" onkeyup="calcularMontoT(this.value)">
+                              <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control num_horas" required placeholder="Ingrese Nro. de horas" id="num_horasArriendoE" onkeyup="calcularMontoT(this.value)">
                             </div>
                           </div>                    
                         </div>

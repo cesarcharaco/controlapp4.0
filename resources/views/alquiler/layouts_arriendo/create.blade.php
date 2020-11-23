@@ -112,7 +112,7 @@
                           <i data-feather="watch"></i>
                         </span>
                       </span>
-                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control" required placeholder="Ingrese Nro. de horas" id="num_horas" onkeyup="calcularMontoT(this.value)">
+                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control num_horas" required placeholder="Ingrese Nro. de horas" id="num_horas" onkeyup="calcularMontoT(this.value)">
                     </div>
                   </div>                    
                 </div>
@@ -134,7 +134,7 @@
 
             <div class="vistaCostoP" style="display: none; text-align: center;">
               <label>Costo por alquiler permanente: </label>
-              <h3><span id="total_costo_p"></span>$</h3>
+              <h3><span id="total_costo_p"></span></h3>
             </div>
           </div>
         </div>
