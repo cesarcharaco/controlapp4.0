@@ -90,29 +90,34 @@
                 <div class="col-md-12">
                     <div style="height: 100%;">
                         @include('alquiler.layouts_instalacion.show')
-                        @include('alquiler.layouts_instalacion.create')
-                        @include('alquiler.layouts_instalacion.edit')
-                        @include('alquiler.layouts_instalacion.edit_status')
-                        @include('alquiler.layouts_instalacion.delete')
+
+                        @if(\Auth::user()->tipo_usuario=="Admin")
+                            @include('alquiler.layouts_instalacion.create')
+                            @include('alquiler.layouts_instalacion.edit')
+                            @include('alquiler.layouts_instalacion.edit_status')
+                            @include('alquiler.layouts_instalacion.delete')
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div class="row">
-                        <div class="col-md-12 offset-md-12">
-                            <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
-                                border-radius: 10px;
-                                color: white;
-                                height: 35px;
-                                margin-bottom: 5px;
-                                margin-top: 5px;
-                                float: right;">
-                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
-                            </a>
+                @if(\Auth::user()->tipo_usuario=="Admin")
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12 offset-md-12">
+                                <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
+                                    border-radius: 10px;
+                                    color: white;
+                                    height: 35px;
+                                    margin-bottom: 5px;
+                                    margin-top: 5px;
+                                    float: right;">
+                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 
 
                 <div class="col-md-12">
