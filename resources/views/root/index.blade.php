@@ -38,13 +38,13 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12 offset-md-12">
-                        <a class="btn btn-success boton-tabla shadow" id="btnRegistrar_admin" data-toggle="modal" data-target="#crearAdmin" style="
+                        <a class="btn btn-success boton-tabla shadow" id="btnRegistrar_admin" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo administrador" onclick="crearAdmin()" style="
                             border-radius: 10px;
                             color: white;
                             height: 35px;
                             margin-bottom: 5px;
                             margin-top: 5px;
-                            float: right;" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo admin">
+                            float: right;" >
                             <span><i data-feather="plus"></i>Nuevo Admin</span>
                         </a>
                     </div>
@@ -90,11 +90,24 @@
                                         </td>
                                     @endif
                                     <td>
-                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}')">
+                                        <a class="btn btn-info btn-sm" href="#verAdmin" data-toggle="tooltip" data-placement="top" title="Seleccione para ver los datos del administrador" id="btnRegistrar_arriendo" role="button" aria-expanded="false" aria-controls="verAdmin" onclick="verAdmin(
+                                            '{{$key->id}}',
+                                            '{{$key->name}}',
+                                            '{{$key->rut}}',
+                                            '{{$key->email}}',
+                                            '{{$key->status}}',
+                                            '{{$key->membresia->nombre}}',
+                                            '{{$key->membresia->cant_inmuebles}}',
+                                            '{{$key->membresia->monto}}'
+                                            )">
+                                            
+                                            <span><i data-feather="eye"></i>Ver</span>
+                                        </a>
+                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del administrador">
                                             <span><i data-feather="edit"></i>Editar</span>
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')">
+                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Eliminar('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar al administrador">
                                             <span><i data-feather="trash"></i>Eliminar</span>
                                         </a>
                                     </td>
@@ -173,7 +186,11 @@ $('#check_tb_edit').on('change',function () {
       $('#btnRegistrar_admin').show();
     }
 
-    function verAdmin(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto,link_flow, link_tb) {
+    function crearAdmin() {
+        $('#crearAdmin').modal('show');
+    }
+
+    function verAdmin(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto) {
         $('#ver_pasarelas_pago').empty();
         $('#ver_pasarelas_pago').append('Cargando pasarelas...');
         if (status == 'activo') {
@@ -186,9 +203,10 @@ $('#check_tb_edit').on('change',function () {
         $('#rut_v').html(rut);
         $('#email_v').html(email);
         $('#status_v').html(status);
+        $("#membresia_v").empty();
         $("#membresia_v").append('<div class="card-body border border-warning"><h3>'+membresia_nombre+'</h3> <span>Cant. Inmuebles: '+membresia_cant+'</span> - <strong>Monto: '+membresia_monto+'$</strong></div>');
-        $('#link_flow_edit').val(link_flow);
-        $('#link_tb_edit').val(link_tb);
+        // $('#link_flow_edit').val(link_flow);
+        // $('#link_tb_edit').val(link_tb);
 
 
         $.get("pasarelas/"+id+"/buscar",function (data) {
@@ -206,7 +224,7 @@ $('#check_tb_edit').on('change',function () {
         });
 
 
-
+        $('#verAdmin').collapse('show');
 
 
 
@@ -214,6 +232,8 @@ $('#check_tb_edit').on('change',function () {
         $('#example1_wrapper').fadeOut('fast');
     }
         function Editar(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto,link_flow, link_tb) {
+            $('#editarResidente').modal('show');
+
             $('#editarAdmin').modal('show');
             $('#id_admin_e').val(id);
             $('#name_e').val(name);
@@ -230,7 +250,7 @@ $('#check_tb_edit').on('change',function () {
             })
             .done(function(data) {
                 $('#id_pasarela_edit').empty();
-                console.log(data.length)
+                // console.log(data.length);
                 if (data.length>0) {
                     for (var i = 0; i < data.length; i++) {
                         $('#id_pasarela_edit').append('<span><strong>'+data[i].pasarela+':</strong> '+data[i].link_pasarela+'</span><br>');

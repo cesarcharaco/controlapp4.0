@@ -94,7 +94,7 @@
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-12 offset-md-12">
-                            <a class="btn btn-success boton-tabla shadow" data-toggle="modal" data-target="#crearAnuncio" onclick="AnuncioCreate()" style="
+                            <a class="btn btn-success boton-tabla shadow" data-toggle="tooltip" data-placement="top" title="Seleccione para crear un nuevo anuncio" data-toggle="modal" data-target="#crearAnuncio" onclick="AnuncioCreate()" style="
                                 border-radius: 10px;
                                 color: white;
                                 height: 35px;
@@ -108,7 +108,7 @@
                 </div>
                 
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                         <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
                             <thead>
@@ -131,22 +131,23 @@
                                         <td>{{$key->descripcion}}</td>
                                         <td>
                                             <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;">
+                                            <!-- <img class="imagenAnun border" src="{{ asset($key->url_imagen) }}" class="avatar" style="width:100%;max-width:640px; border-radius: 50% !important;"> -->
                                         </td>
                                         <td>
-                                            <a href="#" class="border border-light btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')">
+                                            <a href="#" class="border border-light btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Administradores que pueden visualizar el anuncio">
                                                 <span><strong><i data-feather="eye"></i>Ver Asignados</strong></span>
                                             </a>
                                             @php $count=0 @endphp
                                             @foreach($EmpresasAnuncios as $key2)
                                                 @if($count == 0)
-                                                    <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EditarAnuncio('{{$key->id}}','{{$key->id_empresa}}','{{$key->titulo}}','{{$key->descripcion}}','{{$key->url_img}}','{{$key->link}}','{{$key2->referencia}}','{{$key2->id_planP}}')">
+                                                    <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EditarAnuncio('{{$key->id}}','{{$key->id_empresa}}','{{$key->titulo}}','{{$key->descripcion}}','{{$key->url_img}}','{{$key->link}}','{{$key2->referencia}}','{{$key2->id_planP}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar el anuncio">
                                                         <span><i data-feather="edit"></i>Editar</span>
                                                     </a>
                                                     @php $count++ @endphp
                                                 @endif
                                             @endforeach()
 
-                                            <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EliminarAnuncio('{{$key->id}}')">
+                                            <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EliminarAnuncio('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar el anuncio">
                                                 <span><i data-feather="trash"></i>Eliminar</span>
                                             </a>
                                         </td>
@@ -155,53 +156,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            @php $num=0 @endphp
-                            @foreach($anuncios as $key)
-                                @if($num == 0)
-                                    <div class="carousel-item active">
-                                        <center>
-                                            <h3 alt="{{$num=$num+1}} slide"><strong class="text-dark">{{$key->titulo}}</strong></h3>
-                                            <br>
-                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avtar" style="width:100%;max-width:640px;">
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-12">
-                                                    
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                @else
-                                    <div class="carousel-item">
-                                        <center>
-                                            <h3 alt="{{$num=$num+1}} slide"><strong class="text-dark">{{$key->titulo}}</strong></h3>
-                                            <br>
-                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;">
-                                            <div class="row justify-content-center">
-                                                <div class="col-md-12">
-                                                    
-                                                </div>
-                                            </div>
-                                        </center>
-                                    </div>
-                                @endif
-
-                                @php $num++ @endphp
-                            @endforeach()
-
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                        </div>
                 </div>
             </div>
         </div>
@@ -218,7 +172,7 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-12 offset-md-12">
-                                    <a class="btn btn-success boton-tabla shadow" data-toggle="modal" data-target="#NuevaEmpresa" style="
+                                    <a class="btn btn-success boton-tabla shadow" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una nueva empresa" onclick="NuevaEmpresa()" data-target="#NuevaEmpresa" style="
                                         border-radius: 10px;
                                         color: white;
                                         height: 35px;
@@ -251,7 +205,7 @@
                             <tbody>
                                 @php $num=0 @endphp
                                 @foreach($empresas as $key)
-                                    <tr class="vista1-{{$key->id}}" onclick="opcionesTabla(1,'{{$key->id}}')">
+                                    <tr>
                                         <td align="center">
                                             {{$num=$num+1}}
                                         </td>
@@ -271,10 +225,10 @@
                                         @endif
                                         <td>
 
-                                           <a href="#" class="btn btn-warning btn-sm" onclick="editarEmpresa('{{$key->id}}','{{$key->nombre}}','{{$key->rut_empresa}}','{{$key->descripcion}}','{{$key->status}}')">
+                                           <a href="#" class="btn btn-warning btn-sm" onclick="editarEmpresa('{{$key->id}}','{{$key->nombre}}','{{$key->rut_empresa}}','{{$key->descripcion}}','{{$key->status}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos de la empresa">
                                                 <span><i data-feather="edit"></i>Editar</span>
                                             </a>
-                                        <a href="#" class="btn btn-danger btn-sm" onclick="eliminarEmpresa('{{$key->id}}')">
+                                        <a href="#" class="btn btn-danger btn-sm" onclick="eliminarEmpresa('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar a la empresa">
                                                 <span><i data-feather="trash"></i>Eliminar</span>
                                             </a>
                                         </td>
@@ -779,6 +733,10 @@
     // function eliminar(id) {
     //     $('#id').val(id);
     // }
+
+    function NuevaEmpresa() {
+        $('#NuevaEmpresa').modal('show');
+    }
 
     function mensual(accion, id) {
 

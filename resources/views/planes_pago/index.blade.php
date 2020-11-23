@@ -38,10 +38,10 @@
     <center>
     	<div class="row justify-content-center mb-3">
 	    	<div class="col-md-6" align="center">
-	    		<button onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para ver las lista de los planes de pagos">Vista de Planes de Pagos</button>
+	    		<button data-toggle="tooltip" data-placement="top" title="Seleccione para ver la vista de planes de pago" onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para ver las lista de los planes de pagos">Vista de Planes de Pagos</button>
 	    	</div>
 	    	<div class="col-md-6" align="center text-white"  style="">
-	    		<button onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para la lista de promociones">Vista de Promociones</button>
+	    		<button data-toggle="tooltip" data-placement="top" title="Seleccione para ver la vista de promociones" onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para la lista de promociones">Vista de Promociones</button>
 	    	</div>
     	</div>
     </center>
@@ -62,7 +62,7 @@
 				            <div class="col-md-12">
 				                <div class="row">
 				                    <div class="col-md-12 offset-md-12">
-				                        <a data-toggle="collapse" href="#nuevoPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="nuevoPlanPago" class="btn btn-success boton-tabla shadow" onclick="nuevoPlanPago()" style="
+				                        <a data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo plan de pagos" href="#nuevoPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="nuevoPlanPago" class="btn btn-success boton-tabla shadow" onclick="nuevoPlanPago()" style="
 				                            border-radius: 10px;
 				                            color: white;
 				                            height: 35px;
@@ -113,7 +113,7 @@
 					                                        </td>
 					                                    @endif
 					                                    <td>
-					                                       	<a data-toggle="collapse" href="#editarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-warning btn-sm" onclick="editarPlanP(
+					                                       	<a data-toggle="tooltip" data-placement="top" title="Seleccione para editar el plan de pagos" href="#editarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="editarPlanPago" class="btn btn-warning btn-sm" onclick="editarPlanP(
 					                                       '{{$key->id}}',
 					                                       '{{$key->nombre}}',
 					                                       '{{$key->monto}}',
@@ -126,7 +126,7 @@
 					                                        </a>
 
 
-					                                    	<a data-toggle="collapse" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar plan de pago">
+					                                    	<a data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar el plan de pagos del sistema" href="#EliminarPlanPago" id="btnRegistrar_plan" role="button" aria-expanded="false" aria-controls="EliminarPlanPago" class="btn btn-danger btn-sm" onclick="eliminarPlanP('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar plan de pago">
 					                                            <span ><i data-feather="trash"></i>Eliminar</span>
 					                                        </a>
 					                                    </td>
@@ -160,7 +160,7 @@
 				            <div class="col-md-12">
 				                <div class="row">
 				                    <div class="col-md-12 offset-md-12">
-				                        <a data-toggle="collapse" href="#nuevaPromocion" id="btnRegistrar_pro" role="button" aria-expanded="false" aria-controls="nuevaPromocion" class="btn btn-success boton-tabla shadow" onclick="nuevaPromocion()" style="
+				                        <a data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una nueva promoción" href="#nuevaPromocion" id="btnRegistrar_pro" role="button" aria-expanded="false" aria-controls="nuevaPromocion" class="btn btn-success boton-tabla shadow" onclick="nuevaPromocion()" style="
 				                            border-radius: 10px;
 				                            color: white;
 				                            height: 35px;
@@ -205,7 +205,7 @@
 			                                    @endif
 			                                    <td align="center">
 
-			                                       <a data-toggle="collapse" href="#editarPromocion" role="button" aria-expanded="false" aria-controls="editarPromocion" class="btn btn-warning btn-sm" onclick="editarPromocion(
+			                                       <a href="#editarPromocion" role="button" aria-expanded="false" aria-controls="editarPromocion" class="btn btn-warning btn-sm" onclick="editarPromocion(
 			                                       '{{$key->id}}',
 			                                       '{{$key->planP->id}}',
 			                                       '{{$key->porcentaje}}',
@@ -214,7 +214,7 @@
 			                                            <span><i data-feather="edit"></i>Editar</span>
 			                                        </a>
 
-			                                    	<a data-toggle="collapse" href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar promoción">
+			                                    	<a href="#EliminarPromocion" role="button" aria-expanded="false" aria-controls="EliminarPromocion" class="btn btn-danger btn-sm" onclick="eliminarPromocion('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar promoción">
 			                                            <span><i data-feather="trash"></i>Eliminar</span>
 			                                        </a>
 			                                    </td>
@@ -246,6 +246,8 @@
     	$('#btnRegistrar_plan').fadeOut('fast');
       	$('#example1_wrapper').fadeOut('fast');
       	$('.mostrarImagenEditar').empty();
+
+      	$('#nuevoPlanPago').collapse('show');
     }
     function editarPlanP(id,nombre,monto,dias,color,tipo,status,nombre_img){
 		$('.id_PlanP').val(id);
@@ -259,11 +261,13 @@
 		$('.mostrarImagenEditar').append('<img class="imagenAnun text-dark" src="'+nombre_img+'" style="width:50%;max-width:200px;">');
     	$('#btnRegistrar_plan').fadeOut('fast');
       	$('#example1_wrapper').fadeOut('fast');
+      	$('#editarPlanPago').collapse('show');
     }
 	function eliminarPlanP(id){
 		$('.id_PlanP').val(id);
 		$('#btnRegistrar_plan').fadeOut('fast');
       	$('#example1_wrapper').fadeOut('fast');
+      	$('#EliminarPlanPago').collapse('show');
 	}
 
 
@@ -314,6 +318,8 @@
 	function nuevaPromocion() {
     	$('#btnRegistrar_pro').fadeOut('fast');
 		$('#example2_wrapper').fadeOut('fast');
+
+		$('#nuevaPromocion').collapse('show');
     }
     
 
@@ -325,10 +331,14 @@
 		$('#status_promo_e').val(status);
 		$('#btnRegistrar_pro').fadeOut('fast');
 		$('#example2_wrapper').fadeOut('fast');
+
+		$('#editarPromocion').collapse('show');
     }
     function eliminarPromocion(id) {
     	$('#id_promocion').val(id);
     	$('#btnRegistrar_pro').fadeOut('fast');
 		$('#example2_wrapper').fadeOut('fast');
+
+		$('#EliminarPromocion').collapse('show');
     }
 </script>

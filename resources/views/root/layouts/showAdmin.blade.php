@@ -57,9 +57,5 @@
                 </div>
             </center>
         </div>
-        <div class="modal-footer">
-            <input type="hidden" name="id" id="id_admin_v">
-            <button type="submit" class="btn btn-success" >Editar</button>
-        </div>
 	</div>
 </div>

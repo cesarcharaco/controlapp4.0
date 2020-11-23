@@ -48,7 +48,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-12 offset-md-12">
-                        <a data-toggle="collapse" href="#nuevaMembresia" id="btnRegistrar_membresia" role="button" aria-expanded="false" aria-controls="nuevaMembresia" class="btn btn-success boton-tabla shadow" onclick="nuevaMembresia()" style="
+                        <a data-toggle="tooltip" data-placement="top" title="Seleccione para registrar nueva membresía" id="btnRegistrar_membresia" role="button" aria-expanded="false" aria-controls="nuevaMembresia" class="btn btn-success boton-tabla shadow" onclick="nuevaMembresia()" style="
                             border-radius: 10px;
                             color: white;
                             height: 35px;
@@ -58,12 +58,10 @@
                             border: 1px solid #f6f6f7!important;
                             border-color: #43d39e !important;
                             background-color: #43d39e !important">
-                            <span class=" text-white">Nueva Membresía</span>
-                            <center>
-                                <span class="2 text-white">
-                                    <i data-feather="plus"></i>
-                                </span>
-                            </center>
+                            <span class=" text-white">
+                                <i data-feather="plus"></i>
+                                Nueva Membresía
+                            </span>
                         </a>
                     </div>
                 </div>
@@ -96,15 +94,16 @@
     	                    		</td>
                                     <td>
 
-                                       <a data-toggle="collapse" href="#editarMembresia" role="button" aria-expanded="false" aria-controls="editarMembresia"  class="btn btn-warning btn-sm" onclick="editarMembresia(
+                                       <a href="#editarMembresia" role="button" aria-expanded="false" aria-controls="editarMembresia"  class="btn btn-warning btn-sm" onclick="editarMembresia(
                                        '{{$key->id}}',
                                        '{{$key->nombre}}',
                                        '{{$key->monto}}',
                                        '{{$key->cant_inmuebles}}',
-                                       '{{$key->url_imagen}}')">
+                                       '{{$key->url_imagen}}')"
+                                       data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos de la membresía">
                                             <span><i data-feather="edit"></i>Editar</span>
                                         </a>
-                                        <a data-toggle="collapse" href="#EliminarMembresia" role="button" aria-expanded="false" aria-controls="EliminarMembresia" class="btn btn-danger btn-sm" onclick="eliminarMembresia('{{$key->id}}')">
+                                        <a href="#EliminarMembresia" role="button" aria-expanded="false" aria-controls="EliminarMembresia" class="btn btn-danger btn-sm" onclick="eliminarMembresia('{{$key->id}}')"data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar la membresía del sistema">
                                             <span> <i data-feather="trash"></i>Eliminar</span>
                                         </a>
                                     </td>
@@ -125,6 +124,7 @@
       $('#example1_wrapper').fadeIn('fast');
       $('#btnRegistrar_membresia').show();
       $('.mostrarImagenEditar').empty();
+      // $('.multi-collapse').collapse('hide');
     }
 
 	function mostrarEditarImagen(opcion) {
@@ -144,11 +144,13 @@
 		}
 	}
 	function nuevaMembresia() {
+        $('#nuevaMembresia').collapse('show');
 		$('#btnRegistrar_membresia').fadeOut('fast');
         $('#example1_wrapper').fadeOut('fast');
 	}
 
 	function editarMembresia(id,nombre,monto,cant_inmuebles,url_imagen) {
+        $('#editarMembresia').collapse('show');
 		$('.id_edit_membresia').val(id);
 		$('#nombre_Membresia').val(nombre);
 		$('#cant_inmuebles_membresia').val(cant_inmuebles);
@@ -162,6 +164,7 @@
 	}
 
 	function eliminarMembresia(id) {
+        $('#EliminarMembresia').collapse('show');
 		$('#id_membresia').val(id);
 		$('#btnRegistrar_membresia').fadeOut('fast');
         $('#example1_wrapper').fadeOut('fast');

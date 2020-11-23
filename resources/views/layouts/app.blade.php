@@ -14,7 +14,7 @@
 
 
 
-    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}">
+    <!-- <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}"> -->
     
     @include('layouts.css')
 
