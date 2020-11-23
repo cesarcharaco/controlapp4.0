@@ -145,9 +145,8 @@
                         <input type="text" class="form-control" name="referencia" id="referenciaArriendoE" maxlength="20">
                     </div>
                     --}}
-                    <div class="row">
-
-                    </div>
+                      <label>Estado de pago:</label>
+                      <h3><span id="status_pago_e"></span></h3>
                 </center>
 
         <div align="center">

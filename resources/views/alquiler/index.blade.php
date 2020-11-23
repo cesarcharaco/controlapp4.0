@@ -788,8 +788,16 @@
         $('#id_residenteArriendo_2').html(nombres+' '+apellidos+' -'+rut);
         $('#instalacionListArriendo_2').html(nombre_I);
         $('#tipo_alquilerArriendo_2').html(tipo_alquiler);
-        $('#fechaAlquilerArriendo_2').html(fecha);
-        $('#horaAlquilerArriendo_2').html(hora);
+        if(fecha >0){
+            $('#fechaAlquilerArriendo_2').html(fecha);
+        }else{
+            $('#fechaAlquilerArriendo_2').html('Sin fecha registrada');
+        }
+        if(hora >0){
+            $('#horaAlquilerArriendo_2').html(hora);
+        }else{
+            $('#horaAlquilerArriendo_2').html('Sin hora registrada');
+        }
         $('#num_horasArriendo_2').html(num_horas);
         $('#statusArriendo_2').html(status);
 
@@ -827,9 +835,12 @@
 
         $('#costo_temporal').val(costo_temporal);
         $('#costo_permanente').val(costo_permanente);
-        
-        $('#monto_t_a').val(monto);
-        $('#montoTArriendoE').val(monto);
+
+
+        var monto_temporal = num_horas * costo_temporal;
+
+        $('#monto_t_a').val(monto_temporal);
+        $('#montoTArriendoE').val(monto_temporal);
         if (costo_permanente > 0) {
             $('#monto_p_a2').html(costo_permanente);
         }else{
@@ -862,6 +873,14 @@
         // }
 
         $('#pagadoArriendoE2').html(status2);
+        $('#status_pago_e').empty();
+        if (status == 'Pagado') {
+            $('#status_pago_e').append('<h1 class="text-success">Pagado</h1>');
+        }else if(status2 == 'En Proceso'){
+            $('#status_pago_e').append('<h1 class="text-warning">En Proceso</h1>');
+        }else{
+            $('#status_pago_e').append('<h1 class="text-danger">No Pagado</h1>');
+        }
 
         $('#referenciaArriendoE').val(referencia);
         $('#planPArriendoE'+id).prop('checked', true);
