@@ -25,7 +25,13 @@ class AlquilerController extends Controller
         if (\Auth::user()->tipo_usuario=="Residente") {
             $residente=Residentes::where('id_usuario',\Auth::user()->id)->first();
             $alquiler = Alquiler::where('id_residente',$residente->id)->get();
+
+            /*$instalaciones = Instalaciones::leftJoin('alquiler','alquiler.id_instalacion','=','instalaciones.id')
+            	->leftJoin('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+            	->where('instalaciones.status','Activo')->get();*/
+
             $instalaciones = Instalaciones::where('status','Activo')->get();
+            //dd($instalaciones);
         } else {
             $alquiler = Alquiler::all();
             $instalaciones = Instalaciones::all();
