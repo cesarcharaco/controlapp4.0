@@ -827,10 +827,14 @@
 
         $('#costo_temporal').val(costo_temporal);
         $('#costo_permanente').val(costo_permanente);
-
+        
         $('#monto_t_a').val(monto);
         $('#montoTArriendoE').val(monto);
-        $('#monto_p_a2').html(costo_permanente);
+        if (costo_permanente > 0) {
+            $('#monto_p_a2').html(costo_permanente);
+        }else{
+            $('#monto_p_a2').html('Sin costo permanente');
+        }
 
         if(tipo_alquiler == 'Permanente'){
             $(".vistaCostoT").hide();
