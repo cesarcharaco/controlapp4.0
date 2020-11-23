@@ -103,11 +103,11 @@
                                             
                                             <span><i data-feather="eye"></i>Ver</span>
                                         </a>
-                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del administrador">
+                                        <a href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EditarAdmin('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del administrador">
                                             <span><i data-feather="edit"></i>Editar</span>
                                         </a>
 
-                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Eliminar('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar al administrador">
+                                        <a href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="EliminarAdmin('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar al administrador">
                                             <span><i data-feather="trash"></i>Eliminar</span>
                                         </a>
                                     </td>
@@ -231,7 +231,7 @@ $('#check_tb_edit').on('change',function () {
         $('#btnRegistrar_admin').fadeOut('fast');
         $('#example1_wrapper').fadeOut('fast');
     }
-        function Editar(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto,link_flow, link_tb) {
+        function EditarAdmin(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto,link_flow, link_tb) {
             $('#editarResidente').modal('show');
 
             $('#editarAdmin').modal('show');
@@ -335,7 +335,7 @@ $('#check_tb_edit').on('change',function () {
     </script>
     <script type="text/javascript">
 
-        function Eliminar(id) {
+        function EliminarAdmin(id) {
             $('#eliminarAdmin').modal('show');
             $('#id_admin').val(id);
         }

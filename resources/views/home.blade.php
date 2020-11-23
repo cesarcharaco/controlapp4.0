@@ -389,67 +389,89 @@
                     
                     <div class="col-md-8" style="float: left; position: relative;">
                         <div style="width: 100%;" id="vistaAdminRoot">
-                            <div class="card border border-info rounded shadow p-3 mb-5 bg-white rounded">
-                                <div class="card-body p-0">
-                                        <span class="text-info text-uppercase font-size-12 font-weight-bold">Usuarios administradores</span>
+                            <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
                                         <div class="row">
-                                            <div class="col-lg-12 col-md-12">
-                                                <a class="btn btn-success boton-tabla shadow" data-toggle="modal" data-target="#crearAdmin" style="
+                                            <div class="col-md-12 offset-md-12">
+                                                <a class="btn btn-success boton-tabla shadow" id="btnRegistrar_admin" data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo administrador" onclick="crearAdmin()" style="
                                                     border-radius: 10px;
                                                     color: white;
                                                     height: 35px;
                                                     margin-bottom: 5px;
                                                     margin-top: 5px;
-                                                    float: right;">
-                                                    <span class="PalabraEditarPago">Agregar</span>
+                                                    float: right;" >
+                                                    <span><i data-feather="plus"></i>Nuevo Admin</span>
                                                 </a>
                                             </div>
                                         </div>
+                                    </div>
+                                    
+                                        <div class="col-md-12">
+                                            <div style="width: 100%;">
+                                                @include('root.layouts.showAdmin')
+                                            </div>
+                                        </div>
 
-                                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
-                                            <thead>
-                                                <tr class="bg-primary text-white">
-                                                    <th>Nombres</th>
-                                                    <th>Rut</th>
-                                                    <th>Email</th>
-                                                    <th>Registrado el</th>
-                                                    <th>Status</th>
-                                                    <th>Opciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($admin as $key)
-                                                    <tr>
-
-                                                        <td>{{$key->name}}</td>
-                                                        <td>{{$key->rut}}</td>
-                                                        <td>{{$key->email}}</td>
-                                                        <td>{{$key->created_at}}</td>
-                                                         @if($key->status == 'activo')
-                                                            <td style="position: all;">
-                                                                    <span class="tituloTabla text-success"><strong>Activo</strong></span>
-                                                                    <span class="tituloTabla2 text-success"><strong>A</strong></span>
-                                                            </td>
-                                                        @else
-                                                            <td style="position: all;">
-                                                                    <span class="tituloTabla text-danger"><strong>Inactivo</strong></span>
-                                                                    <span class="tituloTabla2 text-danger"><strong>I</strong></span>
-                                                            </td>
-                                                        @endif
-                                                        <td>
-                                                            <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" data-toggle="modal" data-target="#editarResidente" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}')">
-                                                                <span class="PalabraEditarPago "><i data-feather="edit" class="iconosMetaforas2"></i>Editar</span>
-                                                            </a>
-
-                                                            <a href="#" class="btn btn-danger btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;"data-toggle="modal" data-target="#eliminarResidente" onclick="Eliminar('{{$key->id}}')">
-                                                                <span class="PalabraEditarPago "><i data-feather="trash" class="iconosMetaforas2"></i>Eliminar</span>
-                                                            </a>
-                                                        </td>
+                                    <div class="col-md-12">
+                                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                                            <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;" data-toggle="tooltip" data-placement="top" checked="checked" title="Si desea ver mas opciones, dirijase a la vista de Admins">
+                                                <thead>
+                                                    <tr class="bg-primary text-white">
+                                                        <th>Nombres</th>
+                                                        <th>Rut</th>
+                                                        <th>Email</th>
+                                                        <th>Registrado el</th>
+                                                        <th>Status</th>
+                                                        <th>Opciones</th>
                                                     </tr>
-                                                @endforeach()
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach($admin as $key)
+                                                        <tr>
+
+                                                            <td>{{$key->name}}</td>
+                                                            <td>{{$key->rut}}</td>
+                                                            <td>{{$key->email}}</td>
+                                                            <td>{{$key->created_at}}</td>
+                                                             @if($key->status == 'activo')
+                                                                <td style="position: all;">
+                                                                        <span class="text-success"><strong>Activo</strong></span>
+                                                                        <span class="text-success"><strong>A</strong></span>
+                                                                </td>
+                                                            @else
+                                                                <td style="position: all;">
+                                                                        <span class="text-danger"><strong>Inactivo</strong></span>
+                                                                        <span class="text-danger"><strong>I</strong></span>
+                                                                </td>
+                                                            @endif
+                                                            <td>
+                                                                <a data-target="#crearInmueble" class="btn btn-info btn-sm" href="#verAdmin" id="btnRegistrar_arriendo" role="button" aria-expanded="false" aria-controls="verAdmin" onclick="verAdmin(
+                                                                    '{{$key->id}}',
+                                                                    '{{$key->name}}',
+                                                                    '{{$key->rut}}',
+                                                                    '{{$key->email}}',
+                                                                    '{{$key->status}}',
+                                                                    '{{$key->membresia->nombre}}',
+                                                                    '{{$key->membresia->cant_inmuebles}}',
+                                                                    '{{$key->membresia->monto}}'
+                                                                    )">
+                                                                    
+                                                                    <span><i data-feather="eye"></i>Ver</span>
+                                                                </a>
+                                                                <!-- <a data-toggle="modal" data-target="#editarAdmin" href="#" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Editar('{{$key->id}}','{{$key->name}}','{{$key->rut}}','{{$key->email}}','{{$key->status}}','{{$key->membresia->nombre}}','{{$key->membresia->cant_inmuebles}}','{{$key->membresia->monto}}')">
+                                                                    <span><i data-feather="edit"></i>Editar</span>
+                                                                </a>
+
+                                                                <a data-toggle="modal" data-target="#eliminarAdmin" href="#" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="Eliminar('{{$key->id}}')" >
+                                                                    <span><i data-feather="trash"></i>Eliminar</span>
+                                                                </a> -->
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach()
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -462,7 +484,7 @@
                                 <thead>
                                     <th>
                                         <strong class="text-dark" style="font-size: 20px;">Anuncios</strong>
-                                        <a href="#" style="float: right" class="btn btn-success btn-sm" onclick="AnuncioCreate()">
+                                        <a data-toggle="tooltip" data-placement="top" checked="checked" title="Seleccione si desea registrar un nuevo anuncio en el sistema" href="#" style="float: right" class="btn btn-success btn-sm" onclick="AnuncioCreate()">
                                             <span class="PalabraEditarPago">Crear anuncio</span>
                                             <span class="PalabraEditarPago2">
                                                 <i data-feather="plus" class="iconosMetaforas2"></i>
@@ -474,13 +496,13 @@
                                     @foreach($anuncios as $key)
                                         <tr style="background-color: white;">
                                             <td align="center">
-                                                <a href="#" style="border-radius: 50px; width: 28px; height: 28px;" onclick="VerAdminAsignado('{{$key->id}}')" class="btn btn-info btn-sm">
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Seleccione si desea ver los administradores que pueden visualizar el anuncio" style="border-radius: 50px; width: 28px; height: 28px;" onclick="VerAdminAsignado('{{$key->id}}')" class="btn btn-info btn-sm">
                                                     a
                                                 </a>
                                                 <!-- <a href="#" style="border-radius: 50px; width: 28px; height: 28px;" onclick="EditarAnuncio('{{$key->id}}','{{$key->titulo}}','{{$key->descripcion}}','{{$key->url_img}}','{{$key->link}}')" class="btn btn-warning btn-sm">
                                                     e
                                                 </a> -->
-                                                <a href="#" style="border-radius: 50px; width: 28px; height: 28px;" onclick="EliminarAnuncio('{{$key->id}}')" class="btn btn-danger btn-sm">
+                                                <a href="#" data-toggle="tooltip" data-placement="top" title="Seleccione si desea eliminar el anuncio del sistema" style="border-radius: 50px; width: 28px; height: 28px;" onclick="EliminarAnuncio('{{$key->id}}')" class="btn btn-danger btn-sm">
                                                     x
                                                 </a>
 

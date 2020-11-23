@@ -1579,5 +1579,162 @@
     }
 
 
+
+        function cerrar(opcion) {
+      $('#example1_wrapper').fadeIn('fast');
+      $('#btnRegistrar_admin').show();
+    }
+
+    function crearAdmin() {
+        $('#crearAdmin').modal('show');
+    }
+
+    function verAdmin(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto) {
+        $('#ver_pasarelas_pago').empty();
+        $('#ver_pasarelas_pago').append('Cargando pasarelas...');
+        if (status == 'activo') {
+            status='<div class="card-body" style="height:110px !important;"><h3><span class="text-success">Activo</span></h3></div>';
+        }else{
+            status='<div class="card-body" style="height:110px !important;"><h3><span class="text-danger">Suspendido</span></h3></div>';
+        }
+        $('#id_admin_v').html(id);
+        $('#name_v').html(name);
+        $('#rut_v').html(rut);
+        $('#email_v').html(email);
+        $('#status_v').html(status);
+        $("#membresia_v").empty();
+        $("#membresia_v").append('<div class="card-body border border-warning"><h3>'+membresia_nombre+'</h3> <span>Cant. Inmuebles: '+membresia_cant+'</span> - <strong>Monto: '+membresia_monto+'$</strong></div>');
+        // $('#link_flow_edit').val(link_flow);
+        // $('#link_tb_edit').val(link_tb);
+
+
+        $.get("pasarelas/"+id+"/buscar",function (data) {
+        })
+        .done(function(data) {
+            $('#ver_pasarelas_pago').empty();
+            console.log(data.length)
+            if (data.length>0) {
+                for (var i = 0; i < data.length; i++) {
+                    $('#ver_pasarelas_pago').append('<h3>'+data[i].pasarela+' - '+data[i].link_pasarela+'</h3>');
+                }
+            }else{
+                $('#ver_pasarelas_pago').append('<h3>No hay pasarelas de pago</h3>');
+            }
+        });
+
+
+        $('#verAdmin').collapse('show');
+
+
+
+        $('#btnRegistrar_admin').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
+    }
+        function EditarAdmin(id,name,rut,email,status,membresia_nombre,membresia_cant,membresia_monto,link_flow, link_tb) {
+            $('#editarAdmin').modal('show');
+
+            $('#editarAdmin').modal('show');
+            $('#id_admin_e').val(id);
+            $('#name_e').val(name);
+            $('#rut_e').val(rut.substr(0,(rut.length-2)));
+            $('#verificador_e').val(rut.substr(-1,(rut.length)));
+            $('#email_e').val(email);
+            $('#status_e').val(status);
+            $("#membresia_e").empty();
+            $("#membresia_e").append('<input id="membresia_actual" class="form-control" value="'+membresia_nombre+' | Cant. Inmuebles: '+membresia_cant+' | Monto: '+membresia_monto+'" disabled="disabled">');
+            $('#link_flow_edit').val(link_flow);
+            $('#link_tb_edit').val(link_tb);
+
+            $.get("pasarelas/"+id+"/buscar",function (data) {
+            })
+            .done(function(data) {
+                $('#id_pasarela_edit').empty();
+                // console.log(data.length);
+                if (data.length>0) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#id_pasarela_edit').append('<span><strong>'+data[i].pasarela+':</strong> '+data[i].link_pasarela+'</span><br>');
+                    }
+                }else{
+                    $('#id_pasarela_edit').append('<h2>No tiene pasarelas de pago registradas</h2>');
+                }
+            });
+        }
+
+        function CambiarContraseña() {
+            if($('#CheckCambiarContraseña').prop('checked')){
+
+                $('#verCambiarContraseña').fadeIn(300);
+                $('#contraseñaE').attr('required',true);
+                $('#confirmarContraseñaE').attr('required',true);
+                
+            }else{
+
+                $('#verCambiarContraseña').fadeOut('slow',
+                    function() { 
+                        $(this).css('display','none');
+                });
+                $('#contraseñaE').removeAttr('required',false);
+                $('#confirmarContraseñaE').removeAttr('required',false);               
+            }
+        }
+
+        function CambiarPagos() {
+            if($('#CheckCambiarPagos').prop('checked')){
+
+                $('#verCambiarPagos').fadeIn(300);
+                $('#contraseñaE').attr('required',true);
+                $('#confirmarContraseñaE').attr('required',true);
+                
+            }else{
+
+                $('#verCambiarPagos').fadeOut('slow',
+                    function() { 
+                        $(this).css('display','none');
+                });
+                $('#contraseñaE').removeAttr('required',false);
+                $('#confirmarContraseñaE').removeAttr('required',false);               
+            }
+        }
+
+        function CambiarMembresia() {
+            if($('#CheckCambiarMembresia').prop('checked')){
+
+                $('#verCambiarMembresia').fadeIn(300);
+                $('#contraseñaE').attr('required',true);
+                $('#confirmarContraseñaE').attr('required',true);
+                
+            }else{
+
+                $('#verCambiarMembresia').fadeOut('slow',
+                    function() { 
+                        $(this).css('display','none');
+                });
+                $('#contraseñaE').removeAttr('required',false);
+                $('#confirmarContraseñaE').removeAttr('required',false);               
+            }
+        }
+        function agregarPasarelas() {
+            if($('#CheckagregarPasarelas').prop('checked')){
+
+                $('#pasarelas_pago').fadeIn(300);
+                $('#id_pasarela').attr('required',true);
+                $('#link_pasarela').attr('required',true);
+                
+            }else{
+
+                $('#pasarelas_pago').fadeOut('slow',
+                    function() { 
+                        $(this).css('display','none');
+                });
+                $('#id_pasarela').removeAttr('required',false);
+                $('#link_pasarela').removeAttr('required',false);               
+            }
+        }
+        function EliminarAdmin(id) {
+            $('#eliminarAdmin').modal('show');
+            $('#id_admin').val(id);
+        }
+
+
 </script>
 @yield('scripts')
