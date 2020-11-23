@@ -373,7 +373,7 @@
                                 @else
                                     @foreach($alquiler as $key)
                                         @foreach($key->pagos_has_alquiler as $key3)
-                                            @if($key->residente->id == \Auth::User()->residente->id)
+                                            @if($key->residente->id == \Auth::User()->residente->id && $key->status == 'Activo')
                                                 <tr>
                                                     <td>{{$num=$num+1}}</td>
                                                     <td>{{$key->residente->nombres}}</td>
@@ -459,188 +459,190 @@
         </div>
     </div>
 
-    <div id="tablaControl">
-        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="mb-3" align="right">
-                        <div class="row">
-                            <div class="col-md-12 offset-md-12">
-                                <a class="btn btn-danger boton-tabla shadow" onclick="crearIncidencia()" style="
-                                    border-radius: 10px;
-                                    color: white;
-                                    height: 35px;
-                                    margin-bottom: 5px;
-                                    margin-top: 5px;
-                                    float: right;">
-                                    <span>¿Algún problema?</span>
-                                    <center>
-                                            <i data-feather="plus" class="alert-octagon"></i>
-                                        </span>
-                                    </center>
-                                </a>
+    @if(\Auth::User()->tipo_usuario=="Admin")
+        <div id="tablaControl">
+            <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="mb-3" align="right">
+                            <div class="row">
+                                <div class="col-md-12 offset-md-12">
+                                    <a class="btn btn-danger boton-tabla shadow" onclick="crearIncidencia()" style="
+                                        border-radius: 10px;
+                                        color: white;
+                                        height: 35px;
+                                        margin-bottom: 5px;
+                                        margin-top: 5px;
+                                        float: right;">
+                                        <span>¿Algún problema?</span>
+                                        <center>
+                                                <i data-feather="plus" class="alert-octagon"></i>
+                                            </span>
+                                        </center>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group card shadow" style="border-radius: 30px !important;">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card shadow card-tabla border border-success">
-                                                    <div class="card-body">
-                                                        <table class="tablaControl table table-striped">
-                                                            <thead>
-                                                                <tr align="center">
-                                                                    <th colspan="2">Estado de alquileres</th>
-                                                                </tr>
-                                                                <tr align="center">
-                                                                    <th align="center">Activos</th>
-                                                                    <th align="center">Inactivos</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php
-                                                                    $alquilerA=0;
-                                                                    $alquilerI=0;
-                                                                ?>
-                                                                @foreach($alquiler as $key)
-                                                                    @if($key->status == 'Activo')
-                                                                        @php $alquilerA++; @endphp
-                                                                    @else
-                                                                        @php $alquilerI++; @endphp
-                                                                    @endif
-                                                                @endforeach()
-                                                                <tr align="center">
-                                                                    <td>
-                                                                        {{ $alquilerA }}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ $alquilerI }}
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                            <div class="form-group card shadow" style="border-radius: 30px !important;">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card shadow card-tabla border border-success">
+                                                        <div class="card-body">
+                                                            <table class="tablaControl table table-striped">
+                                                                <thead>
+                                                                    <tr align="center">
+                                                                        <th colspan="2">Estado de alquileres</th>
+                                                                    </tr>
+                                                                    <tr align="center">
+                                                                        <th align="center">Activos</th>
+                                                                        <th align="center">Inactivos</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                        $alquilerA=0;
+                                                                        $alquilerI=0;
+                                                                    ?>
+                                                                    @foreach($alquiler as $key)
+                                                                        @if($key->status == 'Activo')
+                                                                            @php $alquilerA++; @endphp
+                                                                        @else
+                                                                            @php $alquilerI++; @endphp
+                                                                        @endif
+                                                                    @endforeach()
+                                                                    <tr align="center">
+                                                                        <td>
+                                                                            {{ $alquilerA }}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $alquilerI }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card shadow card-tabla border border-success">
-                                                    <div class="card-body">
-                                                        <table class="tablaControl table table-striped">
-                                                            <thead>
-                                                                <tr align="center">
-                                                                    <th colspan="3">Nro. de alquileres por año</th>
-                                                                </tr>
-                                                                <tr align="center">
-                                                                    <th align="center">{{ date('Y') }}</th>
-                                                                    <th align="center">{{ date('Y')-1 }}</th>
-                                                                    <th align="center">{{ date('Y')-2 }}</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php 
-                                                                    $fecha1=0;
-                                                                    $fecha2=0;
-                                                                    $fecha3=0;
-                                                                ?>
-                                                                @foreach($alquiler as $key)
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card shadow card-tabla border border-success">
+                                                        <div class="card-body">
+                                                            <table class="tablaControl table table-striped">
+                                                                <thead>
+                                                                    <tr align="center">
+                                                                        <th colspan="3">Nro. de alquileres por año</th>
+                                                                    </tr>
+                                                                    <tr align="center">
+                                                                        <th align="center">{{ date('Y') }}</th>
+                                                                        <th align="center">{{ date('Y')-1 }}</th>
+                                                                        <th align="center">{{ date('Y')-2 }}</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php 
+                                                                        $fecha1=0;
+                                                                        $fecha2=0;
+                                                                        $fecha3=0;
+                                                                    ?>
+                                                                    @foreach($alquiler as $key)
 
-                                                                    @if($key->created_at->year == date('Y'))
-                                                                        @php $fecha1++; @endphp
-                                                                    @elseif($key->created_at->year == date('Y')-1)
-                                                                        @php $fecha2++; @endphp
-                                                                    @elseif($key->created_at->year == date('Y')-2)
-                                                                        @php $fecha3++; @endphp
-                                                                    @else
-                                                                    
-                                                                    @endif
+                                                                        @if($key->created_at->year == date('Y'))
+                                                                            @php $fecha1++; @endphp
+                                                                        @elseif($key->created_at->year == date('Y')-1)
+                                                                            @php $fecha2++; @endphp
+                                                                        @elseif($key->created_at->year == date('Y')-2)
+                                                                            @php $fecha3++; @endphp
+                                                                        @else
+                                                                        
+                                                                        @endif
 
-                                                                @endforeach()
-                                                                <tr align="center">
-                                                                    <td>{{$fecha1}}</td>
-                                                                    <td>{{$fecha2}}</td>
-                                                                    <td>{{$fecha3}}</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                                    @endforeach()
+                                                                    <tr align="center">
+                                                                        <td>{{$fecha1}}</td>
+                                                                        <td>{{$fecha2}}</td>
+                                                                        <td>{{$fecha3}}</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card shadow card-tabla border border-success">
+                                                        <div class="card-body">
+                                                            <table class="tablaControl table table-striped">
+                                                                <thead>
+                                                                    <tr align="center">
+                                                                        <th colspan="2">Estado de instalaciones</th>
+                                                                    </tr>
+                                                                    <tr align="center">
+                                                                        <th align="center">Activos</th>
+                                                                        <th align="center">Inactivos</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <?php
+                                                                        $instalaA=0;
+                                                                        $instalaI=0;
+                                                                    ?>
+                                                                    @foreach($instalaciones as $key)
+                                                                        @if($key->status == 'Activo')
+                                                                            @php $instalaA++; @endphp
+                                                                        @else
+                                                                            @php $instalaI++; @endphp
+                                                                        @endif
+                                                                    @endforeach()
+                                                                    <tr align="center">
+                                                                        <td>
+                                                                            {{ $instalaA }}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $instalaI }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{--<div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card shadow card-tabla border border-success">
+                                                        <div class="card-body">
+                                                            <canvas id="myChart"></canvas>
+                                                            <table class="tablaControl table table-striped">
+                                                                <thead>
+                                                                    <tr align="center">
+                                                                        <th colspan="3">Total de ingresos</th>
+                                                                    </tr>
+                                                                    <tr align="center">
+                                                                        <th align="center">{{ date('Y') }}</th>
+                                                                        <th align="center">{{ date('Y')-1 }}</th>
+                                                                        <th align="center">{{ date('Y')-2 }}</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr align="center">
+                                                                        
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>--}}
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card shadow card-tabla border border-success">
-                                                    <div class="card-body">
-                                                        <table class="tablaControl table table-striped">
-                                                            <thead>
-                                                                <tr align="center">
-                                                                    <th colspan="2">Estado de instalaciones</th>
-                                                                </tr>
-                                                                <tr align="center">
-                                                                    <th align="center">Activos</th>
-                                                                    <th align="center">Inactivos</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php
-                                                                    $instalaA=0;
-                                                                    $instalaI=0;
-                                                                ?>
-                                                                @foreach($instalaciones as $key)
-                                                                    @if($key->status == 'Activo')
-                                                                        @php $instalaA++; @endphp
-                                                                    @else
-                                                                        @php $instalaI++; @endphp
-                                                                    @endif
-                                                                @endforeach()
-                                                                <tr align="center">
-                                                                    <td>
-                                                                        {{ $instalaA }}
-                                                                    </td>
-                                                                    <td>
-                                                                        {{ $instalaI }}
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {{--<div class="col-md-6">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card shadow card-tabla border border-success">
-                                                    <div class="card-body">
-                                                        <canvas id="myChart"></canvas>
-                                                        <table class="tablaControl table table-striped">
-                                                            <thead>
-                                                                <tr align="center">
-                                                                    <th colspan="3">Total de ingresos</th>
-                                                                </tr>
-                                                                <tr align="center">
-                                                                    <th align="center">{{ date('Y') }}</th>
-                                                                    <th align="center">{{ date('Y')-1 }}</th>
-                                                                    <th align="center">{{ date('Y')-2 }}</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr align="center">
-                                                                    
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
@@ -648,66 +650,105 @@
                 </div>
             </div>
         </div>
-    </div>
+    @endif
     <div class="row justify-content-center">
-        <div class="col-md-4 center" id="VerTabla1">
-            <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
-                <div class="card border border-dark shadow rounded m-7" style="height: 400px;
-                background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                ">
-                    <div class="card-header">
-                        <h3 align="right" class="text-warning" >INSTALACIONES</h3>
-                    </div>
-                    <div class="card-body p-3 mb-5 ">
-                    </div>
-                    <div class="card-footer">
-                        <strong class="text-warning">Visualizar las instalaciones de la App.</strong>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 center" id="VerTabla2">
-            <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
-                <div class="card border border-dark shadow rounded m-7" style="height: 400px;
-                background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                ">
-                    <div class="card-header">
-                        <h3 align="right" class="text-warning" >ARRENDAMIENTOS</h3>
-                    </div>
-                    <div class="card-body p-3 mb-5 ">
-                    </div>
-                    <div class="card-footer">
-                        <strong class="text-warning">Visionar los arrendamientos registradas</strong>
-                    </div>
-                </div>
-            </a>
-        </div>
         @if(\Auth::User()->tipo_usuario=="Admin")
-        <div class="col-md-4 center" id="VerTabla3">
-            <a href="#" onclick="VerTabla(3)" id="verTabla2-3" style="display: none; width: 100%;">
-                <div class="card border border-dark shadow rounded m-7" style="height: 400px;
-                background-image: url('{{ asset('assets/images/alquiler/controlhorario.jpg') }}');
-                background-position: center;
-                background-repeat: no-repeat;
-                background-size: cover;
-                ">
-                    <div class="card-header">
-                        <h3 align="right" class="text-warning" >AGENDA Y CONTROL</h3>
+            <div class="col-md-4 center" id="VerTabla1">
+                <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
+                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
+                    background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    ">
+                        <div class="card-header">
+                            <h3 align="right" class="text-warning" >INSTALACIONES</h3>
+                        </div>
+                        <div class="card-body p-3 mb-5 ">
+                        </div>
+                        <div class="card-footer">
+                            <strong class="text-warning">Visualizar las instalaciones de la App.</strong>
+                        </div>
                     </div>
-                    <div class="card-body p-3 mb-5 ">
+                </a>
+            </div>
+            <div class="col-md-4 center" id="VerTabla2">
+                <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
+                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
+                    background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    ">
+                        <div class="card-header">
+                            <h3 align="right" class="text-warning" >ARRENDAMIENTOS</h3>
+                        </div>
+                        <div class="card-body p-3 mb-5 ">
+                        </div>
+                        <div class="card-footer">
+                            <strong class="text-warning">Visionar los arrendamientos registradas</strong>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <strong class="text-warning">Gestionar el Control, arrendamientos, tiempo, horarios y agendas a Visualizar en la App.</strong>
+                </a>
+            </div>
+            <div class="col-md-4 center" id="VerTabla3">
+                <a href="#" onclick="VerTabla(3)" id="verTabla2-3" style="display: none; width: 100%;">
+                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
+                    background-image: url('{{ asset('assets/images/alquiler/controlhorario.jpg') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    ">
+                        <div class="card-header">
+                            <h3 align="right" class="text-warning" >AGENDA Y CONTROL</h3>
+                        </div>
+                        <div class="card-body p-3 mb-5 ">
+                        </div>
+                        <div class="card-footer">
+                            <strong class="text-warning">Gestionar el Control, arrendamientos, tiempo, horarios y agendas a Visualizar en la App.</strong>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+        @else
+            <div class="col-md-6 center" id="VerTabla1">
+                <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
+                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
+                    background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    ">
+                        <div class="card-header">
+                            <h3 align="right" class="text-warning" >INSTALACIONES</h3>
+                        </div>
+                        <div class="card-body p-3 mb-5 ">
+                        </div>
+                        <div class="card-footer">
+                            <strong class="text-warning">Visualizar las instalaciones de la App.</strong>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-6 center" id="VerTabla2">
+                <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
+                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
+                    background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                    ">
+                        <div class="card-header">
+                            <h3 align="right" class="text-warning" >ARRENDAMIENTOS</h3>
+                        </div>
+                        <div class="card-body p-3 mb-5 ">
+                        </div>
+                        <div class="card-footer">
+                            <strong class="text-warning">Visionar los arrendamientos registradas</strong>
+                        </div>
+                    </div>
+                </a>
+            </div>
         @endif
     </div>
     @include('alquiler.layouts.incidencia')

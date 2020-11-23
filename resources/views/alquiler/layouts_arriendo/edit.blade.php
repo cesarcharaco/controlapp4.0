@@ -9,42 +9,71 @@
       <h4>Editar Arriendo <br> <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
       {!! Form::open(['route' => ['editar_alquiler'], 'enctype' => 'multipart/form-data', 'method' => 'POST', 'name' => 'update_arriendo', 'id' => 'update_arriendo', 'data-parsley-validate']) !!}
         @csrf
+          
 
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Residente <b class="text-danger">*</b></label>
-                    <select class="form-control select2" id="id_residenteArriendoE" onchange="buscarTodo(this.value)" name="id_residente" required>
-                        <option disabled>Seleccione residente</option>
-                        @foreach($residentes as $key)
-                            <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
-                        @endforeach()
-                    </select>
-                  </div>
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Instalación <b class="text-danger">*</b></label>
-                    <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
-                        <option disabled required>Seleccione instalación</option>
-                        @foreach($instalaciones as $key)
-                        <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
-                        @endforeach
-                    </select>
-                  </div>                  
-                </div>
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                    <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
-                      <option selected disabled>Seleccione tipo de alquiler</option>
-                      <option value="Permanente">Permanente</option>
-                      <option value="Temporal">Temporal</option>
-                      <option value="Permanente/Temporal">Permanente/Temporal</option>
-                    </select>
-                  </div>
+          @if(\Auth::User()->tipo_usuario=="Admin")
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Residente <b class="text-danger">*</b></label>
+                  <select class="form-control select2" id="id_residenteArriendoE" onchange="buscarTodo(this.value)" name="id_residente" required>
+                      <option disabled>Seleccione residente</option>
+                      @foreach($residentes as $key)
+                          <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
+                      @endforeach()
+                  </select>
                 </div>
               </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Instalación <b class="text-danger">*</b></label>
+                  <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
+                      <option disabled required>Seleccione instalación</option>
+                      @foreach($instalaciones as $key)
+                      <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                      @endforeach
+                  </select>
+                </div>                  
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Permanente/Temporal">Permanente/Temporal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          @else
+            <input type="hidden" name="id_residente" value="{{\Auth::User()->residente->id}}">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Instalación <b class="text-danger">*</b></label>
+                  <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
+                      <option disabled required>Seleccione instalación</option>
+                      @foreach($instalaciones as $key)
+                      <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                      @endforeach
+                  </select>
+                </div>                  
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                    <option value="Permanente/Temporal">Permanente/Temporal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          @endif
                 <div class="card border rounded">
                   <div class="card-body">
                     <h4 align="center">Tipo de alquiler actual: <span id="tipo_alquiler_s" class="text-warning"></span></h4>
