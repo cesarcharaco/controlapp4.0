@@ -21,7 +21,7 @@
 					    <hr>
 					    <div id="vistaPagarArriendos">
 			                <div id="monto_pagar"></div>
-			                <center id="mostrarFlow" class="mb-2 mt-2">
+			                <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow" id="mostrarFlow" class="mb-2 mt-2">
 	                            <b>Pagar con Flow</b> 
 	                            <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
 	                        </center>

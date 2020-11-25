@@ -105,15 +105,17 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12 offset-md-12">
-                                <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
-                                    border-radius: 10px;
-                                    color: white;
-                                    height: 35px;
-                                    margin-bottom: 5px;
-                                    margin-top: 5px;
-                                    float: right;">
-                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
-                                </a>
+                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una nueva instalación">
+                                    <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
+                                        border-radius: 10px;
+                                        color: white;
+                                        height: 35px;
+                                        margin-bottom: 5px;
+                                        margin-top: 5px;
+                                        float: right;">
+                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
+                                    </a>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -162,7 +164,7 @@
                                         <td align="center">
                                             <br>
 
-                                            <a data-toggle="collapse" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion(
+                                            <a data-toggle="tooltip" data-placement="top" title="Seleccione para ver la instalación" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion(
                                                 '{{$key->id}}',
                                                 '{{$key->nombre}}',
                                                 '{{$key->id_dia}}',
@@ -191,17 +193,23 @@
                                                 <span><strong>Editar</strong></span>
                                             </a>
                                             @if($key->status == 'Activo')
-                                                <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
-                                                </a>
+                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar el arriendo">
+                                                    <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
+                                                    </a>
+                                                </span>
                                             @else
-                                                <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
-                                                </a>
+                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar el arriendo">
+                                                    <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
+                                                    </a>
+                                                </span>
                                             @endif
-                                            <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
-                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">Eliminar</span>
-                                            </a>
+                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">
+                                                <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
+                                                    <span>Eliminar</span>
+                                                </a>
+                                            </span>
                                             @endif
                                         </td>
 
@@ -243,8 +251,9 @@
                                 margin-bottom: 5px;
                                 margin-top: 5px;
                                 float: right;">
-                                <span><i data-feather="plus"></i>Nuevo Arrendamiento</span>
-                                        
+                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar un nuevo arriendo">
+                                    <i data-feather="plus"></i>Nuevo Arrendamiento
+                                </span>
                             </a>
                         </div>
                     </div>
@@ -310,7 +319,7 @@
 
                                                             <div class="dropdown-menu" x-placement="left-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 0px, 0px);">
 
-                                                                <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
+                                                                <a data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo" href="#verArriendo2" class="dropdown-item" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
                                                                     '{{$key->residente->nombres}}',
                                                                     '{{$key->residente->apellidos}}',
                                                                     '{{$key->residente->rut}}',
@@ -324,45 +333,53 @@
                                                                     '{{$key2->referencia}}',
                                                                     '{{$key2->id_planesPago}}'
                                                                     )">
-                                                                    <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
+                                                                    <span class="text-success" ><i data-feather="eye"></i> Ver</span>
                                                                 </a>
                                                                 <div class="dropdown-divider"></div>
                                                                 @if(\Auth::user()->tipo_usuario=="Admin")
-                                                                <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
-                                                                    '{{$key->id}}',
-                                                                    '{{$key->id_residente}}',
-                                                                    '{{$key->id_instalacion}}',
-                                                                    '{{$key->instalacion->costo_permanente}}',
-                                                                    '{{$key->instalacion->costo_temporal}}',
-                                                                    '{{$key->tipo_alquiler}}',
-                                                                    '{{$key->fecha}}',
-                                                                    '{{$key->hora}}',
-                                                                    '{{$key->num_horas}}',
-                                                                    '{{$key->status}}',
-                                                                    '{{$key2->status}}',
-                                                                    '{{$key2->referencia}}',
-                                                                    '{{$key2->monto}}'
-                                                                    )">
-                                                                    <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
-                                                                </a>
+                                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del arriendo">
+                                                                        <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
+                                                                            '{{$key->id}}',
+                                                                            '{{$key->id_residente}}',
+                                                                            '{{$key->id_instalacion}}',
+                                                                            '{{$key->instalacion->costo_permanente}}',
+                                                                            '{{$key->instalacion->costo_temporal}}',
+                                                                            '{{$key->tipo_alquiler}}',
+                                                                            '{{$key->fecha}}',
+                                                                            '{{$key->hora}}',
+                                                                            '{{$key->num_horas}}',
+                                                                            '{{$key->status}}',
+                                                                            '{{$key2->status}}',
+                                                                            '{{$key2->referencia}}',
+                                                                            '{{$key2->monto}}'
+                                                                            )">
+                                                                            <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
+                                                                        </a>
+                                                                    </span>
                                                                 <div class="dropdown-divider"></div>
                                                                 @endif
                                                                 @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
-                                                                    <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                                        <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
-                                                                    </a>
+                                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler">
+                                                                        <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                                            <span class="text-success"><i data-feather="dollar-sign"></i> Pagar</span>
+                                                                        </a>
+                                                                    </span>
                                                                 @endif
                                                                 <div class="dropdown-divider"></div>
                                                                 @if($key2->status == 'En Proceso')
-                                                                    <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
-                                                                        <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
-                                                                    </a>
+                                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para modificar la referencia con la que se realizó el pago del alquiler">
+                                                                        <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                                            <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
+                                                                        </a>
+                                                                    </span>
                                                                 @endif
                                                                 @if(\Auth::user()->tipo_usuario=="Admin")
-                                                                <div class="dropdown-divider"></div>
-                                                                <a href="#EliminarArriendo" class="dropdown-item" data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
-                                                                    <span class="text-danger" data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo"><i data-feather="trash"></i> Eliminar</span>
-                                                                </a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar arriendo">
+                                                                        <a href="#EliminarArriendo" class="dropdown-item" data-toggle="collapse" href="#EliminarArriendo" role="button" aria-expanded="false" aria-controls="EliminarArriendo" onclick="eliminarArriendo('{{$key->id}}','{{$key->id_instalacion}}')">
+                                                                            <span class="text-danger"><i data-feather="trash"></i> Eliminar</span>
+                                                                        </a>
+                                                                    </span>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -416,7 +433,8 @@
 
                                                                     <div class="dropdown-menu" x-placement="left-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 0px, 0px);">
 
-                                                                        <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
+                                                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para ver los datos del alquiler">
+                                                                            <a href="#verArriendo2" class="dropdown-item" data-toggle="collapse" href="#verArriendo2" role="button" aria-expanded="false" aria-controls="verArriendo2" onclick="VerArriendo(
                                                                             '{{$key->residente->nombres}}',
                                                                             '{{$key->residente->apellidos}}',
                                                                             '{{$key->residente->rut}}',
@@ -430,19 +448,26 @@
                                                                             '{{$key2->referencia}}',
                                                                             '{{$key2->id_planesPago}}'
                                                                             )">
-                                                                            <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para ver arriendo"><i data-feather="eye"></i> Ver</span>
-                                                                        </a>
+                                                                            <span class="text-success"><i data-feather="eye"></i> Ver</span>
+                                                                            </a>
+                                                                        </span>
                                                                         <div class="dropdown-divider"></div>
                                                                         @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
-                                                                            <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                                                <span class="text-success" data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler"><i data-feather="dollar-sign"></i> Pagar</span>
-                                                                            </a>
+                                                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler">
+                                                                                <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
+                                                                                    <span class="text-success">
+                                                                                        <i data-feather="dollar-sign"></i> Pagar
+                                                                                    </span>
+                                                                                </a>
+                                                                            </span>
                                                                         @endif
                                                                         <div class="dropdown-divider"></div>
                                                                         @if($key2->status == 'En Proceso')
-                                                                            <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
-                                                                                <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
-                                                                            </a>
+                                                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago">
+                                                                                <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
+                                                                                    <span class="text-warning"><i data-feather="sliders"></i> Editar Referencia</span>
+                                                                                </a>
+                                                                            </span>
                                                                         @endif
                                                                     </div>
                                                                 </div>
@@ -817,6 +842,7 @@
             $('#referenciaArriendoE_2').html('Sin Referencia');
         }
         $('#planPArriendoE_2'+id_planesPago).prop('checked', true);
+        $('#verArriendo2').collapse('show');
 
     }
 
@@ -934,6 +960,7 @@
 
         });
 
+        $('#VerInstalacion').collapse('show');
         $('#btnRegistrar_insta').fadeOut('fast');
         $('#example1_wrapper').fadeOut('fast');
     }

@@ -101,7 +101,7 @@
 					                                    <td>{{$key->monto}} $</td>
 					                                    <td>{{$key->dias}}</td>
 							                    		<td>
-							                    			<img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:50%;max-width:640px;">
+							                    			<img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:30%;max-width:500px;">
 							                    		</td>
 					                                    @if($key->status == 'Activo')
 					                                        <td style="position: all;">
@@ -179,7 +179,7 @@
 				            <div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                                 <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
 					                <thead>
-					                    <tr style="background-color: #ff7043 !important;">
+					                    <tr class="text-white" style="background-color: #ff7043 !important;">
 					                        <th>Plan de pago</th>
 					                        <th>Porcentaje</th>
 					                        <th>Duracion</th>
@@ -238,8 +238,8 @@
 	function cerrar(opcion) {
       $('#example1_wrapper').fadeIn('fast');
       $('#btnRegistrar_plan').show();
-      $('#example2_wrapper').fadeIn('fast');
-      $('#btnRegistrar_pro').show();
+      $('#btnRegistrar_pro').fadeIn('fast');
+      $('#example2_wrapper').show();
     }
 
     function nuevoPlanPago() {

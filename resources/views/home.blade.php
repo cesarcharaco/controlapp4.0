@@ -560,15 +560,17 @@
                                 <div class="card border border-primary rounded shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                     <input type="hidden" name="id_residente" id="id_reside" value="{{\Auth::user()->id}}">
                                     <div class="card-body p-0">
-                                        <div class="media p-3">
-                                            <div class="media-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
                                                 <span class="text-primary text-uppercase font-size-12 font-weight-bold">Pago de Condominio</span>
                                                 <h6 class="mb-0">Pagos Retrasados: </h6>
-                                            </div>                                             
-                                            <div class="form-group">
-                                                <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                                <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="BMesesResidente('{{$residente->id}}')" class="btn btn-primary">Pagar</a></h6>
-                                            </div>                                           
+                                            </div>
+                                            <div class="col-md-6">                                           
+                                                <div class="form-group">
+                                                    <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
+                                                    <a data-toggle="tooltip" data-placement="top"title="Seleccione si desea pagar meses de condominio" href="#" style="width: 100% !important;" onclick="BMesesResidente('{{$residente->id}}')" class="btn btn-primary">Pagar</a>
+                                                </div>  
+                                            </div>                                         
                                         </div>
                                     </div>
                                 </div>
@@ -576,15 +578,18 @@
                             <div class="col-md-6 col-xl-6">
                                 <div class="card border border-danger rounded shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                     <div class="card-body p-0">
-                                        <div class="media p-3">
-                                            <div class="media-body">
-                                                <span class="text-danger text-uppercase font-size-12 font-weight-bold">Multas/Recargas Asignadas</span>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <span class="text-danger text-uppercase font-size-12 font-weight-bold">Multas - Recargas Asignadas</span>
                                                 <h6 class="mb-0">Total de Multas/Recargas: </h6>
                                             </div>
                                             
-                                            <div class="form-group">
-                                                <!-- <label class="mb-0 text-danger">Pagar multa</label> -->
-                                                <h6 class="mb-0"><a href="#" style="width: 100% !important; position: relative;" onclick="pagarMultasResidente('{{$residente->id}}')" class="btn btn-danger">Pagar</a></h6>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <!-- <label class="mb-0 text-danger">Pagar multa</label> -->
+                                                    <a data-toggle="tooltip" data-placement="top"title="Seleccione si desea pagar las multas y recargas asignadas a su nombre" href="#" style="width: 100% !important; position: relative;" onclick="pagarMultasResidente('{{$residente->id}}')" class="btn btn-danger">Pagar
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>                            
@@ -653,17 +658,19 @@
         @if(count($anuncios)>0)
             @if(\Auth::user()->tipo_usuario!='Admin')
                 <div class="col-md-3">
-                    <div class="card anuncioRoot" style="display: none; position: absolute; margin-right: -30px;">
+                    <div class="card anuncioRoot" style="position: absolute; margin-right: -30px;">
                             <div class="card-header">
                                 <strong class="text-dark" style="font-size: 20px;">Anuncios</strong>
                             </div>
                         <div class="card-body">
                             @foreach($anuncios as $key)
-                                <div onclick="window.open('{{$key->link}}', '_blank');">                                    
-                                    <span class="text-dark"><strong>{{$key->titulo}}</strong></span>
-                                    <img class="imagenAnun text-dark" src="{{ asset($key->url_img) }}" width="250" height="200" style="padding: 15px 15px 15px 15px; border-radius: 10%; position: relative;">
-                                    <p class="text-dark" align="center">{{$key->descripcion}}</p>
-                                </div>
+                                <center>
+                                    <div onclick="window.open('{{$key->link}}', '_blank');">                                    
+                                        <span class="text-dark"><strong>{{$key->titulo}}</strong></span>
+                                        <img align="center" class="imagenAnun text-dark" src="{{ asset($key->url_img) }}" width="200" height="200">
+                                        <p class="text-dark" align="center">{{$key->descripcion}}</p>
+                                    </div>
+                                </center>
                             @endforeach()
                         </div>
                     </div>
@@ -1161,7 +1168,10 @@
     }
 </script>
 <script type="text/javascript">
-    
+    function cerrar(opcion) {
+      $('#example1_wrapper').fadeIn('fast');
+      $('#btnRegistrar_admin').show();
+    }
 </script>
 
 @section('scripts')

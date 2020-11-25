@@ -46,7 +46,9 @@
                                      
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="BMesesResidente('{{$buscar->id}}')" class="btn btn-primary">Pagar</a></h6>
+                                            <h6 class="mb-0">
+                                                <a data-toggle="tooltip" data-placement="top" title="Seleccione si desea pagar un condominio actual o atrasado" href="#" style="width: 100% !important;" onclick="BMesesResidente('{{$buscar->id}}')" class="btn btn-primary">Pagar</a>
+                                            </h6>
                                         </div>
 
                                     
@@ -67,7 +69,9 @@
                                      
                                         <div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
-                                            <h6 class="mb-0"><a href="#" style="width: 100% !important;" onclick="pagoAlquileres()" class="btn btn-success">Pagar</a></h6>
+                                            <h6 class="mb-0">
+                                                <a data-toggle="tooltip" data-placement="top" title="Seleccione si desea pagar un alquiler actual o atrasado" href="#" style="width: 100% !important;" onclick="pagoAlquileres()" class="btn btn-success">Pagar</a>
+                                            </h6>
                                         </div>&nbsp;
                                         {{--<div class="form-group">
                                             <!-- <label class="mb-0 text-primary">Pagar mes</label> -->
@@ -449,11 +453,11 @@
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].status == 'No Pagado') {
                         var nombre= data[i].nombre;
-                        var pagar = '<a href="#" class="btn btn-warning" onclick="PagarAlquileres2('+data[i].id_alquiler+')">Pagar</a>';
+                        var pagar = '<a data-toggle="tooltip" data-placement="top" title="Seleccione para pagar el alquiler" href="#" class="btn btn-warning" onclick="PagarAlquileres2('+data[i].id_alquiler+')">Pagar</a>';
                     }else{
                         if(data[i].status == 'En Proceso'){
                             var nombre= '<span class="text-warning">'+data[i].nombre+'</span>';
-                            var pagar = '<a href="#" onclick="buscarReferenciasInsta('+data[i].id_instalacion+')" class="btn btn-warning">Editar</a>';
+                            var pagar = '<a data-toggle="tooltip" data-placement="top" title="Seleccione si desea editar los datos del pago del alquiler" href="#" onclick="buscarReferenciasInsta('+data[i].id_instalacion+')" class="btn btn-warning">Editar</a>';
                         } else if(data[i].status == 'Pagado') {
                             var nombre= '<span class="text-success">'+data[i].nombre+'</span>';
                             var pagar = '<span class="text-success">Alquiler pagado</span>';

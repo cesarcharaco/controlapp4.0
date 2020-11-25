@@ -885,7 +885,7 @@
                                               <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
 
                                               {{-- <center><p>{{ buscar_pasarelas() }}</p></center> --}}
-                                              <center id="mostrarFlow">
+                                              <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow" id="mostrarFlow">
                                                 <b>Pagar con Flow</b> 
                                                 <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
                                               </center>
@@ -928,7 +928,7 @@
                                             </div>
                                             <div class="modal-body">
                                               <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-                                              <center>
+                                              <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow">
                                                 <b>Pagar con Flow</b> 
                                                 <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
                                               </center>

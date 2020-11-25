@@ -1580,10 +1580,6 @@
 
 
 
-        function cerrar(opcion) {
-      $('#example1_wrapper').fadeIn('fast');
-      $('#btnRegistrar_admin').show();
-    }
 
     function crearAdmin() {
         $('#crearAdmin').modal('show');
