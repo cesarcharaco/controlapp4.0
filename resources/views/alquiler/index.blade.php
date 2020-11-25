@@ -105,17 +105,15 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="col-md-12 offset-md-12">
-                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una nueva instalación">
-                                    <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
-                                        border-radius: 10px;
-                                        color: white;
-                                        height: 35px;
-                                        margin-bottom: 5px;
-                                        margin-top: 5px;
-                                        float: right;">
-                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
-                                    </a>
-                                </span>
+                                <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
+                                    border-radius: 10px;
+                                    color: white;
+                                    height: 35px;
+                                    margin-bottom: 5px;
+                                    margin-top: 5px;
+                                    float: right;">
+                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -179,23 +177,25 @@
                                             </a>
 
                                             @if(\Auth::User()->tipo_usuario=="Admin")
-                                            <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
-                                                '{{$key->id}}',
-                                                '{{$key->nombre}}',
-                                                '{{$key->id_dia}}',
-                                                '{{$key->hora_desde}}',
-                                                '{{$key->hora_hasta}}',
-                                                '{{$key->costo_permanente}}',
-                                                '{{$key->costo_temporal}}',
-                                                '{{$key->max_personas}}',
-                                                '{{$key->status}}')">
+                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del arriendo">
+                                                    <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
+                                                        '{{$key->id}}',
+                                                        '{{$key->nombre}}',
+                                                        '{{$key->id_dia}}',
+                                                        '{{$key->hora_desde}}',
+                                                        '{{$key->hora_hasta}}',
+                                                        '{{$key->costo_permanente}}',
+                                                        '{{$key->costo_temporal}}',
+                                                        '{{$key->max_personas}}',
+                                                        '{{$key->status}}')">
 
-                                                <span><strong>Editar</strong></span>
-                                            </a>
+                                                        <span><strong>Editar</strong></span>
+                                                    </a>
+                                                </span>
                                             @if($key->status == 'Activo')
                                                 <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar el arriendo">
                                                     <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar instalación">Desactivar</span>
+                                                        <span>Desactivar</span>
                                                     </a>
                                                 </span>
                                             @else
@@ -353,7 +353,7 @@
                                                                             '{{$key2->referencia}}',
                                                                             '{{$key2->monto}}'
                                                                             )">
-                                                                            <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar datos de arriendo"><i data-feather="edit"></i> Editar</span>                                                        
+                                                                            <span class="text-warning"><i data-feather="edit"></i> Editar</span>                                                        
                                                                         </a>
                                                                     </span>
                                                                 <div class="dropdown-divider"></div>
@@ -504,11 +504,12 @@
                                         margin-bottom: 5px;
                                         margin-top: 5px;
                                         float: right;">
-                                        <span>¿Algún problema?</span>
-                                        <center>
+                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione si desea registrar una incidencia o daños por parte de un residente">
+                                            <center>
                                                 <i data-feather="plus" class="alert-octagon"></i>
-                                            </span>
-                                        </center>
+                                                ¿Algún problema?
+                                            </center>
+                                        </span>
                                     </a>
                                 </div>
                             </div>
@@ -683,7 +684,7 @@
     @endif
     <div class="row justify-content-center">
         @if(\Auth::User()->tipo_usuario=="Admin")
-            <div class="col-md-4 center" id="VerTabla1">
+            <div data-toggle="tooltip" data-placement="top" title="Seleccione para las vista y opciones de las instalaciones" class="col-md-4 center" id="VerTabla1">
                 <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
@@ -702,7 +703,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 center" id="VerTabla2">
+            <div data-toggle="tooltip" data-placement="top" title="Seleccione para las vista y opciones de los alquileres" class="col-md-4 center" id="VerTabla2">
                 <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
@@ -721,7 +722,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-4 center" id="VerTabla3">
+            <div data-toggle="tooltip" data-placement="top" title="Seleccione para ver la sumatoria de alquileres, comparaciones y control" class="col-md-4 center" id="VerTabla3">
                 <a href="#" onclick="VerTabla(3)" id="verTabla2-3" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/controlhorario.jpg') }}');
