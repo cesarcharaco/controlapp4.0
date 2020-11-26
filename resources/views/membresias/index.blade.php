@@ -89,8 +89,8 @@
     	                    		<td>{{$key->nombre}}</td>
                                     <td>{{$key->monto}} $</td>
                                     <td>{{$key->cant_inmuebles}}</td>
-    	                    		<td>
-    	                    			<img class="imagenAnun border" src="{{ asset($key->url_imagen) }}" class="avatar" style="width:100%;max-width:640px; border-radius: 50% !important;">
+    	                    		<td align="center">
+    	                    			<img class="imagenAnun border" src="{{ asset($key->url_imagen) }}" class="avatar" style="width:70%;max-width:340px; border-radius: 50% !important;">
     	                    		</td>
                                     <td>
 
