@@ -13,9 +13,7 @@
 
     @media only screen and (max-width: 800px)  {
         .imagenLogin{
-            border: 1px solid #f6f6f7!important;
             margin-left: 0px;
-            display: block;
         }
         .form-login{
             margin-top: 30px;
@@ -30,6 +28,14 @@
             /*margin-left: -150px;*/
         }
     }
+
+    @media only screen and (max-width: 780px)  {
+        .imagenLogin{
+            border: 1px solid #f6f6f7!important;
+            /*display: none;*/
+        }
+    }
+
 </style>
 <body>
 
