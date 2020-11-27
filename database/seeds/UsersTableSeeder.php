@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
         \DB::table('users_admin')->insert([
             'name' => 'Administrador1',
             'rut' => '123456789',
-            'email' => 'admin1@controlapp.cl',
+            'email' => 'admin1@controlnice.cl',
             'id_membresia' => 3
         ]);
         \DB::table('admins_has_pasarelas')->insert([
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->insert([
         	'name' => 'Administrador1',
             'rut' => '123456789',
-        	'email' => 'admin1@controlapp.cl',
+        	'email' => 'admin1@controlnice.cl',
         	'password' => bcrypt('EICHE_CONTROL'),
             'tipo_usuario' => 'Admin'
         ]);
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
         \DB::table('users')->insert([
             'name' => 'Root',
             'rut' => '1232212212',
-            'email' => 'root@controlapp.cl',
+            'email' => 'root@controlnice.cl',
             'password' => bcrypt('EICHE_CONTROL'),
             'tipo_usuario' => 'root'
         ]);
