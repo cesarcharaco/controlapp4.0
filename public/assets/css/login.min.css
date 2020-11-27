@@ -3194,7 +3194,7 @@ iframe {
 }
 
 .wrap-login100 {
-  width: 960px;
+  width: 50%;
   background: #fff;
   border-radius: 0px;
   overflow: hidden;
@@ -3206,7 +3206,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 177px 130px 33px 95px;
+  padding: 177px 0px 33px 100px;
 }
 
 /*------------------------------------------------------------------
