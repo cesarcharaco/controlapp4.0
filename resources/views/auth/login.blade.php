@@ -5,9 +5,9 @@
 <style type="text/css">
     .imagenLogin{
         border-radius: 50%;
-        height:400px;
-        width: 400px;
-        margin-top: -60px;
+        height:500px;
+        width: 500px;
+        margin-top: -100px;
         margin-left: -100px;
     }
 
@@ -18,6 +18,7 @@
         .form-login{
             margin-top: 30px;
         }
+
     }
 
     @media only screen and (max-width: 1000px)  {
@@ -27,11 +28,15 @@
             width: 350px;
             /*margin-left: -150px;*/
         }
+        .footer{
+            height: 10px;
+            /*display: none;*/
+        }
     }
 
     @media only screen and (max-width: 780px)  {
         .imagenLogin{
-            border: 1px solid #f6f6f7!important;
+            /*border: 1px solid #f6f6f7!important;*/
             /*display: none;*/
         }
     }
@@ -129,6 +134,5 @@
             </div>
         </div>
     </footer>
-    @include('layouts.scripts')
 </body>
 </html>
