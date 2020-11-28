@@ -1,5 +1,21 @@
-<link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}">
-<link href="{{ asset('assets/css/login.min.css') }}" rel="stylesheet" type="text/css" style="border-radius: 30px;" />
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+    <!------ Include the above in your HEAD tag ---------->
+    <title>Controlnice | Inicio de sesión</title>
+    <link rel="shortcut icon" href="{{ asset('assets/images/logo.jpg') }}">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- meta tags -->
+    <link href="{{ asset('assets/css/login.min.css') }}" rel="stylesheet" type="text/css" style="border-radius: 30px;" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+</head>
 @include('layouts.css')
 
 <style type="text/css">
