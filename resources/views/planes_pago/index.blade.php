@@ -38,10 +38,10 @@
     <center>
     	<div class="row justify-content-center mb-3">
 	    	<div class="col-md-6" align="center">
-	    		<button data-toggle="tooltip" data-placement="top" title="Seleccione para ver la vista de planes de pago" onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para ver las lista de los planes de pagos">Vista de Planes de Pagos</button>
+	    		<button onclick="CambioVista(1);" class="btn btn-success text-white shadow mb-1" style="color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para ver las lista de los planes de pagos">Vista de Planes de Pagos</button>
 	    	</div>
 	    	<div class="col-md-6" align="center text-white"  style="">
-	    		<button data-toggle="tooltip" data-placement="top" title="Seleccione para ver la vista de promociones" onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para la lista de promociones">Vista de Promociones</button>
+	    		<button onclick="CambioVista(2);" class="btn text-white shadow mb-1" style="border: 1px solid #f6f6f7!important; border-color: #ff7043 !important; background-color: #ff7043 !important;color: gray; font: 18px Arial, sans-serif;width: 80% !important;" data-toggle="tooltip" data-placement="top" title="Seleccione para la lista de promociones">Vista de Promociones</button>
 	    	</div>
     	</div>
     </center>
@@ -280,7 +280,8 @@
 
 
 	function CambioVista(opcion){
-		cerrar(1);
+		cerrar(2);
+		$('.collapse').collapse('hide');
 		if(opcion == 1){
 			$(".vistaPromociones").fadeOut("slow",
             function() {
@@ -309,6 +310,8 @@
                         { queue: false, duration: 'slow' }
                     );
             });
+            $('#btnRegistrar_pro').fadeIn('fast');
+      		$('#example2_wrapper').show();
 		}
 	}
 
