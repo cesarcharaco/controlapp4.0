@@ -13,6 +13,7 @@ use App\MensualidadE;
 use App\Mensualidades;
 use App\Reportes;
 use App\Referencias;
+use App\Contabilidad;
 use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
 use App\Http\FlowBuilder;
@@ -97,6 +98,7 @@ class PagosController extends Controller
                 return redirect()->back();
             } else {
                 if (is_null($request->mes)==false) {
+                    //dd('prueba 1');
                     for ($i=0; $i < count($request->mes); $i++) {
                         if($request->mes[$i]!==null){
                             $residente=Residentes::find($request->id_user);
@@ -122,6 +124,7 @@ class PagosController extends Controller
                                                     $total+=$key2->monto;
                                                     $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                                     $concepto.="Inmueble: ".$key->idem." - Mes: ".$this->mostrar_mes($request->mes[$i])." - Monto: ".$key2->monto." | ";
+                                                    $descripcion="Inmueble: ".$key->idem." - Mes: ".$this->mostrar_mes($request->mes[$i])." - Monto: ".$key2->monto."";                                                    
                                                 }
                                             }
                                         }
@@ -130,9 +133,27 @@ class PagosController extends Controller
                             }
                         }
                     }
+                    if (\Auth::user()->tipo_usuario=="Admin") {
+                        $consulta_saldo = Contabilidad::latest('saldo')->first();
+                        if ($consulta_saldo==NULL) {
+                            $saldo=0;
+                        } else {
+                            $saldo = $consulta_saldo->saldo;
+                        }
+
+                        $contabilidad=new Contabilidad();
+                        $contabilidad->id_mensualidad=$pagos->id;
+                        $contabilidad->id_mes=date('n');
+                        $contabilidad->descripcion=$descripcion;
+                        $contabilidad->ingreso=$total;
+                        $contabilidad->egreso=0;
+                        $contabilidad->saldo=$total+$saldo;
+                        $contabilidad->save();
+                    }
                 }
             
                 if(is_null($request->mes)==false){
+                    //dd('prueba 2');
                     for ($i=0; $i < count($request->mes); $i++) { 
                         if($request->mes[$i]!==null){
                             $residente=Residentes::find($request->id_user);
@@ -154,10 +175,31 @@ class PagosController extends Controller
                                                     }
                                                     $pagos->save();
                                                     $total+=$key2->monto;
+                                                    //dd($total);
                                                     $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                                     $concepto.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                                    $descripcion="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
                                                 }
                                             }
+                                        }
+                                    }
+                                    for ($i=0; $i <=1; $i++) {
+                                        if (\Auth::user()->tipo_usuario=="Admin") {
+                                            $consulta_saldo = Contabilidad::latest('saldo')->first();
+                                            if ($consulta_saldo==NULL) {
+                                                $saldo=0;
+                                            } else {
+                                                $saldo = $consulta_saldo->saldo;
+                                            }
+
+                                            $contabilidad=new Contabilidad();
+                                            $contabilidad->id_mensualidad=$pagos->id;
+                                            $contabilidad->id_mes=date('n');
+                                            $contabilidad->descripcion=$descripcion;
+                                            $contabilidad->ingreso=$total;
+                                            $contabilidad->egreso=0;
+                                            $contabilidad->saldo=$total+$saldo;
+                                            $contabilidad->save();
                                         }
                                     }
                                 }
@@ -203,6 +245,7 @@ class PagosController extends Controller
                 return redirect()->back();
             } else {
                 if (is_null($request->mes)==false) {
+                    //dd('prueba 3');
                     for ($i=0; $i < count($request->mes); $i++) {
                         if($request->mes[$i]!==null){
                             $residente=Residentes::find($request->id_residente);
@@ -217,15 +260,35 @@ class PagosController extends Controller
                                             $pagos->save();
                                             $total+=$key2->monto;
                                             $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                            $concepto.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."";
+                                            $descripcion="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."";
                                         }
                                     }
                                 }
                             }
                         }
                     }
+                    if (\Auth::user()->tipo_usuario=="Admin") {
+                        $consulta_saldo = Contabilidad::latest('saldo')->first();
+                        if ($consulta_saldo==NULL) {
+                            $saldo=0;
+                        } else {
+                            $saldo = $consulta_saldo->saldo;
+                        }
+
+                        $contabilidad=new Contabilidad();
+                        $contabilidad->id_mensualidad=$pagos->id;
+                        $contabilidad->id_mes=date('n');
+                        $contabilidad->descripcion=$descripcion;
+                        $contabilidad->ingreso=$total;
+                        $contabilidad->egreso=0;
+                        $contabilidad->saldo=$total+$saldo;
+                        $contabilidad->save();
+                    }
                 }
             
                 if(is_null($request->mes)==false){
+                    //dd('prueba 4');
                     for ($i=0; $i < count($request->mes); $i++) { 
                         if($request->mes[$i]!==null){
                             $residente=Residentes::find($request->id_residente);
@@ -240,6 +303,26 @@ class PagosController extends Controller
                                             $pagos->save();
                                             $total+=$key2->monto;
                                             $factura.="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
+                                            $descripcion="Estacionamiento: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."";
+                                        }
+                                    }
+                                    for ($i=0; $i <=1; $i++) { 
+                                        if (\Auth::user()->tipo_usuario=="Admin") {
+                                            $consulta_saldo = Contabilidad::latest('saldo')->first();
+                                            if ($consulta_saldo==NULL) {
+                                                $saldo=0;
+                                            } else {
+                                                $saldo = $consulta_saldo->saldo;
+                                            }
+
+                                            $contabilidad=new Contabilidad();
+                                            $contabilidad->id_mensualidad=$pagos->id;
+                                            $contabilidad->id_mes=date('n');
+                                            $contabilidad->descripcion=$descripcion;
+                                            $contabilidad->ingreso=$total;
+                                            $contabilidad->egreso=0;
+                                            $contabilidad->saldo=$total+$saldo;
+                                            $contabilidad->save();
                                         }
                                     }
                                 }
