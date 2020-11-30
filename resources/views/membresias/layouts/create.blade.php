@@ -42,7 +42,7 @@
 		                cursor: pointer;">
 		                    <strong>Seleccionar imagen</strong>
 		                </label>
-		                <input name="imagen" id="file-upload2" type="file" style="display: none;" onchange="input_file(this.value)" required/>
+		                <input name="url_imagen" id="file-upload2" type="file" style="display: none;" onchange="input_file(this.value)" required/>
 		            </div>
 		            <button type="submit" class="btn btn-success">Agregar</button>
 				{!! Form::close() !!}

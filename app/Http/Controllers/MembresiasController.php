@@ -39,6 +39,7 @@ class MembresiasController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $validacion=$this->validar_imagen($request->file('url_imagen'));
         
         if(!$validacion['valida']){
@@ -219,7 +220,7 @@ class MembresiasController extends Controller
 
     protected function validar_imagen($imagen)
     {
-        //dd($imagen);
+        dd($imagen);
         $mensaje="";
         $valida=true;
         $img=getimagesize($imagen);
