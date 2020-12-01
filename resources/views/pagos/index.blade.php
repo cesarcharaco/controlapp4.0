@@ -295,7 +295,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Rereferencias <b class="text-danger">*</b></label>
-                                <input type="text" required="required" name="referencia" class="form-control">
+                                <input type="text" required="required" name="referencia" max="20" maxlength="20" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -367,7 +367,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class=" col-form-label" for="example-static">Referencia con la que se registró el pago</label>
-                                        <input type="text" name="referencia_edit" data-toggle="tooltip" data-placement="top" title="Ingrese la referencia con la que se registró el pago" placeholder="Ej: 12345678" class="form-control" required="required" >
+                                        <input type="text" name="referencia_edit" data-toggle="tooltip" data-placement="top" title="Ingrese la referencia con la que se registró el pago" placeholder="Ej: 12345678" class="form-control" required="required" max="20" maxlength="20">
                                     </div>
                                 </div>
                             </div>

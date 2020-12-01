@@ -952,7 +952,7 @@
                             <center>
                                 <div class="form-group">
                                     <label>Referencia</label>
-                                    <input type="text" class="form-control" name="referencia" required>
+                                    <input type="text" class="form-control" name="referencia" max="20" maxlength="20" required>
                                 </div>
                                 <div class="row">
                                     <?php $num=0; ?>

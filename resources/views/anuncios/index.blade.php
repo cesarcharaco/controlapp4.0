@@ -130,11 +130,11 @@
                                         <td>{{$key->link}}</td>
                                         <td>{{$key->descripcion}}</td>
                                         <td>
-                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:100%;max-width:640px;">
+                                            <img class="imagenAnun" src="{{ asset($key->url_img) }}" class="avatar" style="width:50%;max-width:640px;">
                                             <!-- <img class="imagenAnun border" src="{{ asset($key->url_imagen) }}" class="avatar" style="width:100%;max-width:640px; border-radius: 50% !important;"> -->
                                         </td>
                                         <td>
-                                            <a href="#" class="border border-light btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Administradores que pueden visualizar el anuncio">
+                                            <a href="#" class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerAdminAsignado('{{$key->id}}')" data-toggle="tooltip" data-placement="top" title="Administradores que pueden visualizar el anuncio">
                                                 <span><strong><i data-feather="eye"></i>Ver Asignados</strong></span>
                                             </a>
                                             @php $count=0 @endphp

@@ -37,7 +37,7 @@
 					                       <div class="col-md-12">
 					                           <div class="form-group">
 					                               <label for="">Código de Refer. Nueva <b class="text-danger">*</b></label>
-					                               <input id="ReferenciaNueva" type="text" name="ReferenciaNueva" class="form-control" required placeholder="Nro. de referencia">
+					                               <input id="ReferenciaNueva" type="text" name="ReferenciaNueva" max="20" maxlength="20" class="form-control" required placeholder="Nro. de referencia">
 					                           </div>
 					                       </div>
 					                   </div>

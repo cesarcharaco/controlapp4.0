@@ -113,7 +113,7 @@
                                             cursor: pointer;">
                                                 <strong>Seleccionar imagen <b class="text-danger">*</b></strong>
                                             </label>
-                                            <input name="imagen" id="file-upload2" type="file" style="display: none;" onchange="input_file(this.value)" required />
+                                            <input name="imagen" id="file-upload2" type="file" style="display: none;" onchange="input_file(this.value)" />
                                         </div>
                                     </div>
                                 </div>

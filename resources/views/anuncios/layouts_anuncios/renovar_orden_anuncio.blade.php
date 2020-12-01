@@ -1,7 +1,7 @@
 {!! Form::open(['route' => ['renovar_orden_anuncio'], 'method' => 'GET', 'name' => 'editarOrdenAnuncio', 'id' => 'editarOrdenAnuncio', 'data-parsley-validate']) !!}
     @csrf
-    <div class="modal fade" id="renovarOAnuncio" role="dialog">
-        <div class="modal-dialog modals-default">
+    <div class="modal fade bd-example-modal-lg" id="renovarOAnuncio" role="dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4>Renovar Anuncio <br> <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
@@ -13,7 +13,7 @@
                     <center>
                         <div class="form-group">
                             <label>Nro. Referencia <b class="text-danger">*</b></label>
-                            <input type="text" name="referencia" class="form-control" required="">
+                            <input type="text" maxlength="20" max="20" name="referencia" class="form-control" required="">
                         </div>
                         <div class="row">
                             <?php $num=0; ?>

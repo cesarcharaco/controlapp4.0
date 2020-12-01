@@ -14,13 +14,13 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="nombre">Nombre <b class="tet-danger">*</b></label>
+                                    <label for="nombre">Nombre <b class="text-danger">*</b></label>
                                     <input type="text" name="nombre" class="form-control" required placeholder="Nombre de la empresa" id="nombreEmpresa_e">
                                 </div>
                             </div>
                         </div>
 
-                        <label for="rut">Rut <b class="tet-danger">*</b></label>
+                        <label for="rut">Rut <b class="text-danger">*</b></label>
                         <div class="row">
                             <div class="col-md-10">
                                 <div class="form-group">
@@ -40,7 +40,7 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label>Descripción <b class="tet-danger">*</b></label>
+                                    <label>Descripción <b class="text-danger">*</b></label>
                                     <textarea class="form-control" name="descripcion" placeholder="¿Alguna descripción sobre la empresa?" id="descripcionEmpresa_e"></textarea>
                                 </div>
                             </div>

@@ -1174,7 +1174,7 @@
                 '<div class="col-md-12">'+
                     '<div class="form-group">'+
                         '<label>Referencia</label>'+
-                        '<input type="text" class="form-control" name="referencia" placeholder="Ingrese el número de Referencia" required>'+
+                        '<input type="text" class="form-control" name="referencia" placeholder="Ingrese el número de Referencia" max="20" maxlength="20" required>'+
                     '</div>'+
                 '</div>'+
             '</div>'

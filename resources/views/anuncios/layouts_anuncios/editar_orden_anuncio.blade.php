@@ -13,11 +13,11 @@
                     <center>
                         <div class="form-group">
                             <label>Referencia Actual <b class="text-danger">*</b></label>
-                            <input type="text" name="referencia" id="referenciaActual" class="form-control" required disabled="disabled">
+                            <input type="text" name="referencia" id="referenciaActual" class="form-control" required disabled="disabled" max="20" maxlength="20">
                         </div>
                         <div class="form-group">
                             <label>Nueva Referencia <b class="text-danger">*</b></label>
-                            <input type="text" name="referencia_e" id="referencia_new" class="form-control" required>
+                            <input type="text" name="referencia_e" id="referencia_new" class="form-control" required max="20" maxlength="20">
                         </div>
                         <div class="row">
                             @foreach($planesPago as $key)
