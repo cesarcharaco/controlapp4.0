@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" id="id_edit" name="id">
-                    <button type="submit" class="btn btn-success" >Editar</button>
+                    <button type="submit" class="btn btn-warning" >Editar</button>
                 </div>
             </div>
         </div>

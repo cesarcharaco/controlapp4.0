@@ -15,7 +15,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="hidden" name="id_mr" id="id_delete">
-                    <button type="submit" class="btn btn-success" >Eliminar</button>
+                    <button type="submit" class="btn btn-danger" >Eliminar</button>
                 </div>
             </div>
         </div>

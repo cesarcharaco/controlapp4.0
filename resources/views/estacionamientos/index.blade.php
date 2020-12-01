@@ -75,9 +75,9 @@
                             <td align="center">{{$num=$num+1}}</td>
                             <td>{{$key->idem}}</td>
                             @if($key->status == 'Libre')
-                                <td>En Uso</td>
-                            @else
                                 <td>Retirado</td>
+                            @else
+                                <td>En Uso</td>
                             @endif
                             <td>
                                 @if(\Auth::user()->tipo_usuario == 'Admin')
@@ -106,12 +106,6 @@
     @include('estacionamientos.layouts.editar_mensualidad')
     @include('estacionamientos.layouts.ver_mensualidad')
     @include('estacionamientos.layouts.mensualidad_delete')
-
-    verestacionamiento
-    registrar mensualidad
-    editar_mensualidad
-    mensualidad_delete
-    edit
 
     </div>
             
