@@ -220,7 +220,7 @@ class MembresiasController extends Controller
 
     protected function validar_imagen($imagen)
     {
-        dd($imagen);
+        //dd($imagen);
         $mensaje="";
         $valida=true;
         $img=getimagesize($imagen);
