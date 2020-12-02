@@ -54,18 +54,7 @@
             </div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Tipo de Alquiler</label>
-                <select class="form-control" name="tipo_alquiler" required onchange="modalidadAlquiler(this.value)">
-                  <option selected disabled>Modalidad de alquiler</option>
-                  <option value="1">Permanente</option>
-                  <option value="2">Por Hora</option>
-                  <option value="3">Ambos</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Nro. máximo de personas <b class="text-danger">*</b></label>
                 <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -78,11 +67,8 @@
                 </div>
               </div>
             </div>
-            
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-12">
-              <div class="modalidadAlquiler1" style="display: none">
+            <div class="col-md-4">
+              <div class="modalidadAlquiler1">
                 <div class="form-group">
                   <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
                   <div class="input-group mb-2">
@@ -94,8 +80,8 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="modalidadAlquiler2" style="display: none">
+            <div class="col-md-4">
+              <div class="modalidadAlquiler2">
                 <div class="form-group">
                   <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
                   <div class="input-group mb-2">
@@ -106,7 +92,7 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div>            
           </div>
           <input type="hidden" name="id" id="idInstalacion">
           <button type="submit" class="btn btn-warning">Editar</button>

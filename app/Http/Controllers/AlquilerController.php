@@ -94,8 +94,13 @@ class AlquilerController extends Controller
                     }else{
                         if(strtotime($request->hora_desde) > strtotime($request->hora_hasta)){
                         toastr()->warning('Alerta!!', 'La Hora Desde no puede ser mayor a la Hora hasta');
-                        return redirect()->back();               
-                        }
+                        return redirect()->back();
+                        } else {
+                            if (empty($request->costo_permanente) || empty($request->costo_temporal)) {
+                                toastr()->warning('Alerta!!', 'Debe la cantidad de los monto de alquiler');
+                                return redirect()->back();
+                            }
+
                             $instalacion = new Instalaciones();
                             $instalacion->nombre=$request->nombre;
                             $instalacion->hora_desde=$request->hora_desde;
@@ -116,7 +121,8 @@ class AlquilerController extends Controller
                             }
 
                             toastr()->success('con éxito!', 'Instalación registrada');
-                            return redirect()->back();
+                            return redirect()->back();                            
+                        }
                     }
                 }
             }

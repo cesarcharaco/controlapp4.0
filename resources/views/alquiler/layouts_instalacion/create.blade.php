@@ -26,8 +26,8 @@
               <i data-feather="minus"></i>
               <div class="button-list" style="width: 100% !important">
                 @foreach($dias as $key)
-                  <input type="checkbox" value="{{$key->id}}" name="id_dia[]">
-                  <label>{{$key->dia}}</label>
+                  <input type="checkbox" value="{{$key->id}}" name="id_dia[]" id="{{$key->id}}">
+                  <label for="{{$key->id}}">{{$key->dia}}</label>
                 @endforeach
               </div>
               <br>
@@ -36,7 +36,7 @@
                   <div class="form-group">
                     <label>Hora Desde</label>
                     <div class='input-group date' id='datetimepicker6'>
-                        <input class="form-control" id="example-time" type="time" name="hora_desde">
+                        <input class="form-control" id="example-time" type="time" name="hora_desde" required="required">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -46,25 +46,14 @@
                 <div class="col-md-6">
                   <div class="form-group" align="center">
                     <label>Hora Hasta</label>
-                    <input class="form-control" id="example-time" type="time" name="hora_hasta">
+                    <input class="form-control" id="example-time" type="time" name="hora_hasta" required="required">
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="row justify-content-center">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Tipo de Alquiler</label>
-                <select class="form-control" name="tipo_alquiler" required onchange="modalidadAlquiler(this.value)">
-                  <option selected disabled>Modalidad de alquiler</option>
-                  <option value="1">Permanente</option>
-                  <option value="2">Por Hora</option>
-                  <option value="3">Ambos</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
               <div class="form-group">
                 <label>Nro. máximo de personas <b class="text-danger">*</b></label>
                 <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -77,34 +66,33 @@
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-12">
-              <div class="modalidadAlquiler1" style="display: none">
+            <div class="col-md-4">
+              <div class="modalidadAlquiler1">
                 <div class="form-group">
                   <label>Costo por alquiler permanente <b class="text-danger">*</b></label>
                   <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">$</div>
                     </div>
-                    <input name="costo_permanente" type="number" class="form-control costo_permanente" id="" placeholder="1000000">
+                    <input name="costo_permanente" type="number" class="form-control costo_permanente" id="" placeholder="1000000" required="required" min="1">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-12">
-              <div class="modalidadAlquiler2" style="display: none">
+            <div class="col-md-4">
+              <div class="modalidadAlquiler2">
                 <div class="form-group">
                   <label>Costo por alquiler por hora <b class="text-danger">*</b></label>
                   <div class="input-group mb-2">
                     <div class="input-group-prepend">
                         <div class="input-group-text">$</div>
                     </div>
-                    <input name="costo_temporal" type="number" class="form-control costo_temporal" id="" placeholder="10">
+                    <input name="costo_temporal" type="number" class="form-control costo_temporal" id="" placeholder="10" required="required" min="1">
                   </div>
                 </div>
               </div>
             </div>
+          </div>
           <button type="submit" class="btn btn-success">Agregar</button>
         </center>
       {!! Form::close() !!}

@@ -42,7 +42,6 @@
                     <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
-                    <option value="Permanente/Temporal">Permanente/Temporal</option>
                   </select>
                 </div>
               </div>
@@ -68,7 +67,6 @@
                     <option value="0" selected disabled>Seleccione tipo de alquiler</option>
                     <option value="Permanente">Permanente</option>
                     <option value="Temporal">Temporal</option>
-                    <option value="Permanente/Temporal">Permanente/Temporal</option>
                   </select>
                 </div>
               </div>
