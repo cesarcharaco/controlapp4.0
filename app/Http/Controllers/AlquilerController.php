@@ -8,9 +8,10 @@ use App\PlanesPago;
 use App\Residentes;
 use App\Dias;
 use App\Instalaciones;
-// use App\Instalaciones;
 use App\Http\Controllers\FlowAController;
 use App\Http\FlowBuilder1;
+use App\Contabilidad;
+use App\ContabilidadSaldo;
 
 class AlquilerController extends Controller
 {
@@ -235,6 +236,35 @@ class AlquilerController extends Controller
                                     'id_alquiler' => $alquiler->id,
                                     'status'=>'Pagado'
                                 ]);
+
+                                $id_admin=id_admin(\Auth::user()->email);
+
+                                $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+                                if ($consulta_saldo==NULL) {
+                                    $saldo=0;
+                                } else {
+                                    $saldo = $consulta_saldo->saldo;
+                                }
+
+                                $contabilidad=new Contabilidad();
+                                $contabilidad->id_admin=$id_admin;
+                                $contabilidad->id_mes=date('n');
+                                $contabilidad->descripcion="Pago de arriendo de ".$alquiler->instalacion->nombre."";
+                                $contabilidad->ingreso=$request->costo_permanente;
+                                $contabilidad->egreso=0;
+                                $contabilidad->save();
+                                if ($consulta_saldo==NULL) {
+                                    \DB::table('contabilidad_saldo')->insert([
+                                        'id_admin' => $id_admin,
+                                        'saldo' => $request->costo_permanente
+                                    ]);
+                                } else {
+                                    \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                        ->update([
+                                        'saldo' => $request->costo_permanente+$saldo
+                                    ]);
+                                }
+
                             } else {
                                 \DB::table('pagos_has_alquiler')->insert([
                                     'referencia'=> $request->referencia,
@@ -251,6 +281,35 @@ class AlquilerController extends Controller
                                     'id_alquiler' => $alquiler->id,
                                     'status'=>'Pagado'
                                 ]);
+
+                                $id_admin=id_admin(\Auth::user()->email);
+
+                                $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+                                if ($consulta_saldo==NULL) {
+                                    $saldo=0;
+                                } else {
+                                    $saldo = $consulta_saldo->saldo;
+                                }
+
+                                $contabilidad=new Contabilidad();
+                                $contabilidad->id_admin=$id_admin;
+                                $contabilidad->id_mes=date('n');
+                                $contabilidad->descripcion="Pago de arriendo de ".$alquiler->instalacion->nombre."";
+                                $contabilidad->ingreso=$request->monto;
+                                $contabilidad->egreso=0;
+                                $contabilidad->save();
+                                if ($consulta_saldo==NULL) {
+                                    \DB::table('contabilidad_saldo')->insert([
+                                        'id_admin' => $id_admin,
+                                        'saldo' => $request->monto
+                                    ]);
+                                } else {
+                                    \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                        ->update([
+                                        'saldo' => $request->monto+$saldo
+                                    ]);
+                                }
+
                             } else {
                                 \DB::table('pagos_has_alquiler')->insert([
                                     'referencia'=> $request->referencia,
@@ -417,9 +476,10 @@ class AlquilerController extends Controller
                 return redirect()->back();
             }
         } else {
-            //dd($request->all());
             if (\Auth::user()->tipo_usuario=="Admin") {
+                //dd($request->all());
                 if ($request->status_arriendo=="En Proceso") {
+
                     if ($request->tipo_alq=="Permanente") {
                         $instalacion=Instalaciones::find($request->id_instalacion);
                         $instalacion->status="Inactivo";
@@ -429,6 +489,35 @@ class AlquilerController extends Controller
                         ->update([
                             'status'=> "Pagado"
                     ]);
+                    
+                    $id_admin=id_admin(\Auth::user()->email);
+
+                    $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+                    if ($consulta_saldo==NULL) {
+                        $saldo=0;
+                    } else {
+                        $saldo = $consulta_saldo->saldo;
+                    }
+
+                    $contabilidad=new Contabilidad();
+                    $contabilidad->id_admin=$id_admin;
+                    $contabilidad->id_mes=date('n');
+                    $contabilidad->descripcion="Pago de arriendo de ".$request->instalacion."";
+                    $contabilidad->ingreso=$request->monto;
+                    $contabilidad->egreso=0;
+                    $contabilidad->save();
+                    if ($consulta_saldo==NULL) {
+                        \DB::table('contabilidad_saldo')->insert([
+                            'id_admin' => $id_admin,
+                            'saldo' => $request->monto
+                        ]);
+                    } else {
+                        \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                            ->update([
+                            'saldo' => $request->monto+$saldo
+                        ]);
+                    }
+
                     $instalacion=Alquiler::find($request->id_alquiler);
                     $instalacion->status="Activo";
                     $instalacion->save();
@@ -450,6 +539,35 @@ class AlquilerController extends Controller
                             'referencia'=> $request->referencia,
                             'status'=> "Pagado"
                         ]);
+
+                        $id_admin=id_admin(\Auth::user()->email);
+
+                        $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+                        if ($consulta_saldo==NULL) {
+                            $saldo=0;
+                        } else {
+                            $saldo = $consulta_saldo->saldo;
+                        }
+
+                        $contabilidad=new Contabilidad();
+                        $contabilidad->id_admin=$id_admin;
+                        $contabilidad->id_mes=date('n');
+                        $contabilidad->descripcion="Pago de arriendo de ".$request->instalacion."";
+                        $contabilidad->ingreso=$request->monto;
+                        $contabilidad->egreso=0;
+                        $contabilidad->save();
+                        if ($consulta_saldo==NULL) {
+                            \DB::table('contabilidad_saldo')->insert([
+                                'id_admin' => $id_admin,
+                                'saldo' => $request->monto
+                            ]);
+                        } else {
+                            \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                ->update([
+                                'saldo' => $request->monto+$saldo
+                            ]);
+                        }
+
                         $instalacion=Alquiler::find($request->id_alquiler);
                         $instalacion->status="Activo";
                         $instalacion->save();

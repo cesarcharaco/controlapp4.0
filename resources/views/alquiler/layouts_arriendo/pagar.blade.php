@@ -37,7 +37,10 @@
 			                </center>
 					        <div align="center">
 					            <input type="hidden" name="id_alquiler" id="id_pagar_arriendo">
+					            <input type="hidden" name="id_residente" id="id_residente_p">
 					            <input type="hidden" name="id_instalacion" id="id_instalacion">
+					            <input type="hidden" name="instalacion" id="instalacion">
+					            <input type="hidden" name="monto" id="monto_p">
 					            <input type="hidden" name="status_arriendo" id="status_arriendo">
 					            <input type="hidden" name="tipo_alq" id="tipo_alq">
 					           	@if(\Auth::user()->tipo_usuario=="Admin")

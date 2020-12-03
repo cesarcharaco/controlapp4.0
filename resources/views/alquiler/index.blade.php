@@ -1453,6 +1453,9 @@
                 $('#status_arriendo').val(data[0].status);
                 $('#tipo_alq').val(data[0].tipo);
                 $('#id_instalacion').val(data[0].id_instalacion);
+                $('#instalacion').val(data[0].instalacion);
+                $('#id_residente_p').val(data[0].id_residente);
+                $('#monto_p').val(data[0].monto);
                 $('#quitar_ref').css('display','block');
             }else{
                 $('#monto_pagar').append(
@@ -1464,6 +1467,9 @@
                 $('#status_arriendo').val(data[0].status);
                 $('#tipo_alq').val(data[0].tipo);
                 $('#id_instalacion').val(data[0].id_instalacion);
+                $('#instalacion').val(data[0].instalacion);
+                $('#id_residente_p').val(data[0].id_residente);
+                $('#monto_p').val(data[0].monto);
                 $('#quitar_ref').css('display','none');
                 $('#referencia').removeAttr('required',false);
             }

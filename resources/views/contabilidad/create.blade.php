@@ -148,7 +148,6 @@
                                     <th>Descripción</th>
                                     <th>Ingreso</th>
                                     <th>Egreso</th>
-                                    <th>Saldo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -158,7 +157,6 @@
                                     <td>{{$key->descripcion}}</td>
                                     <td>{{$key->ingreso}}</td>
                                     <td>{{$key->egreso}}</td>
-                                    <td>{{$key->saldo}}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

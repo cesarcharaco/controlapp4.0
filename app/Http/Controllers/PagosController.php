@@ -14,6 +14,7 @@ use App\Mensualidades;
 use App\Reportes;
 use App\Referencias;
 use App\Contabilidad;
+use App\ContabilidadSaldo;
 use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
 use App\Http\FlowBuilder;
@@ -134,7 +135,9 @@ class PagosController extends Controller
                         }
                     }
                     if (\Auth::user()->tipo_usuario=="Admin") {
-                        $consulta_saldo = Contabilidad::latest('saldo')->first();
+                        $id_admin=id_admin(\Auth::user()->email);
+
+                        $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                         if ($consulta_saldo==NULL) {
                             $saldo=0;
                         } else {
@@ -142,13 +145,23 @@ class PagosController extends Controller
                         }
 
                         $contabilidad=new Contabilidad();
-                        $contabilidad->id_mensualidad=$pagos->id;
+                        $contabilidad->id_admin=$id_admin;
                         $contabilidad->id_mes=date('n');
                         $contabilidad->descripcion=$descripcion;
                         $contabilidad->ingreso=$total;
                         $contabilidad->egreso=0;
-                        $contabilidad->saldo=$total+$saldo;
                         $contabilidad->save();
+                        if ($consulta_saldo==NULL) {
+                            \DB::table('contabilidad_saldo')->insert([
+                                'id_admin' => $id_admin,
+                                'saldo' => $total
+                            ]);
+                        } else {
+                            \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                ->update([
+                                'saldo' => $total+$saldo
+                            ]);
+                        }
                     }
                 }
             
@@ -185,7 +198,9 @@ class PagosController extends Controller
                                     }
                                     for ($i=0; $i <=1; $i++) {
                                         if (\Auth::user()->tipo_usuario=="Admin") {
-                                            $consulta_saldo = Contabilidad::latest('saldo')->first();
+                                            $id_admin=id_admin(\Auth::user()->email);
+
+                                            $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                                             if ($consulta_saldo==NULL) {
                                                 $saldo=0;
                                             } else {
@@ -193,13 +208,23 @@ class PagosController extends Controller
                                             }
 
                                             $contabilidad=new Contabilidad();
-                                            $contabilidad->id_mensualidad=$pagos->id;
+                                            $contabilidad->id_admin=$id_admin;
                                             $contabilidad->id_mes=date('n');
                                             $contabilidad->descripcion=$descripcion;
                                             $contabilidad->ingreso=$total;
                                             $contabilidad->egreso=0;
-                                            $contabilidad->saldo=$total+$saldo;
                                             $contabilidad->save();
+                                            if ($consulta_saldo==NULL) {
+                                                \DB::table('contabilidad_saldo')->insert([
+                                                    'id_admin' => $id_admin,
+                                                    'saldo' => $total
+                                                ]);
+                                            } else {
+                                                \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                                    ->update([
+                                                    'saldo' => $total+$saldo
+                                                ]);
+                                            }
                                         }
                                     }
                                 }
@@ -269,7 +294,9 @@ class PagosController extends Controller
                         }
                     }
                     if (\Auth::user()->tipo_usuario=="Admin") {
-                        $consulta_saldo = Contabilidad::latest('saldo')->first();
+                        $id_admin=id_admin(\Auth::user()->email);
+
+                        $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                         if ($consulta_saldo==NULL) {
                             $saldo=0;
                         } else {
@@ -277,13 +304,23 @@ class PagosController extends Controller
                         }
 
                         $contabilidad=new Contabilidad();
-                        $contabilidad->id_mensualidad=$pagos->id;
+                        $contabilidad->id_admin=$id_admin;
                         $contabilidad->id_mes=date('n');
                         $contabilidad->descripcion=$descripcion;
                         $contabilidad->ingreso=$total;
                         $contabilidad->egreso=0;
-                        $contabilidad->saldo=$total+$saldo;
                         $contabilidad->save();
+                        if ($consulta_saldo==NULL) {
+                            \DB::table('contabilidad_saldo')->insert([
+                                'id_admin' => $id_admin,
+                                'saldo' => $total
+                            ]);
+                        } else {
+                            \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                ->update([
+                                'saldo' => $total+$saldo
+                            ]);
+                        }
                     }
                 }
             
@@ -308,7 +345,9 @@ class PagosController extends Controller
                                     }
                                     for ($i=0; $i <=1; $i++) { 
                                         if (\Auth::user()->tipo_usuario=="Admin") {
-                                            $consulta_saldo = Contabilidad::latest('saldo')->first();
+                                            $id_admin=id_admin(\Auth::user()->email);
+
+                                            $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                                             if ($consulta_saldo==NULL) {
                                                 $saldo=0;
                                             } else {
@@ -316,13 +355,23 @@ class PagosController extends Controller
                                             }
 
                                             $contabilidad=new Contabilidad();
-                                            $contabilidad->id_mensualidad=$pagos->id;
+                                            $contabilidad->id_admin=$id_admin;
                                             $contabilidad->id_mes=date('n');
                                             $contabilidad->descripcion=$descripcion;
                                             $contabilidad->ingreso=$total;
                                             $contabilidad->egreso=0;
-                                            $contabilidad->saldo=$total+$saldo;
                                             $contabilidad->save();
+                                            if ($consulta_saldo==NULL) {
+                                                \DB::table('contabilidad_saldo')->insert([
+                                                    'id_admin' => $id_admin,
+                                                    'saldo' => $total
+                                                ]);
+                                            } else {
+                                                \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                                                    ->update([
+                                                    'saldo' => $total+$saldo
+                                                ]);
+                                            }
                                         }
                                     }
                                 }

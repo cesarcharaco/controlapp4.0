@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contabilidad;
+use App\ContabilidadSaldo;
+use App\Residentes;
 use Illuminate\Http\Request;
 Use \Carbon\Carbon;
 use PDF;
@@ -16,17 +18,21 @@ class ContabilidadController extends Controller
      */
     public function index()
     {
-        $consulta_saldo = Contabilidad::all()->count();
+        $id_admin=id_admin(\Auth::user()->email);
+        $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+
         //dd($consulta_saldo);
-        if($consulta_saldo==0){
+
+        if($consulta_saldo==null){
             $saldo = 0;
         } else {
-            $consulta_saldo = Contabilidad::all()->last();
             $saldo = $consulta_saldo->saldo;
-            //dd($consulta_saldo);
         }
-        //dd($saldo);
-        $contabilidad = Contabilidad::where('id_mes',date('n'))->orderBy('id','desc')->get();
+
+        $contabilidad = Contabilidad::where('id_mes',date('n'))
+        ->where('id_admin',$id_admin)
+        ->orderBy('id','desc')->get();
+
         return View('contabilidad.index', compact('contabilidad','saldo'));
     }
 
@@ -38,15 +44,23 @@ class ContabilidadController extends Controller
     public function create(Request $request)
     {
         //CONSULTA DE SALDO
-        $consulta_saldo = Contabilidad::all()->count();
-        if($consulta_saldo==0){
+        $id_admin=id_admin(\Auth::user()->email);
+        $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
+
+        //dd($consulta_saldo);
+
+        if($consulta_saldo==null){
             $saldo = 0;
         } else {
-            $consulta_saldo = Contabilidad::all()->last();
             $saldo = $consulta_saldo->saldo;
         }
+
         //CONSULTA DE MOVIMIENTOS DE LA FECHA DE HOY
-        $contabilidad = Contabilidad::whereDate('created_at', date('Y-m-d'))->orderBy('id','desc')->get();
+        $contabilidad = Contabilidad::where('id_admin',$id_admin)
+        ->whereDate('created_at', date('Y-m-d'))
+        ->orderBy('id','desc')->get();
+
+        //$contabilidad = Contabilidad::whereDate('created_at', date('Y-m-d'))->orderBy('id','desc')->get();
         $pdf=0;
         // FILTRO DE BUSQUEDA
         if ($request->filtro=="7dias") {
@@ -84,30 +98,35 @@ class ContabilidadController extends Controller
      */
     public function store(Request $request)
     {
-        $saldo = Contabilidad::latest('saldo')->first();
+        $id_admin=id_admin(\Auth::user()->email);
+        $saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
         if ($saldo) {
             if ($request->egreso > $saldo->saldo) {
                 toastr()->error('El monto de egreso es mayor al saldo disponible !!', 'Saldo Insuficiente');
                 return redirect()->back();
             } else {
-                $consulta_saldo = Contabilidad::latest('saldo')->first();
+                $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                 $saldo = $consulta_saldo->saldo;
                 //dd($saldo);
                 $egreso = new Contabilidad();
-                $egreso->id_mensualidad=null;
+                $egreso->id_admin=$id_admin;
                 $egreso->id_mes=date('n');
                 $egreso->descripcion=$request->descripcion;
                 $egreso->ingreso=0;
                 $egreso->egreso=$request->egreso;
-                $egreso->saldo=$saldo-$request->egreso;
                 $egreso->save();
+
+                \DB::table('contabilidad_saldo')->where('id_admin',$id_admin)
+                    ->update([
+                    'saldo' => $saldo-$request->egreso
+                ]);
 
                 toastr()->success('Egreso registrado con éxito !!', 'Éxito');
                 return redirect()->back();
             }
         }else{
             toastr()->error('No hay saldo disponible para un nuevo egreso!!', 'Saldo Insuficiente');
-                return redirect()->back();
+            return redirect()->back();
         }
         
     }

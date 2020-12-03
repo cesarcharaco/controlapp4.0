@@ -8,5 +8,10 @@ class Contabilidad extends Model
 {
     protected $table='contabilidad';
 
-    protected $fillable=['id_mensualidad','id_mes','descripcion','ingreso','egreso','saldo','created_at'];
+    protected $fillable=['id_admin','id_mes','descripcion','ingreso','egreso','saldo','created_at'];
+
+    public function admin()
+    {
+    	return $this->belongsTo('App\UsersAdmin','id_admin');
+    }
 }

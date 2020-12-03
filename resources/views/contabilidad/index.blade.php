@@ -99,7 +99,6 @@
                                     <th>Descripción</th>
                                     <th>Ingreso</th>
                                     <th>Egreso</th>
-                                    <th>Saldo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -109,7 +108,6 @@
                                     <th>{{$key->descripcion}}</th>
                                     <th>{{$key->ingreso}}</th>
                                     <th>{{$key->egreso}}</th>
-                                    <th>{{$key->saldo}}</th>
                                 </tr>
                                 @endforeach
                             </tbody>

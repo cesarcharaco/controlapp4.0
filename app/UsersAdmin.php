@@ -58,4 +58,9 @@ class UsersAdmin extends Model
     {
         return $this->belongsToMany('App\Pasarelas','admins_has_pasarelas','id_pasarela','id_admin');
     }
+
+    public function contabilidad()
+    {
+        return $this->hasMany('App\Contabilidad','id_admin','id');
+    }
 }
