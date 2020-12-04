@@ -525,7 +525,6 @@
 
                         $('#nombreA').html(data[i].nombre);
                         $('#tipoAlquilerA').html(data[i].tipo_alquiler);
-                        $('#PlanPagoA').html(data[i].plan_pago);
                         $('#montoA').html(data[i].monto_alquiler);
                         $('#monto_alquiler').val(data[i].monto_alquiler);
                     }

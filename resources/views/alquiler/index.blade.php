@@ -1433,17 +1433,17 @@
                         '<div class="row">'+
                             '<div class="col-md-4">'+
                                 '<div class="form-group">'+
-                                    '<h3>alquiler: '+data[0].instalacion+'</h3>'+
+                                    '<h3>Alquiler: '+data[0].instalacion+'</h3>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="col-md-4">'+
                                 '<div class="form-group">'+
-                                    '<h3>Tipo de alquiler: '+data[0].tipo+'</h3>'+
+                                    '<h3>Tipo de alquiler: <span class="text-warning">'+data[0].tipo+'</span></h3>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="col-md-4">'+
                                 '<div class="form-group">'+
-                                    '<h3>Monto de la operación: '+data[0].monto+'</h3>'+
+                                    '<h3>Monto de la operación: <span class="text-success">'+data[0].monto+'</span></h3>'+
                                     '<input type="hidden" name="monto_alquiler" id="monto_alquiler" value="'+data[0].monto+'">'+
                                 '</div>'+
                             '</div>'+

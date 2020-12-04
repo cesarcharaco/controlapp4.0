@@ -35,22 +35,16 @@
                                 <div class="card border rounded" id="datosPagarAlquiler" style="display: none;">
                                 	<div class="card-body">
 		                                <div class="row">
-		                                	<div class="col-md-4">
+		                                	<div class="col-md-6">
 		                                		<div class="form-group">
 			                                		<label>Alquiler</label>
 						        					<h5 id="nombreA"></h5>
 		                                		</div>
 		                                	</div>
-		                                	<div class="col-md-4">
+		                                	<div class="col-md-6">
 		                                		<div class="form-group">
 			                                		<label>Tipo de Alquiler</label>
 			                                		<h5 id="tipoAlquilerA"></h5>
-		                                		</div>
-		                                	</div>
-		                                	<div class="col-md-4">
-		                                		<div class="form-group">
-			                                		<label>Plan de Pagos</label>
-			                                		<h5 id="PlanPagoA"></h5>
 		                                		</div>
 		                                	</div>
 		                                </div>
