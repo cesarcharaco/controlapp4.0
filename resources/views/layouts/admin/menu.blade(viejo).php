@@ -44,98 +44,62 @@
                     </a>
                 </li>
 
-                @if(\Auth::user()->tipo_usuario != 'Admin' && \Auth::user()->tipo_usuario != 'root')
-                    <li>
-                        <a href="{{ url('multas_recargas')}}">
-                            <i data-feather="dollar-sign"></i>
-                            <span> Multas y recargas </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ url('alquiler') }}">
-                            <i data-feather="clock"></i>
-                            <span> Instalaciones </span>
-                        </a>
-                    </li>
-                @endif
-
+                <!-- <li>
+                    <a href="#">
+                        <i data-feather="truck"></i>
+                        <span> Productos </span>
+                    </a>
+                </li> -->
 
                 @if(\Auth::user()->tipo_usuario == 'Admin')
                     <li>
-                        <a href="javascript: void(0);" aria-expanded="false">
-                            <i data-feather="database"></i>
-                            <span> Base de datos </span>
-                            <span class="menu-arrow"></span>
+                        <a href="{{ url('inmuebles') }}">
+                            <i data-feather="map"></i>
+                            <span> Inmuebles </span>
                         </a>
+                    </li>
+                @endif    
 
-                        <ul class="nav-second-level mm-collapse" aria-expanded="false">
-                            <li>
-                                <a href="{{ url('inmuebles') }}">
-                                    <span> Inmuebles </span>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="{{ url('estacionamientos') }}">
-                                    <span> Estacionamiento </span>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="{{ url('residentes') }}">
-                                    <span> Residentes </span>
-                                </a>
-                            </li>
-                       
-                            <li>
-                                <a href="{{ url('arriendos') }}">
-                                    <span> Asignación </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url('multas_recargas')}}">
-                                    <span> Multas y recargas </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" onclick="asignar_mr()" data-toggle="modal" data-target="#AsignarMR">
-                                    <span> Asignar M/R </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{{ url('alquiler') }}">
-                                    <span> Instalaciones </span>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="javascript: void(0);" aria-expanded="false" class="mm-collapsed">
-                                    <span> Pagos </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="nav-third-level mm-collapse" aria-expanded="false" style="">
-                                    <li>
-                                        <a href="{{ url('pagos') }}">Pagos de Condominio</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('pagos_multas')}}">Multas/Recargas</a>
-                                    </li>
-                                </ul>
-
-                               
-                            </li>
-
-                        </ul>
+                @if(\Auth::user()->tipo_usuario == 'Admin')
+                    <li>
+                        <a href="{{ url('estacionamientos') }}">
+                            <i data-feather="truck"></i>
+                            <span> Estacionamiento </span>
+                        </a>
                     </li>
                 @endif
 
-                
+                @if(\Auth::user()->tipo_usuario == 'Admin')
+                    <li>
+                        <a href="{{ url('residentes') }}">
+                            <i data-feather="users"></i>
+                            <span> Residentes </span>
+                        </a>
+                    </li>
+                @endif
+
+                @if(\Auth::user()->tipo_usuario == 'Admin')
+                    <li>
+                        <a href="{{ url('arriendos') }}">
+                            <i data-feather="key"></i>
+                            <span> Asignación </span>
+                        </a>
+                    </li>
+                @endif
+
+                @if(\Auth::user()->tipo_usuario == 'Admin')
+                    <!-- <li>
+                        <a class="dropdown-item" onclick="EMontos()" data-toggle="modal" data-target="#E_Montos">
+                            <i data-feather="key"></i>
+                            <span> Especificar Montos </span>
+                        </a>
+                    </li> -->
+                @endif
 
                 @if(\Auth::user()->tipo_usuario != 'root')
-                    <li class="menu-title">Contabilidad </li>
+                    <li class="menu-title">Transacciones </li>
 
-                    @if(\Auth::user()->tipo_usuario != 'Residente' && \Auth::user()->tipo_usuario != 'Admin')
+                    @if(\Auth::user()->tipo_usuario != 'Residente')
                         <li>
                             <a href="javascript: void(0);" aria-expanded="false">
                                 <i data-feather="credit-card"></i>
@@ -152,7 +116,7 @@
                                 </li>
                             </ul>
                         </li>
-                    @endif
+                @endif
 
                     @if(\Auth::user()->tipo_usuario == 'Residente')
                         <li>
@@ -163,7 +127,23 @@
                         </li>
                     @endif
 
-                    
+                    <li>
+                        <a href="{{ url('multas_recargas')}}">
+                            <i data-feather="dollar-sign"></i>
+                            <span> Multas y recargas </span>
+                        </a>
+                    </li>
+                @endif
+
+                    @if(\Auth::user()->tipo_usuario == 'Admin')
+                        <li>
+                            <a class="dropdown-item" onclick="asignar_mr()" data-toggle="modal" data-target="#AsignarMR">
+                                <i data-feather="credit-card"></i>
+                                    <span> Asignar M/R </span>
+                            </a>
+                        </li>
+                    @endif
+
                     @if(\Auth::user()->tipo_usuario != 'root')
                         <li>
                             <a href="{{ url('reportes')}}">
@@ -172,10 +152,6 @@
                             </a>
                         </li>
                     @endif
-                @endif
-
-
-
                     @if(\Auth::user()->tipo_usuario == 'Admin')
                         <li>
                             <a href="{{ url('contabilidad') }}">
@@ -194,6 +170,14 @@
                         </li>
                     @endif
 
+                    @if(\Auth::user()->tipo_usuario == 'Admin' || \Auth::user()->tipo_usuario == 'Residente')
+                        <li>
+                            <a href="{{ url('alquiler') }}">
+                                <i data-feather="clock"></i>
+                                <span> Instalaciones </span>
+                            </a>
+                        </li>
+                    @endif
                 @if(\Auth::user()->tipo_usuario == 'root')
                     <li>
                         <a href="{{ url('anuncios') }}">
@@ -226,15 +210,15 @@
                                 </li>
                             </ul>
                         </li> -->
-                    <li class="menu-title">Configuración </li>
+                <li class="menu-title">Configuración </li>
 
                 
-                    <li>
-                        <a href="{{'administradores'}}">
-                            <i data-feather="users"></i>
-                            <span> Admins </span>
-                        </a>
-                    </li>
+                 <li>
+                    <a href="{{'administradores'}}">
+                        <i data-feather="users"></i>
+                        <span> Admins </span>
+                    </a>
+                </li>
                 @endif
                     @if(\Auth::user()->tipo_usuario == 'Residente')
                         <div class="footer1">

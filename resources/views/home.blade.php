@@ -35,7 +35,7 @@
                             </ul>
                         </div>
                     @endif
-                    <div class="row">
+                    {{--<div class="row">
                         <div class="col-md-6 col-xl-6">
                             <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" style="display: none;">
                                 <div class="card-body p-0">
@@ -234,7 +234,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
 
                        {{--  <div class="col-md-6 col-xl-3">
