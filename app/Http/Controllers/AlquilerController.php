@@ -141,7 +141,7 @@ class AlquilerController extends Controller
                 toastr()->warning('Alerta!', 'Si selecciona Temporal debe indicar fecha y hora');
                 return redirect()->back();
             }else{
-                if(empty($request->num_horas)){
+                if($request->tipo_alquiler=="Temporal" && empty($request->num_horas)){
                     toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
                     return redirect()->back();
                 }else{
