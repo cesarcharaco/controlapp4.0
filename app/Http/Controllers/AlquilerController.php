@@ -485,7 +485,8 @@ class AlquilerController extends Controller
 
     public function pagar_alquiler_resi(Request $request)
     {
-        if ($request->flow==1) {
+        //dd($request->all());
+        if ($request->tipo_pago=="Flow") {
             //dd('flow');
             $request->referencia=$this->generarOrden();
             $orden_compra=$request->referencia;
@@ -517,7 +518,6 @@ class AlquilerController extends Controller
             if (\Auth::user()->tipo_usuario=="Admin") {
                 //dd($request->all());
                 if ($request->status_arriendo=="En Proceso") {
-
                     if ($request->tipo_alq=="Permanente") {
                         $instalacion=Instalaciones::find($request->id_instalacion);
                         $instalacion->status="Inactivo";
@@ -563,7 +563,7 @@ class AlquilerController extends Controller
                     toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente.');
                     return redirect()->back();
                 } else {
-                    if(empty($request->referencia)){
+                    if(empty($request->referencia) && $request->tipo_pago=="Transferencia"){
                         toastr()->warning('Alerta!', 'Debe indicar la referencia de la transacción');
                         return redirect()->back();
                     } else {
@@ -572,10 +572,16 @@ class AlquilerController extends Controller
                             $instalacion->status="Inactivo";
                             $instalacion->save();
                         }
+                        if ($request->tipo_pago=="Transferencia") {
+                            $referencia = $request->referencia;
+                        } else {
+                            $referencia = date('YmdHim');
+                        }
                         \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
                         ->update([
-                            'referencia'=> $request->referencia,
-                            'status'=> "Pagado"
+                            'referencia'=> $referencia,
+                            'status'=> "Pagado",                            
+                            'tipo_pago'=> $request->tipo_pago
                         ]);
 
                         $id_admin=id_admin(\Auth::user()->email);
@@ -623,7 +629,8 @@ class AlquilerController extends Controller
                     \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
                     ->update([
                         'referencia'=> $request->referencia,
-                        'status'=> "En Proceso"
+                        'status'=> "En Proceso",
+                        'tipo_pago' => $request->tipo_pago
                     ]);
 
                     toastr()->success('con éxito!', 'Pago de arriendo realizado satisfactoriamente, espere a que el admin lo confirme.');

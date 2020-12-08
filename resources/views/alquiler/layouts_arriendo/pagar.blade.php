@@ -19,23 +19,34 @@
 					        <h3>Cargando pagar operación</h3>
 					    </div>
 					    <hr>
-					    <div id="vistaPagarArriendos">
-			                <div id="monto_pagar"></div>
-			                <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow" id="mostrarFlow" class="mb-2 mt-2">
-	                            <b>Pagar con Flow</b> 
-	                            <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
-	                        </center>
-			                <center>
-			                   <div class="row" id="quitar_ref" style="display: none;">
-			                       <div class="col-md-12">
-			                           <div class="form-group">
-			                               <label for="">Código de Referencia <b class="text-danger">*</b></label>
-			                               <input type="text" name="referencia" class="form-control" placeholder="Ingrese su nueva referencia" id="referencia_p_arriendos" max="20" maxlength="20">
-			                           </div>
-			                       </div>
-			                   </div>
-			                </center>
-					        <div align="center">
+		                <div id="monto_pagar"></div>
+		                <hr>
+		                <div id="quitar_ref">		                
+						    <div class="row" id="vistaPagarArriendos">
+						    	<div class="col-md-6">
+						    		<div class="form-group">
+						    			<label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
+						    			<select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
+						    				<option value="">Seleccione tipo de pago...</option>
+						    				<option value="Transferencia">Transferencia</option>
+						    				@if(\Auth::user()->tipo_usuario=="Admin")
+						    				<option value="Efectivo">Efectivo</option>
+						    				@endif
+						    				<option value="Flow">Flow</option>
+						    			</select>
+						    		</div>
+						    	</div>
+						    	<div class="col-md-6">
+						    		<div class="form-group">
+		                               <label for="referencia_p_arriendos">Código de Referencia <b class="text-danger">*</b></label>
+		                               <input type="text" name="referencia" class="form-control" placeholder="Ingrese su nueva referencia" id="referencia_p_arriendos" max="20" maxlength="20" required="required">
+		                           </div>
+						    	</div>
+						    </div>
+						    <hr>
+						</div>
+					    <div class="row">
+					    	<div class="col-md-12 text-center">
 					            <input type="hidden" name="id_alquiler" id="id_pagar_arriendo">
 					            <input type="hidden" name="id_residente" id="id_residente_p">
 					            <input type="hidden" name="id_instalacion" id="id_instalacion">
@@ -47,8 +58,8 @@
 					            	<button type="submit" class="btn btn-primary" name="opcion" value="2">Confirmación de pago</button>
 					            @else
 					            	<button type="submit" class="btn btn-success" name="opcion" value="1">Pagar arriendo</button>
-					            @endif
-					        </div>
+					            @endif					    		
+					    	</div>
 					    </div>
 		            </div>
 		        </div>

@@ -188,8 +188,8 @@
                                                                     )">
                                                                     <span class="text-success" ><i data-feather="eye"></i> Ver</span>
                                                                 </a>
-                                                                <div class="dropdown-divider"></div>
                                                                 @if(\Auth::user()->tipo_usuario=="Admin")
+                                                                <div class="dropdown-divider"></div>
                                                                     <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del arriendo">
                                                                         <a href="#editarArriendo2" class="dropdown-item" data-toggle="collapse" href="#editarArriendo2" role="button" aria-expanded="false" aria-controls="editarArriendo2" onclick="editarArriendo(
                                                                             '{{$key->id}}',
@@ -209,17 +209,17 @@
                                                                             <span class="text-warning"><i data-feather="edit"></i> Editar</span>                                                        
                                                                         </a>
                                                                     </span>
-                                                                <div class="dropdown-divider"></div>
                                                                 @endif
                                                                 @if($key2->status == 'No Pagado' || $key2->status == 'En Proceso')
+                                                                <div class="dropdown-divider"></div>
                                                                     <span data-toggle="tooltip" data-placement="top" title="Seleccione para pagar alquiler">
                                                                         <a href="#pagarArriendos" class="dropdown-item" data-toggle="collapse" href="#pagarArriendos" role="button" aria-expanded="false" aria-controls="pagarArriendos" onclick="pagarArriendos('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
                                                                             <span class="text-success"><i data-feather="dollar-sign"></i> Pagar</span>
                                                                         </a>
                                                                     </span>
                                                                 @endif
-                                                                <div class="dropdown-divider"></div>
                                                                 @if($key2->status == 'En Proceso')
+                                                                    <div class="dropdown-divider"></div>
                                                                     <span data-toggle="tooltip" data-placement="top" title="Seleccione para modificar la referencia con la que se realizó el pago del alquiler">
                                                                         <a href="#edit_referencias_arriendos" class="dropdown-item" data-toggle="collapse" href="#edit_referencias_arriendos" role="button" aria-expanded="false" aria-controls="edit_referencias_arriendos" class="btn btn-info btn-sm boton-tabla shadow" onclick="EditReferenciasArriendos('{{$key->id}}')">
                                                                             <span class="text-warning" data-toggle="tooltip" data-placement="top" title="Seleccione para editar referencia de pago"><i data-feather="sliders"></i> Editar Referencia</span>
@@ -718,7 +718,7 @@
 
         $('#pagadoArriendoE2').html(status2);
         $('#status_pago_e').empty();
-        if (status == 'Pagado') {
+        if (status2 == 'Pagado') {
             $('#status_pago_e').append('<h1 class="text-success">Pagado</h1>');
         }else if(status2 == 'En Proceso'){
             $('#status_pago_e').append('<h1 class="text-warning">En Proceso</h1>');
@@ -1258,6 +1258,7 @@
                 $('#monto_pagar').append(
                     '<h3 align="center">¿Está seguro que desea pagar este alquiler ?</h3>'+
                     '<h3 align="center">Status actual es: <span class="text-warning">'+data[0].status+'</span></h3>'+
+                    '<h3 align="center">Tipo de pago: <span class="text-success">'+data[0].tipo_pago+'</span></h3>'+
                     '<h3 align="center">Referencia de la operación es: <span class="text-warning">'+data[0].refer+'</span></h3>'+
                     '<h3 align="center">Monto de la operación es: '+data[0].monto+'</h3>'
                 );
@@ -1268,7 +1269,8 @@
                 $('#id_residente_p').val(data[0].id_residente);
                 $('#monto_p').val(data[0].monto);
                 $('#quitar_ref').css('display','none');
-                $('#referencia').removeAttr('required',false);
+                $('#referencia_p_arriendos').removeAttr('required',false);
+                $('#tipo_pago').removeAttr('required',false);
             }
 
             $('#cargandoPagarArriendos').fadeOut('slow',
@@ -1293,6 +1295,19 @@
         $('#referencia_p_arriendos').removeAttr('disabled',false);
         $('#referencia_p_arriendos').addClass('border').addClass('border-primary');
       }
+    }
+    //FUNCIÓN PARA DESHABILITAR REFERENCIA EN PAGAR ARRIENDO
+    var referencia_p_arriendos = document.getElementById('input');
+    function carg(elemento) {
+        d = elemento.value;
+
+        if(d == "Flow" || d == "Efectivo"){
+            $('#referencia_p_arriendos').removeAttr('required',false);
+            $('#referencia_p_arriendos').attr('disabled',true);
+        }else{
+            $('#referencia_p_arriendos').attr('required',true);
+            $('#referencia_p_arriendos').attr('disabled',false);
+        }
     }
 
     function calcularMontoT(key) {

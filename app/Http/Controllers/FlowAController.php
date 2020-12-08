@@ -41,7 +41,7 @@ class FlowAController extends Controller
 
         // Si desea enviar el medio de pago usar la siguiente línea
         //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
-        return view('flow.orden', compact('orden'));
+        return view('flow.pagar_arriendo.orden', compact('orden'));
     }
     public function orden(Request $request){
         $orden = [
@@ -62,7 +62,7 @@ class FlowAController extends Controller
 
         // Si desea enviar el medio de pago usar la siguiente línea
         //$orden['flow_pack'] = Flow::new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
-        return view('flow.orden', compact('orden'));
+        return view('flow.pagar_arriendo.orden', compact('orden'));
     }
 
 /**
@@ -123,7 +123,8 @@ class FlowAController extends Controller
         \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
         ->update([
             'referencia'=> $request->referencia,
-            'status'=> "Pagado"
+            'status'=> "Pagado",
+            'tipo_pago' => 'Flow'
         ]);
         $instalacion=Alquiler::find($request->id_alquiler);
         $instalacion->status="Activo";
@@ -138,7 +139,7 @@ class FlowAController extends Controller
             'flowOrden'   => $flow->getFlowNumber(),
         ];
 
-        return view('flow.success', compact('data'));
+        return view('flow.pagar_arriendo.success', compact('data'));
     }
 
 /**
@@ -153,7 +154,7 @@ class FlowAController extends Controller
             $flow->read_result();
         } catch (\Exception $e) {
             error_log($e->getMessage());
-            return view('flow.error_500');
+            return view('flow.pagar_arriendo.error_500');
         }
 
         //Recupera los datos enviados por Flow
@@ -165,7 +166,7 @@ class FlowAController extends Controller
             'flowOrden'   => $flow->getFlowNumber(),
         ];
 
-        return view('flow.failure', compact('data'));
+        return view('flow.pagar_arriendo.failure', compact('data'));
 
     }
 }
