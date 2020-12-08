@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Reportes - Gasto Común</h1>
+                <h1>Reportes - Multas</h1>
             </div>
         </div>
         @include('flash::message')
@@ -106,151 +106,7 @@
 				    		</div>
 				    	</div>--}}
 
-
-
-
-
-					        <div class="row justify-content-center">
-					        	<div class="col-md-6">
-				        			<div class="card border border-primary rounded shadow">
-				        				<div class="card-body">
-							        		<div class="form-group">
-							        			<label class="text-primary">Inmuebles</label>
-							        			<select multiple name="id_inmuebles[]" id="selectTodosInmuebles">
-							        				@foreach($inmuebles as $key)
-							        					<option value="{{$key->id}}">{{$key->idem}}</option>
-							        				@endforeach
-							        			</select>
-							        			<div style="display: none">
-								        			<select multiple id="selectTodosInmuebles2" style="display: none;">
-								        				@foreach($inmuebles as $key)
-								        					<option value="{{$key->id}}">{{$key->idem}}</option>
-								        				@endforeach
-								        			</select>
-							        				
-							        			</div>
-							        		</div>
-							        		<div class="form-group">
-							        			<label>¿Todos los inmuebles?</label>
-							        			<input type="checkbox" value="Si" name="InmueblesTodos" id="InmueblesTodos" onchange="TodosInmuebles()">
-							        		</div>
-
-				        					<div class="row justify-content-center">
-					        					<div class="col-md-6">
-									        		<div class="form-group">
-									        			<select class="form-control select2 border border-default" multiple name="meses_inmuebles[]" id="selectMesesInmuebles">
-									        				@foreach($meses as $key)
-									        					<option value="{{$key->id}}">{{$key->mes}}</option>
-									        				@endforeach
-									        			</select>
-									        			<div style="display: none">
-										        			<select class="form-control select2 border border-default" multiple name="meses_inmuebles[]" id="selectMesesInmuebles2" style="display: none;">
-										        				@foreach($meses as $key)
-										        					<option value="{{$key->id}}">{{$key->mes}}</option>
-										        				@endforeach
-										        			</select>
-										        		</div>
-									        		</div>
-									        		<div class="form-group">
-									        			<label>¿Todos los meses del año?</label>
-									        			<input type="checkbox" value="MesesTodosInmuebles" name="MesesTodosInmuebles" id="MesesTodosInmuebles" onchange="TodosMesesInmuebles()">
-									        		</div>
-									        	</div>
-									        	<div class="col-md-6">
-									        		<div class="form-group">
-									        			<select class="form-control select2 border border-default" multiple name="anios_inmueble[]" id="selectTodosAniosInmuebles">
-									        				@for($i=0; $i< count($anio); $i++)
-									        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
-									        				@endfor
-									        			</select>
-									        			<div style="display: none">
-										        			<select class="form-control select2 border border-default" multiple name="anios_inmueble[]" id="selectTodosAniosInmuebles2" style="display: none">
-										        				@for($i=0; $i< count($anio); $i++)
-										        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
-										        				@endfor
-										        			</select>
-										        		</div>
-									        		</div>
-									        		<div class="form-group">
-									        			<label>¿Todos los años?</label>
-									        			<input type="checkbox" value="AniosTodosInmuebles" name="AniosTodosInmuebles" id="AniosTodosInmuebles" onchange="TodosAniosInmuebles()">
-									        		</div>
-									        	</div>
-									        </div>
-				        				</div>
-				        			</div>
-					        	</div>
-
-					        	<div class="col-md-6">
-					        		<div class="card border border-warning rounded shadow">
-				        				<div class="card-body">
-							        		<div class="form-group">
-							        			<label class="text-warning">Estacionamientos</label>
-							        			<select class="form-control select2 border border-warning" multiple name="id_estacionamientos[]" id="selectTodosEstacionamientos">
-							        				@foreach($estacionamientos as $key)
-							        					<option value="{{$key->id}}">{{$key->idem}}</option>
-							        				@endforeach
-							        			</select>
-							        			<div style="display: none">
-							        				<select class="form-control select2 border border-warning" multiple name="id_estacionamientos[]" id="selectTodosEstacionamientos2">
-								        				@foreach($estacionamientos as $key)
-								        					<option value="{{$key->id}}">{{$key->idem}}</option>
-								        				@endforeach
-							        				</select>
-							        			</div>
-							        		</div>
-							        		<div class="form-group">
-							        			<label>¿Todos los estacionamientos?</label>
-							        			<input type="checkbox" value="Si" name="EstacionamientosTodos" id="EstacionamientosTodos" onchange="TodosEstacionamientos()">
-							        		</div>
-
-							        		<div class="row justify-content-center">
-					        					<div class="col-md-6">
-									        		<div class="form-group">
-									        			<select class="form-control select2 border border-default" multiple name="meses_estaciona[]" id="selectMesesEstaciona">
-									        				@foreach($meses as $key)
-									        					<option value="{{$key->id}}">{{$key->mes}}</option>
-									        				@endforeach
-									        			</select>
-									        			<div style="display: none">
-										        			<select class="form-control select2 border border-default" multiple name="meses_estaciona[]" id="selectMesesEstaciona2" style="display: none;">
-										        				@foreach($meses as $key)
-										        					<option value="{{$key->id}}">{{$key->mes}}</option>
-										        				@endforeach
-										        			</select>
-										        		</div>
-									        		</div>
-									        		<div class="form-group">
-									        			<label>¿Todos los meses del año?</label>
-									        			<input type="checkbox" value="MesesTodosEstaciona" name="MesesTodosEstaciona" id="MesesTodosEstaciona" onchange="TodosMesesEstaciona()">
-									        		</div>
-									        	</div>
-									        	<div class="col-md-6">
-									        		<div class="form-group">
-									        			<select class="form-control select2 border border-default" multiple name="anios_estaciona[]" id="selectAniosEstaciona">
-									        				@for($i=0; $i< count($anio); $i++)
-									        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
-									        				@endfor
-									        			</select>
-									        			<div style="display: none">
-										        			<select class="form-control select2 border border-default" multiple name="anios_estaciona[]" id="selectAniosEstaciona2" style="display: none;">
-										        				@for($i=0; $i< count($anio); $i++)
-										        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
-										        				@endfor
-										        			</select>
-										        		</div>
-									        		</div>
-									        		<div class="form-group">
-									        			<label>¿Todos los años?</label>
-									        			<input type="checkbox" value="AniosTodosEstaciona" name="AniosTodosEstaciona" id="AniosTodosEstaciona" onchange="TodosAniosEstaciona()">
-									        		</div>
-									        	</div>
-									        </div>
-							        	</div>
-							        </div>
-					        	</div>
-					        </div>
-					        <div class="row justify-content-center">
+					         <div class="row justify-content-center">
 					        	<div class="col-md-6">
 					        		<div class="card border border-success rounded shadow">
 				        				<div class="card-body">
@@ -312,6 +168,74 @@
 									        		<div class="form-group">
 									        			<label>¿Todos los años?</label>
 									        			<input type="checkbox" value="AniosTodosResidentes" name="AniosTodosResidentes" id="AniosTodosResidentes" onchange="TodosAniosResidentes()">
+									        		</div>
+									        	</div>
+									        </div>
+							        	</div>
+							        </div>
+					        	</div>
+
+					        	<div class="col-md-6">
+					        		<div class="card border border-danger rounded shadow">
+				        				<div class="card-body">
+							        		<div class="form-group">
+							        			<label class="text-danger">Multas - Recargas</label>
+							        			<select class="form-control select2 border border-success" multiple name="id_multa[]" id="selectTodosMultas">
+							        				@foreach($multas as $key)
+							        					<option value="{{$key->id}}">{{$key->motivo}} {{$key->tipo}} - {{$key->monto}}</option>
+							        				@endforeach
+							        			</select>
+							        			<div style="display: none">
+							        				<select class="form-control select2 border border-success" multiple name="id_multa[]" id="selectTodosMultas2">
+							        				@foreach($multas as $key)
+							        					<option value="{{$key->id}}">{{$key->motivo}} {{$key->tipo}} - {{$key->monto}}</option>
+							        				@endforeach
+							        			</select>
+							        			</div>
+							        		</div>
+							        		<div class="form-group">
+									        	<label>¿Todas las Multas y recargas? </label>
+									        	<input type="checkbox" value="Si" name="MultasRecargas" id="MultasTodas" onclick="TodosMultas()">
+									        </div>
+									        <div class="row justify-content-center">
+					        					<div class="col-md-6">
+									        		<div class="form-group">
+									        			<select class="form-control select2 border border-default" multiple name="meses_multas[]" id="selectMesesMultas">
+									        				@foreach($meses as $key)
+									        					<option value="{{$key->id}}">{{$key->mes}}</option>
+									        				@endforeach
+									        			</select>
+									        			<div style="display: none">
+										        			<select class="form-control select2 border border-default" multiple name="meses_multas[]" id="selectMesesMultas2" style="display: none">
+										        				@foreach($meses as $key)
+										        					<option value="{{$key->id}}">{{$key->mes}}</option>
+										        				@endforeach
+										        			</select>
+										        		</div>
+									        		</div>
+									        		<div class="form-group">
+									        			<label>¿Todos los meses del año?</label>
+									        			<input type="checkbox" value="MesesTodosMultas" name="MesesTodosMultas" id="MesesTodosMultas" onchange="TodosMesesMultas()">
+									        		</div>
+									        	</div>
+									        	<div class="col-md-6">
+									        		<div class="form-group">
+									        			<select class="form-control select2 border border-default" multiple name="anios_multas[]" id="selectAniosMultas">
+									        				@for($i=0; $i< count($anio); $i++)
+									        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
+									        				@endfor
+									        			</select>
+									        			<div style="display: none">
+										        			<select class="form-control select2 border border-default" multiple name="anios_multas[]" id="selectAniosMultas2" style="display: none">
+										        				@for($i=0; $i< count($anio); $i++)
+										        					<option value="{{$anio[$i]}}">{{$anio[$i]}}</option>
+										        				@endfor
+										        			</select>
+										        		</div>
+									        		</div>
+									        		<div class="form-group">
+									        			<label>¿Todos los años?</label>
+									        			<input type="checkbox" value="AniosTodosMultas" name="AniosTodosMultas" id="AniosTodosMultas" onchange="TodosAniosMultas()">
 									        		</div>
 									        	</div>
 									        </div>

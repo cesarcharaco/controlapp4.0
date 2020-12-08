@@ -428,11 +428,13 @@
             @toastr_js
             @toastr_render
 
-
             <div class="content-page">
-                <div class="content">
+              @include('layouts.admin.notificaciones')
+              @include('layouts.admin.noticias')
+                <div class="content" id="contenidoPagina">
 
                     <!-- Start Content-->
+
                     <div class="container-fluid">
                         <!-- <div class="row page-title">
                             <div class="col-md-12">
@@ -633,7 +635,7 @@
                                 </div>
                             {!! Form::close() !!}
 
-<!-- --------------------------------------------REGISTRAR ESTACIONAMIENTOS--------------------------------------------------------- -->    
+                          <!-- --------------------------------------------REGISTRAR ESTACIONAMIENTOS--------------------------------------------------------- -->    
 
                             <form action="{{ route('estacionamientos.store') }}" method="POST">
                                 @csrf
@@ -770,7 +772,7 @@
                                     </div>
                                 </div>
                             </form>
-<!-- --------------------------------------------REGISTRAR RESIDENTE--------------------------------------------------------- -->    
+                          <!-- --------------------------------------------REGISTRAR RESIDENTE--------------------------------------------------------- -->    
                             <form action="{{ route('residentes.store') }}" method="POST" name="registrar_residente" data-parsley-validate>
                                 @csrf
                                 <div class="modal fade" id="crearResidente" role="dialog">
@@ -866,7 +868,7 @@
                             </form>
 
                             
-                <!-----------------------------------------------PAGAR MESES RESIDENTE---------------------------------------- -->
+                          <!-----------------------------------------------PAGAR MESES RESIDENTE---------------------------------------- -->
                             <form action="{{ route('pagos.store') }}" method="POST">
                                 @csrf
                                 <div class="modal fade" id="pagarMesesModal" role="dialog">
@@ -909,7 +911,7 @@
                                 </div>
                             </form>
 
-                <!-----------------------------------------------PAGAR MULTAS RESIDENTE---------------------------------------- -->
+                          <!-----------------------------------------------PAGAR MULTAS RESIDENTE---------------------------------------- -->
                             <form action="{{ route('pagar.mr') }}" method="POST">
                                 @csrf
                                 <div class="modal fade" id="pagarMultasModal" role="dialog">
@@ -1034,7 +1036,7 @@
                                 </div>
                             </form>
 
-<!-- --------------------------------------------PAGO COMÚN INMUEBLE--------------------------------------------------------- -->
+                          <!-- --------------------------------------------PAGO COMÚN INMUEBLE--------------------------------------------------------- -->
                         
                             
                             <form action="{{ route('pagoscomunes.store') }}" method="POST">
@@ -1140,7 +1142,7 @@
                         
                             
 
-<!-- --------------------------------------------PAGO COMÚN ESTACIONAMIENTO--------------------------------------------------------- -->
+                    <!-- --------------------------------------------PAGO COMÚN ESTACIONAMIENTO--------------------------------------------------------- -->
                     <form action="{{ route('pagoscomunes.store') }}" method="POST">
                         @csrf
                         <div class="modal fade" id="PagoCEstacionamiento" role="dialog">
@@ -1239,7 +1241,7 @@
                         </div>
                     {!! Form::close() !!}
 
-<!-- --------------------------------------------REGISTRAR InmuebleS--------------------------------------------------------- -->    
+                          <!-- --------------------------------------------REGISTRAR InmuebleS--------------------------------------------------------- -->    
 
                             <form action="{{ route('inmuebles.store') }}" method="POST">
                                 @csrf
@@ -1432,7 +1434,7 @@
                             </form>
 
 
-        <!-- -------------------------------- ANUNCIOS ------------------------------------- -->
+                    <!-- -------------------------------- ANUNCIOS ------------------------------------- -->
  
                     <div class="modal fade" id="verAsignadosAnuncios" role="dialog">
                         <div class="modal-dialog modals-default">
@@ -1466,10 +1468,6 @@
                 </div> <!-- content -->
 
             </div>
-
-
-        <input type="hidden" id="opcionS" value="1">
-            
         </div>
     {{-- @include('layouts.admin.footer') --}}
     </div>

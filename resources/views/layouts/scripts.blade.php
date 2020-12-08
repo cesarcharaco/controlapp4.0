@@ -186,31 +186,33 @@
 		}
 
 		$(".dataTable").DataTable({
+			"paging": true,
+            "bPaginate": true,
+			"pageLength": 50,
 			"responsive": true,
       		"autoWidth": true,
       		language: {
-	        "decimal": "",
-	        "emptyTable": "No hay información",
-	        "info": "Mostrando la página _PAGE_ de _PAGES_",
-	        "infoEmpty": "Mostrando 0 de 0 Entradas",
-	        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-	        "infoPostFix": "",
-	        "thousands": ",",
-	        "lengthMenu": "Mostrar _MENU_ Entradas",
-	        "loadingRecords": "Cargando...",
-	        "processing": "Procesando...",
-	        "search": "",
-	        "zeroRecords": "Sin resultados encontrados",
-	        "first": "Primero",
-	        "last": "Ultimo",
-	        "next": "Próximo",
-	        "previous": "Anterior",
-	        
+		        "decimal": "",
+		        "emptyTable": "No hay información",
+		        "info": "Mostrando la página _PAGE_ de _PAGES_",
+		        "infoEmpty": "Mostrando 0 de 0 Entradas",
+		        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+		        "infoPostFix": "",
+		        "thousands": ",",
+		        "lengthMenu": "Mostrar _MENU_ Entradas",
+		        "loadingRecords": "Cargando...",
+		        "processing": "Procesando...",
+		        "search": "",
+		        "zeroRecords": "Sin resultados encontrados",
+		        "first": "Primero",
+		        "last": "Ultimo",
+		        "next": "Próximo",
+		        "previous": "Anterior",
 	        }
 		});
 
 		$("#tableConsultas").DataTable({
-			"pageLength": 30,
+			"pageLength": 50,
 			"responsive": true,
       		"autoWidth": true,
       		"sort": false,
@@ -236,9 +238,9 @@
 		});
 
 		$('.data-table-basic').DataTable({
-	        "pageLength": 30,
-            // "paging": false,
-            // "bPaginate": false,
+	        "pageLength": 50,
+            "paging": true,
+            "bPaginate": true,
             "ordering": false,
             "lengthChange": false,
             "lengthMenu": false,
@@ -269,7 +271,7 @@
 	    });
 
 	    $('#data-table-basic2').DataTable({
-	        "pageLength": 30,
+	        "pageLength": 50,
             // "paging": false,
             // "bPaginate": false,
             "ordering": false,
@@ -1731,6 +1733,38 @@
             $('#id_admin').val(id);
         }
 
+        function notifiNoti(opcion){
+        	$('.multi-collapse').collapse('hide');
+        	if (opcion==1) {
+        		$('#verNotificaciones').collapse('show');
+        		$('#vistanotifiNoti1').removeAttr('onclick',false);
+        		$('#vistanotifiNoti1').attr('onclick','cerrarVP()');
+        	}else{
+        		$('#verNoticias').collapse('show');
+        		$('#vistanotifiNoti2').removeAttr('onclick',false);
+        		$('#vistanotifiNoti2').attr('onclick','cerrarVP()');
+        	}
+			$('#contenidoPagina').fadeOut('fast');
+        }
 
+        function buscarNotificaciones(opcion) {
+    		$.get('buscar/'+opcion+'/notificaciones',function (data) {
+		    })
+		    .done(function(data) {
+        		if (data.length>0) {
+        			// $('#notificacionesShow').append('')
+        		}else{
+
+        		}
+			});
+        }
+        function cerrarVP() {
+        	$('.multi-collapse').collapse('hide');
+        	$('#contenidoPagina').fadeIn(300);
+        	$('#vistanotifiNoti1').removeAttr('onclick',false);
+        	$('#vistanotifiNoti1').attr('onclick','notifiNoti(1)');
+			$('#vistanotifiNoti2').removeAttr('onclick',false);
+        	$('#vistanotifiNoti2').attr('onclick','notifiNoti(2)');
+        }
 </script>
 @yield('scripts')

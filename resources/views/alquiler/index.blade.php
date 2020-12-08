@@ -32,17 +32,6 @@
             <h4 class="mb-1 mt-0">Alquiler</h4>
         </div>
     </div>
-    <div class="row page-title" style="display: none;" id="tituloP1">
-        <div class="col-md-12">
-            <nav aria-label="breadcrumb" class="float-right mt-1">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Instalaciones</li>
-                </ol>
-            </nav>
-            <h4 class="mb-1 mt-0">Instalaciones</h4>
-        </div>
-    </div>
     <div class="row page-title" style="display: none;" id="tituloP2">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" class="float-right mt-1">
@@ -85,143 +74,7 @@
     @endif
 
     <div id="tablaInstalaciones">
-        <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <div style="height: 100%;">
-                        @include('alquiler.layouts_instalacion.show')
-
-                        @if(\Auth::user()->tipo_usuario=="Admin")
-                            @include('alquiler.layouts_instalacion.create')
-                            @include('alquiler.layouts_instalacion.edit')
-                            @include('alquiler.layouts_instalacion.edit_status')
-                            @include('alquiler.layouts_instalacion.delete')
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                @if(\Auth::user()->tipo_usuario=="Admin")
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-12 offset-md-12">
-                                <a data-toggle="collapse" href="#nuevaInstalacion" id="btnRegistrar_insta" role="button" aria-expanded="false" aria-controls="nuevaInstalacion"  class="btn btn-success boton-tabla shadow" onclick="crearInstalacion()" style="
-                                    border-radius: 10px;
-                                    color: white;
-                                    height: 35px;
-                                    margin-bottom: 5px;
-                                    margin-top: 5px;
-                                    float: right;">
-                                    <span data-toggle="tooltip" data-placement="top" title="Seleccione para registrar una instalación"><i data-feather="plus"></i>Nueva Instalación</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endif
-                
-
-                <div class="col-md-12">
-                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                        <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
-                            <thead>
-                                <tr class="bg-primary text-white">
-                                    <th>Nombre</th>
-                                    <th>Horario Disponible</th>
-                                    <th>Max. personas</th>
-                                    <th>Status</th>
-                                    <th>Opciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($instalaciones as $key)
-                                    <tr>
-                                        <td align="center">{{$key->nombre}}</td>
-                                        <td>
-                                            @foreach($key->dias as $key2)
-                                                <span>
-                                                    <strong>{{ $key2->dia }}</strong><br>
-                                                </span>
-                                                @if($key2->dia == 'Lunes')
-                                                @elseif($key2->dia == 'Martes')
-                                                @elseif($key2->dia == 'Miércoles')
-                                                @elseif($key2->dia == 'Jueves')
-                                                @elseif($key2->dia == 'Viernes')
-                                                @elseif($key2->dia == 'Sábado')
-                                                @else
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td>{{$key->max_personas}}</td>
-                                        <td>
-                                            @if($key->status == 'Activo')
-                                                    <strong class="text-success">{{$key->status}}</strong>
-                                            @else
-                                                    <strong class="text-danger">{{$key->status}}</strong>
-                                            @endif
-                                        </td>
-                                        <td align="center">
-                                            <br>
-
-                                            <a data-toggle="tooltip" data-placement="top" title="Seleccione para ver la instalación" href="#VerInstalacion" role="button" aria-expanded="false" aria-controls="VerInstalacion" class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="VerInstalacion(
-                                                '{{$key->id}}',
-                                                '{{$key->nombre}}',
-                                                '{{$key->id_dia}}',
-                                                '{{$key->hora_desde}}',
-                                                '{{$key->hora_hasta}}',
-                                                '{{$key->costo_permanente}}',
-                                                '{{$key->costo_temporal}}',
-                                                '{{$key->max_personas}}',
-                                                '{{$key->status}}')">
-
-                                                <span><strong>Ver</strong></span>
-                                            </a>
-
-                                            @if(\Auth::User()->tipo_usuario=="Admin")
-                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del arriendo">
-                                                    <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
-                                                        '{{$key->id}}',
-                                                        '{{$key->nombre}}',
-                                                        '{{$key->id_dia}}',
-                                                        '{{$key->hora_desde}}',
-                                                        '{{$key->hora_hasta}}',
-                                                        '{{$key->costo_permanente}}',
-                                                        '{{$key->costo_temporal}}',
-                                                        '{{$key->max_personas}}',
-                                                        '{{$key->status}}')">
-
-                                                        <span><strong>Editar</strong></span>
-                                                    </a>
-                                                </span>
-                                            @if($key->status == 'Activo')
-                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para desactivar el arriendo">
-                                                    <a data-toggle="collapse" href="#statusInstalacion" role="button" aria-expanded="false" aria-controls="statusInstalacion"  class="btn btn-info btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                        <span>Desactivar</span>
-                                                    </a>
-                                                </span>
-                                            @else
-                                                <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar el arriendo">
-                                                    <a data-toggle="collapse" href="#activarInstalacion" role="button" aria-expanded="false" aria-controls="activarInstalacion"  class="btn btn-success btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="statusInstalacion('{{$key->id}}','{{$key->nombre}}','{{$key->status}}')">
-                                                        <span data-toggle="tooltip" data-placement="top" title="Seleccione para activar instalación">Activar</span>
-                                                    </a>
-                                                </span>
-                                            @endif
-                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar instalación">
-                                                <a data-toggle="collapse" href="#EliminarInstalacion" role="button" aria-expanded="false" aria-controls="EliminarInstalacion"  class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="eliminarInstalacion('{{$key->id}}')">
-                                                    <span>Eliminar</span>
-                                                </a>
-                                            </span>
-                                            @endif
-                                        </td>
-
-
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
 
@@ -684,26 +537,8 @@
     @endif
     <div class="row justify-content-center">
         @if(\Auth::User()->tipo_usuario=="Admin")
-            <div data-toggle="tooltip" data-placement="top" title="Seleccione para las vista y opciones de las instalaciones" class="col-md-4 center" id="VerTabla1">
-                <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
-                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
-                    background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    ">
-                        <div class="card-header">
-                            <h3 align="right" class="text-warning" >INSTALACIONES</h3>
-                        </div>
-                        <div class="card-body p-3 mb-5 ">
-                        </div>
-                        <div class="card-footer">
-                            <strong class="text-warning">Visualizar las instalaciones de la App.</strong>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div data-toggle="tooltip" data-placement="top" title="Seleccione para las vista y opciones de los alquileres" class="col-md-4 center" id="VerTabla2">
+            
+            <div data-toggle="tooltip" data-placement="top" title="Seleccione para las vista y opciones de los alquileres" class="col-md-6 center" id="VerTabla2">
                 <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
@@ -722,7 +557,7 @@
                     </div>
                 </a>
             </div>
-            <div data-toggle="tooltip" data-placement="top" title="Seleccione para ver la sumatoria de alquileres, comparaciones y control" class="col-md-4 center" id="VerTabla3">
+            <div data-toggle="tooltip" data-placement="top" title="Seleccione para ver la sumatoria de alquileres, comparaciones y control" class="col-md-6 center" id="VerTabla3">
                 <a href="#" onclick="VerTabla(3)" id="verTabla2-3" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/controlhorario.jpg') }}');
@@ -742,26 +577,8 @@
                 </a>
             </div>
         @else
-            <div class="col-md-6 center" id="VerTabla1">
-                <a href="#" onclick="VerTabla(1)" id="verTabla2-1" style="display: none; width: 100%;">
-                    <div class="card border border-dark shadow rounded m-7" style="height: 400px;
-                    background-image: url('{{ asset('assets/images/alquiler/instalaciones.jpg') }}');
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    ">
-                        <div class="card-header">
-                            <h3 align="right" class="text-warning" >INSTALACIONES</h3>
-                        </div>
-                        <div class="card-body p-3 mb-5 ">
-                        </div>
-                        <div class="card-footer">
-                            <strong class="text-warning">Visualizar las instalaciones de la App.</strong>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-6 center" id="VerTabla2">
+            
+            <div class="col-md-12 center" id="VerTabla2">
                 <a href="#" onclick="VerTabla(2)" id="verTabla2-2" style="display: none; width: 100%;">
                     <div class="card border border-dark shadow rounded m-7" style="height: 400px;
                     background-image: url('{{ asset('assets/images/alquiler/arrendamiento.jpg') }}');
@@ -1022,27 +839,7 @@
       $('#VerTabla2').hide();
       $('#VerTabla3').hide();
 
-      if (opcion == 1) {
-          $("#tablaArriendos").fadeOut("slow",
-              function() {
-                  $(this).hide();
-                  $("#tablaControl").fadeOut("slow");
-                  $("#tablaInstalaciones")
-                      .css('opacity', 0)
-                      .slideDown('slow')
-                      .animate(
-                          { opacity: 1 },
-                          { queue: false, duration: 'slow' }
-                      );
-                  $('#tituloP1').fadeIn(300);
-                  $('#VerTabla2').show();
-                  $('#VerTabla2').removeClass("col-md-4").addClass("col-md-6");
-                  $('#VerTabla3').show();
-                  $('#VerTabla3').removeClass("col-md-4").addClass("col-md-6");
-              });
-
-
-      }else if(opcion == 2){
+      if(opcion == 2){
           $("#tablaInstalaciones").fadeOut("slow",
               function() {
                   $(this).hide();

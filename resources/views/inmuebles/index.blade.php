@@ -124,7 +124,7 @@
             @endif
             <div class="col-md-12">
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                  <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                    <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                     <thead class="text-capitalize bg-primary">
                         <tr class="text-white" style="background-color: #CB8C4D;">
                             <th>#</th>

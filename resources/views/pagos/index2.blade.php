@@ -11,11 +11,11 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Pagos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Multas y Recargas</li>
+                        <li class="breadcrumb-item active" aria-current="page">Multas/Recargas</li>
                     </ol>
                 </nav>
                 <span class="PalabraEditarPago">
-                    <h4 class="mb-1 mt-0">Pagos - Multas y Recargas</h4>
+                    <h4 class="mb-1 mt-0">Pagos - Multas/Recargas</h4>
                 </span>
             </div>
         </div>
@@ -48,7 +48,7 @@
                                 <thead>
                                     <tr class="bg-danger text-white">
                                         <th>Nombres</th>
-                                        <th></th>
+                                        <th>RUT</th>
                                         <th>Asignaciones</th>
                                         <th>Opciones</th>
                                     </tr>
@@ -59,35 +59,27 @@
                                             <td align="center">
                                                 <div class="form-group">
                                                     {{$key->nombres}} {{$key->apellidos}}
-                                                    <br>
-                                                    <strong>{{$key->rut}}</strong>
                                                 </div>
                                             </td>
                                             <td align="center">                                                
-                                                <img src="{{ asset('assets/images/avatar-user.png') }}" class="avatar-md rounded-circle avatar" />
+                                                {{$key->rut}}
                                             </td>
                                             <td>
-                                                <br>
-                                                <a href="#" class="btn btn-warning btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="verAsignadosM('{{$key->id}}')" >
+                                                <a href="#" class="btn btn-warning btn-sm shadow" onclick="verAsignadosM('{{$key->id}}')" >
                                                     <span><i data-feather="eye" style="float: left;"></i>Asignaciones</span>
                                                 </a>                                                
                                             </td>
                                             <td>
-                                                <br>
                                                 <center>
-                                                    <a href="#" class="btn btn-success btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="pagarMultasResidente('{{$key->id}}')" >
+                                                    <a href="#" class="btn btn-success btn-sm shadow" onclick="pagarMultasResidente('{{$key->id}}')" >
                                                         <span><i data-feather="dollar-sign" style="float: left;"></i>Pagar</span>
                                                     </a>
-                                                </center>
-                                                <br>
-                                                <center>
-                                                    <a href="#" class="btn btn-info btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="multasPorComprobar('{{$key->id}}')">
+                                                
+                                                    <a href="#" class="btn btn-info btn-sm shadow" onclick="multasPorComprobar('{{$key->id}}')">
                                                         <span><i data-feather="check-square" style="float: left;"></i>Confirmar</span>
                                                     </a>
-                                                </center>
-                                                <br>
-                                                <center>
-                                                    <a href="#" class="btn btn-danger btn-sm shadow" style="border-radius: 5px; width: 100%" onclick="eliminarMulta('{{$key->id}}')">
+                                                
+                                                    <a href="#" class="btn btn-danger btn-sm shadow" onclick="eliminarMulta('{{$key->id}}')">
                                                         <span><i data-feather="trash" style="float: left;"></i>Eliminar Multas y/o recargas</span>
                                                     </a>
                                                 </center>
@@ -134,9 +126,9 @@
                     <div class="col-md-12">
                         <div id="spinner" style="display: none;">
                             <div class="spinner-border text-warning m-2" role="status" id="cargando_E">
-                                <span class="sr-only">Cargando multas y recargas...</span>
+                                <span class="sr-only">Cargando multas/recargas...</span>
                             </div>
-                            <p>Cargando multas y recargas...</p>
+                            <p>Cargando multas/recargas...</p>
                         </div>
                         <p id="ResidenteTieneMultas" style="display: none;">El residente no posee multas ni recargas</p>
                     </div>
@@ -429,7 +421,7 @@
                         <h4>Multas/Recargas por Confirmar del Residente <span id="nombreResidente"></span></h4>
                         <div id="CargandoPagosComprobar" style="display: none;">
                             <div class="spinner-border text-warning m-2" role="status">
-                                <!-- <span class="sr-only">Cargando multas y recargas...</span> -->
+                                <!-- <span class="sr-only">Cargando multas/recargas...</span> -->
                             </div>
                         </div>
                         <button type="button" class="close" data-dismiss="modal">

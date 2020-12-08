@@ -449,5 +449,44 @@ class ReportesController extends Controller
         
     }
 
+
+    public function reportes_multas()
+    {
+        $meses=Meses::all();
+        $id_admin=id_admin(\Auth::user()->email);
+        if(\Auth::user()->tipo_usuario == 'Admin'){
+            $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
+            $estacionamientos=Estacionamientos::where('id_admin',$id_admin)->get();
+            $residentes=Residentes::where('id_admin',$id_admin)->get();
+
+        }else{
+            $inmuebles = \DB::table('residentes')
+                ->join('residentes_has_inmuebles','residentes_has_inmuebles.id_residente','=','residentes.id')
+                ->join('inmuebles','inmuebles.id','=','residentes_has_inmuebles.id_inmueble')
+                ->where('residentes.id_usuario',\Auth::user()->id)
+                ->select('inmuebles.*')
+                ->get();
+
+            $estacionamientos = \DB::table('residentes')
+                ->join('residentes_has_est','residentes_has_est.id_residente','=','residentes.id')
+                ->join('estacionamientos','estacionamientos.id','=','residentes_has_est.id_estacionamiento')
+                ->where('residentes.id_usuario',\Auth::user()->id)
+                ->select('estacionamientos.*')
+                ->get();
+            $residentes=0;
+        }
+        
+        $anio= array();
+        $a=anios_registros();
+        
+        for ($i=0; $i < count(anios_registros()); $i++) { 
+            $anio[$i]=$a[$i]['anio'];
+        }
+        
+        $multas=MultasRecargas::where('id_admin',$id_admin)->get();
+
+        return View('reportes.reportes_multas', compact('meses','inmuebles','estacionamientos','residentes','anio','multas'));
+    }
+
     
 }

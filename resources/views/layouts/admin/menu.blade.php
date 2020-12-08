@@ -38,11 +38,25 @@
                 <li class="menu-title">Funciones</li>
 
                 <li>
-                    <a href="{{ url('home') }}">
-                        <i data-feather="share"></i>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            <i data-feather="share"></i>
                         <span> Vista principal </span>
-                    </a>
-                </li>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                            <li>
+                                <a href="#" id="vistanotifiNoti1" onclick="notifiNoti(1)">
+                                    <span> Notificaciones </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" id="vistanotifiNoti2" onclick="notifiNoti(2)">
+                                    <span> Noticias </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
 
                 @if(\Auth::user()->tipo_usuario != 'Admin' && \Auth::user()->tipo_usuario != 'root')
                     <li>
@@ -71,70 +85,104 @@
                         <ul class="nav-second-level mm-collapse" aria-expanded="false">
                             <li>
                                 <a href="{{ url('inmuebles') }}">
-                                    <span> Inmuebles </span>
-                                </a>
-                            </li>
-                        
-                            <li>
-                                <a href="{{ url('estacionamientos') }}">
-                                    <span> Estacionamiento </span>
+                                    <span> Crear o editar Inmuebles </span>
                                 </a>
                             </li>
                         
                             <li>
                                 <a href="{{ url('residentes') }}">
-                                    <span> Residentes </span>
+                                    <span> Crear o editar Residentes </span>
                                 </a>
                             </li>
-                       
                             <li>
                                 <a href="{{ url('arriendos') }}">
-                                    <span> Asignación </span>
+                                    <span> Asignación de res/Inm </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('contabilidad') }}">
+                                    <span> Valor de gastos comunes </span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url('estacionamientos') }}">
+                                    <span> Estacionamiento </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ url('multas_recargas')}}">
-                                    <span> Multas y recargas </span>
+                                    <span> Crear o editar Multas/recargas </span>
                                 </a>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a class="dropdown-item" onclick="asignar_mr()" data-toggle="modal" data-target="#AsignarMR">
                                     <span> Asignar M/R </span>
                                 </a>
-                            </li>
+                            </li> -->
 
                             <li>
-                                <a href="{{ url('alquiler') }}">
-                                    <span> Instalaciones </span>
+                                <a href="{{ url('instalaciones') }}">
+                                    <span> Crear o editar Instalaciones </span>
                                 </a>
                             </li>
 
-                            <li>
-                                <a href="javascript: void(0);" aria-expanded="false" class="mm-collapsed">
-                                    <span> Pagos </span>
-                                    <span class="menu-arrow"></span>
-                                </a>
-                                <ul class="nav-third-level mm-collapse" aria-expanded="false" style="">
-                                    <li>
-                                        <a href="{{ url('pagos') }}">Pagos de Condominio</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('pagos_multas')}}">Multas/Recargas</a>
-                                    </li>
-                                </ul>
-
-                               
-                            </li>
 
                         </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            <i data-feather="dollar-sign"></i>
+                            <span> Pagos </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                            <li>
+                                <a href="{{ url('pagos') }}">Pagos de Condominio</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('pagos_multas')}}">Multas/Recargas</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript: void(0);" aria-expanded="false">
+                            <i data-feather="book-open"></i>
+                            <span> Reportes </span>
+                            <span class="menu-arrow"></span>
+                        </a>
+
+                        <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                            <li>
+                                <a href="{{ url('reportes')}}">
+                                    <span> Gasto común </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('reportes_multas')}}">
+                                    <span> Multas </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ url('alquiler') }}">
+                            <i data-feather="columns"></i>
+                            <span> Arriendo de inst. </span>
+                        </a>
                     </li>
                 @endif
 
                 
 
                 @if(\Auth::user()->tipo_usuario != 'root')
-                    <li class="menu-title">Contabilidad </li>
-
+                    @if(\Auth::user()->tipo_usuario != 'Admin')
+                        <li class="menu-title">Contabilidad </li>
+                    @endif
                     @if(\Auth::user()->tipo_usuario != 'Residente' && \Auth::user()->tipo_usuario != 'Admin')
                         <li>
                             <a href="javascript: void(0);" aria-expanded="false">
@@ -145,10 +193,10 @@
 
                             <ul class="nav-second-level mm-collapse" aria-expanded="false">
                                 <li>
-                                    <a href="{{ url('pagos') }}">Pagos de Condominio</a>
+                                    <a href="{{ url('pagos') }}">Gasto común</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('pagos_multas')}}">Multas/Recargas</a>
+                                    <a href="{{ url('pagos_multas')}}">Multas</a>
                                 </li>
                             </ul>
                         </li>
@@ -164,7 +212,7 @@
                     @endif
 
                     
-                    @if(\Auth::user()->tipo_usuario != 'root')
+                    @if(\Auth::user()->tipo_usuario != 'root' && \Auth::user()->tipo_usuario != 'Admin')
                         <li>
                             <a href="{{ url('reportes')}}">
                                 <i data-feather="book-open"></i>

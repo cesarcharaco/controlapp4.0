@@ -58,6 +58,44 @@ class AlquilerController extends Controller
         return View('alquiler.index', compact('planesPago','residentes','dias','instalaciones','alquiler','dias2'));
     }
 
+    public function index2()
+    {
+        $dias= Dias::all();
+        if (\Auth::user()->tipo_usuario=="Residente") {
+            $residente=Residentes::where('id_usuario',\Auth::user()->id)->first();
+            $alquiler = Alquiler::where('id_residente',$residente->id)->get();
+
+            /*$instalaciones = Instalaciones::leftJoin('alquiler','alquiler.id_instalacion','=','instalaciones.id')
+                ->leftJoin('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+                ->where('instalaciones.status','Activo')->get();*/
+
+            $instalaciones = Instalaciones::where('status','Activo')->get();
+            //dd($instalaciones);
+        } else {
+            $alquiler = Alquiler::all();
+            $instalaciones = Instalaciones::all();
+        }
+        
+        $id_admin=id_admin(\Auth::user()->email);
+        $residentes=Residentes::where('id_admin',$id_admin)->get();
+        $planesPago=PlanesPago::where('tipo','Alquiler')->where('status','Activo')->get();
+
+        // $fechas_alquiler=\DB::table('instalaciones')
+        //     ->join('alquiler','alquiler.id_instalacion','=','instalaciones.id')
+        //     ->select('alquiler')
+
+
+         $dias2=\DB::table('dias')
+        ->join('instalaciones_has_dias','instalaciones_has_dias.id_dia','=','dias.id')
+        ->join('instalaciones','instalaciones.id','=','instalaciones_has_dias.id_instalacion')
+        ->where('dias.id','<>',0)
+        ->select('dias.id')->groupBy('dias.id')->get();
+        // dd($dias);
+
+
+        return View('alquiler.index2', compact('planesPago','residentes','dias','instalaciones','alquiler','dias2'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
