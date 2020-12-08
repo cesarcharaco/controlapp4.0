@@ -869,46 +869,53 @@
 
                             
                           <!-----------------------------------------------PAGAR MESES RESIDENTE---------------------------------------- -->
-                            <form action="{{ route('pagos.store') }}" method="POST">
-                                @csrf
-                                <div class="modal fade" id="pagarMesesModal" role="dialog">
-                                    <div class="modal-dialog modals-default">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4>Pagar arriendos</h4>
-                                                <div id="CargandoPagarArriendos" style="display: none;">
-                                                    <div class="spinner-border text-warning m-2" role="status"></div>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">                                              
-                                              <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-
-                                              {{-- <center><p>{{ buscar_pasarelas() }}</p></center> --}}
-                                              <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow" id="mostrarFlow">
-                                                <b>Pagar con Flow</b> 
-                                                <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
-                                              </center>
-
-                                              <hr>
-                                              <center>
-                                                  <div id="muestraMesesAPagar">
-                                                      
-                                                  </div>
-                                                  <div id="muestraMesesAPagar2" style="display: none;">
-                                                      <h3 align="center">No hay inmuebles que pagar</h3>
-                                                  </div>
-                                              </center>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="hidden" name="opcion" id="opcion" value="1">
-                                                <button type="submit" class="btn btn-success" style="border-radius: 50px;">Guardar</i></button>
-                                            </div>
-                                        </div>
+                            <form action="{{ route('pagos.store') }}" method="POST" class="parsley-examples">
+                              @csrf
+                              <div class="modal fade" id="pagarMesesModal" role="dialog">
+                                <div class="modal-dialog modals-default">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4>Pagar arriendos</h4>
+                                      <div id="CargandoPagarArriendos" style="display: none;">
+                                          <div class="spinner-border text-warning m-2" role="status"></div>
+                                      </div>
+                                      <button type="button" class="close" data-dismiss="modal">
+                                          <span>&times;</span>
+                                      </button>
                                     </div>
+                                    <div class="modal-body">
+                                      <h5 align="center">Meses a pagar</h5>
+                                      <hr>
+                                      <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="form-group">
+                                            <label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
+                                            <select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
+                                              <option value="">Seleccione tipo de pago...</option>
+                                              <option value="Transferencia">Transferencia</option>
+                                              <option value="Efectivo">Efectivo</option>
+                                              <option value="Flow">Flow</option>
+                                            </select>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <hr>
+                                      <center>
+                                        <div id="muestraMesesAPagar">
+                                            
+                                        </div>
+                                        <div id="muestraMesesAPagar2" style="display: none;">
+                                            <h3 align="center">No hay inmuebles que pagar</h3>
+                                        </div>
+                                      </center>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="opcion" id="opcion" value="1">
+                                        <button type="submit" class="btn btn-success" style="border-radius: 50px;">Guardar</i></button>
+                                    </div>
+                                  </div>
                                 </div>
+                              </div>
                             </form>
 
                           <!-----------------------------------------------PAGAR MULTAS RESIDENTE---------------------------------------- -->
@@ -1471,8 +1478,6 @@
         </div>
     {{-- @include('layouts.admin.footer') --}}
     </div>
-    
-
     <!-- Scripts -->
         <script type="text/javascript">
 
@@ -1500,9 +1505,30 @@
 
         }
         </script>
+  <script>
+      //FUNCIÓN PARA DESHABILITAR REFERENCIA EN PAGAR ARRIENDO
+      var referencia_p_arriendos = document.getElementById('input');
+      function carg(elemento) {
+        d = elemento.value;
+        if (d == "") {
+          $('#referencia_p').css('display','none');
+        } else {
+          if(d == "Flow" || d == "Efectivo"){
+            $('#referencia_p').css('display','none');
+            $('#referencia_p_arriendos').removeAttr('required',false);
+            $('#referencia_p_arriendos').attr('disabled',true);
+          }else{
+            $('#referencia_p').removeAttr('style',false);
+            //$('#referencia_p').css('style','block');
+            $('#referencia_p_arriendos').attr('required',true);
+            $('#referencia_p_arriendos').attr('disabled',false);
+          }            
+        }
+      }
+  </script>
         @include('layouts.scripts')
         
-    @section('scripts')
-    @endsection
+@section('scripts')
+@endsection
 </body>
 </html>

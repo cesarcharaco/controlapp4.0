@@ -8,7 +8,7 @@ class Pagos extends Model
 {
     protected $table='pagos';
 
-	protected $fillable=['id','id_mensualidad','status','referencia'];
+	protected $fillable=['id','id_mensualidad','status','referencia','tipo_pago'];
 
 	public function mensualidad()
 	{

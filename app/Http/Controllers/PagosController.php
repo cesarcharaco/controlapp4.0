@@ -110,7 +110,7 @@ class PagosController extends Controller
                                             //echo $key2->id."<br>";
                                             $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                                             if(!is_null($pagos)){
-                                                if ($request->flow==1) {
+                                                if ($request->tipo_pago=="Flow") {
                                                     $pago_i[$pi]=$pagos->id;
                                                     $pi++;
                                                 } else {
@@ -118,8 +118,14 @@ class PagosController extends Controller
                                                         $pagos->status="Por Confirmar";
                                                     } else {
                                                         $pagos->status="Cancelado";
-                                                    }                                                    
-                                                    $pagos->referencia=$request->referencia;
+                                                    }
+                                                    if ($request->tipo_pago=="Transferencia") {
+                                                        $referencia = $request->referencia;
+                                                    } else {
+                                                        $referencia = date('YmdHim');
+                                                    }
+                                                    $pagos->tipo_pago=$request->tipo_pago;
+                                                    $pagos->referencia=$referencia;
                                                     $pagos->save();
 
                                                     $total+=$key2->monto;
@@ -134,7 +140,7 @@ class PagosController extends Controller
                             }
                         }
                     }
-                    if (\Auth::user()->tipo_usuario=="Admin") {
+                    if (\Auth::user()->tipo_usuario=="Admin" && $request->tipo_pago!="Flow") {
                         $id_admin=id_admin(\Auth::user()->email);
 
                         $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
@@ -177,7 +183,7 @@ class PagosController extends Controller
                                             //echo $key2->id."<br>";
                                             $pagos=PagosE::where('id_mens_estac',$key2->id)->orderby('id','DESC')->first();
                                             if(!is_null($pagos)){
-                                                if ($request->flow==1) {
+                                                if ($request->tipo_pago=="Flow") {
                                                     $pago_e[$pe]=$pagos->id;
                                                     $pe++;
                                                 } else {
@@ -197,7 +203,7 @@ class PagosController extends Controller
                                         }
                                     }
                                     for ($i=0; $i <=1; $i++) {
-                                        if (\Auth::user()->tipo_usuario=="Admin") {
+                                        if (\Auth::user()->tipo_usuario=="Admin" && $request->tipo_pago!="Flow") {
                                             $id_admin=id_admin(\Auth::user()->email);
 
                                             $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
@@ -233,7 +239,7 @@ class PagosController extends Controller
                     }
                 }
 
-                if($request->flow==1){
+                if($request->tipo_pago=="Flow"){
                     if ($total >= 350) {
                         //dd($pago_i);
                         $flowbuilder=new FlowBuilder();
@@ -251,8 +257,13 @@ class PagosController extends Controller
                     }
                 }else{
                     $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+                    if ($request->tipo_pago=="Transferencia") {
+                        $referencia = $request->referencia;
+                    } else {
+                        $referencia = date('YmdHim');
+                    }
                     $reporte=\DB::table('reportes_pagos')->insert([
-                        'referencia' => $request->referencia,
+                        'referencia' => $referencia,
                         'reporte' => $factura,
                         'id_residente' => $request->id_user
                     ]);
@@ -281,7 +292,13 @@ class PagosController extends Controller
                                             //echo $key2->id."<br>";
                                             $pagos=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                                             $pagos->status="Cancelado";
-                                            $pagos->referencia=$request->referencia;
+                                            if ($request->tipo_pago=="Transferencia") {
+                                                $referencia = $request->referencia;
+                                            } else {
+                                                $referencia = date('YmdHim');
+                                            }
+                                            $pagos->tipo_pago=$request->tipo_pago;
+                                            $pagos->referencia=$referencia;
                                             $pagos->save();
                                             $total+=$key2->monto;
                                             $factura.="Inmueble: ".$key->idem." Mes: ".$this->mostrar_mes($request->mes[$i])." Monto: ".$key2->monto."<br>";
@@ -293,7 +310,7 @@ class PagosController extends Controller
                             }
                         }
                     }
-                    if (\Auth::user()->tipo_usuario=="Admin") {
+                    if (\Auth::user()->tipo_usuario=="Admin" && $request->tipo_pago!="Flow") {
                         $id_admin=id_admin(\Auth::user()->email);
 
                         $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
@@ -344,7 +361,7 @@ class PagosController extends Controller
                                         }
                                     }
                                     for ($i=0; $i <=1; $i++) { 
-                                        if (\Auth::user()->tipo_usuario=="Admin") {
+                                        if (\Auth::user()->tipo_usuario=="Admin" && $request->tipo_pago!="Flow") {
                                             $id_admin=id_admin(\Auth::user()->email);
 
                                             $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();

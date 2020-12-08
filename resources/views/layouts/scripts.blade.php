@@ -1024,7 +1024,7 @@
 						                    	'<div class="form-group">'+
 													'<div class="mt-3">'+
 			                                            '<div class="custom-control custom-checkbox mb-2">'+
-			                                                '<input type="checkbox"  name="mes[]" value="'+data2[i].mes+'" class="custom-control-input" id="customCheck'+i+'">'+
+			                                                '<input type="checkbox"  name="mes[]" value="'+data2[i].mes+'" class="custom-control-input" id="customCheck'+i+'" data-parsley-mincheck="1" required>'+
 			                                                '<label class="custom-control-label" for="customCheck'+i+'"></label>'+
 			                                            '</div>'+
 			                                        '</div>'+
@@ -1086,11 +1086,11 @@
 						}//cierre de if de status alquilado
 					}//cierre del for
 					$('#muestraMesesAPagar').append(
-						'<br><div class="row border">'+
+						'<br><div class="row border" style="display:none;" id="referencia_p">'+
 		                    '<div class="col-md-12">'+
 		                        '<div class="form-group">'+
 		                            '<label>Referencia</label>'+
-		                            '<input type="text" name="referencia" placeholder="Nro. de referencia" id="referencia_p_arriendos" maxlength="20" max="20" class="form-control border border-primary" required="required">'+
+		                            '<input type="number" name="referencia" placeholder="Nro. de referencia" id="referencia_p_arriendos" maxlength="20" class="form-control border border-primary" required="required">'+
 		                        '</div>'+
 		                    '</div>'+
 		                '</div>'
@@ -1767,4 +1767,8 @@
         	$('#vistanotifiNoti2').attr('onclick','notifiNoti(2)');
         }
 </script>
+<!-- Plugin js-->
+<script src="{{ asset('assets/libs/parsleyjs/parsley.min.js') }}"></script>
+<!-- Validation init js-->
+<script src="{{ asset('assets/js/form-validation.init.js') }}"></script>
 @yield('scripts')
