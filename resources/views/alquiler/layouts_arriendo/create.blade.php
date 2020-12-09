@@ -110,7 +110,7 @@
                           <i data-feather="watch"></i>
                         </span>
                       </span>
-                      <input name="num_horas" min="1" minlength="2" max="24" data-toggle="touchspin" type="number" class="form-control num_horas" required placeholder="Ingrese Nro. de horas" id="num_horas" onkeyup="calcularMontoT(this.value)">
+                      <input name="num_horas" min="1" max="24" data-toggle="touchspin" type="number" class="form-control num_horas" required placeholder="Ingrese Nro. de horas" id="num_horas" onkeyup="calcularMontoT(this.value)">
                     </div>
                   </div>                    
                 </div>
@@ -123,7 +123,7 @@
                           <i data-feather="dollar-sign"></i>
                         </span>
                       </span>
-                      <input name="monto" min="1" minlength="2" max="24" data-toggle="touchspin" type="number"  class="form-control soloNumeros" placeholder="Monto total a pagar" required readonly="readonly" id="montoTArriendo">
+                      <input name="monto" min="1" data-toggle="touchspin" type="number"  class="form-control soloNumeros" placeholder="Monto total a pagar" required readonly="readonly" id="montoTArriendo">
                     </div>
                   </div>                    
                 </div>
@@ -143,9 +143,25 @@
                   <label for="admins_todos">¿Se realizó el pago?</label>
                   <input type="checkbox" name="pago_realizado" onchange="pagoRealizadoA();" id="pagoRealizado"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
               </div>
-              <div id="mostrarRefeC" class="mt-2 mb-2" style="display: none;">
-                <label>Referencia <b class="text-danger">*</b></label>
-                <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" id="refeCreateA" placeholder="Ingrese número de referencia">
+              <div class="row" id="mostrarRefeC" style="display: none;">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
+                    <select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="cargarRef(this);">
+                      <option value="">Seleccione tipo de pago...</option>
+                      <option value="Transferencia">Transferencia</option>
+                      @if(\Auth::user()->tipo_usuario=="Admin")
+                      <option value="Efectivo">Efectivo</option>
+                      @endif
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6" id="referencia_p" style="display: none;">
+                  <div class="form-group">
+                    <label for="refeCreateA">Referencia <b class="text-danger">*</b></label>
+                    <input type="text" class="form-control border border-primary" name="referencia" maxlength="20" id="refeCreateA" placeholder="Ingrese número de referencia">
+                  </div>
+                </div>
               </div>
           </div>
           <div class="row">

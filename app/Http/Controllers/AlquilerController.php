@@ -183,7 +183,7 @@ class AlquilerController extends Controller
                     toastr()->warning('Alerta!', 'Debe indicar la cantidad de horas');
                     return redirect()->back();
                 }else{
-                    if(empty($request->referencia) && $request->pago_realizado==1){
+                    if(empty($request->referencia) && $request->pago_realizado==1 && $request->tipo_pago=="Transferencia"){
                         toastr()->warning('Alerta!', 'Debe indicar la referencia de transacción');
                         return redirect()->back();
                     }else{
@@ -267,12 +267,18 @@ class AlquilerController extends Controller
                         }
                         $alquiler->save();
                         if ($request->tipo_alquiler=="Permanente") {
-                            if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
+                            if(\Auth::user()->tipo_usuario=="Admin" && $request->pago_realizado==1) {
+                                if ($request->tipo_pago=="Transferencia") {
+                                    $referencia = $request->referencia;
+                                } else {
+                                    $referencia = date('YmdHim');
+                                }
                                 \DB::table('pagos_has_alquiler')->insert([
-                                    'referencia'=> $request->referencia,
+                                    'referencia'=> $referencia,
                                     'monto'     => $request->costo_permanente,
                                     'id_alquiler' => $alquiler->id,
-                                    'status'=>'Pagado'
+                                    'status'=>'Pagado',
+                                    'tipo_pago' => $request->tipo_pago
                                 ]);
 
                                 $id_admin=id_admin(\Auth::user()->email);
@@ -312,12 +318,18 @@ class AlquilerController extends Controller
                                 ]);
                             }
                         } else {
-                            if(\Auth::user()->tipo_usuario=="Admin" && $request->referencia!="" && $request->pago_realizado==1){
+                            if(\Auth::user()->tipo_usuario=="Admin" && $request->pago_realizado==1){
+                                if ($request->tipo_pago=="Transferencia") {
+                                    $referencia = $request->referencia;
+                                } else {
+                                    $referencia = date('YmdHim');
+                                }
                                 \DB::table('pagos_has_alquiler')->insert([
-                                    'referencia'=> $request->referencia,
+                                    'referencia'=> $referencia,
                                     'monto'     => $request->monto,
                                     'id_alquiler' => $alquiler->id,
-                                    'status'=>'Pagado'
+                                    'status'=>'Pagado',
+                                    'tipo_pago' => $request->tipo_pago
                                 ]);
 
                                 $id_admin=id_admin(\Auth::user()->email);

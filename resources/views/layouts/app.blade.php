@@ -893,7 +893,9 @@
                                             <select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
                                               <option value="">Seleccione tipo de pago...</option>
                                               <option value="Transferencia">Transferencia</option>
+                                              @if(\Auth::user()->tipo_usuario=="Admin")
                                               <option value="Efectivo">Efectivo</option>
+                                              @endif
                                               <option value="Flow">Flow</option>
                                             </select>
                                           </div>
@@ -920,93 +922,101 @@
 
                           <!-----------------------------------------------PAGAR MULTAS RESIDENTE---------------------------------------- -->
                             <form action="{{ route('pagar.mr') }}" method="POST">
-                                @csrf
-                                <div class="modal fade" id="pagarMultasModal" role="dialog">
-                                    <div class="modal-dialog modals-default">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4>Pagar Multas/Recargas</h4>
-                                                <div id="CargandoMultasResi" style="display: none;">
-                                                    <div class="spinner-border text-warning m-2" role="status">
-                                                        <!-- <span class="sr-only">Cargando multas y recargas...</span> -->
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                              <center><h5>Pasarelas de pago de tu Admin</h5></center><br>
-                                              <center data-toggle="tooltip" data-placement="top" title="Seleccione para pagar utilizando la plataforma de pagos Flow">
-                                                <b>Pagar con Flow</b> 
-                                                <input type='checkbox' onclick='FlowCheck()' name='flow' value='1' id='checkFlow'>
-                                              </center>
-                                              <hr>
-                                                <center>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Multas/Recargas</label>
-                                                                <select class="form-control select2" name="id_mensMulta[]" id="MultasPagarResi" onchange="montoTotalMulta(this.value)">
-                                                                    
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label>Referencia</label>
-                                                                <input type="text" maxlength="20" max="20" class="form-control" name="referencia" required>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @if(\Auth::user()->tipo_usuario=="admin")
-                                                        <div class="card border border-info shadow p-3 mb-5 bg-white">
-                                                            <div class="row" id="mis_mr">
-                                                                <div class="col-md-12">
-                                                                    <table id="mrSeleccionado" class="table tabla-estilo" style="width: 100%;" alt="Max-width 100%">
-                                                                        
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @else
-                                                        <div class="card border border-info shadow p-3 mb-5 bg-white">
-                                                            <div class="row" id="mis_mr">
-                                                                <div class="col-md-12">
-                                                                    <table id="mrSeleccionado2" class="table tabla-estilo" style="width: 100%;" alt="Max-width 100%">
-                                                                        
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    @endif
-
-                                                    <label align="center">Total a Pagar</label>
-                                                    <div class="card border border-dark shadow p-1 mb-3 bg-white">
-                                                        <div class="row" id="mis_mr">
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <span style="font-size: 20px" class="text-dark" id="TotalPagarMR">0</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div style="display: none;" id="idMultaForm">
+                              @csrf
+                              <div class="modal fade" id="pagarMultasModal" role="dialog">
+                                <div class="modal-dialog modals-default">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4>Pagar Multas/Recargas</h4>
+                                      <div id="CargandoMultasResi" style="display: none;">
+                                          <div class="spinner-border text-warning m-2" role="status">
+                                              <!-- <span class="sr-only">Cargando multas y recargas...</span> -->
+                                          </div>
+                                      </div>
+                                      <button type="button" class="close" data-dismiss="modal">
+                                          <span>&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <center>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Multas/Recargas <b style="color: red;">*</b></label>
+                                                    <select class="form-control select2" name="id_mensMulta[]" id="MultasPagarResi" onchange="montoTotalMulta(this.value)" required="">
                                                         
-                                                    </div>
-                                                </center>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <input type="hidden" name="opcion" id="opcion" value="1">
-                                                <input type="hidden" name="id_residente" id="id_residente_mr">
-                                                <input type="text" id="totalMR" class="form-control" name="total">
-                                                <button type="submit" class="btn btn-danger" style="border-radius: 50px;">Pagar</i></button>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                          <div class="col-md-12">
+                                            <div class="form-group">
+                                              <label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
+                                              <select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
+                                                <option value="">Seleccione tipo de pago...</option>
+                                                <option value="Transferencia">Transferencia</option>
+                                                @if(\Auth::user()->tipo_usuario=="Admin")
+                                                <option value="Efectivo">Efectivo</option>
+                                                @endif
+                                                <option value="Flow">Flow</option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row" style="display: none;" id="referencia_p">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label>Referencia <b style="color: red;">*</b></label>
+                                                    <input type="text" maxlength="20" max="20" class="form-control" name="referencia" required placeholder="Ingrese referencia" id="referencia_p_arriendos">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if(\Auth::user()->tipo_usuario=="admin")
+                                            <div class="card border border-info shadow p-3 mb-5 bg-white">
+                                                <div class="row" id="mis_mr">
+                                                    <div class="col-md-12">
+                                                        <table id="mrSeleccionado" class="table tabla-estilo" style="width: 100%;" alt="Max-width 100%">
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="card border border-info shadow p-3 mb-5 bg-white">
+                                                <div class="row" id="mis_mr">
+                                                    <div class="col-md-12">
+                                                        <table id="mrSeleccionado2" class="table tabla-estilo" style="width: 100%;" alt="Max-width 100%">
+                                                            
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        <label align="center">Total a Pagar</label>
+                                        <div class="card border border-dark shadow p-1 mb-3 bg-white">
+                                            <div class="row" id="mis_mr">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <span style="font-size: 20px" class="text-dark" id="TotalPagarMR">0</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="display: none;" id="idMultaForm">
+                                            
+                                        </div>
+                                      </center>
                                     </div>
+                                    <div class="modal-footer">
+                                        <input type="hidden" name="opcion" id="opcion" value="1">
+                                        <input type="hidden" name="id_residente" id="id_residente_mr">
+                                        <input type="hidden" id="totalMR" class="form-control" name="total">
+                                        <button type="submit" class="btn btn-danger" style="border-radius: 50px;">Pagar</i></button>
+                                    </div>
+                                  </div>
                                 </div>
+                              </div>
                             </form>
 
                             <form action="{{ route('pagar.mr') }}" method="POST">

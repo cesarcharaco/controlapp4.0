@@ -1309,6 +1309,24 @@
             $('#referencia_p_arriendos').attr('disabled',false);
         }
     }
+    //FUNCIÓN PARA DESHABILITAR REFERENCIA EN CREAR ARRIENDO
+    var refeCreateA = document.getElementById('input');
+    function cargarRef(elemento) {
+        d = elemento.value;
+        if (d == "") {
+          $('#referencia_p').css('display','none');
+        } else {
+            if(d == "Efectivo"){
+                $('#referencia_p').css('display','none');
+                $('#refeCreateA').removeAttr('required',false);
+                $('#refeCreateA').attr('disabled',true);
+            }else{
+                $('#referencia_p').removeAttr('style',false);
+                $('#refeCreateA').attr('required',true);
+                $('#refeCreateA').attr('disabled',false);
+            }
+        }
+    }
 
     function calcularMontoT(key) {
         var costo = $('#costo_temporal').val();

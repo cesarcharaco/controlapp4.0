@@ -444,8 +444,14 @@ class PagosController extends Controller
                         }else{
                             $statusP='Por Confirmar';
                         }
+                        if ($request->tipo_pago=="Transferencia") {
+                            $referencia = $request->referencia;
+                        } else {
+                            $referencia = date('YmdHim');
+                        }
                         $key->pivot->status=$statusP;
-                        $key->pivot->referencia=$request->referencia;
+                        $key->pivot->referencia=$referencia;
+                        $key->pivot->tipo_pago=$request->tipo_pago;
                         $key->pivot->save();
                         $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
                         $total+=$mr->monto;
@@ -461,8 +467,14 @@ class PagosController extends Controller
                     }else{
                         $statusP='Por Confirmar';
                     }
+                    if ($request->tipo_pago=="Transferencia") {
+                        $referencia = $request->referencia;
+                    } else {
+                        $referencia = date('YmdHim');
+                    }
                     $key->pivot->status=$statusP;
-                    $key->pivot->referencia=$request->referencia;
+                    $key->pivot->referencia=$referencia;
+                    $key->pivot->tipo_pago=$request->tipo_pago;
                     $key->pivot->save();
                     $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
                     $total+=$mr->monto;
@@ -470,8 +482,13 @@ class PagosController extends Controller
             }
         }
         $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+        if ($request->tipo_pago=="Transferencia") {
+            $referencia = $request->referencia;
+        } else {
+            $referencia = date('YmdHim');
+        }
         $reporte=\DB::table('reportes_pagos')->insert([
-            'referencia' => $request->referencia,
+            'referencia' => $referencia,
             'reporte' => $factura,
             'id_residente' => $residente->id
         ]);
