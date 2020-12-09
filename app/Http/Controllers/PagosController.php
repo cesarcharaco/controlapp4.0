@@ -432,11 +432,62 @@ class PagosController extends Controller
         $residente=Residentes::find($request->id_residente);
         
             
-            
-        if(is_null($request->id_mensMulta)==false){
-            for ($i=0; $i < count($request->id_mensMulta) ; $i++) { 
-                $mr=MultasRecargas::find($request->id_mensMulta[$i]);
-                //dd($mr->residentes);
+        if ($request->tipo_pago=="Flow") {
+            //dd('flow');
+            $request->referencia=$this->generarOrden();
+            $orden_compra=$request->referencia;
+            $buscar_alquiler = \DB::table('alquiler')
+            ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
+            ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
+            ->where('alquiler.id',$request->id_alquiler)
+            ->select('instalaciones.nombre as instalacion','alquiler.tipo_alquiler as tipo')
+            ->first();
+            //dd($buscar_alquiler);
+            $nombre_instalacion = strtoupper($buscar_alquiler->instalacion);
+            $tipo_alquiler = strtoupper($buscar_alquiler->tipo);
+            $tipo_alq = $buscar_alquiler->tipo;
+            if ($request->monto_alquiler >= 350) {
+                //dd($request->all());
+                $total = $request->monto_alquiler;
+                $flowbuilder=new FlowBuilder1();
+                $flowbuilder->setMontoA($request->monto_alquiler);
+                $email_pagador = \Auth::User()->email;
+                $concepto= "Pagar arriendo  de ".$nombre_instalacion.", tipo de alquiler ".$tipo_alquiler.".";
+                $flowcontroller=new FlowAController();
+                //Con este return nos vamos al controlador de FLOW
+                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra,$tipo_alq);
+            } else {
+                toastr()->error('ERROR!!', 'El monto a pagar debe ser mayor a 350 pesos chilenos');
+                return redirect()->back();
+            }
+        } else {
+            if(is_null($request->id_mensMulta)==false){
+                for ($i=0; $i < count($request->id_mensMulta) ; $i++) { 
+                    $mr=MultasRecargas::find($request->id_mensMulta[$i]);
+                    //dd($mr->residentes);
+                    foreach ($mr->residentes as $key) {
+                        if($key->pivot->id_residente==$residente->id){
+                            if(\Auth::user()->tipo_usuario == 'Admin'){
+                                $statusP='Pagada';
+                            }else{
+                                $statusP='Por Confirmar';
+                            }
+                            if ($request->tipo_pago=="Transferencia") {
+                                $referencia = $request->referencia;
+                            } else {
+                                $referencia = date('YmdHim');
+                            }
+                            $key->pivot->status=$statusP;
+                            $key->pivot->referencia=$referencia;
+                            $key->pivot->tipo_pago=$request->tipo_pago;
+                            $key->pivot->save();
+                            $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
+                            $total+=$mr->monto;
+                        }
+                    }
+                }
+            }else{
+                $mr=MultasRecargas::find($request->id_multa);
                 foreach ($mr->residentes as $key) {
                     if($key->pivot->id_residente==$residente->id){
                         if(\Auth::user()->tipo_usuario == 'Admin'){
@@ -458,42 +509,20 @@ class PagosController extends Controller
                     }
                 }
             }
-        }else{
-            $mr=MultasRecargas::find($request->id_multa);
-            foreach ($mr->residentes as $key) {
-                if($key->pivot->id_residente==$residente->id){
-                    if(\Auth::user()->tipo_usuario == 'Admin'){
-                        $statusP='Pagada';
-                    }else{
-                        $statusP='Por Confirmar';
-                    }
-                    if ($request->tipo_pago=="Transferencia") {
-                        $referencia = $request->referencia;
-                    } else {
-                        $referencia = date('YmdHim');
-                    }
-                    $key->pivot->status=$statusP;
-                    $key->pivot->referencia=$referencia;
-                    $key->pivot->tipo_pago=$request->tipo_pago;
-                    $key->pivot->save();
-                    $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
-                    $total+=$mr->monto;
-                }
+            $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
+            if ($request->tipo_pago=="Transferencia") {
+                $referencia = $request->referencia;
+            } else {
+                $referencia = date('YmdHim');
             }
+            $reporte=\DB::table('reportes_pagos')->insert([
+                'referencia' => $referencia,
+                'reporte' => $factura,
+                'id_residente' => $residente->id
+            ]);
+            toastr()->success('con éxito!!', 'Multas/Recargas Pagadas');
+            return redirect()->back();
         }
-        $factura.="<br></br>Total Cancelado: ".$total.", con la referencia: ".$request->referencia."<br>";
-        if ($request->tipo_pago=="Transferencia") {
-            $referencia = $request->referencia;
-        } else {
-            $referencia = date('YmdHim');
-        }
-        $reporte=\DB::table('reportes_pagos')->insert([
-            'referencia' => $referencia,
-            'reporte' => $factura,
-            'id_residente' => $residente->id
-        ]);
-        toastr()->success('con éxito!!', 'Multas/Recargas Pagadas');
-        return redirect()->back();
     }
     /**
      * Display the specified resource.
