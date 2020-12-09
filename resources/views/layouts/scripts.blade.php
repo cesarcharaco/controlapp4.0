@@ -305,6 +305,7 @@
 	        }
 
 	    });
+	    $('#vista_pagos_mes').hide();
 
 	    $('.page-link').css('font-size', '12px');
 
@@ -325,7 +326,7 @@
 
 	    // $('.paginate_button').addClass('btn btn-sm text-dark').attr('onclick="paginateButton();"');
 
-    
+
 		
 		$('.VerEstaciona').carousel();
 		$('#id_residente').select2();
