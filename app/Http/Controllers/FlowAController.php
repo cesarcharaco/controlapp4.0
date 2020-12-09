@@ -18,7 +18,7 @@ class FlowAController extends Controller
         return view('flow.index');
     }
 
-    public function orden_alquiler(Request $request,$monto,$concepto,$email_pagador,$orden_compra,$tipo_alq){
+    public function orden_alquiler(Request $request,$monto,$concepto,$email_pagador,$orden_compra,$tipo_alq,$modulo_pago){
         $flow=new FlowBuilder1();
         $orden = [
             'orden_compra' => $orden_compra,
@@ -26,6 +26,8 @@ class FlowAController extends Controller
             // 'concepto'        => $factura,
             'concepto'        => $concepto,
             'email_pagador'   => $email_pagador,
+            'tipo_alq'   => $tipo_alq,
+            'modulo_pago'   => $modulo_pago,
             //'medio_pago'     => $request->medio_pago,
         ];
 
@@ -37,7 +39,33 @@ class FlowAController extends Controller
 
         //dd($orden);
         // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
-        $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador']);
+        $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'],$orden['tipo_alq'],$orden['modulo_pago']);
+
+        // Si desea enviar el medio de pago usar la siguiente línea
+        //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
+        return view('flow.pagar_arriendo.orden', compact('orden'));
+    }
+    public function orden_mr(Request $request,$monto,$concepto,$email_pagador,$orden_compra,$modulo_pago){
+        $flow=new FlowBuilder1();
+        $orden = [
+            'orden_compra' => $orden_compra,
+            'monto'           => $monto,
+            // 'concepto'        => $factura,
+            'concepto'        => $concepto,
+            'email_pagador'   => $email_pagador,
+            'modulo_pago'   => $modulo_pago,
+            //'medio_pago'     => $request->medio_pago,
+        ];
+
+        
+        #Aqui debemos verificar la entrada...
+        /*if (!is_numeric($orden['orden_compra'])) {
+            dd("Error #1: Orden debe ser number");
+        }*/
+
+        //dd($orden);
+        // Genera una nueva Orden de Pago, Flow la firma y retorna un paquete de datos firmados
+        $orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'],$orden['modulo_pago']);
 
         // Si desea enviar el medio de pago usar la siguiente línea
         //$orden['flow_pack'] = $flow->new_order($orden['orden_compra'], $orden['monto'], $orden['concepto'], $orden['email_pagador'], $orden['medio_pago']);
@@ -106,7 +134,7 @@ class FlowAController extends Controller
  * y el usuario presione el botón para retornar al comercio desde Flow
  */
     public function success(){
-        $flow=new FlowBuilder();
+        $flow=new FlowBuilder1();
         try {
             // Lee los datos enviados por Flow
             $flow->read_result();
@@ -114,21 +142,56 @@ class FlowAController extends Controller
             error_log($e->getMessage());
             return view('flow.error_500');
         }
-        //actualizando status de pagos de alquiler
-        if ($request->tipo_alq=="Permanente") {
-            $instalacion=Instalaciones::find($request->id_instalacion);
-            $instalacion->status="Inactivo";
+        if ($modulo_pago=="MR") {
+            if(is_null($request->id_mensMulta)==false){
+                for ($i=0; $i < count($request->id_mensMulta) ; $i++) { 
+                    $mr=MultasRecargas::find($request->id_mensMulta[$i]);
+                    //dd($mr->residentes);
+                    foreach ($mr->residentes as $key) {
+                        if($key->pivot->id_residente==$residente->id){
+                            $statusP='Pagada';
+                            $referencia = date('YmdHim');
+                            $key->pivot->status=$statusP;
+                            $key->pivot->referencia=$referencia;
+                            $key->pivot->tipo_pago=$request->tipo_pago;
+                            $key->pivot->save();
+                            $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
+                            $total+=$mr->monto;
+                        }
+                    }
+                }
+            }else{
+                $mr=MultasRecargas::find($request->id_multa);
+                foreach ($mr->residentes as $key) {
+                    if($key->pivot->id_residente==$residente->id){
+                        $statusP='Pagada';
+                        $referencia = date('YmdHim');
+                        $key->pivot->status=$statusP;
+                        $key->pivot->referencia=$referencia;
+                        $key->pivot->tipo_pago=$request->tipo_pago;
+                        $key->pivot->save();
+                        $factura.="Multa o Recarga: ".$mr->motivo.", Monto: ".$mr->monto." status:Pagada<br>";
+                        $total+=$mr->monto;
+                    }
+                }
+            }
+        } else if ($modulo_pago=="PagoArriendo") {
+            //actualizando status de pagos de alquiler
+            if ($request->tipo_alq=="Permanente") {
+                $instalacion=Instalaciones::find($request->id_instalacion);
+                $instalacion->status="Inactivo";
+                $instalacion->save();
+            }
+            \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+            ->update([
+                'referencia'=> $request->referencia,
+                'status'=> "Pagado",
+                'tipo_pago' => 'Flow'
+            ]);
+            $instalacion=Alquiler::find($request->id_alquiler);
+            $instalacion->status="Activo";
             $instalacion->save();
         }
-        \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
-        ->update([
-            'referencia'=> $request->referencia,
-            'status'=> "Pagado",
-            'tipo_pago' => 'Flow'
-        ]);
-        $instalacion=Alquiler::find($request->id_alquiler);
-        $instalacion->status="Activo";
-        $instalacion->save();
         //----------------------------------------------------------------
         //Recupera los datos enviados por Flow
         $data = [

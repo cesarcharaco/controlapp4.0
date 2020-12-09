@@ -110,7 +110,11 @@
 						<div class="row">
 							<div class="col-md-6">
 				            	<img src="{{ asset('assets/images/bank.png') }}" width="300" height="300">
-				            	<h1>Flow Bank - Pago de alquiler</h1>
+				            	<h1>Flow Bank</h1>
+                                <h4>
+                                    @if($orden['modulo_pago']=="MR") Multas/Recargas @endif
+                                    @if($orden['modulo_pago']=="PagoArriendo") Pago de Arriendo @endif
+                                </h4>
 							</div>
 							<div class="col-md-6">
 								<div class="shadow" style="border-radius: 30px;">

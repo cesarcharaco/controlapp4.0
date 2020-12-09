@@ -18,6 +18,7 @@ use App\ContabilidadSaldo;
 use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
 use App\Http\FlowBuilder;
+use App\Http\FlowBuilder1;
 
 class PagosController extends Controller
 {
@@ -433,29 +434,21 @@ class PagosController extends Controller
         
             
         if ($request->tipo_pago=="Flow") {
-            //dd('flow');
+            //dd($request->all());
             $request->referencia=$this->generarOrden();
             $orden_compra=$request->referencia;
-            $buscar_alquiler = \DB::table('alquiler')
-            ->join('instalaciones','instalaciones.id','=','alquiler.id_instalacion')
-            ->join('pagos_has_alquiler','pagos_has_alquiler.id_alquiler','=','alquiler.id')
-            ->where('alquiler.id',$request->id_alquiler)
-            ->select('instalaciones.nombre as instalacion','alquiler.tipo_alquiler as tipo')
-            ->first();
-            //dd($buscar_alquiler);
-            $nombre_instalacion = strtoupper($buscar_alquiler->instalacion);
-            $tipo_alquiler = strtoupper($buscar_alquiler->tipo);
-            $tipo_alq = $buscar_alquiler->tipo;
-            if ($request->monto_alquiler >= 350) {
+            
+            if ($request->total >= 350) {
                 //dd($request->all());
-                $total = $request->monto_alquiler;
+                $modulo_pago = "MR";
+                $total = $request->total;
                 $flowbuilder=new FlowBuilder1();
-                $flowbuilder->setMontoA($request->monto_alquiler);
+                $flowbuilder->setMontoA($request->total);
                 $email_pagador = \Auth::User()->email;
-                $concepto= "Pagar arriendo  de ".$nombre_instalacion.", tipo de alquiler ".$tipo_alquiler.".";
+                $concepto= "Pago de multas y recargar.";
                 $flowcontroller=new FlowAController();
                 //Con este return nos vamos al controlador de FLOW
-                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra,$tipo_alq);
+                return  $flowcontroller->orden_mr($request,$total,$concepto,$email_pagador,$orden_compra,$modulo_pago);
             } else {
                 toastr()->error('ERROR!!', 'El monto a pagar debe ser mayor a 350 pesos chilenos');
                 return redirect()->back();

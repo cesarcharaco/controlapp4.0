@@ -509,6 +509,7 @@ class AlquilerController extends Controller
             ->select('instalaciones.nombre as instalacion','alquiler.tipo_alquiler as tipo')
             ->first();
             //dd($buscar_alquiler);
+            $modulo_pago = "PagoArriendo";
             $nombre_instalacion = strtoupper($buscar_alquiler->instalacion);
             $tipo_alquiler = strtoupper($buscar_alquiler->tipo);
             $tipo_alq = $buscar_alquiler->tipo;
@@ -521,7 +522,7 @@ class AlquilerController extends Controller
                 $concepto= "Pagar arriendo  de ".$nombre_instalacion.", tipo de alquiler ".$tipo_alquiler.".";
                 $flowcontroller=new FlowAController();
                 //Con este return nos vamos al controlador de FLOW
-                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra,$tipo_alq);
+                return  $flowcontroller->orden_alquiler($request,$total,$concepto,$email_pagador,$orden_compra,$tipo_alq,$modulo_pago);
             } else {
                 toastr()->error('ERROR!!', 'El monto a pagar debe ser mayor a 350 pesos chilenos');
                 return redirect()->back();
