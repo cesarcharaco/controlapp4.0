@@ -125,6 +125,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 
 	Route::resource('pagoscomunes','PagosComunesController')->except(['index','create','edit','show','destroy']);
 	Route::get('pagoscomunes/{tipo}/{anio}/buscarPagoC','PagosComunesController@buscarPagoAnio');
+	Route::get('pagoscomunes/{mes}/buscarPagoC','PagosComunesController@buscarPagoMes');
 
 	Route::resource('anuncios','AnunciosController');
 	route::get('desactivar_orden','AnunciosController@desactivar_orden')->name('desactivar_orden');

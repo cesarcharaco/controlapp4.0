@@ -39,19 +39,9 @@ class PagosController extends Controller
         $asignaIn= \DB::table('residentes_has_inmuebles')->where('status','En Uso')->groupBy('id_residente')->get();
         $asignaEs= \DB::table('residentes_has_est')->where('status','En Uso')->groupBy('id_residente')->get();
 
+        $meses2=Meses::where('id','<=',date("m"))->get();
 
-        $mensualidades=\DB::table('mensualidades')
-            ->join('pagos','pagos.id_mensualidad','=','mensualidades.id')
-            ->join('inmuebles','inmuebles.id','=','mensualidades.id_inmueble')
-            ->join('residentes_has_inmuebles','residentes_has_inmuebles.id_inmueble','=','inmuebles.id')
-            ->join('residentes','residentes.id','=','residentes_has_inmuebles.id_residente')
-            ->join('meses','meses.id','=','mensualidades.mes')
-            ->select('mensualidades.*','pagos.*','inmuebles.idem AS idem','residentes.*','meses.mes AS mes')
-            ->orderby('pagos.status','ASC')
-            ->get();
-
-        // dd($mensualidades);
-        return View('pagos.index', compact('residentes','pagos','inmuebles','estacionamientos','meses','asignaEs','asignaIn','mensualidades'));
+        return View('pagos.index', compact('residentes','pagos','inmuebles','estacionamientos','meses','meses2','asignaEs','asignaIn'));
     }
 
     public function pagos_multas(){
@@ -66,7 +56,9 @@ class PagosController extends Controller
         $asignaIn= \DB::table('residentes_has_inmuebles')->where('status','En Uso')->groupBy('id_residente')->get();
         $asignaEs= \DB::table('residentes_has_est')->where('status','En Uso')->groupBy('id_residente')->get();
 
-        return View('pagos.index2', compact('residentes','pagos','inmuebles','estacionamientos','meses','asignaEs','asignaIn'));
+        $meses2=Meses::where('id','<=',date("m"))->get();
+
+        return View('pagos.index2', compact('residentes','pagos','inmuebles','estacionamientos','meses','meses2','asignaEs','asignaIn'));
     }
 
     /**

@@ -40,11 +40,10 @@
             
         
             @if(\Auth::user()->tipo_usuario == 'Admin')
-                <div class="row justify-content-center mb-2">
-                    <button class="btn btn-success" onclick="vistaPagos(1)" disabled id="vistaPagos1" style="float: right !important; margin-right: 3px;">Pagos por residentes</button>
-                    <button class="btn btn-warning" onclick="vistaPagos(2)" id="vistaPagos2" style="float: right !important;">Pagos por mes</button>
+                <div class="float-right">
+                    <button class="btn btn-success btn-sm rounded shadow"id="vistaPagos2" onclick="verMesesPagosC()" style="float: right !important;"><i data-feather="search" class="clipboard"></i>Pagos por mes</button>
                 </div>
-                <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" id="pagoResidente">
+                <div class="card border border-info rounded card-tabla shadow p-3 mt-5 mb-5 bg-white rounded" id="pagoResidente">
                     <div class="card-body">
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
@@ -185,48 +184,9 @@
                 </div>
             @endif
 
-            <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded" id="vista_pagos_mes">
-                <div class="card-body">
-                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                        <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
-                            <thead>
-                                <tr class="bg-info text-white">
-                                    <th>Inmueble</th>
-                                    <th>Residente</th>
-                                    <th>Mes</th>
-                                    <th>Monto</th>
-                                    <th>Estado de pago</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($mensualidades as $key)
-                                        <tr>
-                                            <td>
-                                                {{$key->idem}}
-                                            </td>
-                                            <td>
-                                                {{$key->nombres}} {{$key->apellidos}}
-                                                <br>
-                                                <strong>{{$key->rut}}</strong>
-                                            </td>
-                                            <td>
-                                                <strong>{{$key->mes}}</strong>
-                                            </td>
-                                            <td>
-                                                <strong>{{$key->monto}}$</strong>
-                                            </td>
-                                            <td>
-                                                {{$key->status}}
-                                            </td>
-                                        </tr>
-                                @endforeach()
-                            </tbody>
-                            </table>
-                    </thead>
-                </div>
-            </div>
-</div>
-</div>
+        </div>
+        @include('pagos.layouts_pagosC.buscarMeses')
+    </div>
 
         <div class="card" id="VerFomulario" style="display: none" >
             <div class="card-header">

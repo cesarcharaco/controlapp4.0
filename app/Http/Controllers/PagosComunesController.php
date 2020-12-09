@@ -348,4 +348,22 @@ class PagosComunesController extends Controller
         }
         
     }
+
+
+    public function buscarPagoMes($mes)
+    {
+        $id_admin=id_admin(\Auth::user()->email);
+
+        // return 1;
+
+        return \DB::table('residentes')
+            ->join('residentes_has_inmuebles','residentes_has_inmuebles.id_residente','=','residentes.id')
+            ->join('inmuebles','inmuebles.id','=','residentes_has_inmuebles.id_inmueble')
+            ->join('mensualidades','mensualidades.id_inmueble','=','inmuebles.id')
+            ->join('pagos','pagos.id_mensualidad','=','mensualidades.id')
+            ->where('residentes.id_admin',$id_admin)
+            ->where('mensualidades.mes',$mes)
+            ->select('residentes.*','inmuebles.idem','mensualidades.monto','pagos.status')
+            ->get();
+    }
 }

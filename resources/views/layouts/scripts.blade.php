@@ -86,6 +86,7 @@
 	});
 	var f = new Date();
     var a=f.getFullYear();
+    var ms=f.getMonth();
 
 
 	function VerCards() {
@@ -1768,6 +1769,70 @@
         	$('#vistanotifiNoti1').attr('onclick','notifiNoti(1)');
 			$('#vistanotifiNoti2').removeAttr('onclick',false);
         	$('#vistanotifiNoti2').attr('onclick','notifiNoti(2)');
+        }
+
+        function verMesesPagosC() {
+
+        	$('#selectMesesPagosC').val(ms+1);
+        	$('#buscarMesesPago').modal('show');
+        	verMesesPagosC2(ms+1);
+        }
+
+        function verMesesPagosC2(mes) {
+        	$('#CargandoPagosC').show();
+        	$('#tablaMostarMeses').empty();
+        	$.get("pagoscomunes/"+mes+"/buscarPagoC",function (data) {
+		    })
+		    .done(function(data) {
+		    	if(data.length > 0){
+		        	$('#tablaMostarMeses').append(
+		        		'<table id="tablaPagosMeses" class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width:100%; table-layout: auto;">'+
+							'<thead>'+
+								'<tr class="bg-info text-white">'+
+									'<th>Inmueble</th>'+
+									'<th>Residente</th>'+
+									'<th>Mes</th>'+
+									'<th>Monto</th>'+
+									'<th>Estado de pago</th>'+
+								'</tr>'+
+							'</thead>'+
+							'<tbody id="tablaBodyMesPagoC">'+
+								
+							'</tbody>'+
+		    			'</table>'
+		        	);
+
+
+		        	for (var i = 0; i < data.length; i++) {
+		        		if (data[i].status == 'Cancelado') {
+			        		$('#tablaBodyMesPagoC').append(
+			        			'<tr>'+
+			        				'<td>'+data[i].idem+'</td>'+
+			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
+			        				'<td>'+mostrar_mes(mes)+'</td>'+
+			        				'<td>'+data[i].monto+'</td>'+
+			        				'<td><span class="text-success">'+data[i].status+'</span></td>'+
+			        			'</tr>'
+			        		);
+		        		}else if(data[i].status == 'Pendiente'){
+		        			$('#tablaBodyMesPagoC').append(
+			        			'<tr>'+
+			        				'<td>'+data[i].idem+'</td>'+
+			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
+			        				'<td>'+mostrar_mes(mes)+'</td>'+
+			        				'<td>'+data[i].monto+'</td>'+
+			        				'<td><span class="text-info">'+data[i].status+'</span></td>'+
+			        			'</tr>'
+			        		);
+		        		}
+		        	}
+		    	}else{
+		    		$('#tablaMostarMeses').append('<h3>Sin pagos registrados para este mes</h3>');
+		    	}
+			});	
+
+        	$("#tablaPagosMeses").DataTable();
+        	$('#CargandoPagosC').css('display','none');
         }
 </script>
 <!-- Plugin js-->
