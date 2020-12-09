@@ -159,7 +159,7 @@
                         <div class="form-group">
                             <label>Total a pagar</label>
                             <center style="color: grey; font-size: 100px; width:100%; font-size: 10vw;">$<span id="TotalPagar">0</span></center>
-                            <input type="hidden" name="total" id="total" value="0">
+                            <input type="text" name="total" id="totalMR" value="0">
                         </div>
                     </div>
                 </div>

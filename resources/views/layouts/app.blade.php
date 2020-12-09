@@ -988,7 +988,7 @@
                                                         <div class="row" id="mis_mr">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
-                                                                    <span style="font-size: 20px" class="text-dark" id="TotalPagar">0</span>
+                                                                    <span style="font-size: 20px" class="text-dark" id="TotalPagarMR">0</span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1001,7 +1001,7 @@
                                             <div class="modal-footer">
                                                 <input type="hidden" name="opcion" id="opcion" value="1">
                                                 <input type="hidden" name="id_residente" id="id_residente_mr">
-                                                <input type="hidden" id="total" class="form-control" name="total">
+                                                <input type="text" id="totalMR" class="form-control" name="total">
                                                 <button type="submit" class="btn btn-danger" style="border-radius: 50px;">Pagar</i></button>
                                             </div>
                                         </div>

@@ -1117,7 +1117,7 @@
 		$('#mrSeleccionado').empty();
 		$('#mrSeleccionado2').empty();
 		$('#id_mensMultaR').empty();
-		 $('#TotalPagar').html(parseInt(0));
+		 $('#TotalPagarMR').html(parseInt(0));
 		$('#total').val(0);
 		$('#pagarMultasModal').modal('show');
 		$('#id_residente_mr').empty();
@@ -1453,11 +1453,11 @@
             //$('#total').val(0);
         // } else {
             if (tipo == 1) {
-                $('#TotalPagar').html(parseInt($('#TotalPagar').html())-monto);
-                $("#total").val($("#TotalPagar").html());
+                $('#TotalPagarMR').html(parseInt($('#TotalPagarMR').html())-monto);
+                $("#totalMR").val($("#TotalPagarMR").html());
             } else if(tipo == 2) {
-                $('#TotalPagar').html(parseInt($('#TotalPagar').html())+monto);
-                $("#total").val($("#TotalPagar").html());
+                $('#TotalPagarMR').html(parseInt($('#TotalPagarMR').html())+monto);
+                $("#totalMR").val($("#TotalPagarMR").html());
             }
         // }
     }
