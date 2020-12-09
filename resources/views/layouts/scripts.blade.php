@@ -1452,13 +1452,15 @@
             // $('#TotalPagar').html(parseInt(0));
             //$('#total').val(0);
         // } else {
-            if (tipo == 1) {
-                $('#TotalPagarMR').html(parseInt($('#TotalPagarMR').html())-monto);
-                $("#totalMR").val($("#TotalPagarMR").html());
-            } else if(tipo == 2) {
-                $('#TotalPagarMR').html(parseInt($('#TotalPagarMR').html())+monto);
-                $("#totalMR").val($("#TotalPagarMR").html());
-            }
+        if (tipo == 1) {
+        	var montoT=parseInt($('#TotalPagarMR').html())-monto;
+            $('#TotalPagarMR').html(montoT);
+            $("#totalMR2").val(montoT);
+        } else if(tipo == 2) {
+        	var montoT=parseInt($('#TotalPagarMR').html())+monto;
+            $('#TotalPagarMR').html(montoT);
+            $("#totalMR2").val(montoT);
+        }
         // }
     }
     function VerAdminHome(opcion) {

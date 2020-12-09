@@ -1011,7 +1011,7 @@
                                     <div class="modal-footer">
                                         <input type="hidden" name="opcion" id="opcion" value="1">
                                         <input type="hidden" name="id_residente" id="id_residente_mr">
-                                        <input type="text" id="totalMR" class="form-control" name="total">
+                                        <input type="hidden" id="totalMR2" name="total">
                                         <button type="submit" class="btn btn-danger" style="border-radius: 50px;">Pagar</i></button>
                                     </div>
                                   </div>
