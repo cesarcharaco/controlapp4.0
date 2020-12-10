@@ -821,7 +821,13 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <p><strong>Nota:</strong> La contraseña para ingresar será <strong>rut</strong>-<strong>verificador</strong></p>
+                                                    <p>
+                                                      <strong>Nota:</strong> La contraseña para ingresar será <strong>rut</strong>-<strong>verificador</strong>
+                                                    </p>
+                                                    <p>
+                                                      <strong>Ejemplo:</strong> 1234567<strong>-8</strong>
+                                                    </p>
+                                                    <hr>
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
@@ -1058,7 +1064,7 @@
                                     </div>
                                 </div>
                             </form>
-                            
+
                             <form action="{{ route('inmuebles.store') }}" method="POST">
                                 @csrf
                                 <div class="modal fade" id="crearInmueble" role="dialog">
