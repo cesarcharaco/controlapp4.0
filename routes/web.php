@@ -92,6 +92,9 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('multas_residentes/{id_residente}/buscar','MultasRecargasController@multas_residentes');
 	Route::get('residentes_confirmar/{id_multa}/buscar','MultasRecargasController@residentes_confirmar');
 
+	// ------------------------Pagos de multas
+	Route::get('pagoscomunes/{mes}/buscarMultas','MultasRecargasController@buscarPagoMes');
+
 
 
 	Route::resource('pagos','PagosController');

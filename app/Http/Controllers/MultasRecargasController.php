@@ -355,4 +355,20 @@ class MultasRecargasController extends Controller
         $asignado=\DB::table('resi_has_mr')->where('id_residente',$id_residente)->where('id_mr',$id_mr)->get();
         return count($asignado);
     }
+
+    public function buscarPagoMes($mes)
+    {
+        $id_admin=id_admin(\Auth::user()->email);
+
+        // return 1;
+
+        return \DB::table('residentes')
+            ->join('resi_has_mr','resi_has_mr.id_residente','=','residentes.id')
+            ->join('multas_recargas','multas_recargas.id','=','resi_has_mr.id_mr')
+            ->join('meses','meses.id','=','resi_has_mr.mes')
+            ->where('residentes.id_admin',$id_admin)
+            ->where('resi_has_mr.mes',$mes)
+            ->select('residentes.*','multas_recargas.*','resi_has_mr.status','meses.mes AS mes')
+            ->get();
+    }
 }

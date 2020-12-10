@@ -1871,6 +1871,100 @@
 			});	
 
         }
+
+
+        function verMesesMultas() {
+
+        	$('.CargandoMesesPagoM').show();
+        	$('#selectMesesMulta').val(ms+1);
+        	$('#buscarMesesMulta').modal('show');
+        	verMesesPagosMultas2(ms+1);
+        }
+
+        function verMesesPagosMultas2(mes) {
+        	$('.CargandoMesesPagoM').show();
+        	$('#tablaMostarMesesM').empty();
+        	$.get("pagoscomunes/"+mes+"/buscarMultas",function (data) {
+		    })
+		    .done(function(data) {
+		    	if(data.length > 0){
+		    		$('#tablaMostarMesesM').append(
+		        		'<table id="tablaPagosMesesM" class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width:100%; table-layout: auto;">'+
+							'<thead>'+
+								'<tr class="bg-info text-white">'+
+									'<th>Multa/Recarga</th>'+
+									'<th>Residente</th>'+
+									'<th>Mes</th>'+
+									'<th>Monto</th>'+
+									'<th>Estado de pago</th>'+
+								'</tr>'+
+							'</thead>'+
+							'<tbody id="tablaBodyMesMulta">'+
+								
+							'</tbody>'+
+		    			'</table>'
+		        	);
+
+
+		        	for (var i = 0; i < data.length; i++) {
+		        		if (data[i].status == 'Pagada') {
+			        		$('#tablaBodyMesMulta').append(
+			        			'<tr>'+
+			        				'<td>'+data[i].motivo+'</td>'+
+			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
+			        				'<td>'+data[i].mes+'</td>'+
+			        				'<td>'+data[i].monto+'</td>'+
+			        				'<td><span class="text-success">'+data[i].status+'</span></td>'+
+			        			'</tr>'
+			        		);
+		        		}else if(data[i].status == 'Por Confirmar'){
+		        			$('#tablaBodyMesMulta').append(
+			        			'<tr>'+
+			        				'<td>'+data[i].motivo+'</td>'+
+			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
+			        				'<td>'+data[i].mes+'</td>'+
+			        				'<td>'+data[i].monto+'</td>'+
+			        				'<td><span class="text-info">'+data[i].status+'</span></td>'+
+			        			'</tr>'
+			        		);
+		        		}
+		        	}
+			    	if (i == data.length) {
+			        	$("#tablaPagosMesesM").DataTable({
+							"paging": true,
+				            "bPaginate": true,
+							"pageLength": 50,
+							"responsive": true,
+				      		"autoWidth": true,
+				      		language: {
+						        "decimal": "",
+						        "emptyTable": "No hay información",
+						        "info": "Mostrando la página _PAGE_ de _PAGES_",
+						        "infoEmpty": "Mostrando 0 de 0 Entradas",
+						        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+						        "infoPostFix": "",
+						        "thousands": ",",
+						        "lengthMenu": "Mostrar _MENU_ Entradas",
+						        "loadingRecords": "Cargando...",
+						        "processing": "Procesando...",
+						        "search": "",
+						        "zeroRecords": "Sin resultados encontrados",
+						        "first": "Primero",
+						        "last": "Ultimo",
+						        "next": "Próximo",
+						        "previous": "Anterior",
+					        }
+						});
+
+			    	}
+        			$('.CargandoMesesPagoM').hide();
+		    	}else{
+		    		$('#tablaMostarMesesM').append('<h3>Sin pagos registrados para este mes</h3>');
+		    		$('.CargandoMesesPagoM').hide();
+		    	}
+			});	
+
+        }
 </script>
 <!-- Plugin js-->
 <script src="{{ asset('assets/libs/parsleyjs/parsley.min.js') }}"></script>

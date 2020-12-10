@@ -40,62 +40,64 @@
         @endif
             
         
-            @if(\Auth::user()->tipo_usuario == 'Admin')
-                <div class="card border border-danger rounded card-tabla shadow p-3 mb-5 bg-white rounded">
-                    <div class="card-body">
-                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                            <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
-                                <thead>
-                                    <tr class="bg-danger text-white">
-                                        <th>Nombres</th>
-                                        <th>RUT</th>
-                                        <th>Asignaciones</th>
-                                        <th>Opciones</th>
+        @if(\Auth::user()->tipo_usuario == 'Admin')
+            <div class="float-right">
+                <button class="btn btn-success btn-sm rounded shadow"id="vistaPagos2" onclick="verMesesMultas()" style="float: right !important;"><i data-feather="search" class="clipboard"></i>Pagos por mes</button>
+            </div>
+            <div class="card border border-danger rounded card-tabla shadow p-3 mt-5 mb-5 bg-white rounded">
+                <div class="card-body">
+                    <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                        <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                            <thead>
+                                <tr class="bg-danger text-white">
+                                    <th>Nombres</th>
+                                    <th>RUT</th>
+                                    <th>Asignaciones</th>
+                                    <th>Opciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($residentes as $key)
+                                    <tr>
+                                        <td align="center">
+                                            <div class="form-group">
+                                                {{$key->nombres}} {{$key->apellidos}}
+                                            </div>
+                                        </td>
+                                        <td align="center">                                                
+                                            {{$key->rut}}
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-warning btn-sm shadow" onclick="verAsignadosM('{{$key->id}}')" >
+                                                <span><i data-feather="eye" style="float: left;"></i>Asignaciones</span>
+                                            </a>                                                
+                                        </td>
+                                        <td>
+                                            <center>
+                                                <a href="#" class="btn btn-success btn-sm shadow" onclick="pagarMultasResidente('{{$key->id}}')" >
+                                                    <span><i data-feather="dollar-sign" style="float: left;"></i>Pagar</span>
+                                                </a>
+                                            
+                                                <a href="#" class="btn btn-info btn-sm shadow" onclick="multasPorComprobar('{{$key->id}}')">
+                                                    <span><i data-feather="check-square" style="float: left;"></i>Confirmar</span>
+                                                </a>
+                                            
+                                                <a href="#" class="btn btn-danger btn-sm shadow" onclick="eliminarMulta('{{$key->id}}')">
+                                                    <span><i data-feather="trash" style="float: left;"></i>Eliminar Multas y/o recargas</span>
+                                                </a>
+                                            </center>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($residentes as $key)
-                                        <tr>
-                                            <td align="center">
-                                                <div class="form-group">
-                                                    {{$key->nombres}} {{$key->apellidos}}
-                                                </div>
-                                            </td>
-                                            <td align="center">                                                
-                                                {{$key->rut}}
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning btn-sm shadow" onclick="verAsignadosM('{{$key->id}}')" >
-                                                    <span><i data-feather="eye" style="float: left;"></i>Asignaciones</span>
-                                                </a>                                                
-                                            </td>
-                                            <td>
-                                                <center>
-                                                    <a href="#" class="btn btn-success btn-sm shadow" onclick="pagarMultasResidente('{{$key->id}}')" >
-                                                        <span><i data-feather="dollar-sign" style="float: left;"></i>Pagar</span>
-                                                    </a>
-                                                
-                                                    <a href="#" class="btn btn-info btn-sm shadow" onclick="multasPorComprobar('{{$key->id}}')">
-                                                        <span><i data-feather="check-square" style="float: left;"></i>Confirmar</span>
-                                                    </a>
-                                                
-                                                    <a href="#" class="btn btn-danger btn-sm shadow" onclick="eliminarMulta('{{$key->id}}')">
-                                                        <span><i data-feather="trash" style="float: left;"></i>Eliminar Multas y/o recargas</span>
-                                                    </a>
-                                                </center>
-                                            </td>
-                                        </tr>
-                                    @endforeach()
-                                </tbody>
-                            </table>
-                        </div>
+                                @endforeach()
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endif
+            </div>
+            @include('pagos.layouts_pagosM.buscarMeses')
+        @endif
 
-    </div>
-</div>
-</div>
+
 
         <div class="card" id="VerFomulario" style="display: none" >
            {!! Form::open(['route' => ['pagos.store'],'method' => 'POST', 'name' => 'registrarPago', 'id' => 'registrar_pago', 'data-parsley-validate']) !!}
