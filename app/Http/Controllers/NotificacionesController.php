@@ -120,6 +120,8 @@ class NotificacionesController extends Controller
     public function buscarNotificaciones($id)
     {
         $id_admin=id_admin(\Auth::user()->email);
+
+        
         if (\Auth::user()->tipo_usuario=="Residente") {
             $residente=Residentes::where('id_usuario',\Auth::user()->id)->first();
             // $noticias=Noticias::where('id_admin',$residente->id_admin)->get();

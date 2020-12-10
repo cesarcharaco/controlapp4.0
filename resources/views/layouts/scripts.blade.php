@@ -1740,10 +1740,12 @@
         function notifiNoti(opcion){
         	$('.multi-collapse').collapse('hide');
         	if (opcion==1) {
+        		// buscarNotificaciones();
         		$('#verNotificaciones').collapse('show');
         		$('#vistanotifiNoti1').removeAttr('onclick',false);
         		$('#vistanotifiNoti1').attr('onclick','cerrarVP()');
         	}else{
+        		// buscarNotificaciones();
         		$('#verNoticias').collapse('show');
         		$('#vistanotifiNoti2').removeAttr('onclick',false);
         		$('#vistanotifiNoti2').attr('onclick','cerrarVP()');
@@ -1751,17 +1753,19 @@
 			$('#contenidoPagina').fadeOut('fast');
         }
 
-        function buscarNotificaciones(opcion) {
-    		$.get('buscar/'+opcion+'/notificaciones',function (data) {
-		    })
-		    .done(function(data) {
-        		if (data.length>0) {
-        			
-        		}else{
+   //      function buscarNotificaciones(opcion) {
+   //  		$.get('buscar/'+opcion+'/notificaciones',function (data) {
+		 //    })
+		 //    .done(function(data) {
+   //      		if (data.length>0) {
+   //      			$('#notificacionesShow').append(
 
-        		}
-			});
-        }
+   //      			);
+   //      		}else{
+   //      			$('#notificacionesShow').append('<h3>Sin Notificaciones</h3>');
+   //      		}
+			// });
+   //      }
         function cerrarVP() {
         	$('.multi-collapse').collapse('hide');
         	$('#contenidoPagina').fadeIn(300);

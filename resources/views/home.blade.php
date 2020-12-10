@@ -273,59 +273,59 @@
                                 </div>
                                 <div class="card-body">
                                     @foreach($notificaciones as $key)
-                                    @if(\Auth::user()->tipo_usuario=="Admin")
-                                    <h4>{{$key->titulo}}</h4>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <p>{{$key->motivo}}</p>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <ul>
-                                                {{ mostrar_resi_has_notif($key->id) }}
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <div class="dropdown align-self-center float-right">
-                                                    <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="uil uil-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
-                                                        <!-- item-->
-                                                        <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNotificacion"><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
-                                                        <!-- item-->
-                                                        <div class="dropdown-divider"></div>
-                                                        <!-- item-->
-                                                        <a href="{{ route('eliminarNotificacion', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Delete</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @elseif(\Auth::user()->tipo_usuario!=="Admin")
-                                        @if($key->publicar=="Todos" || buscar_notificacion($residente->id,$key->id)>0)
+                                        @if(\Auth::user()->tipo_usuario=="Admin")
                                         <h4>{{$key->titulo}}</h4>
-                                        <div class="row">
-                                            <div class="col-md-10">
-                                                <p>{{$key->motivo}}</p>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <div class="dropdown align-self-center float-right">
-                                                    <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
-                                                        <i class="uil uil-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
-                                                        <!-- item-->
-                                                        <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNotificacion"><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
-                                                        <!-- item-->
-                                                        <div class="dropdown-divider"></div>
-                                                        <!-- item-->
-                                                        <a href="{{ route('eliminarNotificacion', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Delete</a>
+                                            <div class="row">
+                                                <div class="col-md-5">
+                                                    <p>{{$key->motivo}}</p>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <ul>
+                                                    {{ mostrar_resi_has_notif($key->id) }}
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="dropdown align-self-center float-right">
+                                                        <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="uil uil-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
+                                                            <!-- item-->
+                                                            <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNotificacion"><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
+                                                            <!-- item-->
+                                                            <div class="dropdown-divider"></div>
+                                                            <!-- item-->
+                                                            <a href="{{ route('eliminarNotificacion', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Delete</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @elseif(\Auth::user()->tipo_usuario!=="Admin")
+                                            @if($key->publicar=="Todos" || buscar_notificacion($residente->id,$key->id)>0)
+                                            <h4>{{$key->titulo}}</h4>
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    <p>{{$key->motivo}}</p>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="dropdown align-self-center float-right">
+                                                        <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
+                                                            <i class="uil uil-ellipsis-v"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
+                                                            <!-- item-->
+                                                            <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNotificacion"><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
+                                                            <!-- item-->
+                                                            <div class="dropdown-divider"></div>
+                                                            <!-- item-->
+                                                            <a href="{{ route('eliminarNotificacion', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Delete</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endif
                                         @endif
-                                    @endif
                                     @endforeach()
                                 </div>
                                 <div class="card-footer">

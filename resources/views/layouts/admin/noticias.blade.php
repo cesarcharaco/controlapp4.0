@@ -1,11 +1,11 @@
 <div class="collapse multi-collapse" id="verNoticias" style=" margin-left: -12px; margin-top: -40px;width: 103% !important; background-color: white !important; position: relative;">
-    <div class="card">
+    <div class="card" style=" border-color: white!important;">
       <div class="card-header">
       </div>
       <div class="card-body">
         <div class="row">
           <div class="col-md-12">
-		    <div class="card border border-success rounded shadow p-3 mb-5 bg-white rounded" style="display: none;">
+		    <div class="card border border-success rounded shadow p-3 mb-5 bg-white rounded" style="display: none; border-color: #43d39e!important;">
 		        <div class="card-header" style="background-color: white !important;">
 		            <div class="row">
 		                <div class="col-md-8">
