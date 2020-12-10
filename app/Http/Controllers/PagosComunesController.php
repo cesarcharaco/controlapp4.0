@@ -361,9 +361,10 @@ class PagosComunesController extends Controller
             ->join('inmuebles','inmuebles.id','=','residentes_has_inmuebles.id_inmueble')
             ->join('mensualidades','mensualidades.id_inmueble','=','inmuebles.id')
             ->join('pagos','pagos.id_mensualidad','=','mensualidades.id')
+            ->join('meses','meses.id','=','mensualidades.mes')
             ->where('residentes.id_admin',$id_admin)
             ->where('mensualidades.mes',$mes)
-            ->select('residentes.*','inmuebles.idem','mensualidades.monto','pagos.status')
+            ->select('residentes.*','inmuebles.idem','mensualidades.monto','pagos.status','meses.mes AS mes')
             ->get();
     }
 }

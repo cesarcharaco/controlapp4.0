@@ -1811,7 +1811,7 @@
 			        			'<tr>'+
 			        				'<td>'+data[i].idem+'</td>'+
 			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
-			        				'<td>'+mostrar_mes(mes)+'</td>'+
+			        				'<td>'+data[i].mes+'</td>'+
 			        				'<td>'+data[i].monto+'</td>'+
 			        				'<td><span class="text-success">'+data[i].status+'</span></td>'+
 			        			'</tr>'
@@ -1821,7 +1821,7 @@
 			        			'<tr>'+
 			        				'<td>'+data[i].idem+'</td>'+
 			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
-			        				'<td>'+mostrar_mes(mes)+'</td>'+
+			        				'<td>'+data[i].mes+'</td>'+
 			        				'<td>'+data[i].monto+'</td>'+
 			        				'<td><span class="text-info">'+data[i].status+'</span></td>'+
 			        			'</tr>'
