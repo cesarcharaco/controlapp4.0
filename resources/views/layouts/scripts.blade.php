@@ -1738,6 +1738,7 @@
         }
 
         function notifiNoti(opcion){
+        	alert('ads');
         	$('.multi-collapse').collapse('hide');
         	if (opcion==1) {
         		$('#verNotificaciones').collapse('show');
@@ -1756,7 +1757,7 @@
 		    })
 		    .done(function(data) {
         		if (data.length>0) {
-        			// $('#notificacionesShow').append('')
+        			
         		}else{
 
         		}
@@ -1773,13 +1774,14 @@
 
         function verMesesPagosC() {
 
+        	$('.CargandoMesesPago').show();
         	$('#selectMesesPagosC').val(ms+1);
         	$('#buscarMesesPago').modal('show');
         	verMesesPagosC2(ms+1);
         }
 
         function verMesesPagosC2(mes) {
-        	$('#CargandoPagosC').show();
+        	$('.CargandoMesesPago').show();
         	$('#tablaMostarMeses').empty();
         	$.get("pagoscomunes/"+mes+"/buscarPagoC",function (data) {
 		    })
@@ -1826,13 +1828,41 @@
 			        		);
 		        		}
 		        	}
+			    	if (i == data.length) {
+			        	$("#tablaPagosMeses").DataTable({
+							"paging": true,
+				            "bPaginate": true,
+							"pageLength": 50,
+							"responsive": true,
+				      		"autoWidth": true,
+				      		language: {
+						        "decimal": "",
+						        "emptyTable": "No hay información",
+						        "info": "Mostrando la página _PAGE_ de _PAGES_",
+						        "infoEmpty": "Mostrando 0 de 0 Entradas",
+						        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+						        "infoPostFix": "",
+						        "thousands": ",",
+						        "lengthMenu": "Mostrar _MENU_ Entradas",
+						        "loadingRecords": "Cargando...",
+						        "processing": "Procesando...",
+						        "search": "",
+						        "zeroRecords": "Sin resultados encontrados",
+						        "first": "Primero",
+						        "last": "Ultimo",
+						        "next": "Próximo",
+						        "previous": "Anterior",
+					        }
+						});
+
+			    	}
+        			$('.CargandoMesesPago').hide();
 		    	}else{
 		    		$('#tablaMostarMeses').append('<h3>Sin pagos registrados para este mes</h3>');
+		    		$('.CargandoMesesPago').hide();
 		    	}
 			});	
 
-        	$("#tablaPagosMeses").DataTable();
-        	$('#CargandoPagosC').css('display','none');
         }
 </script>
 <!-- Plugin js-->

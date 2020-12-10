@@ -3,6 +3,11 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4>Buscar Pagos por mes</h4>
+                <div class="CargandoMesesPago">
+			        <div class="spinner-border text-info m-2" role="status">
+	                    <span class="sr-only">Cargando...</span>
+	                </div>
+                </div>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -16,12 +21,6 @@
                         @endforeach
                     </select>
                 </div>
-                <div id="CargandoPagosC">
-			        <div class="spinner-border text-warning m-2" role="status" id="cargando_E">
-				            <span class="sr-only">Cargando referencia</span>
-				        </div>
-				        <h3>Cargando referencia</h3>
-			    </div>
         		<div id="tablaMostarMeses"></div>
             </div>
 

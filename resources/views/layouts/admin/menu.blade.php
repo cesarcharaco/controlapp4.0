@@ -78,42 +78,42 @@
                     <li>
                         <a href="javascript: void(0);" aria-expanded="false">
                             <i data-feather="database"></i>
-                            <span> Base de datos </span>
+                            <span> Base de Datos </span>
                             <span class="menu-arrow"></span>
                         </a>
 
                         <ul class="nav-second-level mm-collapse" aria-expanded="false">
                             <li>
                                 <a href="{{ url('inmuebles') }}">
-                                    <span> Crear o editar Inmuebles </span>
+                                    <span> Crear o Editar Inmuebles </span>
                                 </a>
                             </li>
                         
                             <li>
                                 <a href="{{ url('residentes') }}">
-                                    <span> Crear o editar Residentes </span>
+                                    <span> Crear o Editar Residentes </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ url('arriendos') }}">
-                                    <span> Asignación de res/Inm </span>
+                                    <span> Asignación de Res/Inm </span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="{{ url('contabilidad') }}">
-                                    <span> Valor de gastos comunes </span>
+                                    <span> Valor de Gastos Comunes </span>
                                 </a>
                             </li>
 
                             <li>
                                 <a href="{{ url('estacionamientos') }}">
-                                    <span> Estacionamiento </span>
+                                    <span> Estacionamientos </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="{{ url('multas_recargas')}}">
-                                    <span> Crear o editar Multas/recargas </span>
+                                    <span> Crear o Editar Multas/Recargas </span>
                                 </a>
                             </li>
                             <!-- <li>
@@ -124,7 +124,7 @@
 
                             <li>
                                 <a href="{{ url('instalaciones') }}">
-                                    <span> Crear o editar Instalaciones </span>
+                                    <span> Crear o Editar Instalaciones </span>
                                 </a>
                             </li>
 
@@ -159,7 +159,7 @@
                         <ul class="nav-second-level mm-collapse" aria-expanded="false">
                             <li>
                                 <a href="{{ url('reportes')}}">
-                                    <span> Gasto común </span>
+                                    <span> Gasto Común </span>
                                 </a>
                             </li>
                             <li>
@@ -172,7 +172,7 @@
                     <li>
                         <a href="{{ url('alquiler') }}">
                             <i data-feather="columns"></i>
-                            <span> Arriendo de inst. </span>
+                            <span> Arriendo de Inst. </span>
                         </a>
                     </li>
                 @endif
