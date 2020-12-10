@@ -55,3 +55,5 @@
 </div>
 </div>
 </div>
+
+@include('layouts.admin.layouts.noticias.create')
