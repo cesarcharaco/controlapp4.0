@@ -378,7 +378,7 @@ class AlquilerController extends Controller
                             $instalacion->save();
                         }                        
 
-                        toastr()->success('con éxito!', 'Alquiler registrada');
+                        toastr()->success('con éxito!', 'Alquiler registrado');
                         return redirect()->to('alquiler');
                     }
                 }
