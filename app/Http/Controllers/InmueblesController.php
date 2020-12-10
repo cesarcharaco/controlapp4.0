@@ -219,19 +219,29 @@ class InmueblesController extends Controller
             toastr()->warning('intente otra vez!!', 'Ya hay un inmueble registrado con ese idem');
 			return redirect()->back();
 		} else {
-			$inmueble=Inmuebles::find($request->id);
-			$inmueble->idem=$request->idem;
-			$inmueble->tipo=$request->tipo;
-			$inmueble->status=$request->status;
-			$inmueble->estacionamiento=$request->estacionamiento;
-             if ($request->estacionamiento=="Si") {
-                $inmueble->cuantos=$request->cuantos;
+            $query = Inmuebles::join('residentes_has_inmuebles','residentes_has_inmuebles.id_inmueble','=','inmuebles.id')
+                    ->where('residentes_has_inmuebles.status','En Uso')
+                    ->where('id_inmueble',$request->id)->first();
+            //dd($query);
+            if ($request->status=="Disponible" && $query->status=="En Uso") {
+                toastr()->error('Error!!', 'Inmueble esta en uso, no se le puede cambiar el status');
+                return redirect()->to('inmuebles');
+            } else {
+    			$inmueble=Inmuebles::find($request->id);
+    			$inmueble->idem=$request->idem;
+    			$inmueble->tipo=$request->tipo;
+    			$inmueble->status=$request->status;
+    			$inmueble->estacionamiento=$request->estacionamiento;
+                 if ($request->estacionamiento=="Si") {
+                    $inmueble->cuantos=$request->cuantos;
+                }
+                
+    			$inmueble->save();
+
+    			toastr()->success('con éxito!!', 'Inmueble actualizado');
+    			return redirect()->to('inmuebles');
             }
             
-			$inmueble->save();
-
-			toastr()->success('con éxito!!', 'Inmueble actualizado');
-			return redirect()->to('inmuebles');
 		}
 	}
 
