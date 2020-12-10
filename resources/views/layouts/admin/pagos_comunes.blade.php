@@ -1,4 +1,4 @@
-<div class="collapse multi-collapse" id="verPagosComunes" style=" margin-left: -12px; margin-top: -40px;width: 103% !important; background-color: white !important; position: relative;">
+<div class="collapse multi-collapse" id="verPagosComunes" style=" margin-left: -12px; margin-top: -45px;width: 103% !important; background-color: white !important; position: relative;">
     <div class="card" style=" border-color: white!important;">
       <div class="card-header">
       </div>
