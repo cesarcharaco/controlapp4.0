@@ -86,3 +86,5 @@
       </div>
     </div>
   </div>
+
+@include('layouts.admin.layouts.notificaciones.create')
