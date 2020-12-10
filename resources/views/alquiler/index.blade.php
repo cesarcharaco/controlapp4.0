@@ -1115,9 +1115,11 @@
     function pagoRealizadoA() {
         // alert('ASDASD');
         if($('#pagoRealizado').prop('checked')){
+            $('#tipo_pago').attr('required',true);
             $('#mostrarRefeC').fadeIn(300);
             $('#refeCreateA').attr('required',true);
         }else{
+            $('#tipo_pago').removeAttr('required',false);
             $('#mostrarRefeC').fadeOut(300);
             $('#refeCreateA').removeAttr('required',false);
         }
