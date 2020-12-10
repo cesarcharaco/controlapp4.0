@@ -40,7 +40,7 @@
                 <li>
                         <a href="javascript: void(0);" aria-expanded="false">
                             <i data-feather="share"></i>
-                        <span> Vista principal </span>
+                        <span> Vista Principal </span>
                             <span class="menu-arrow"></span>
                         </a>
 
