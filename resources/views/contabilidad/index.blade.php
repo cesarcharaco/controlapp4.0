@@ -96,6 +96,7 @@
                             <thead>
                                 <tr bgcolor="#3490dc" class="text-white">
                                     <th>Fecha</th>
+                                    <th>Referencia</th>
                                     <th>Descripción</th>
                                     <th>Ingreso</th>
                                     <th>Egreso</th>
@@ -105,6 +106,7 @@
                                 @foreach($contabilidad as $key)
                                 <tr>
                                     <th>{{$key->created_at}}</th>
+                                    <th>{{$key->referencia}}</th>
                                     <th>{{$key->descripcion}}</th>
                                     <th>{{$key->ingreso}}</th>
                                     <th>{{$key->egreso}}</th>

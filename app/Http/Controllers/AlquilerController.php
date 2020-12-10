@@ -293,6 +293,7 @@ class AlquilerController extends Controller
                                 $contabilidad=new Contabilidad();
                                 $contabilidad->id_admin=$id_admin;
                                 $contabilidad->id_mes=date('n');
+                                $contabilidad->referencia=$referencia;
                                 $contabilidad->descripcion="Pago de arriendo de ".$alquiler->instalacion->nombre."";
                                 $contabilidad->ingreso=$request->costo_permanente;
                                 $contabilidad->egreso=0;
@@ -536,6 +537,10 @@ class AlquilerController extends Controller
                         $instalacion->status="Inactivo";
                         $instalacion->save();
                     }
+                    $referencia = \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
+                    ->select('referencia')->first();
+                    //dd($referencia);
+
                     \DB::table('pagos_has_alquiler')->where('id_alquiler', $request->id_alquiler)
                         ->update([
                             'status'=> "Pagado"
@@ -553,6 +558,7 @@ class AlquilerController extends Controller
                     $contabilidad=new Contabilidad();
                     $contabilidad->id_admin=$id_admin;
                     $contabilidad->id_mes=date('n');
+                    $contabilidad->referencia=$referencia->referencia;
                     $contabilidad->descripcion="Pago de arriendo de ".$request->instalacion."";
                     $contabilidad->ingreso=$request->monto;
                     $contabilidad->egreso=0;
@@ -609,6 +615,7 @@ class AlquilerController extends Controller
                         $contabilidad=new Contabilidad();
                         $contabilidad->id_admin=$id_admin;
                         $contabilidad->id_mes=date('n');
+                        $contabilidad->referencia=$referencia;
                         $contabilidad->descripcion="Pago de arriendo de ".$request->instalacion."";
                         $contabilidad->ingreso=$request->monto;
                         $contabilidad->egreso=0;

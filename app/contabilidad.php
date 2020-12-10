@@ -8,7 +8,7 @@ class Contabilidad extends Model
 {
     protected $table='contabilidad';
 
-    protected $fillable=['id_admin','id_mes','descripcion','ingreso','egreso','created_at'];
+    protected $fillable=['id_admin','id_mes','referencia','descripcion','ingreso','egreso','created_at'];
 
     public function admin()
     {

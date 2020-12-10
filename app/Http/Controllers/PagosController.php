@@ -154,10 +154,16 @@ class PagosController extends Controller
                         } else {
                             $saldo = $consulta_saldo->saldo;
                         }
+                        if ($request->tipo_pago=="Transferencia") {
+                            $referencia = $request->referencia;
+                        } else {
+                            $referencia = date('YmdHim');
+                        }
 
                         $contabilidad=new Contabilidad();
                         $contabilidad->id_admin=$id_admin;
                         $contabilidad->id_mes=date('n');
+                        $contabilidad->referencia=$referencia;
                         $contabilidad->descripcion=$descripcion;
                         $contabilidad->ingreso=$total;
                         $contabilidad->egreso=0;
@@ -217,10 +223,15 @@ class PagosController extends Controller
                                             } else {
                                                 $saldo = $consulta_saldo->saldo;
                                             }
-
+                                            if ($request->tipo_pago=="Transferencia") {
+                                                $referencia = $request->referencia;
+                                            } else {
+                                                $referencia = date('YmdHim');
+                                            }
                                             $contabilidad=new Contabilidad();
                                             $contabilidad->id_admin=$id_admin;
                                             $contabilidad->id_mes=date('n');
+                                            $contabilidad->referencia=$referencia;
                                             $contabilidad->descripcion=$descripcion;
                                             $contabilidad->ingreso=$total;
                                             $contabilidad->egreso=0;
@@ -324,10 +335,15 @@ class PagosController extends Controller
                         } else {
                             $saldo = $consulta_saldo->saldo;
                         }
-
+                        if ($request->tipo_pago=="Transferencia") {
+                            $referencia = $request->referencia;
+                        } else {
+                            $referencia = date('YmdHim');
+                        }
                         $contabilidad=new Contabilidad();
                         $contabilidad->id_admin=$id_admin;
                         $contabilidad->id_mes=date('n');
+                        $contabilidad->referencia=$referencia;
                         $contabilidad->descripcion=$descripcion;
                         $contabilidad->ingreso=$total;
                         $contabilidad->egreso=0;
@@ -376,9 +392,15 @@ class PagosController extends Controller
                                                 $saldo = $consulta_saldo->saldo;
                                             }
 
+                                            if ($request->tipo_pago=="Transferencia") {
+                                                $referencia = $request->referencia;
+                                            } else {
+                                                $referencia = date('YmdHim');
+                                            }
                                             $contabilidad=new Contabilidad();
                                             $contabilidad->id_admin=$id_admin;
                                             $contabilidad->id_mes=date('n');
+                                            $contabilidad->referencia=$referencia;
                                             $contabilidad->descripcion=$descripcion;
                                             $contabilidad->ingreso=$total;
                                             $contabilidad->egreso=0;

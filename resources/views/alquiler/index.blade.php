@@ -1254,6 +1254,8 @@
                 $('#id_residente_p').val(data[0].id_residente);
                 $('#monto_p').val(data[0].monto);
                 $('#quitar_ref').css('display','block');
+                $('#referencia_p_arriendos').attr('required',true);
+                $('#tipo_pago_alquiler').attr('required',true);
             }else{
                 $('#monto_pagar').append(
                     '<h3 align="center">¿Está seguro que desea pagar este alquiler ?</h3>'+

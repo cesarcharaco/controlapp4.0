@@ -17,6 +17,7 @@ class CreateContabilidadTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('id_admin');
             $table->unsignedBigInteger('id_mes');
+            $table->string('referencia')->nullable();
             $table->string('descripcion');
             $table->float('ingreso');
             $table->float('egreso');

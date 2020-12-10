@@ -25,8 +25,8 @@
 						    <div class="row" id="vistaPagarArriendos">
 						    	<div class="col-md-6">
 						    		<div class="form-group">
-						    			<label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
-						    			<select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
+						    			<label for="tipo_pago_alquiler">Tipo de pago <b style="color: red;">*</b></label>
+						    			<select name="tipo_pago" id="tipo_pago_alquiler" class="form-control" onchange="carg(this);">
 						    				<option value="">Seleccione tipo de pago...</option>
 						    				<option value="Transferencia">Transferencia</option>
 						    				@if(\Auth::user()->tipo_usuario=="Admin")
@@ -39,7 +39,7 @@
 						    	<div class="col-md-6">
 						    		<div class="form-group">
 		                               <label for="referencia_p_arriendos">Código de Referencia <b class="text-danger">*</b></label>
-		                               <input type="text" name="referencia" class="form-control" placeholder="Ingrese su nueva referencia" id="referencia_p_arriendos" max="20" maxlength="20" required="required">
+		                               <input type="text" name="referencia" class="form-control" placeholder="Ingrese su nueva referencia" id="referencia_p_arriendos" max="20" maxlength="20" >
 		                           </div>
 						    	</div>
 						    </div>
