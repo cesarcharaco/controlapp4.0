@@ -32,7 +32,9 @@
 						    				@if(\Auth::user()->tipo_usuario=="Admin")
 						    				<option value="Efectivo">Efectivo</option>
 						    				@endif
+						    				@if(\Auth::user()->tipo_usuario!="Admin")
 						    				<option value="Flow">Flow</option>
+						    				@endif
 						    			</select>
 						    		</div>
 						    	</div>
