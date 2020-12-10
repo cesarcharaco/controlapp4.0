@@ -577,3 +577,10 @@ function noticias()
     }
     return $noticias;
 }
+function residentes_notif()
+{
+	$id_admin=id_admin(\Auth::user()->email);
+	$buscar=\App\Residentes::where('id_admin',$id_admin)->get();
+
+	return $buscar;
+}
