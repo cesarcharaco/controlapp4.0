@@ -1,9 +1,4 @@
 <?php
-
-
-
-
-
 function apellido()
 {
 	$apellido="";
@@ -557,4 +552,28 @@ function contar_buscar_pasarelas()
 		
 		return $contar_buscar_pasarelas;
 	}
+}
+
+function notificaciones()
+{
+	$id_admin=id_admin(\Auth::user()->email);
+	if (\Auth::user()->tipo_usuario=="Residente") {
+        $residente=\App\Residentes::where('id_usuario',\Auth::user()->id)->first();
+        $notificaciones=\App\Notificaciones::where('id_admin',$residente->id_admin)->get();
+    } else {
+        $notificaciones=\App\Notificaciones::where('id_admin',$id_admin)->get();
+    }
+    return $notificaciones;
+}
+
+function noticias()
+{
+	$id_admin=id_admin(\Auth::user()->email);
+	if (\Auth::user()->tipo_usuario=="Residente") {
+        $residente=\App\Residentes::where('id_usuario',\Auth::user()->id)->first();
+        $noticias=\App\Noticias::where('id_admin',$residente->id_admin)->get();
+    } else {
+    	$noticias=\App\Noticias::where('id_admin',$id_admin)->get();
+    }
+    return $noticias;
 }

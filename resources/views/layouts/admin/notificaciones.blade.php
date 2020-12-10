@@ -24,7 +24,7 @@
                       </div>
                   </div>
                   <div class="card-body">
-                    {{--@foreach($notificaciones as $key)
+                    	@foreach(notificaciones() as $key)
 	                    @if(\Auth::user()->tipo_usuario=="Admin")
 	                      <h4>{{$key->titulo}}</h4>
 	                          <div class="row">
@@ -78,7 +78,7 @@
 	                          </div>
 	                          @endif
 	                    @endif
-                    @endforeach()--}}
+                    @endforeach()
                   </div>
               </div>
           </div>

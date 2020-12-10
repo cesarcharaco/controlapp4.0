@@ -25,7 +25,7 @@
 		        </div>
 		        <div class="card-body">
 		            
-		            {{--@foreach($noticias as $key)
+		            @foreach(noticias() as $key)
 		            <h4>{{$key->titulo}}</h4>
 		                <div class="row">
 		                    <div class="col-md-10">
@@ -47,7 +47,7 @@
 		                        </div>
 		                    </div>
 		                </div>
-		            @endforeach()--}}
+		            @endforeach()
 		        </div>
 		    </div>
 		</div>
