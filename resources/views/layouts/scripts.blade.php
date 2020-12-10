@@ -1738,7 +1738,6 @@
         }
 
         function notifiNoti(opcion){
-        	alert('ads');
         	$('.multi-collapse').collapse('hide');
         	if (opcion==1) {
         		$('#verNotificaciones').collapse('show');
