@@ -139,6 +139,9 @@
 
         <center>
           <div class="form-group">
+            <p><strong>Nota: </strong>Para pagar por <span class="text-info">Flow</span> registre el arrendamiento y luego proceda con el pago</p>
+          </div>
+          <div class="form-group">
               <div class="">                  
                   <label for="admins_todos">¿Se realizó el pago?</label>
                   <input type="checkbox" name="pago_realizado" onchange="pagoRealizadoA();" id="pagoRealizado"  data-toggle="tooltip" data-placement="top" title="Seleccione si el pago se realizó correctamente" value="1">
