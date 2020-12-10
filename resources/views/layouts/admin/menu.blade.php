@@ -101,7 +101,7 @@
                             </li>
 
                             <li>
-                                <a href="{{ url('contabilidad') }}">
+                                <a href="javascript: void(0);" id="vistaPagoComun" onclick="notifiNoti(3)">
                                     <span> Valor de Gastos Comunes </span>
                                 </a>
                             </li>

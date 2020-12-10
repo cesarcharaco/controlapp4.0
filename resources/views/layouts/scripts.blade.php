@@ -1740,15 +1740,17 @@
         function notifiNoti(opcion){
         	$('.multi-collapse').collapse('hide');
         	if (opcion==1) {
-        		// buscarNotificaciones();
         		$('#verNotificaciones').collapse('show');
         		$('#vistanotifiNoti1').removeAttr('onclick',false);
         		$('#vistanotifiNoti1').attr('onclick','cerrarVP()');
-        	}else{
-        		// buscarNotificaciones();
+        	}else if(opcion==2){
         		$('#verNoticias').collapse('show');
         		$('#vistanotifiNoti2').removeAttr('onclick',false);
         		$('#vistanotifiNoti2').attr('onclick','cerrarVP()');
+        	}else{
+        		$('#verPagosComunes').collapse('show');
+        		$('#vistaPagoComun').removeAttr('onclick',false);
+        		$('#vistaPagoComun').attr('onclick','cerrarVP()');
         	}
 			$('#contenidoPagina').fadeOut('fast');
         }
@@ -1773,6 +1775,8 @@
         	$('#vistanotifiNoti1').attr('onclick','notifiNoti(1)');
 			$('#vistanotifiNoti2').removeAttr('onclick',false);
         	$('#vistanotifiNoti2').attr('onclick','notifiNoti(2)');
+        	$('#vistaPagoComun').removeAttr('onclick',false);
+        	$('#vistaPagoComun').attr('onclick','notifiNoti(3)');
         }
 
         function verMesesPagosC() {
