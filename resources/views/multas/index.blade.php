@@ -108,13 +108,24 @@
                                 <tr>
                                     <td>{{$num=$num+1}}</td>
                                     <td>{{$key->motivo}}</td>
-                                    <td>{{$key->observacion}}</td>
+                                    @if($key->observacion == null)
+                                        <td>Sin observación</td>
+                                    @else
+                                        <td>{{$key->observacion}}</td>
+                                    @endif
                                     <td>{{$key->monto}}</td>
                                     <td>{{$key->tipo}}</td>
                                     <td>
-                                        <button class="btn btn-warning rounded btn-sm" onclick="editarReferencia('{{$key->id}}','{{$key->id_pivot}}');">
-                                            <i data-feather="edit"></i>Editar Código de Trans.
-                                        </button>
+                                        @if($key->status == 'Pagada')
+                                            <strong class="text-success">{{$key->status}}</strong>
+                                            <button data-toggle="tooltip" data-placement="top" title="Seleccione para Editar Código de Transacción" class="btn btn-warning rounded btn-sm" onclick="editarReferencia('{{$key->id}}','{{$key->id_pivot}}');">
+                                                <i data-feather="edit"></i>
+                                            </button>
+                                        @elseif($key->status == 'Por Confirmar')
+                                            <strong class="text-warning">{{$key->status}}</strong>
+                                        @else
+                                            <strong class="text-info">{{$key->status}}</strong>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach()
