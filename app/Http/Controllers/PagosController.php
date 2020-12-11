@@ -962,6 +962,7 @@ class PagosController extends Controller
     {
         $anio=date('Y');
         $status_pago=array();
+        $inmuebles=array();
         $i=0;
         $buscar=Residentes::find($id_residente);
         foreach ($buscar->inmuebles as $key) {
@@ -969,6 +970,7 @@ class PagosController extends Controller
                 foreach ($key->mensualidades as $key2) {
                     if($key2->anio==$anio){
                         $pago=\App\Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
+                            $inmuebles[$i]=$key->idem;
                             $status_pago[$i][0]=meses($key2->mes);
                             $status_pago[$i][1]=$pago->status;
                             if(!is_null($pago->referencia)){
@@ -989,7 +991,7 @@ class PagosController extends Controller
             $anio[$i]=$a[$i]['anio'];
         }
         //dd($status_pago);
-        return view('consultas.index',compact('status_pago','buscar','anio'));
+        return view('consultas.index',compact('status_pago','buscar','anio','inmuebles'));
     }
 
     protected function generarOrden()
