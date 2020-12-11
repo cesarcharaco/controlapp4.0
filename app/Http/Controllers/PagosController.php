@@ -968,7 +968,7 @@ class PagosController extends Controller
         foreach ($buscar->inmuebles as $key) {
             if($key->pivot->status=="En Uso"){
                 foreach ($key->mensualidades as $key2) {
-                    if($key2->anio==$anio){
+                    if($key2->anio==$anio && $i <= 11){
                         $pago=\App\Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                             $inmuebles[$i]=$key->idem;
                             $status_pago[$i][0]=meses($key2->mes);
