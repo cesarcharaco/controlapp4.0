@@ -160,7 +160,7 @@
                             </center>
                         </div>
                         <div class="modal-footer">
-                            <input type="hidden" name="id_residente" id="id_residente">
+                            <input type="hidden" name="id_residente" id="id_residente_asignar">
                             <input type="hidden" name="opcion" value="inmueble">
                             <button type="submit" class="btn btn-sm btn-rounded btn-success">Guardar</button>
                         </div>
@@ -340,7 +340,9 @@
         $('#MuestraResidente').empty();
         $('#MuestraAsigna').css('display','none');
         $('#id_residente').val(id_residente);
+        $('#id_residente_asignar').val(id_residente);
         $('#id_residente2').val(id_residente);
+        console.log(id_residente);
 
         $.get('arriendos/'+id_residente+'/buscar_residente', function(data) {
 

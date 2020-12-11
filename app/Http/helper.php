@@ -584,3 +584,9 @@ function residentes_notif()
 
 	return $buscar;
 }
+function residentes_notificaciones()
+{
+	$residente=\App\Residentes::where('id_usuario',\Auth::user()->id)->first();
+
+	return $residente;
+}

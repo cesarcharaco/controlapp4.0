@@ -53,7 +53,7 @@
 	                              </div>
 	                          </div>
 	                    @elseif(\Auth::user()->tipo_usuario!=="Admin")
-	                          @if($key->publicar=="Todos" || buscar_notificacion($residente->id,$key->id)>0)
+	                          @if($key->publicar=="Todos" || buscar_notificacion(residentes_notificaciones()->id,$key->id)>0)
 	                          <h4>{{$key->titulo}}</h4>
 	                          <div class="row">
 	                              <div class="col-md-10">

@@ -147,8 +147,7 @@
                             </tr>
                         </thead>
                         <tbody id="muestraConsultas">
-                            @for($i=0; $i < count($status_pago); $i++)
-                                
+                            @for($i=0; $i < count($status_pago); $i++)                                
                                 <tr>
                                     <td>{{ $status_pago[$i][0] }}</td>
                                     @if ($status_pago[$i][1] == 'Pendiente') 
@@ -438,7 +437,6 @@
                             '<tr>'+
                                 '<th>Alquiler</th>'+
                                 '<th>Tipo de alquiler</th>'+
-                                '<th>Plan de Pago</th>'+
                                 '<th>Referencia</th>'+
                                 '<th>Status</th>'+
                                 '<th>Opciones</th>'+
@@ -467,7 +465,6 @@
                         '<tr>'+
                             '<td>'+nombre+'</td>'+
                             '<td>'+data[i].tipo_alquiler+'</td>'+
-                            '<td>'+data[i].plan_pago+'</td>'+
                             '<td>'+data[i].refer+'</td>'+
                             '<td>'+data[i].status+'</td>'+
                             '<td>'+pagar+'</td>'+
