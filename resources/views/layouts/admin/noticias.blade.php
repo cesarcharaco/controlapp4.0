@@ -31,21 +31,23 @@
 		                    <div class="col-md-10">
 		                        <p>{{$key->contenido }}</p>
 		                    </div>
-		                    <div class="col-md-2">
-		                        <div class="dropdown align-self-center float-right">
-		                            <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
-		                                <i class="uil uil-ellipsis-v"></i>
-		                            </a>
-		                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
-		                                <!-- item-->
-		                                <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNoticia" ><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
-		                                <!-- item-->
-		                                <div class="dropdown-divider"></div>
-		                                <!-- item-->
-		                                <a href="{{ route('eliminarNoticia', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Delete</a>
-		                            </div>
-		                        </div>
-		                    </div>
+		                    @if(\Auth::user()->tipo_usuario == 'Admin')
+			                    <div class="col-md-2">
+			                        <div class="dropdown align-self-center float-right">
+			                            <a href="#" class="dropdown-toggle arrow-none text-muted" data-toggle="dropdown" aria-expanded="false">
+			                                <i class="uil uil-ellipsis-v"></i>
+			                            </a>
+			                            <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-177px, 20px, 0px);">
+			                                <!-- item-->
+			                                <!-- <a href="#" class="dropdown-item" data-toggle="modal" data-target="#editarNoticia" ><i class="uil uil-edit-alt mr-2"></i>Editar</a> -->
+			                                <!-- item-->
+			                                <div class="dropdown-divider"></div>
+			                                <!-- item-->
+			                                <a href="{{ route('eliminarNoticia', $key->id)}}" class="dropdown-item text-danger"><i class="uil uil-trash mr-2"></i>Eliminar</a>
+			                            </div>
+			                        </div>
+			                    </div>
+		                    @endif
 		                </div>
 		            @endforeach()
 		        </div>

@@ -431,7 +431,10 @@
             <div class="content-page">
               @include('layouts.admin.notificaciones')
               @include('layouts.admin.noticias')
-              @include('layouts.admin.pagos_comunes')
+              
+              @if(\Auth::user()->tipo_usuario =='Admin')
+                @include('layouts.admin.pagos_comunes')
+              @endif
               
                 <div class="content" id="contenidoPagina">
 

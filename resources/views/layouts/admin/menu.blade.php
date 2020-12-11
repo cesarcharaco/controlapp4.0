@@ -68,6 +68,13 @@
                     <li>
                         <a href="{{ url('alquiler') }}">
                             <i data-feather="clock"></i>
+                            <span> Alquiler </span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url('instalaciones') }}">
+                            <i data-feather="home"></i>
                             <span> Instalaciones </span>
                         </a>
                     </li>

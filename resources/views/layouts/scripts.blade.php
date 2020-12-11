@@ -347,6 +347,8 @@
 		  autoplaySpeed: 2000,
 		});
 
+		$('.multi-collapse').collapse('hide');
+
 	});
 
 	// function paginateButton(){
