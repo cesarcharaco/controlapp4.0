@@ -540,7 +540,7 @@ class ResidentesController extends Controller
         foreach ($buscar->inmuebles as $key) {
             if($key->pivot->status=="En Uso"){
                 foreach ($key->mensualidades as $key2) {
-                    if($key2->anio==$anio){
+                    if($key2->anio==$anio && $i <= 11){
                         $pago=\App\Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                             $status_pago[$i][0]=meses($key2->mes);
                             $status_pago[$i][1]=$pago->status;
@@ -586,7 +586,7 @@ class ResidentesController extends Controller
         foreach ($buscar->inmuebles as $key) {
             if($key->pivot->status=="En Uso"){
                 foreach ($key->mensualidades as $key2) {
-                    if($key2->anio==$anio){
+                    if($key2->anio==$anio && $i <= 11){
                         $pago=Pagos::where('id_mensualidad',$key2->id)->orderby('id','DESC')->first();
                             $status_pago[$i][0]=meses($pago->mensualidad->mes);
                             $status_pago[$i][1]=$pago->status;
