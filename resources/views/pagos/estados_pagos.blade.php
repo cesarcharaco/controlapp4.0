@@ -11,11 +11,11 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Pagos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Pagos comunes</li>
+                        <li class="breadcrumb-item active" aria-current="page">Estados de Pagos</li>
                     </ol>
                 </nav>
                 <div class="row">
-                    <a class="btn btn-success btn-xs" href="{{ url('home')}}">Volver</a> <h4 class="mb-1 mt-0">Pagos - Pagos comunes</h4>
+                    <a class="btn btn-success btn-xs" href="{{ url('home')}}">Volver</a> <h4 class="mb-1 mt-0">Pagos - Estados de Pagos</h4>
                 </div>
             </div>
         </div>
@@ -40,167 +40,13 @@
     @endif
             
         
-            @if(\Auth::user()->tipo_usuario == 'Admin')
+
                 <div class="float-right">
-                    <button class="btn btn-success btn-sm rounded shadow"id="vistaPagos2" onclick="verMesesPagosC()" style="float: right !important;"><i data-feather="search" class="clipboard"></i>Pagos por mes</button>
+                    <button class="btn btn-danger btn-sm rounded shadow" style="float: right !important;"><i data-feather="file-text" class="clipboard"></i>Generar PDF</button>
                 </div>
-                <div class="card border border-info rounded card-tabla shadow p-3 mt-5 mb-5 bg-white rounded" id="pagoResidente">
+               
+                <div class="card mt-5" id="pagoResidente">
                     <div class="card-body">
-                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                            <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
-                                <thead>
-                                    <tr class="bg-info text-white">
-                                        <th>Nombres</th>
-                                        <th>RUT</th>
-                                        <th>Asignaciones</th>
-                                        <th>Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($residentes as $key)
-                                        <tr>
-                                            <td align="center">
-                                                <div class="form-group">
-                                                    {{$key->nombres}} {{$key->apellidos}}
-                                                    <br>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                {{$key->rut}}
-                                            </td>
-                                            <td align="center">
-                                                @foreach($asignaIn as $key2)
-                                                    @if($key2->id_residente == $key->id)
-                                                        <a data-toggle="tooltip" data-placement="top" title="Inmuebles asignados al residente" style="
-                                                            background-color: #CB8C4D !important;" class="btn btn-sm shadow" onclick="VerResi('{{$key2->id_residente}}')" href="#">
-                                                            <i data-feather="home" class="clipboard"></i>
-                                                        </a>
-                                                    @endif
-                                                @endforeach
-                                                <a data-toggle="tooltip" data-placement="top" title="Consultar los pagos comunes realizados del residente" href="{{ url('pagos/'.$key->id.'/consultas')}}" class="btn btn-danger btn-sm shadow">
-                                                    <i data-feather="clipboard" class="clipboard"></i>
-                                                </a>
-                                                <br><br>
-                                                @foreach($asignaEs as $key2)
-                                                    @if($key2->id_residente == $key->id)
-                                                        <a data-toggle="tooltip" data-placement="top" title="Estacionamientos asignados al residente" style="background-color: #cccc00 !important;" class="btn btn-sm shadow" onclick="VerEstacionamientos('{{$key2->id_residente}}')" href="#">
-                                                                <i data-feather="truck" class="clipboard"></i>
-                                                        </a>
-                                                    @endif
-                                                @endforeach
-                                                                                         
-                                            </td>
-                                            <td align="center">
-                                                @php $cuenta=0; @endphp
-                                                @foreach($asignaIn as $key2)
-                                                    @if($key2->id_residente == $key->id)
-                                                        @if($cuenta==0)
-
-                                                            <div class="row justify-content-center">
-                                                                <div style="margin-right: 3px;" data-toggle="tooltip" data-placement="top" title="Editar pagos realizados por el residente" class="dropdown align-self-center profile-dropdown-menu">
-                                                                    
-                                                                    <a href="#" class="dropdown-toggle mr-0 btn btn-sm btn-warning shadow" data-toggle="dropdown" role="button" aria-haspopup="false" aria-expanded="false"> 
-                                                                        <i data-feather="edit"></i>
-                                                                    </a>
-
-                                                                    <div class="dropdown-menu profile-dropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
-
-
-                                                                        <a href="#" class="dropdown-item notify-item" onclick="EditarPago('{{$key->id}}',1)" >
-                                                                            <span class="text-primary">Pago Común</span>
-                                                                        </a>
-
-                                                                        <a href="#" class="dropdown-item notify-item" onclick="EditarPago('{{$key->id}}',3)" >
-                                                                            <span class="text-danger">Multas</span>
-                                                                        </a>
-
-                                                                    </div>
-                                                                </div>
-                                                                <a style="margin-right: 3px;" data-toggle="tooltip" data-placement="top" title="Seleccione para realizar un pago común" href="#" onclick="BMesesResidente('{{$key->id}}')" class=" btn btn-sm btn-success shadow">
-                                                                    <i data-feather="dollar-sign"></i>
-                                                                </a>
-                                                                <a data-toggle="tooltip" data-placement="top" title="Ver pagos por confirmar del residente" href="#" class="btn btn btn-info btn-sm shadow" onclick="pagosPorComprobar('{{$key->id}}')">
-                                                                    <i data-feather="eye"></i>
-                                                                </a>
-                                                            </div>   
-                                                            @php $cuenta++; @endphp
-                                                        @endif
-                                                    @endif
-                                                @endforeach
-                                                @foreach($asignaEs as $key2)
-                                                        @if($key2->id_residente == $key->id)
-                                                            @if($cuenta==0) 
-                                                                <div class="dropdown align-self-center profile-dropdown-menu">
-                                                                    
-                                                                    <a style="border-radius: 5px; width: 100%;" href="#" class="dropdown-toggle mr-0 btn btn-sm btn-warning"data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false"> 
-                                                                    <span style="position: relative;">
-                                                                        <i data-feather="edit" style="float:left;"></i>Editar Pago
-                                                                    </span>
-                                                                    </a>
-
-                                                                    <div class="dropdown-menu profile-dropdown" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
-
-
-                                                                        <a href="#" class="dropdown-item notify-item" onclick="EditarPago('{{$key->id}}',1)" >
-                                                                            <span class="text-primary">Pago común</span>
-                                                                        </a>
-
-                                                                        <!-- <a href="#" class="dropdown-item notify-item" onclick="EditarPago('{{$key->id}}',2)" >
-                                                                            <span class="text-warning">Estacionamientos</span>
-                                                                        </a> -->
-
-                                                                        <a href="#" class="dropdown-item notify-item" onclick="EditarPago('{{$key->id}}',3)" >
-                                                                            <span class="text-danger">Multas</span>
-                                                                        </a>
-
-                                                                        
-                                                                        <!-- <div class="dropdown-divider"></div> -->
-
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-
-
-                                                                <a style="border-radius: 5px; width: 100%;" href="#" onclick="BMesesResidente('{{$key->id}}')" class=" btn btn-sm btn-success"> 
-                                                                    <i data-feather="dollar-sign" style="float:left;"></i>
-                                                                    <span>Realizar Pago</span>
-                                                                </a>
-
-                                                                <br><br>
-                                                                <center><a href="#" class="btn btn btn-info btn-sm" style="border-radius: 5px; width: 100%" onclick="pagosPorComprobar('{{$key->id}}')">
-                                                                    <i data-feather="eye" style="float:left;"></i>
-                                                                    <span>Pagos por Confirmar</span>
-                                                                </a></center>
-                                                                @php $cuenta++; @endphp
-                                                            @endif
-                                                        @endif
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                    @endforeach()
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            @else
-                <div class="card mt-2" id="pagoResidente">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Seleccionar Año</label>
-                                    <select class="form-control"></select>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label>Seleccionar Mes</label>
-                                    <select class="form-control"></select>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                                 <thead>
@@ -213,7 +59,6 @@
                                         <th>Monto M/R</th>
                                         <th>Descripción M/R</th>
                                         <th>Estado de Pago M/R</th>
-                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -223,10 +68,9 @@
                         </div>
                     </div>
                 </div>
-            @endif
 
         </div>
-        @include('pagos.layouts_pagosC.buscarMeses')
+        {{--@include('pagos.layouts_pagosC.buscarMeses')--}}
     </div>
 
         <div class="card" id="VerFomulario" style="display: none" >

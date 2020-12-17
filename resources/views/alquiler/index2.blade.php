@@ -21,7 +21,9 @@
         }
     </style>
     <input type="hidden" id="colorView" value="#CB8C4D !important">
-    
+    @if(\Auth::user()->tipo_usuario=="Residente")
+        <input type="hidden" name="id_residente" id="id_reside" value="{{\Auth::user()->id}}">
+    @endif
     <div class="row page-title">
         <div class="col-md-12">
             <nav aria-label="breadcrumb" class="float-right mt-1">
@@ -55,8 +57,10 @@
     <div class="card border border-info rounded card-tabla shadow p-3 mb-5 bg-white rounded">
         <div class="row justify-content-center">
             <div class="col-md-12">
+                
                 <div style="height: 100%;">
                     @include('alquiler.layouts_instalacion.show')
+                    @include('alquiler.layouts_arriendo.create')
 
                     @if(\Auth::user()->tipo_usuario=="Admin")
                         @include('alquiler.layouts_instalacion.create')
@@ -91,7 +95,7 @@
                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                     <table class="table table-bordered table-hover table-striped dataTable" style="width: 100% !important;">
                         <thead>
-                            <tr class="bg-primary text-white">
+                            <tr>
                                 <th>Nombre</th>
                                 <th>Horario Disponible</th>
                                 <th>Max. personas</th>
@@ -140,9 +144,18 @@
                                             '{{$key->max_personas}}',
                                             '{{$key->status}}')">
 
-                                            <span><strong>Ver</strong></span>
+                                            <span>
+                                                <i data-feather="eye"></i>Ver
+                                            </span>
                                         </a>
 
+                                        @if(\Auth::User()->tipo_usuario !="Admin")
+                                            <span data-toggle="tooltip" data-placement="top" title="Seleccione si desea alquilar esta instalación">
+                                                <a data-toggle="collapse" href="#nuevoArriendo" id="btnRegistrar_arriendo" role="button" aria-expanded="false" aria-controls="nuevoArriendo" class="btn btn-info shadow btn-sm" onclick="nuevoArriendo('{{$key->id}}')" >
+                                                    <i data-feather="dollar-sign"></i>
+                                                    Alquilar Instalación
+                                                </a>
+                                        @endif
                                         @if(\Auth::User()->tipo_usuario=="Admin")
                                             <span data-toggle="tooltip" data-placement="top" title="Seleccione para editar los datos del arriendo">
                                                 <a data-toggle="collapse" href="#editarInstalacion" role="button" aria-expanded="false" aria-controls="editarInstalacion" class="btn btn-warning btn-sm boton-tabla shadow" style="border-radius: 5px;" onclick="editarInstalacion(
@@ -202,15 +215,59 @@
       $('#btnRegistrar_insta').show();
     }
 
-    function nuevoArriendo() {
-        $('#btnRegistrar_arriendo').fadeOut('fast');
-        $('#example2_wrapper').fadeOut('fast');
+    function nuevoArriendo(id_instalacion) {
+
+        
+        var id_residente = $('#id_reside').val();
+        $('#id_residenteC').val(id_residente);
+        $('#instalacionList').val(id_instalacion);
+        $('#btnRegistrar_insta').fadeOut('fast');
+        $('#example1_wrapper').fadeOut('fast');
         $('#tipo_alquiler_c').attr('disabled', true);
         $('#tipo_alquilerArriendoE').attr('disabled', true);
 
         $('#tipo_alquiler_v').hide();
         $('.vistaCostoT').hide();
         $('.vistaCostoP').hide();
+
+
+        $('#montoTArriendo').val(null).removeAttr('disabled',false);
+        $('#costo_temporal').val(null).removeAttr('disabled',false);
+        
+        $.get("instalacion/"+id_instalacion+"/buscar",function (data) {
+        })
+        .done(function(data) {
+            console.log(data.length);
+            if (data.length>0) {
+                $('#tipo_alquiler_c').removeAttr('disabled', false).val(0);
+                $('#tipo_alquilerArriendoE').removeAttr('disabled', false).val(0);
+                $('#tipo_alquiler_v').fadeIn(300);
+                $('.vistaCostoT').hide();
+                $('.vistaCostoP').hide();
+
+                if(data[0].costo_permanente > 0){
+                    $('#total_costo_p').html(data[0].costo_permanente+'$');
+                    $('#costo_permanente').val(data[0].costo_permanente);
+                }else{
+                    $('#total_costo_p').html('Sin costo permanente');
+                    $('#costo_permanente').val(0);
+                }
+
+
+                if (data[0].costo_temporal > 0) {
+                    $('#montoTArriendo').val(data[0].costo_temporal);
+                    $('#costo_temporal').val(data[0].costo_temporal);
+                    $('.num_horas').removeAttr('disabled', false);
+                }else{
+                    $('#montoTArriendo').val(null).attr('disabled',true);
+                    $('#costo_temporal').val(null).attr('disabled',true);
+                    $('.num_horas').attr('disabled',true);
+                }
+
+
+                $('#num_horas').val(1);
+            }
+        });
         
 
     }
@@ -1005,6 +1062,22 @@
 
             $('.costo_permanente').attr('required',true);
             $('.costo_temporal').attr('required',true);
+        }
+    }
+    function cargarRef(elemento) {
+        d = elemento.value;
+        if (d == "") {
+          $('#referencia_p').css('display','none');
+        } else {
+            if(d == "Efectivo"){
+                $('#referencia_p').css('display','none');
+                $('#refeCreateA').removeAttr('required',false);
+                $('#refeCreateA').attr('disabled',true);
+            }else{
+                $('#referencia_p').removeAttr('style',false);
+                $('#refeCreateA').attr('required',true);
+                $('#refeCreateA').attr('disabled',false);
+            }
         }
     }
   

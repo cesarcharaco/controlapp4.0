@@ -102,6 +102,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::post('pagos/editar_referencia','PagosController@editar_referencia2')->name('pagos.editar_referencia');
 	Route::get('pagos_multas','PagosController@pagos_multas')->name('pagos_multas');
 	Route::post('pagos/mr','PagosController@pagarmultas')->name('pagar.mr');
+	Route::get('estados_pagos','PagosController@estados_pagos')->name('estados_pagos');
 
 	Route::post('arriendos/retirar','ArriendosController@retirando')->name('arriendos.retirar');
 	
