@@ -29,6 +29,7 @@ class PagosController extends Controller
      */
     public function index()
     {
+
         $id_admin=id_admin(\Auth::user()->email);
         $residentes=Residentes::where('id_admin',$id_admin)->get();
         $meses=Meses::all();
@@ -63,19 +64,28 @@ class PagosController extends Controller
 
     public function estados_pagos()
     {
-        // $id_admin=id_admin(\Auth::user()->email);
-        // $residentes=Residentes::where('id_admin',$id_admin)->get();
-        // $meses=Meses::all();
-        // $pagos=Pagos::all();
-        // $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
-        // $estacionamientos=Estacionamientos::where('id_admin',$id_admin)->get();
+        $meses=Meses::all();
+        if(\Auth::user()->tipo_usuario=="Admin"){
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+        }elseif(\Auth::user()->tipo_usuario=="Residente"){
+            $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
+        }
+        $anio=date('Y');
+        
+        return View('pagos.estados_pagos',compact('residentes','meses','anio'));
+    }
 
-        // $asignaIn= \DB::table('residentes_has_inmuebles')->where('status','En Uso')->groupBy('id_residente')->get();
-        // $asignaEs= \DB::table('residentes_has_est')->where('status','En Uso')->groupBy('id_residente')->get();
-
-        // $meses2=Meses::where('id','<=',date("m"))->get();
-
-        return View('pagos.estados_pagos');
+    public function estados_pagos_filtro($anio,$mes)
+    {
+        $meses=Meses::where('id',$mes)->get();
+        if(\Auth::user()->tipo_usuario=="Admin"){
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+        }elseif(\Auth::user()->tipo_usuario=="Residente"){
+            $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
+        }
+        $anio=date('Y');
+        
+        return View('pagos.estados_pagos',compact('residentes','meses','anio'));
     }
 
     /**

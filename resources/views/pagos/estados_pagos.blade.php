@@ -52,7 +52,9 @@
                                 <thead>
                                     <tr>
                                         <th>Inmueble</th>
+                                        @if(\Auth::user()->tipo_usuario=="Admin")
                                         <th>Residente</th>
+                                        @endif
                                         <th>Mes</th>
                                         <th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>
                                         <th>Estado de Pago</th>
@@ -62,7 +64,48 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    @foreach($residentes as $key) 
+                                        @foreach($meses as $key2)
+                                        <tr>
+                                        <td>
+                                            <ul>
+                                                @foreach($key->inmuebles as $key3)
+                                                    <li>{{ $key3->idem }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        @if(\Auth::user()->tipo_usuario=="Admin")
+                                            <td>{{ $key->apellidos }}, {{ $key->nombres }}</td>
+                                        @endif
+                                        <td>{{ $key2->mes }}</td>
+                                        <td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">{{ pc_total($key2->id,$anio,$key->id_admin,$key->id) }}
+                                        </td>
+                                        <td>{{ status_pagos($key->id,$key2->id,$anio) }}</td>
+                                        <td>
+                                            <ul>
+                                                @foreach($key->mr as $key4)
+                                                    <li>{{ $key4->monto }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                @foreach($key->mr as $key4)
+                                                    <li>{{ $key4->motivo }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                @foreach($key->mr as $key4)
+                                                    <li>{{ $key4->pivot->status }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        {{-- <td>Opciones</td> --}}
+                                    </tr>
+                                        @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

@@ -590,3 +590,52 @@ function residentes_notificaciones()
 
 	return $residente;
 }
+
+function pc_total($mes,$anio,$id_admin,$id_residente)
+{
+	$monto_i=0;
+	$monto_e=0;
+	$buscar1=App\PagosComunes::where('mes',$mes)->where('anio',$anio)->where('id_admin',$id_admin)->where('tipo','Inmueble')->first();
+	$buscar2=App\PagosComunes::where('mes',$mes)->where('anio',$anio)->where('id_admin',$id_admin)->where('tipo','Estacionamiento')->first();
+	//dd($buscar1);
+	if(!is_null($buscar1)){
+		$monto_i=$buscar1->monto;
+	}
+	if(!is_null($buscar2)){
+		$monto_e=$buscar2->monto;
+	}
+	//dd($monto_i);
+	$buscar3=App\Residentes::find($id_residente);
+	$cuantos_e=0;
+	$cuantos_i=0;
+
+	foreach($buscar3->estacionamientos as $key){
+		if($key->pivot->status=="En Uso"){
+			$cuantos_e++;
+		}
+	}
+	foreach($buscar3->inmuebles as $key){
+		if($key->pivot->status=="En Uso"){
+			$cuantos_i++;
+		}
+	}
+	$total=($cuantos_i*$monto_i)+($cuantos_e*$monto_e);
+
+	return $total;
+	
+}
+function status_pagos($id_residente,$mes,$anio){
+	$residente=App\Residentes::find($id_residente);
+	$status="";
+	foreach($residente->inmuebles as $key){
+		foreach($key->mensualidades as $key2){
+			foreach($key2->pago as $key3){
+				if($key2->mes==$mes && $key2->anio==$anio){
+					$status=$key3->status;
+				}
+			}
+		}
+	}
+
+	return $status;
+}
