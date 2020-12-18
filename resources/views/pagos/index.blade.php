@@ -46,6 +46,34 @@
                 </div>
                 <div class="card border border-info rounded card-tabla shadow p-3 mt-5 mb-5 bg-white rounded" id="pagoResidente">
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Seleccionar Año</label>
+                                    <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Año</option>
+                                        @foreach($anio2 as $key)
+                                            <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                        @endforeach()
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Seleccionar Mes</label>
+                                    <select class="form-control" name="mes" id="mes_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Mes</option>
+                                        @foreach($meses as $key)
+                                            <option value="{{$key->id}}">{{$key->mes}}</option>
+                                        @endforeach()
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="CargandoFiltroPagos" style="display: none;">
+                                <div class="spinner-border text-success m-4" role="status"></div>
+                            </div>
+                        </div>
+                        <hr>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                                 <thead>
