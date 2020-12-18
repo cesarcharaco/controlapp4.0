@@ -530,13 +530,14 @@ class ResidentesController extends Controller
         ->where('residentes_has_est.status','En Uso')
         ->select('mens_estac.monto')
         ->get();
-    $total=0;
+    $total=array();
+    $total[0]=0;
     foreach($inmuebles as $key){
-        $total+=$key->monto;
+        $total[0]+=$key->monto;
     }
 
     foreach($estacionamientos as $key){
-        $total+=$key->monto;
+        $total[0]+=$key->monto;
     }
 
     return $total;

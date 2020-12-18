@@ -1995,15 +1995,16 @@
             $.get("pagos/"+anio+"/"+mes+"/filtro",function (data) {
             })
             .done(function(data) {
-                console.log(data.length)
+            
+                //console.log(data.length)
                 if (data.length > 0) {
                 	mes=parseInt(mes);
                 	anio=parseInt(anio);
                 	var contenido='';
                     for (var i = 0; i < data.length; i++) {
-                    	//buscar_inmuebles(data[i].id,anio,mes);
-                    	//total_pagar(data[i].id,anio,mes);
-                    	//multas(data[i].id,anio,mes);
+                    	buscar_inmuebles(data[i].id,anio,mes);
+                    	total_pagar(data[i].id,anio,mes);
+                    	multas(data[i].id,anio,mes);
                     	contenido+='<tr>'+
                                 '<td><ul id="mis_inmuebles"></ul></td>'+
                                 '<td>'+data[i].nombres+', '+data[i].apellidos+'</td>'+
@@ -2109,28 +2110,35 @@
         		
         	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/total_pagar',function(data){
         		//console.log(data);
-        		$('#total_pagar').empty();
+        		if(data.length>0){
+        		
         		$('#total_pagar').text(data);
+
+        		}
         	});
         		
     }
 
-    /*function multas(id_residente,anio,mes){
+    function multas(id_residente,anio,mes){
         		
         	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/buscar_mr2',function(data){
         		//console.log(data);
-        		$('#total_pagar').empty();
-        		$('#total_pagar').text(data);
+        		
         		$('#mis_multas').empty();
         		var total=0;
+        		var motivo='';
+        		var monto=0;
         		if(data.length > 0){
         			for (var i = 0; i < data.length; i++) {
-        				$('#mis_multas').append('<li>'+data[i].motivo+'</li>');
+        				motivo=data[i].motivo.substring(0, 30);
+        				$('#mis_multas').append('<li>'+motivo+'</li>');
+        				$('#mis_status_mr').append('<li>'+data[i].status+'</li>');
+        				monto+=parseFloat(data[i].monto);
         			}
+        			$('#total_multas').text(monto);
         		}
-        	});
-        		
-    }*/
+        	});       		
+    }
 </script>
 <!-- Plugin js-->
 <script src="{{ asset('assets/libs/parsleyjs/parsley.min.js') }}"></script>
