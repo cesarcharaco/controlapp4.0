@@ -88,8 +88,16 @@
                             @foreach($mr as $key)
                                 <tr>
                                     <td align="center">{{$num=$num+1}}</td>
-                                    <td>{{$key->motivo}}</td>
-                                    <td>{{$key->observacion}}</td>
+                                    <td>
+                                        <span data-toggle="tooltip" data-placement="top" title="{{$key->motivo}}">
+                                            {{Str::limit($key->motivo, 23, ' ...')}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span data-toggle="tooltip" data-placement="top" title="{{$key->observacion}}">
+                                            {{Str::limit($key->observacion, 23, ' ...')}}
+                                        </span>
+                                    </td>
                                     <td>{{$key->monto}}</td>
                                     <td>{{$key->tipo}}</td>
                                     <td align="center">
