@@ -87,8 +87,9 @@ class PagosController extends Controller
             $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
         }
         $anio=date('Y');
+        $anio2=Mensualidades::where('id','<>',0)->groupBy('anio')->select('anio')->get();
         
-        return View('pagos.estados_pagos',compact('residentes','meses','anio'));
+        return View('pagos.estados_pagos',compact('residentes','meses','anio','anio2'));
     }
 
     public function estados_pagos_filtro($anio,$mes)

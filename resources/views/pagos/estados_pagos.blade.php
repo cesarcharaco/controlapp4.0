@@ -41,12 +41,40 @@
             
         
 
-                <div class="float-right">
-                    <a href="{{ route('estados_pagos_pdf')}}" target="_blank" class="btn btn-danger btn-sm rounded shadow" style="float: right !important;"><i data-feather="file-text" class="clipboard"></i>Generar PDF</a>
-                </div>
                
                 <div class="card mt-5" id="pagoResidente">
                     <div class="card-body">
+                        <div class="float-right">
+                            <a href="{{ route('estados_pagos_pdf')}}" target="_blank" class="btn btn-danger btn-sm rounded shadow" ><i data-feather="file-text" class="clipboard"></i>Generar PDF</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Seleccionar Año</label>
+                                    <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Año</option>
+                                        @foreach($anio2 as $key)
+                                            <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                        @endforeach()
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Seleccionar Mes</label>
+                                    <select class="form-control" name="mes" id="mes_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Mes</option>
+                                        @foreach($meses as $key)
+                                            <option value="{{$key->id}}">{{$key->mes}}</option>
+                                        @endforeach()
+                                    </select>
+                                </div>
+                            </div>
+                            <div id="CargandoFiltroPagos" style="display: none;">
+                                <div class="spinner-border text-success m-4" role="status"></div>
+                            </div>
+                        </div>
+                        <hr>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                                 <thead>
@@ -1553,6 +1581,76 @@
                 $('#muestrEsta1').append('<h3>No hay mensualidades para el año actual</h3>');
             }
         });
+    }
+
+    function filtro_pagos() {
+        $('#mrSeleccionado').remove();
+        $('#mrSeleccionado2').remove();
+        var anio = $('#anio_select').val();
+        var mes = $('#mes_select').val();
+
+        if (anio != null && mes != null) {
+            $('#CargandoFiltroPagos').show();
+            $('#example1_wrapper').empty();
+
+            $.get("pagos/"+anio+"/"+mes+"/filtro",function (data) {
+            })
+            .done(function(data) {
+                console.log(data.length)
+                if (data.length!=1) {
+
+                    for (var i = 0; i < data.length; i++) {
+                    }
+                }
+                else{
+                    $('#example1_wrapper').append(
+                        '<table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">'+
+                            '<thead>'+
+                                '<tr>'+
+                                    '<th>Inmueble</th>'+
+                                    '<th>Mes</th>'+
+                                    '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
+                                    '<th>Estado de Pago</th>'+
+                                    '<th>Monto M/R</th>'+
+                                    '<th>Descripción M/R</th>'+
+                                    '<th>Estado de Pago M/R</th>'+
+                                    '<th>Opciones</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody>'+
+                            '</tbody>'+
+                        '</table>'
+                    );
+
+                }
+                $('#CargandoFiltroPagos').hide();
+                $(".dataTable").DataTable({
+                    "paging": true,
+                    "bPaginate": true,
+                    "pageLength": 50,
+                    "responsive": true,
+                    "autoWidth": true,
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando la página _PAGE_ de _PAGES_",
+                        "infoEmpty": "Mostrando 0 de 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Próximo",
+                        "previous": "Anterior",
+                    }
+                });
+            }); 
+        }
     }
 
 </script>

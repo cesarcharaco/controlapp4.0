@@ -41,11 +41,11 @@
             
         
             @if(\Auth::user()->tipo_usuario == 'Admin')
-                <div class="float-right">
-                    <button class="btn btn-success btn-sm rounded shadow"id="vistaPagos2" onclick="verMesesPagosC()" style="float: right !important;"><i data-feather="search" class="clipboard"></i>Pagos por mes</button>
-                </div>
                 <div class="card border border-info rounded card-tabla shadow p-3 mt-5 mb-5 bg-white rounded" id="pagoResidente">
                     <div class="card-body">
+                        <div class="float-right">
+                            <button class="btn btn-success btn-sm rounded shadow"id="vistaPagos2" onclick="verMesesPagosC()"><i data-feather="search" class="clipboard"></i>Pagos por mes</button>
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -214,6 +214,7 @@
             @else
                 <div class="card mt-2" id="pagoResidente">
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
@@ -241,6 +242,7 @@
                                 <div class="spinner-border text-success m-4" role="status"></div>
                             </div>
                         </div>
+                    
                         <hr>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">

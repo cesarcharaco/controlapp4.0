@@ -664,14 +664,18 @@
                             </div>
                         <div class="card-body">
                             @foreach($anuncios as $key)
-                                <center>
-                                    <div onclick="window.open('{{$key->link}}', '_blank');">                                    
-                                        <span class="text-dark"><strong>{{$key->titulo}}</strong></span>
-                                        <img align="center" class="imagenAnun text-dark" src="{{ asset($key->url_img) }}" width="200" height="200">
-                                        <p class="text-dark" align="center">{{$key->descripcion}}</p>
-                                    </div>
-                                </center>
-                            @endforeach()
+                                        <tr style="background-color: white;">
+                                            <td align="center">
+                                                <div onclick="window.open('{{$key->link}}', '_blank');">
+                                                    
+                                                    <span class="text-dark"><strong>{{$key->titulo}}</strong></span>
+                                                    <center><img align="center" class="imagenAnun text-dark" src="{{ asset($key->url_img) }}" style="width: 100%; padding: 15px 15px 15px 15px; border-radius: 10%;" ></center>
+
+                                                    <p class="text-dark" align="center">{{$key->descripcion}}</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach()
                         </div>
                     </div>
                 </div>
