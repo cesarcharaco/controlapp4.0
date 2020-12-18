@@ -19,21 +19,19 @@
 <!-- dataTables -->
 <script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}" defer></script>
 <script src="{{ asset('plugins/dataTables/dataTables.responsive.min.js') }}" defer></script>
-@if(\Auth::user()->tipo_usuario != 'Residente')
+
+@if (Request::url() == url('pagos') || Request::url() == url('estados_pagos'))
 	<script src="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.js') }}" defer></script>
 	<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script>
-@else
-	@if (Request::url() == url('pagos') || Request::url() == url('estados_pagos'))
-		<script type="text/javascript">
-			$( document ).ready(function() {
-				$('#left-side-menu').hide();
-				$('#content-page').removeClass('content-page').addClass('mb-5').addClass('mt-5');
-				$('#content-page').append('<br>');
-				$('#content-page2').addClass('mb-5').addClass('mt-5');
-				$('#app').addClass('mb-5').addClass('mt-5');
-			});
-		</script>
-	@endif
+	<script type="text/javascript">
+		$( document ).ready(function() {
+			$('#left-side-menu').hide();
+			$('#content-page').removeClass('content-page').addClass('mb-5').addClass('mt-5');
+			$('#content-page').append('<br>');
+			$('#content-page2').addClass('mb-5').addClass('mt-5');
+			$('#app').addClass('mb-5').addClass('mt-5');
+		});
+	</script>
 @endif
 
 
