@@ -32,6 +32,9 @@
 			$('#app').addClass('mb-5').addClass('mt-5');
 		});
 	</script>
+@else
+	<script src="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.js') }}" defer></script>
+	<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script>
 @endif
 
 
