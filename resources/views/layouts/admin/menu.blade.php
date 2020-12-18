@@ -178,6 +178,12 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <a href="{{ url('estados_pagos') }}" aria-expanded="false">
+                                <i data-feather="credit-card"></i>
+                                <span> Ver Estados de Pago </span>
+                            </a>
+                        </li>
 
                         <li>
                             <a href="javascript: void(0);" aria-expanded="false">
