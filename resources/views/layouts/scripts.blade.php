@@ -2033,7 +2033,6 @@
                                 '</tr>'+
                             '</thead>'+
                             '<tbody>'+contenido+
-                            '</tr>'+
                             '</tbody>'+
                         '</table>'
                     );
@@ -2128,6 +2127,7 @@
         		var total=0;
         		var motivo='';
         		var monto=0;
+        		alert(data.length);
         		if(data.length > 0){
         			for (var i = 0; i < data.length; i++) {
         				motivo=data[i].motivo.substring(0, 30);
