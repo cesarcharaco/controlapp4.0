@@ -72,7 +72,7 @@
                             </div>
                             <div id="CargandoFiltroPagos" style="display: none;">
                                 <div class="spinner-border text-success m-4" role="status"></div>
-                            </
+                            </div>
                         </div>
                         <hr>
 
