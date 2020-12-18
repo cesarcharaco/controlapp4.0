@@ -17,7 +17,7 @@ class CreateMultasRecargasTable extends Migration
             $table->bigIncrements('id');
             $table->string('motivo');
             $table->text('observacion')->nullable();
-            $table->float('monto');
+            $table->double('monto');
             $table->enum('tipo',['Multa','Recarga']);
             $table->integer('anio');
             $table->unsignedBigInteger('id_admin');
