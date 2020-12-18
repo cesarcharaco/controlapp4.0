@@ -103,6 +103,8 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('pagos_multas','PagosController@pagos_multas')->name('pagos_multas');
 	Route::post('pagos/mr','PagosController@pagarmultas')->name('pagar.mr');
 	Route::get('estados_pagos','PagosController@estados_pagos')->name('estados_pagos');
+	Route::get('pagos/{anio}/{mes}/filtro', 'PagosController@estados_pagos_filtro');
+	Route::get('estados_pagos_pdf','PagosController@estados_pagos_pdf')->name('estados_pagos_pdf');
 
 	Route::post('arriendos/retirar','ArriendosController@retirando')->name('arriendos.retirar');
 	

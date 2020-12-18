@@ -42,7 +42,7 @@
         
 
                 <div class="float-right">
-                    <button class="btn btn-danger btn-sm rounded shadow" style="float: right !important;"><i data-feather="file-text" class="clipboard"></i>Generar PDF</button>
+                    <a href="{{ route('estados_pagos_pdf')}}" target="_blank" class="btn btn-danger btn-sm rounded shadow" style="float: right !important;"><i data-feather="file-text" class="clipboard"></i>Generar PDF</a>
                 </div>
                
                 <div class="card mt-5" id="pagoResidente">

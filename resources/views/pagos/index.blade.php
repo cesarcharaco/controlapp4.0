@@ -190,14 +190,27 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Seleccionar Año</label>
-                                    <select class="form-control"></select>
+                                    <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Año</option>
+                                        @foreach($anio2 as $key)
+                                            <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                        @endforeach()
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Seleccionar Mes</label>
-                                    <select class="form-control"></select>
+                                    <select class="form-control" name="mes" id="mes_select" onchange="filtro_pagos()">
+                                        <option selected disabled>Seleccionar Mes</option>
+                                        @foreach($meses as $key)
+                                            <option value="{{$key->id}}">{{$key->mes}}</option>
+                                        @endforeach()
+                                    </select>
                                 </div>
+                            </div>
+                            <div id="CargandoFiltroPagos" style="display: none;">
+                                <div class="spinner-border text-success m-4" role="status"></div>
                             </div>
                         </div>
                         <hr>
@@ -206,7 +219,6 @@
                                 <thead>
                                     <tr>
                                         <th>Inmueble</th>
-                                        <th>Residente</th>
                                         <th>Mes</th>
                                         <th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>
                                         <th>Estado de Pago</th>
@@ -217,7 +229,48 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    @foreach($residentes as $key) 
+                                        @foreach($meses as $key2)
+                                            <tr>
+                                                <td>
+                                                    <ul>
+                                                        @foreach($key->inmuebles as $key3)
+                                                            <li>{{ $key3->idem }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                @if(\Auth::user()->tipo_usuario=="Admin")
+                                                    <td>{{ $key->apellidos }}, {{ $key->nombres }}</td>
+                                                @endif
+                                                <td>{{ $key2->mes }}</td>
+                                                <td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">{{ pc_total($key2->id,$anio,$key->id_admin,$key->id) }}
+                                                </td>
+                                                <td>{{ status_pagos($key->id,$key2->id,$anio) }}</td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach($key->mr as $key4)
+                                                            <li>{{ $key4->monto }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach($key->mr as $key4)
+                                                            <li>{{ $key4->motivo }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul>
+                                                        @foreach($key->mr as $key4)
+                                                            <li>{{ $key4->pivot->status }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </td>
+                                                <td>Opciones</td>
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -1666,6 +1719,77 @@
                 $('#muestrEsta1').append('<h3>No hay mensualidades para el año actual</h3>');
             }
         });
+    }
+
+
+    function filtro_pagos() {
+        $('#mrSeleccionado').remove();
+        $('#mrSeleccionado2').remove();
+        var anio = $('#anio_select').val();
+        var mes = $('#mes_select').val();
+
+        if (anio != null && mes != null) {
+            $('#CargandoFiltroPagos').show();
+            $('#example1_wrapper').empty();
+
+            $.get("pagos/"+anio+"/"+mes+"/filtro",function (data) {
+            })
+            .done(function(data) {
+                console.log(data.length)
+                if (data.length!=1) {
+
+                    for (var i = 0; i < data.length; i++) {
+                    }
+                }
+                else{
+                    $('#example1_wrapper').append(
+                        '<table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">'+
+                            '<thead>'+
+                                '<tr>'+
+                                    '<th>Inmueble</th>'+
+                                    '<th>Mes</th>'+
+                                    '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
+                                    '<th>Estado de Pago</th>'+
+                                    '<th>Monto M/R</th>'+
+                                    '<th>Descripción M/R</th>'+
+                                    '<th>Estado de Pago M/R</th>'+
+                                    '<th>Opciones</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody>'+
+                            '</tbody>'+
+                        '</table>'
+                    );
+
+                }
+                $('#CargandoFiltroPagos').hide();
+                $(".dataTable").DataTable({
+                    "paging": true,
+                    "bPaginate": true,
+                    "pageLength": 50,
+                    "responsive": true,
+                    "autoWidth": true,
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando la página _PAGE_ de _PAGES_",
+                        "infoEmpty": "Mostrando 0 de 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Próximo",
+                        "previous": "Anterior",
+                    }
+                });
+            }); 
+        }
     }
 
 </script>

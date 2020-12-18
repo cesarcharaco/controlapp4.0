@@ -75,7 +75,7 @@
                             <td align="center">{{$num=$num+1}}</td>
                             <td>{{$key->idem}}</td>
                             @if($key->status == 'Libre')
-                                <td>Retirado</td>
+                                <td>Libre</td>
                             @else
                                 <td>En Uso</td>
                             @endif

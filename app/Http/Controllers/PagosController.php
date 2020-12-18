@@ -19,7 +19,13 @@ use App\Http\Controllers\FlowController;
 use Illuminate\Http\Request;
 use App\Http\FlowBuilder;
 use App\Http\FlowBuilder1;
+use PDF;
 
+try {
+  //Do your stuff here
+} catch (Exception $e){
+  echo $e->message() ;
+}
 class PagosController extends Controller
 {
     /**
@@ -31,7 +37,12 @@ class PagosController extends Controller
     {
 
         $id_admin=id_admin(\Auth::user()->email);
-        $residentes=Residentes::where('id_admin',$id_admin)->get();
+        // $residentes=Residentes::where('id_admin',$id_admin)->get();
+        if(\Auth::user()->tipo_usuario=="Admin"){
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+        }elseif(\Auth::user()->tipo_usuario=="Residente"){
+            $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
+        }
         $meses=Meses::all();
         $pagos=Pagos::all();
         $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
@@ -42,7 +53,12 @@ class PagosController extends Controller
 
         $meses2=Meses::where('id','<=',date("m"))->get();
 
-        return View('pagos.index', compact('residentes','pagos','inmuebles','estacionamientos','meses','meses2','asignaEs','asignaIn'));
+        $anio2=Mensualidades::where('id','<>',0)->groupBy('anio')->select('anio')->get();
+
+
+        $anio=date('Y');
+
+        return View('pagos.index', compact('residentes','pagos','inmuebles','estacionamientos','meses','meses2','anio','anio2','asignaEs','asignaIn'));
     }
 
     public function pagos_multas(){
@@ -77,15 +93,36 @@ class PagosController extends Controller
 
     public function estados_pagos_filtro($anio,$mes)
     {
-        $meses=Meses::where('id',$mes)->get();
+        return 1;
+        // $meses=Meses::where('id',$mes)->get();
+        // if(\Auth::user()->tipo_usuario=="Admin"){
+        //     $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+        // }elseif(\Auth::user()->tipo_usuario=="Residente"){
+        //     $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
+        // }
+        // $anio=date('Y');
+        
+        // return View('pagos.estados_pagos',compact('residentes','meses','anio'));
+    }
+
+    public function estados_pagos_pdf()
+    {
+
+        $meses=Meses::all();
         if(\Auth::user()->tipo_usuario=="Admin"){
             $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
         }elseif(\Auth::user()->tipo_usuario=="Residente"){
             $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
         }
         $anio=date('Y');
-        
-        return View('pagos.estados_pagos',compact('residentes','meses','anio'));
+
+        $pdf = PDF::loadView('reportes/PDF/EstadosPago', array(
+            'residentes' => $residentes,
+            'meses' => $meses,
+            'anio' => $anio
+        ));
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream('reportes/EstadosPago.pdf');
     }
 
     /**
