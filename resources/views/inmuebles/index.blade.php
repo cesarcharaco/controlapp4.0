@@ -139,7 +139,11 @@
                             @foreach($inmuebles as $key)
                                 <tr>
                                     <td align="center">{{$num=$num+1}}</td>
-                                    <td style="position: all;">{{$key->idem}}</td>
+                                    <td style="position: all;">
+                                        <span data-toggle="tooltip" data-placement="top" title="{{$key->idem}}">
+                                            {{Str::limit($key->idem, 15, ' ...')}}
+                                        </span>
+                                    </td>
                                     <td style="position: all;">{{$key->tipo}}</td>
                                     <!-- <td>Si</td> -->
                                     @if($key->status == 'Disponible')

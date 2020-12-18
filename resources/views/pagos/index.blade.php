@@ -265,7 +265,11 @@
                                                 <td>
                                                     <ul>
                                                         @foreach($key->inmuebles as $key3)
-                                                            <li>{{ $key3->idem }}</li>
+                                                            <li>
+                                                                <span data-toggle="tooltip" data-placement="top" title="{{$key3->idem}}">
+                                                                    {{Str::limit($key3->idem, 15, ' ...')}}
+                                                                </span>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </td>
@@ -286,7 +290,11 @@
                                                 <td>
                                                     <ul>
                                                         @foreach($key->mr as $key4)
-                                                            <li>{{ $key4->motivo }}</li>
+                                                            <li>
+                                                                <span data-toggle="tooltip" data-placement="top" title="{{$key4->motivo}}">
+                                                                    {{Str::limit($key4->motivo, 23, ' ...')}}
+                                                                </span>
+                                                            </li>
                                                         @endforeach
                                                     </ul>
                                                 </td>

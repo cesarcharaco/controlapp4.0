@@ -73,7 +73,11 @@
                     @foreach($estacionamientos as $key)
                         <tr>
                             <td align="center">{{$num=$num+1}}</td>
-                            <td>{{$key->idem}}</td>
+                            <td>
+                                <span data-toggle="tooltip" data-placement="top" title="{{$key->idem}}">
+                                    {{Str::limit($key->idem, 23, ' ...')}}
+                                </span>
+                            </td>
                             @if($key->status == 'Libre')
                                 <td>Libre</td>
                             @else
