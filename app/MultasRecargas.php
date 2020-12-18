@@ -12,7 +12,7 @@ class MultasRecargas extends Model
 
     public function residentes()
     {
-    	return $this->belongsToMany('App\Residentes','resi_has_mr','id_mr','id_residente')->withPivot('referencia','status','tipo_pago');
+    	return $this->belongsToMany('App\Residentes','resi_has_mr','id_mr','id_residente')->withPivot('referencia','status','mes','tipo_pago');
     }
 
     public function admin()

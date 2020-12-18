@@ -90,6 +90,7 @@
                                         <th>Monto M/R</th>
                                         <th>Descripción M/R</th>
                                         <th>Estado de Pago M/R</th>
+                                        <th>Opciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,29 +118,35 @@
                                         <td>
                                             <ul>
                                                 @foreach($key->mr as $key4)
+                                                    @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
                                                     <li>{{ $key4->monto }}</li>
+                                                    @endif
                                                 @endforeach
                                             </ul>
                                         </td>
                                         <td>
                                             <ul>
                                                 @foreach($key->mr as $key4)
+                                                @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
                                                     <li>
                                                         <span data-toggle="tooltip" data-placement="top" title="{{$key4->motivo}}">
                                                             {{Str::limit($key4->motivo, 23, ' ...')}}
                                                         </span>
                                                     </li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </td>
                                         <td>
                                             <ul>
                                                 @foreach($key->mr as $key4)
+                                                @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
                                                     <li>{{ $key4->pivot->status }}</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </td>
-                                        {{-- <td>Opciones</td> --}}
+                                        <td>Opciones</td>
                                     </tr>
                                         @endforeach
                                     @endforeach
