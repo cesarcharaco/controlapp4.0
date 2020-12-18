@@ -2001,8 +2001,8 @@
                 	anio=parseInt(anio);
                 	var contenido='';
                     for (var i = 0; i < data.length; i++) {
-                    	buscar_inmuebles(data[i].id,anio,mes);
-                    	total_pagar(data[i].id,anio,mes);
+                    	//buscar_inmuebles(data[i].id,anio,mes);
+                    	//total_pagar(data[i].id,anio,mes);
                     	//multas(data[i].id,anio,mes);
                     	contenido+='<tr>'+
                                 '<td><ul id="mis_inmuebles"></ul></td>'+

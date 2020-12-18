@@ -75,7 +75,8 @@
                             </
                         </div>
                         <hr>
-                        <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+
+                        <div id="example1_wrapper2" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
                             <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
                                 <thead>
                                     <tr>
