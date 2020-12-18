@@ -493,7 +493,7 @@ class ResidentesController extends Controller
 
 
 
-    public function mostrar_inmuebles($id_residente)
+    public function mostrar_inmuebles($id_residente,$anio,$mes)
     {
         return \DB::table('residentes')
         ->join('residentes_has_inmuebles','residentes_has_inmuebles.id_residente','=','residentes.id')
@@ -501,11 +501,46 @@ class ResidentesController extends Controller
         ->join('mensualidades','mensualidades.id_inmueble','=','inmuebles.id')
         ->join('pagos','pagos.id_mensualidad','=','mensualidades.id')
         ->where('residentes.id', $id_residente)
+        ->where('mensualidades.anio',$anio)
+        ->where('mensualidades.mes',$mes)
         ->where('residentes_has_inmuebles.status','En Uso')
-        ->select('inmuebles.*','residentes_has_inmuebles.status AS alquiler_status')
+        ->select('inmuebles.*','pagos.status AS pago_status','residentes_has_inmuebles.status AS alquiler_status')
         ->get();
     }
+    public function total_pagar($id_residente,$anio,$mes){
+    $inmuebles= \DB::table('residentes')
+        ->join('residentes_has_inmuebles','residentes_has_inmuebles.id_residente','=','residentes.id')
+        ->join('inmuebles','inmuebles.id','=','residentes_has_inmuebles.id_inmueble')
+        ->join('mensualidades','mensualidades.id_inmueble','=','inmuebles.id')
+        ->join('pagos','pagos.id_mensualidad','=','mensualidades.id')
+        ->where('residentes.id', $id_residente)
+        ->where('mensualidades.anio',$anio)
+        ->where('mensualidades.mes',$mes)
+        ->where('residentes_has_inmuebles.status','En Uso')
+        ->select('mensualidades.monto')
+        ->get();   
+    $estacionamientos= \DB::table('residentes')
+        ->join('residentes_has_est','residentes_has_est.id_residente','=','residentes.id')
+        ->join('estacionamientos','estacionamientos.id','=','residentes_has_est.id_estacionamiento')
+        ->join('mens_estac','mens_estac.id_estacionamiento','=','estacionamientos.id')
+        ->join('pagos_estac','pagos_estac.id_mens_estac','=','mens_estac.id')
+        ->where('residentes.id', $id_residente)
+        ->where('mens_estac.anio',$anio)
+        ->where('mens_estac.mes',$mes)
+        ->where('residentes_has_est.status','En Uso')
+        ->select('mens_estac.monto')
+        ->get();
+    $total=0;
+    foreach($inmuebles as $key){
+        $total+=$key->monto;
+    }
 
+    foreach($estacionamientos as $key){
+        $total+=$key->monto;
+    }
+
+    return $total;
+    }
     public function mostrar_estacionamientos($id_residente)
     {
         return \DB::table('residentes')
@@ -530,6 +565,18 @@ class ResidentesController extends Controller
         ->get();
     }
 
+    public function buscar_mr2($id_residente,$anio,$mes)
+    {
+        return \DB::table('multas_recargas')
+        ->join('resi_has_mr','resi_has_mr.id_mr','=','multas_recargas.id')
+        ->join('residentes','residentes.id','=','resi_has_mr.id_residente')
+        ->where('residentes.id',$id_residente)
+        ->where('multas_recargas.anio',$anio)
+        ->where('resi_has_mr.mes',$mes)
+        ->select('multas_recargas.*','resi_has_mr.status','resi_has_mr.id AS id_resi_mr')
+        ->get();
+    }
+    
 
     public function consultas()
     {

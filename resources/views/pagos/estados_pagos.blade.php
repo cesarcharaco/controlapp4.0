@@ -52,7 +52,7 @@
                                 <div class="form-group">
                                     <label>Seleccionar Año</label>
                                     <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
-                                        <option selected disabled>Seleccionar Año</option>
+                                        
                                         @foreach($anio2 as $key)
                                             <option value="{{$key->anio}}">{{$key->anio}}</option>
                                         @endforeach()
@@ -72,7 +72,7 @@
                             </div>
                             <div id="CargandoFiltroPagos" style="display: none;">
                                 <div class="spinner-border text-success m-4" role="status"></div>
-                            </div>
+                            </
                         </div>
                         <hr>
                         <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">

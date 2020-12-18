@@ -26,6 +26,8 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('residentes/{num}/buscar_residente2','ResidentesController@buscar_residente2');
 	Route::get('arriendos/{id_residente}/buscar_inmuebles','ResidentesController@buscar_inmuebles');
 	Route::get('arriendos/{id_residente}/buscar_inmuebles2','ResidentesController@buscar_inmuebles2');
+	Route::get('arriendos/{id_residente}/{anio}/{mes}/mostrar_inmuebles','ResidentesController@mostrar_inmuebles');
+	Route::get('arriendos/{id_residente}/{anio}/{mes}/total_pagar','ResidentesController@total_pagar');
 	Route::get('arriendos/{id_inmueble}/buscar_inmuebles3','ResidentesController@buscar_inmuebles3');
 	Route::get('arriendos/{id_residente}/buscar_estacionamientos','ResidentesController@buscar_estacionamientos');
 	Route::get('arriendos/{id_residente}/buscar_estacionamientos2','ResidentesController@buscar_estacionamientos2');
@@ -38,6 +40,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::get('residentes/{id_instalacion}/buscar_referencias2','ArriendosController@buscarArriendosResidentes2');
 
 	Route::get('arriendos/{id_residente}/buscar_mr','ResidentesController@buscar_mr');
+	Route::get('arriendos/{id_residente}/{anio}/{mes}/buscar_mr2','ResidentesController@buscar_mr2');
 	Route::post('arriendos/asignando','ArriendosController@asignando')->name('arriendos.asignando');
 
 
@@ -104,6 +107,7 @@ Route::group(['middleware' => ['web','auth']], function () {
 	Route::post('pagos/mr','PagosController@pagarmultas')->name('pagar.mr');
 	Route::get('estados_pagos','PagosController@estados_pagos')->name('estados_pagos');
 	Route::get('pagos/{anio}/{mes}/filtro', 'PagosController@estados_pagos_filtro');
+
 	Route::get('estados_pagos_pdf','PagosController@estados_pagos_pdf')->name('estados_pagos_pdf');
 
 	Route::post('arriendos/retirar','ArriendosController@retirando')->name('arriendos.retirar');

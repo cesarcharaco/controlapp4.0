@@ -94,18 +94,24 @@ class PagosController extends Controller
 
     public function estados_pagos_filtro($anio,$mes)
     {
-        return 1;
-        // $meses=Meses::where('id',$mes)->get();
-        // if(\Auth::user()->tipo_usuario=="Admin"){
-        //     $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
-        // }elseif(\Auth::user()->tipo_usuario=="Residente"){
-        //     $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
-        // }
-        // $anio=date('Y');
         
-        // return View('pagos.estados_pagos',compact('residentes','meses','anio'));
+        $meses=Meses::where('id',$mes)->get();
+        if(\Auth::user()->tipo_usuario=="Admin"){
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+        }elseif(\Auth::user()->tipo_usuario=="Residente"){
+            $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
+        }
+        $anio=date('Y');
+        return $residentes;
+        //return View('pagos.estados_pagos',compact('residentes','meses','anio'));
     }
 
+    function mis_inmuebles($id_residente){
+        $residente=Residentes::where('id',$id_residente)->first();
+
+        return $residentes->inmuebles;
+
+    }
     public function estados_pagos_pdf()
     {
 

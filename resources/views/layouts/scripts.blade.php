@@ -1982,6 +1982,7 @@
 
         }
     function filtro_pagos() {
+    	
         $('#mrSeleccionado').remove();
         $('#mrSeleccionado2').remove();
         var anio = $('#anio_select').val();
@@ -1995,10 +1996,48 @@
             })
             .done(function(data) {
                 console.log(data.length)
-                if (data.length!=1) {
-
+                if (data.length > 0) {
+                	mes=parseInt(mes);
+                	anio=parseInt(anio);
+                	var contenido='';
                     for (var i = 0; i < data.length; i++) {
+                    	buscar_inmuebles(data[i].id,anio,mes);
+                    	total_pagar(data[i].id,anio,mes);
+                    	//multas(data[i].id,anio,mes);
+                    	contenido+='<tr>'+
+                                '<td><ul id="mis_inmuebles"></ul></td>'+
+                                '<td>'+data[i].nombres+', '+data[i].apellidos+'</td>'+
+                                '<td>'+mostrar_mes(mes)+'</td>'+
+                                '<td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común"><span id="total_pagar"></span></td>'+
+                                '<td><ul id="status_inmuebles"></ul></td>'+
+                                '<td><span id="total_multas"></span></td>'+
+                                '<td><ul id="mis_multas"></ul></td>'+
+                                '<td><ul id="mis_status_mr"></ul></td>'+
+                                '<td>Opciones</th>'+
+                            '</tr>';
                     }
+                    	$('#example1_wrapper').append(
+                        '<table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">'+
+                            '<thead>'+
+                                '<tr>'+
+                                    '<th>Inmueble</th>'+
+                                    '<th>Residente</th>'+
+                                    '<th>Mes</th>'+
+                                    '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
+                                    '<th>Estado de Pago</th>'+
+                                    '<th>Monto M/R</th>'+
+                                    '<th>Descripción M/R</th>'+
+                                    '<th>Estado de Pago M/R</th>'+
+                                    '<th>Opciones</th>'+
+                                '</tr>'+
+                            '</thead>'+
+                            '<tbody>'+contenido+
+                            '</tr>'+
+                            '</tbody>'+
+                        '</table>'
+                    );
+
+                    //}
                 }
                 else{
                     $('#example1_wrapper').append(
@@ -2050,6 +2089,48 @@
             }); 
         }
     }
+    function buscar_inmuebles(id_residente,anio,mes){
+        		
+        	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/mostrar_inmuebles',function(data){
+        		//console.log(data.length);
+        		$('#mis_inmuebles').empty();
+        		$('#status_inmuebles').empty();
+        		if(data.length>0){
+        			for (var i = 0; i < data.length; i++) {
+        				$('#mis_inmuebles').append('<li>'+data[i].idem+'</li>');
+        				$('#status_inmuebles').append('<li>'+data[i].pago_status+'</li>');
+        			}
+        		
+        		}
+        	});
+        		
+    }
+    function total_pagar(id_residente,anio,mes){
+        		
+        	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/total_pagar',function(data){
+        		//console.log(data);
+        		$('#total_pagar').empty();
+        		$('#total_pagar').text(data);
+        	});
+        		
+    }
+
+    /*function multas(id_residente,anio,mes){
+        		
+        	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/buscar_mr2',function(data){
+        		//console.log(data);
+        		$('#total_pagar').empty();
+        		$('#total_pagar').text(data);
+        		$('#mis_multas').empty();
+        		var total=0;
+        		if(data.length > 0){
+        			for (var i = 0; i < data.length; i++) {
+        				$('#mis_multas').append('<li>'+data[i].motivo+'</li>');
+        			}
+        		}
+        	});
+        		
+    }*/
 </script>
 <!-- Plugin js-->
 <script src="{{ asset('assets/libs/parsleyjs/parsley.min.js') }}"></script>
