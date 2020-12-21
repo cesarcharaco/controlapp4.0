@@ -36,6 +36,12 @@
 		position: absolute;
 		z-index: -1;
 	}
+
+	.datatable td span{
+       max-width: 402px;
+       display: block;
+       overflow: hidden;
+	}
 </style>
 
 <link rel="stylesheet" href="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.css') }}">

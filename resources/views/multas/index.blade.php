@@ -90,7 +90,7 @@
                                     <td align="center">{{$num=$num+1}}</td>
                                     <td>
                                         <span data-toggle="tooltip" data-placement="top" title="{{$key->motivo}}">
-                                            {{Str::limit($key->motivo, 23, ' ...')}}
+                                            <span>{{$key->motivo}}</span>
                                         </span>
                                     </td>
                                     <td>

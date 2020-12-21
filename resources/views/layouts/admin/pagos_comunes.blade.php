@@ -25,28 +25,36 @@
 	                                <div class="card-body p-0">
 	                                    <div class="media p-4">
 	                                        <div class="media-body">
-	                                            <span class="text-info text-uppercase font-size-12 font-weight-bold">Pago Comúnes</span>
-	                                            <div class="row">
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6 style="margin-top: 24px;color: #CB8C4D !important;" align="center">Costo Inmueble</h6>
-	                                                </div>
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6><a href="#" style="width: 100% !important;" onclick="PagoC(1)" class="btn btn-primary shadow">Registrar</a></h6>
-	                                                </div>
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6><a href="#" style="width: 100% !important;" onclick="PagoC(3)" class="btn btn-warning shadow">Editar</a></h6>
-	                                                </div>
-	                                            </div>
-	                                            <div class="row">
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6 style="margin-top: 10px;color: #cccc00 !important;" align="center">Costo Estacionamiento</h6>
-	                                                </div>
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6><a href="#" style="width: 100% !important;" onclick="PagoC(2)" class="btn btn-primary shadow">Registrar</a></h6>
-	                                                </div>
-	                                                <div class="col-lg-4 col-md-4">
-	                                                    <h6><a href="#" style="width: 100% !important;" onclick="PagoC(4)" class="btn btn-warning shadow">Editar</a></h6>
-	                                                </div>
+	                                            <h4 align="center" class="text-info text-uppercase font-size-12 font-weight-bold">Valor de Gastos Comúnes</h4>
+	                                            <div class="row justify-content-center">
+	                                            	<div class="col-md-6">
+			                                            <div class="row">
+			                                                <div class="col-lg-6 col-md-6">
+			                                                    <h4 style="margin-top: 18px;color: #CB8C4D !important;" align="center">Costo Inmueble</h4>
+			                                                </div>
+			                                                <div class="col-lg-6 col-md-6">
+			                                                	<a href="#" style="width: 100% !important;" onclick="PagoC(1)" class="btn btn-outline-primary shadow">
+			                                                		<i data-feather="eye"></i>Buscar Gastos Comunes
+			                                                	</a>
+			                                                </div>
+			                                                {{--<div class="col-lg-4 col-md-4">
+			                                                    <h4><a href="#" style="width: 100% !important;" onclick="PagoC(3)" class="btn btn-warning shadow">Editar</a></h4>
+			                                                </div>--}}
+			                                            </div>
+	                                            	</div>
+	                                            	<div class="col-md-6">
+		                                            {{--<div class="row">
+		                                                <div class="col-lg-6 col-md-6">
+		                                                    <h4 style="margin-top: 10px;color: #cccc00 !important;" align="center">Costo Estacionamiento</h4>
+		                                                </div>
+		                                                <div class="col-lg-6 col-md-6">
+		                                                    <h4><a href="#" style="width: 100% !important;" onclick="PagoC(2)" class="btn btn-primary shadow">Registrar</a></h4>
+		                                                </div>
+		                                                <div class="col-lg-4 col-md-4">
+		                                                    <h4><a href="#" style="width: 100% !important;" onclick="PagoC(4)" class="btn btn-warning shadow">Editar</a></h4>
+		                                                </div>
+		                                            </div>--}}
+	                                            	</div>
 	                                            </div>
 	                                        </div>
 	                                        <div class="form-group">

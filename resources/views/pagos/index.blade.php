@@ -10,12 +10,12 @@
                 <nav aria-label="breadcrumb" class="float-right mt-1">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Pagos</li>
-                        <li class="breadcrumb-item active" aria-current="page">Pagos comunes</li>
+                        <li class="breadcrumb-item active" aria-current="page">Gastos</li>
+                        <li class="breadcrumb-item active" aria-current="page">Gastos Comunes</li>
                     </ol>
                 </nav>
                 <div class="row">
-                    <a class="btn btn-success btn-xs" href="{{ url('home')}}">Volver</a> <h4 class="mb-1 mt-0">Pagos - Pagos comunes</h4>
+                    <a class="btn btn-success btn-xs" href="{{ url('home')}}">Volver</a> <h4 class="mb-1 mt-0">Gastos - Gastos Comunes</h4>
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                                                         </a>
                                                     @endif
                                                 @endforeach
-                                                <a data-toggle="tooltip" data-placement="top" title="Consultar los pagos comunes realizados del residente" href="{{ url('pagos/'.$key->id.'/consultas')}}" class="btn btn-danger btn-sm shadow">
+                                                <a data-toggle="tooltip" data-placement="top" title="Consultar los Gastos Comunes realizados del residente" href="{{ url('pagos/'.$key->id.'/consultas')}}" class="btn btn-danger btn-sm shadow">
                                                     <i data-feather="clipboard" class="clipboard"></i>
                                                 </a>
                                                 <br><br>

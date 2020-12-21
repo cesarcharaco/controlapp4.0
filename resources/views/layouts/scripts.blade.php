@@ -575,7 +575,7 @@
 		if (opcion ==1) {
 			$('#anioPagoComunI').empty();
 			$('#anioPagoComunI').append('<option selected>Seleccione año</option>');
-			for (var i = a; i < a+3; i++) {
+			for (var i = a; i < a+5; i++) {
 				$('#anioPagoComunI').append('<option value="'+i+'">'+i+'</option>');
 			}
 			$('#PagoCInmueble').modal('show');
@@ -583,7 +583,7 @@
 		if(opcion ==2){
 			$('#anioPagoComunE').empty();
 			$('#anioPagoComunE').append('<option selected>Seleccione año</option>');
-			for (var i = a; i < a+3; i++) {
+			for (var i = a; i < a+5; i++) {
 				$('#anioPagoComunE').append('<option value="'+i+'">'+i+'</option>');
 			}
 			$('#PagoCEstacionamiento').modal('show');
@@ -592,7 +592,7 @@
 		if(opcion==3) {
 			$('#anioPagoComunI_E').empty();
 			$('#anioPagoComunI_E').append('<option selected>Seleccione año</option>');
-			for (var i = a; i < a+3; i++) {
+			for (var i = a; i < a+5; i++) {
 				$('#anioPagoComunI_E').append('<option value="'+i+'">'+i+'</option>');
 			}
 			$('#PagoCInmuebleE').modal('show');
@@ -600,7 +600,7 @@
 		if(opcion==4){
 			$('#anioPagoComunE2').empty();
 			$('#anioPagoComunE2').append('<option selected>Seleccione año</option>');
-			for (var i = a; i < a+3; i++) {
+			for (var i = a; i < a+5; i++) {
 				$('#anioPagoComunE2').append('<option value="'+i+'">'+i+'</option>');
 			}
 			$('#PagoCEstacionamiento2').modal('show');
@@ -778,7 +778,6 @@
 		$('#spinnerI').css('display','block');
 		$('#spinnerI2').css('display','block');
 		var id =1;
-
 		$.get('pagoscomunes/1/'+anio+'/buscarPagoC', function(data) {
 			
         		
@@ -788,9 +787,11 @@
 
                 if (opcion == 1) {
 
+				
 	               	if (data.length == 0){
 
 	               		$('#PagoCInmuebles1').append(
+	               			"<p class='text-success'>Registrando nuevo gasto común para este año</p>"+
 	                        "<div class='card-box'>"+
 	                            "<div class='row'>"+
 	                                "<div class='col-md-6' width='100%'>"+
@@ -846,7 +847,68 @@
 
 	                    }
 	                }else{
-	                	$('#PagoCInmuebles1').append('<h3>Ya hay registros de pago común para este año</h3>');
+	                	$('#PagoCInmuebles1').append(
+	                        "<p class='text-warning'>¡Ya existen valores para este año!</p>"+
+	                        "<div class='card-box'>"+
+	                            "<div class='row'>"+
+	                                "<div class='col-md-6' width='100%'>"+
+	                                    "<a href='#' class='btn btn-block btn-success' onclick='mostrarC(1)'>Montos por mes</a>"+
+	                                "</div>"+
+	                                "<div class='col-md-6' width='100%'>"+
+	                                    "<a href='#' class='btn btn-block btn-warning' onclick='mostrarC(2)'>Monto por año</a>"+
+	                                "</div>"+
+	                            "</div>"+
+	                        "</div>"
+	                    );
+	               		$('#PagoCInmuebles1').append(
+	               			'<div id="mostrarAnioI" style="display:none;">'+
+		                        '<div class="row">'+
+		                            '<div class="col-md-12">'+
+		                                '<div class="form-group">'+
+		                                    '<label>Monto por todo el año</label>'+
+		                                    '<div class="input-group mb-2">'+
+		                                        '<div class="input-group-prepend">'+
+		                                            '<div class="input-group-text">$</div>'+
+		                                        '</div>'+
+		                                        '<input type="text" id="montoAnioC" name="montoaAnio" class="form-control" value="'+data[0].monto+'"  id="montoAnio_e" placeholder="10">'+
+		                                    '</div>'+
+		                                '</div>'+
+		                            '</div>'+
+		                        '</div>'+
+		                    '</div>'
+	                    );
+                		$('#PagoCInmuebles1').append('<div id="mostrarAnioM"><label>Montos por mes</label><br></div>');
+	                    
+	                    for (var i = 0; i < 12; i++) {
+	                    	
+	                    	var monto=0;
+
+	                    	if(data[i].monto > 0){
+	                    		monto=data[i].monto;
+	                    	}else{
+	                    		monto=0;
+	                    	}
+	                        $('#mostrarAnioM').append(
+	                            '<div class="row">'+
+	                                '<div class="col-md-4">'+
+	                                    '<div class="form-group">'+
+	                                        '<input type="hidden" name="mes[]" class="form-control-plaintext">'+
+	                                        '<label>'+mes[i]+'</label>'+
+	                                    '</div>'+
+	                                '</div>'+
+	                                '<div class="col-md-6">'+
+	                                    '<div class="form-group">'+
+	                                        '<div class="input-group mb-2">'+
+	                                            '<div class="input-group-prepend">'+
+	                                                '<div class="input-group-text">$</div>'+
+	                                            '</div>'+
+	                                            '<input type="text" name="monto[]" class="form-control" placeholder="10" value="'+monto+'">'+
+	                                        '</div>'+
+	                                    '</div>'+
+	                                '</div>'+
+	                            '</div>'
+	                        );
+	                    }
 	                }
                 }else{
 
