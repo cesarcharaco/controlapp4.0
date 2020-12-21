@@ -42,7 +42,8 @@
 		}
 
 		th, td {
-		  padding: 20px;
+		  padding: 5px;
+		  font-size: 10px;
 		}
 
 		/* --------------------------------------------------- */
@@ -96,20 +97,20 @@
 	</style>
 </head>
 <body>
-
-	<div style="float: left">
-		<table style="width: 500px !important;">
+	<div>
+		<table style="width: 100% !important;" border="1">
 			<tbody>
 				<tr>
-					<th>Año</th>
+					<th width="30%"><center><img width="100" height="100" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center></th>
+					<th width="70%" style="font-size: 16px;">CONTROLNICE <br>REPORTE GENERAL DE GASTO COMÚN</th>
 				</tr>
 				<tr>
-					<td>{{ $anio }}</td>
+					<th colspan="2" align="center">Año: {{ $anio }}</th>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div style="text-align: right">
+	<div style="text-align: right; display: none;">
 		<center><img width="300" height="300" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center>
 	</div>
 	<!-- <p> Formato PDF para explicar la gestión y datos que se han almacenado hasta ahora</p> -->
