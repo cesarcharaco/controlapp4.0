@@ -46,17 +46,25 @@ class PagosComunesController extends Controller
                 toastr()->warning('intente otra vez!!', 'Debe agregar todos los montos en los meses indicados');
                     return redirect()->back();    
                 } else {
-                    $buscar=PagosComunes::where('tipo',$request->tipo)->where('anio',$anio)->where('id_admin',$id_admin)->get();
+                    $buscar=PagosComunes::where('tipo',$request->tipo)->where('anio',$request->anioI)->where('id_admin',$id_admin)->get();
                     if (count($buscar)>0) {
-                        dd($request->all());
+
                         $meses=Meses::all();
+                        foreach($meses as $key){
+                            $pagocomun= PagosComunes::where('tipo',$request->tipo)->where('anio',$request->anioI)->where('mes',$key->id)->where('id_admin',$id_admin)->first();
+                            //dd($pagocomun);
+                            if ($pagocomun!=null) {
+                                
+                                $pagocomun->delete();
+                            }
+                        }
 
                         if ($request->accion==1) {
                             $i=0;
                             foreach($meses as $key){
                                 $pagocomun=new PagosComunes();
                                 $pagocomun->tipo=$request->tipo;
-                                $pagocomun->anio=$anio;
+                                $pagocomun->anio=$request->anioI;
                                 $pagocomun->mes=$key->id;
                                 $pagocomun->monto=$request->monto[$i];
                                 $pagocomun->id_admin=$id_admin;
@@ -75,11 +83,12 @@ class PagosComunesController extends Controller
                                 $i++;
                             }
                         } else {
+                            // dd($request->all());
                            
                             foreach($meses as $key){
                                 $pagocomun=new PagosComunes();
                                 $pagocomun->tipo=$request->tipo;
-                                $pagocomun->anio=$anio;
+                                $pagocomun->anio=$request->anioI;
                                 $pagocomun->mes=$key->id;
                                 $pagocomun->monto=$request->montoaAnio;
                                 $pagocomun->id_admin=$id_admin;
@@ -97,7 +106,7 @@ class PagosComunesController extends Controller
                                 }
                             }
                         }
-                        toastr()->success('con éxito!!', 'Pago Común actualizado para el año:'.$request->anioI.' para el '.$request->tipo.'');
+                        toastr()->success('con éxito!!', 'Pago Común actualizado para el año:'.$request->anioI.' para los '.$request->tipo.'s');
                         return redirect()->back();    
                     } else {
                         # code...

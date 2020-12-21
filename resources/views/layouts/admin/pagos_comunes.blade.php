@@ -33,8 +33,8 @@
 			                                                    <h4 style="margin-top: 18px;color: #CB8C4D !important;" align="center">Costo Inmueble</h4>
 			                                                </div>
 			                                                <div class="col-lg-6 col-md-6">
-			                                                	<a href="#" style="width: 100% !important;" onclick="PagoC(1)" class="btn btn-outline-primary shadow">
-			                                                		<i data-feather="eye"></i>Buscar Gastos Comunes
+			                                                	<a href="#" style="width: 100% !important;" onclick="PagoC(1)" class="btn btn-primary shadow">
+			                                                		Buscar
 			                                                	</a>
 			                                                </div>
 			                                                {{--<div class="col-lg-4 col-md-4">
