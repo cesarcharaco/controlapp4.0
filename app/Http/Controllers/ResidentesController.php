@@ -504,7 +504,7 @@ class ResidentesController extends Controller
         ->where('mensualidades.anio',$anio)
         ->where('mensualidades.mes',$mes)
         ->where('residentes_has_inmuebles.status','En Uso')
-        ->select('inmuebles.*','pagos.status AS pago_status','residentes_has_inmuebles.status AS alquiler_status')
+        ->select('inmuebles.*','inmuebles.id AS id_inmueble','pagos.status AS pago_status','residentes_has_inmuebles.status AS alquiler_status')
         ->get();
     }
     public function total_pagar($id_residente,$anio,$mes){

@@ -1876,9 +1876,10 @@
 		        		'<table id="tablaPagosMeses" class="table dataTable data-table-basic table-curved table-striped tabla-estilo" style="width:100%; table-layout: auto;">'+
 							'<thead>'+
 								'<tr class="bg-info text-white">'+
-									'<th>Inmueble</th>'+
+									'<th>Item</th>'+
+									'<th>Id de Inmueble</th>'+
 									'<th>Residente</th>'+
-									'<th>Mes</th>'+
+									'<th>Mes y Año</th>'+
 									'<th>Monto</th>'+
 									'<th>Estado de pago</th>'+
 								'</tr>'+
@@ -2064,34 +2065,38 @@
                 	anio=parseInt(anio);
                 	var contenido='';
                     for (var i = 0; i < data.length; i++) {
-                    	buscar_inmuebles(data[i].id,anio,mes);
-                    	total_pagar(data[i].id,anio,mes);
-                    	multas(data[i].id,anio,mes);
+                    	buscar_inmuebles(data[i].id,anio,mes,i);
+                    	total_pagar(data[i].id,anio,mes,i);
+                    	multas(data[i].id,anio,mes,i);
                     	contenido+='<tr>'+
-                                '<td><ul id="mis_inmuebles"></ul></td>'+
+                                '<td><ul id="mis_inmuebles'+i+'"></ul></td>'+
+                                '<td><ul id="id_mis_inmuebles'+i+'"></ul></td>'+
                                 '<td>'+data[i].nombres+', '+data[i].apellidos+'</td>'+
-                                '<td>'+mostrar_mes(mes)+'</td>'+
-                                '<td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común"><span id="total_pagar"></span></td>'+
-                                '<td><ul id="status_inmuebles"></ul></td>'+
-                                '<td><span id="total_multas"></span></td>'+
-                                '<td><ul id="mis_multas"></ul></td>'+
-                                '<td><ul id="mis_status_mr"></ul></td>'+
-                                '<td>Opciones</th>'+
+                                '<td>'+mostrar_mes(mes)+' '+anio+'</td>'+
+                                '<td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común"><span id="total_pagar'+i+'"></span></td>'+
+                                '<td><ul id="status_inmuebles'+i+'"></ul></td>'+
+                                '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></td>'+
+                                '<td><span id="total_multas'+i+'"></span></td>'+
+                                '<td><ul id="mis_multas'+i+'"></ul></td>'+
+                                '<td><ul id="mis_status_mr'+i+'"></ul></td>'+
+                                '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></th>'+
                             '</tr>';
                     }
                     	$('#example1_wrapper').append(
                         '<table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">'+
                             '<thead>'+
                                 '<tr>'+
-                                    '<th>Inmueble</th>'+
+                                	'<th>Inmueble</th>'+
+                                    '<th>Id de Inmueble</th>'+
                                     '<th>Residente</th>'+
-                                    '<th>Mes</th>'+
+                                    '<th>Mes y Año</th>'+
                                     '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
                                     '<th>Estado de Pago</th>'+
+                                    '<th></th>'+
                                     '<th>Monto M/R</th>'+
-                                    '<th>Descripción M/R</th>'+
+                                    '<th>Detalle M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
-                                    '<th>Opciones</th>'+
+                                    '<th></th>'+
                                 '</tr>'+
                             '</thead>'+
                             '<tbody>'+contenido+
@@ -2105,15 +2110,18 @@
                     $('#example1_wrapper').append(
                         '<table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">'+
                             '<thead>'+
-                                '<tr>'+
-                                    '<th>Inmueble</th>'+
-                                    '<th>Mes</th>'+
+                                 '<tr>'+
+                                	'<th>Inmueble</th>'+
+                                    '<th>Id de Inmueble</th>'+
+                                    '<th>Residente</th>'+
+                                    '<th>Mes y Año</th>'+
                                     '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
                                     '<th>Estado de Pago</th>'+
+                                    '<th></th>'+
                                     '<th>Monto M/R</th>'+
-                                    '<th>Descripción M/R</th>'+
+                                    '<th>Detalle M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
-                                    '<th>Opciones</th>'+
+                                    '<th></th>'+
                                 '</tr>'+
                             '</thead>'+
                             '<tbody>'+
@@ -2151,7 +2159,7 @@
             }); 
         }
     }
-    function buscar_inmuebles(id_residente,anio,mes){
+    function buscar_inmuebles(id_residente,anio,mes,numero){
         		
         	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/mostrar_inmuebles',function(data){
         		//console.log(data.length);
@@ -2159,28 +2167,27 @@
         		$('#status_inmuebles').empty();
         		if(data.length>0){
         			for (var i = 0; i < data.length; i++) {
-        				$('#mis_inmuebles').append('<li>'+data[i].idem+'</li>');
-        				$('#status_inmuebles').append('<li>'+data[i].pago_status+'</li>');
+        				$('#id_mis_inmuebles'+numero).append('<li>'+data[i].id_inmueble+'</li>');
+        				$('#mis_inmuebles'+numero).append('<li>'+data[i].idem+'</li>');
+        				$('#status_inmuebles'+numero).append('<li>'+data[i].pago_status+'</li>');
         			}
         		
         		}
         	});
         		
     }
-    function total_pagar(id_residente,anio,mes){
+    function total_pagar(id_residente,anio,mes,numero){
         		
         	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/total_pagar',function(data){
         		//console.log(data);
         		if(data.length>0){
-        		
-        		$('#total_pagar').text(data);
-
+        			$('#total_pagar'+numero).text(data+'$');
         		}
         	});
         		
     }
 
-    function multas(id_residente,anio,mes){
+    function multas(id_residente,anio,mes,numero){
         		
         	$.get('arriendos/'+id_residente+'/'+anio+'/'+mes+'/buscar_mr2',function(data){
         		//console.log(data);
@@ -2189,15 +2196,19 @@
         		var total=0;
         		var motivo='';
         		var monto=0;
-        		alert(data.length);
+        		// alert(data.length);
         		if(data.length > 0){
         			for (var i = 0; i < data.length; i++) {
         				motivo=data[i].motivo.substring(0, 30);
-        				$('#mis_multas').append('<li>'+motivo+'</li>');
-        				$('#mis_status_mr').append('<li>'+data[i].status+'</li>');
+        				$('#mis_multas'+numero).append('<li>'+motivo+'</li>');
+        				$('#mis_status_mr'+numero).append('<li>'+data[i].status+'</li>');
         				monto+=parseFloat(data[i].monto);
         			}
-        			$('#total_multas').text(monto);
+        			$('#total_multas'+numero).text(monto);
+        		}else{
+        			$('#mis_multas'+numero).append('Sin Multas/Recargas');
+        			$('#mis_status_mr'+numero).append('-');
+					$('#total_multas'+numero).text('-');
         		}
         	});       		
     }
