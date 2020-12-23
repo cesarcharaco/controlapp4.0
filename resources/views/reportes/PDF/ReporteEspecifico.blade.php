@@ -38,7 +38,8 @@
 		}
 
 		th, td {
-		  padding: 20px;
+		  padding: 5px;
+		  font-size: 10px;
 		}
 
 		/* --------------------------------------------------- */
@@ -94,21 +95,22 @@
 <body>
 @if(!is_null($residentes))
 	@for($ra=0;$ra< count($aniosResidentes) ; $ra++)
-	<div style="float: left">
-		<table style="width: 500px !important;">
+	<div>
+		<table style="width: 100% !important;" border="1">
 			<tbody>
 				<tr>
-					<th>Año</th>
+					<th width="30%"><center><img width="100" height="100" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center></th>
+					<th width="70%" style="font-size: 16px;">CONTROLNICE <br>REPORTE ESPECÍFICO DE GASTO COMÚN</th>
 				</tr>
 				<tr>
-					<td>{{ $aniosResidentes[$ra] }}</td>
+					<th colspan="2" align="center">Año: {{ $aniosResidentes[$ra] }}</th>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div style="text-align: right">
+	<!-- <div style="text-align: right">
 		<center><img width="300" height="300" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center>
-	</div>
+	</div> -->
 	<table width="100%" border="1">
 		<!-- <tr><th colspan="6">RESIDENTES</th></tr> -->
 		@for($i=0; $i < count($mesesResidentes); $i++)	
@@ -168,21 +170,22 @@
 @if(!is_null($inmuebles))
 <hr><br>
 @for($ia=0;$ia < count($aniosInmuebles);$ia++)
-	<div style="float: left">
-		<table style="width: 500px !important;">
+	<div>
+		<table style="width: 100% !important;" border="1">
 			<tbody>
 				<tr>
-					<th>Año</th>
+					<th width="30%"><center><img width="100" height="100" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center></th>
+					<th width="70%" style="font-size: 16px;">CONTROLNICE <br>REPORTE ESPECÍFICO DE GASTO COMÚN</th>
 				</tr>
 				<tr>
-					<td>{{ $aniosInmuebles[$ia] }}</td>
+					<th colspan="2" align="center">Año: {{ $aniosInmuebles[$ia] }}</th>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div style="text-align: right">
+	<!-- <div style="text-align: right">
 		<center><img width="300" height="300" style="border-radius: 50px;" src="../public/assets/images/logo.jpg"></center>
-	</div>
+	</div> -->
 <table width="100%" border="1">
 	<tbody>
 		<tr>
@@ -196,8 +199,8 @@
 			<th>IDEM</th>
 			<th>TIPO</th>
 			<th>DISPONIBLIDAD</th>
-			<th>ESTACIONAMIENTO</th>
-			<th>CUANTOS</th>
+			<!-- <th>ESTACIONAMIENTO</th>
+			<th>CUANTOS</th> -->
 			<th>ESTADO DE ALQUILER</th>
 		</tr>
 			@foreach($inmuebles as $key)
@@ -205,8 +208,8 @@
 				<td>{{ $key->idem }}</td>
 				<td>{{ $key->tipo }}</td>
 				<td>{{ $key->status }}</td>
-				<td>{{ $key->estacionamiento }}</td>
-				<td>{{ $key->cuantos }}</td>
+				<!-- <td>{{ $key->estacionamiento }}</td>
+				<td>{{ $key->cuantos }}</td> -->
 				<td>{{ alquiler_i($mesesInmuebles[$i],$key->id,$aniosInmuebles[$ia]) }}</td>
 			</tr>
 			@endforeach
