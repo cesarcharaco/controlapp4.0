@@ -1,0 +1,2 @@
+[2020-11-06 18:28:43.000000 ::1  - new_order ] Iniciando nueva Orden
+[2020-11-06 18:28:43.000000 ::1  - flow_pack ] Orden N°: 47634759 -empaquetado correcto
