@@ -17,8 +17,6 @@
 {{-- timepicker --}}
 
 <!-- dataTables -->
-<script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}" defer></script>
-<script src="{{ asset('plugins/dataTables/dataTables.responsive.min.js') }}" defer></script>
 
 @if (Request::url() == url('pagos') || Request::url() == url('estados_pagos'))
 	<script src="{{ asset('plugins/dataTables/dataTables.bootstrap4.min.js') }}" defer></script>
@@ -37,6 +35,8 @@
 	<script src="{{ asset('plugins/dataTables/responsive.bootstrap4.min.js') }}" defer></script>
 @endif
 
+<script src="{{ asset('plugins/dataTables/jquery.dataTables.min.js') }}" defer></script>
+<script src="{{ asset('plugins/dataTables/dataTables.responsive.min.js') }}" defer></script>
 
 
 
