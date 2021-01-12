@@ -148,22 +148,20 @@
                                     <!-- <td>Si</td> -->
                                     @if($key->status == 'Disponible')
                                         <td style="position: all;">
-                                                <span class="tituloTabla text-success"><strong>Disponible</strong></span>
-                                                <span class="tituloTabla2 text-success"><strong>D</strong></span>
+                                            <span class="tituloTabla text-success"><strong>Disponible</strong></span>
                                         </td>
                                     @else
                                         <td style="position: all;">
-                                                <span class="tituloTabla text-danger"><strong>No Disponible</strong></span>
-                                                <span class="tituloTabla2 text-danger"><strong>N/D</strong></span>
+                                            <span class="tituloTabla text-danger"><strong>No Disponible</strong></span>
                                         </td>
                                     @endif
-                                    <td>
+                                    <td align="center">
                                         @if(\Auth::user()->tipo_usuario == 'Admin')
                                             <a href="#" class="btn btn-warning btn-sm boton-tabla shadow botonesEditEli" style="border-radius: 5px;" onclick="select(2,'{{$key->id}}','{{$key->idem}}','{{$key->tipo}}','{{$key->status}}')">
-                                                <span class="PalabraEditarPago ">Editar</span>
+                                                <i data-feather="edit"></i><span class="PalabraEditarPago ">Editar</span>
                                                 <center>
+                                                        
                                                     <span class="PalabraEditarPago2 ">
-                                                        <i data-feather="edit" class="iconosMetaforas2"></i>
                                                     </span>
                                                 </center>
                                             </a>

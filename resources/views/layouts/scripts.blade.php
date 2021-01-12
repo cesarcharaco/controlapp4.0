@@ -2131,31 +2131,7 @@
 
                 }
                 $('#CargandoFiltroPagos').hide();
-                $(".dataTable").DataTable({
-                    "paging": true,
-                    "bPaginate": true,
-                    "pageLength": 50,
-                    "responsive": true,
-                    "autoWidth": true,
-                    language: {
-                        "decimal": "",
-                        "emptyTable": "No hay información",
-                        "info": "Mostrando la página _PAGE_ de _PAGES_",
-                        "infoEmpty": "Mostrando 0 de 0 Entradas",
-                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
-                        "infoPostFix": "",
-                        "thousands": ",",
-                        "lengthMenu": "Mostrar _MENU_ Entradas",
-                        "loadingRecords": "Cargando...",
-                        "processing": "Procesando...",
-                        "search": "",
-                        "zeroRecords": "Sin resultados encontrados",
-                        "first": "Primero",
-                        "last": "Ultimo",
-                        "next": "Próximo",
-                        "previous": "Anterior",
-                    }
-                });
+
             }); 
         }
     }
@@ -2210,6 +2186,31 @@
         			$('#mis_status_mr'+numero).append('-');
 					$('#total_multas'+numero).text('-');
         		}
+                $(".dataTable").DataTable({
+                    "paging": true,
+                    "bPaginate": true,
+                    "pageLength": 50,
+                    "responsive": true,
+                    "autoWidth": true,
+                    language: {
+                        "decimal": "",
+                        "emptyTable": "No hay información",
+                        "info": "Mostrando la página _PAGE_ de _PAGES_",
+                        "infoEmpty": "Mostrando 0 de 0 Entradas",
+                        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+                        "infoPostFix": "",
+                        "thousands": ",",
+                        "lengthMenu": "Mostrar _MENU_ Entradas",
+                        "loadingRecords": "Cargando...",
+                        "processing": "Procesando...",
+                        "search": "",
+                        "zeroRecords": "Sin resultados encontrados",
+                        "first": "Primero",
+                        "last": "Ultimo",
+                        "next": "Próximo",
+                        "previous": "Anterior",
+                    }
+                });
         	});       		
     }
 

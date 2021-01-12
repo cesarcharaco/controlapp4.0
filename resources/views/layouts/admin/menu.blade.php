@@ -257,25 +257,23 @@
 
 
 
-                        @if(\Auth::user()->tipo_usuario == 'Admin')
-                            <li>
-                                <a href="{{ url('contabilidad') }}">
-                                    <i data-feather="activity"></i>
-                                    <span> Balance General </span>
-                                </a>
-                            </li>
-                        @endif
-
-                        @if(\Auth::user()->tipo_usuario == 'root')
-                            <li>
-                                <a href="{{ url('membresias') }}">
-                                    <i data-feather="clock"></i>
-                                    <span> Membresías </span>
-                                </a>
-                            </li>
-                        @endif
+                    @if(\Auth::user()->tipo_usuario == 'Admin')
+                        <li>
+                            <a href="{{ url('contabilidad') }}">
+                                <i data-feather="activity"></i>
+                                <span> Balance General </span>
+                            </a>
+                        </li>
+                    @endif
 
                     @if(\Auth::user()->tipo_usuario == 'root')
+                        <li>
+                            <a href="{{ url('membresias') }}">
+                                <i data-feather="clock"></i>
+                                <span> Membresías </span>
+                            </a>
+                        </li>
+                    
                         <li>
                             <a href="{{ url('anuncios') }}">
                                 <i data-feather="columns"></i>
@@ -287,6 +285,38 @@
                                 <i data-feather="dollar-sign"></i>
                                 <span> Planes de Pago </span>
                             </a>
+                        </li>
+                        <!-- <li>
+                            <a href="javascript: void(0);" aria-expanded="false">
+                                <i data-feather="dollar-sign"></i>
+                                <span> Pagos </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+
+                            <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                                <li>
+                                    <a href="{{ url('pagos') }}">Pagos de Condominio</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('pagos_multas')}}">Multas/Recargas</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                        <li>
+                            <a href="javascript: void(0);" aria-expanded="false">
+                                <i data-feather="clock"></i>
+                                <span> Arriendo de Instalación Interna </span>
+                                <span class="menu-arrow"></span>
+                            </a>
+
+                            <ul class="nav-second-level mm-collapse" aria-expanded="false">
+                                <li>
+                                    <a href="{{ url('alquiler') }}">Ver mi Agenda</a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('instalaciones')}}">Alquilar una instalación</a>
+                                </li>
+                            </ul>
                         </li>
                         <!-- <li>
                                 <a href="javascript: void(0);" aria-expanded="false">

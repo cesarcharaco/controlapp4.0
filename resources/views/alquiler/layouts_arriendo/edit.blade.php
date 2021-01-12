@@ -46,6 +46,31 @@
                 </div>
               </div>
             </div>
+          @elseif(\Auth::User()->tipo_usuario=="root")
+            <input type="hidden" name="id_residente" value="{{\Auth::User()->id}}">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Instalación <b class="text-danger">*</b></label>
+                  <select class="form-control select2" id="instalacionListArriendoE" name="id_instalacion">
+                      <option disabled required>Seleccione instalación</option>
+                      @foreach($instalaciones as $key)
+                      <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
+                      @endforeach
+                  </select>
+                </div>                  
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Tipo de Alquiler <b class="text-danger">*</b></label>
+                  <select class="form-control buscarInslatacion border" name="tipo_alquiler" id="tipo_alquilerArriendoE" onchange="TipoAlquiler(this.value)" required>
+                    <option value="0" selected disabled>Seleccione tipo de alquiler</option>
+                    <option value="Permanente">Permanente</option>
+                    <option value="Temporal">Temporal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           @else
             <input type="hidden" name="id_residente" value="{{\Auth::User()->residente->id}}">
             <div class="row">

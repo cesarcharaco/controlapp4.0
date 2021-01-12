@@ -498,7 +498,7 @@ class AlquilerController extends Controller
 
     public function pagar_alquiler_resi(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         if ($request->tipo_pago=="Flow") {
             //dd('flow');
             $request->referencia=$this->generarOrden();

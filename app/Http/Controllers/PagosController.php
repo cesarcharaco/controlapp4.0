@@ -150,7 +150,7 @@ class PagosController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
         //dd(count($request->mes));
         if($request->flow==1){
             $request->referencia=$this->generarOrden();
