@@ -15,17 +15,8 @@ class UsersTableSeeder extends Seeder
             'name' => 'Administrador1',
             'rut' => '123456789',
             'email' => 'admin1@controlnice.cl',
-            'id_membresia' => 3
-        ]);
-        \DB::table('admins_has_pasarelas')->insert([
-            'id_pasarela' => 1,
-            'id_admin' => 1,
-            'link_pasarela' => 'https://www.flow.com',
-        ]);
-        \DB::table('admins_has_pasarelas')->insert([
-            'id_pasarela' => 2,
-            'id_admin' => 1,
-            'link_pasarela' => 'https://www.transbank.com',
+            'id_membresia' => 3,
+            'created_at' => '2020-12-01 20:04:15'
         ]);
 
         \DB::table('users')->insert([
@@ -34,6 +25,14 @@ class UsersTableSeeder extends Seeder
         	'email' => 'admin1@controlnice.cl',
         	'password' => bcrypt('EICHE_CONTROL'),
             'tipo_usuario' => 'Admin'
+        ]);
+
+        \DB::table('residentes')->insert([
+            'nombres' => 'Administrador1',
+            'apellidos' => 'Admin',
+            'rut' => '123456789',
+            'id_usuario' => 1,
+            'id_admin' => 1
         ]);
 
         /*\DB::table('users')->insert([

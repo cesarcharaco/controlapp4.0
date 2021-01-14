@@ -74,7 +74,6 @@ class AdminController extends Controller
             return redirect()->back();    
             }else{
                 $user=new UsersAdmin();
-
                 $user->name=$request->name;
                 $user->rut=$request->rut.'-'.$request->verificador;
                 $user->email=$request->email;
@@ -97,9 +96,18 @@ class AdminController extends Controller
                 $user2->tipo_usuario='Admin';
                 $user2->password=\Hash::make($request->password);
                 $user2->save();
-                toastr()->success('con éxito!', 'Usuario Admin registrado');
                 
-                    return redirect()->back();
+
+                $residente = new Residentes();
+                $residente->nombres=$request->name;
+                $residente->apellidos=$request->name;
+                $residente->rut=$request->rut.'-'.$request->verificador;
+                $residente->id_usuario=$user2->id;
+                $residente->id_admin=$user->id;
+                $residente->save();
+
+                toastr()->success('con éxito!', 'Usuario Admin registrado');                
+                return redirect()->back();
             
             }
         }

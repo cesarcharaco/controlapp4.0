@@ -250,7 +250,7 @@ class AlquilerController extends Controller
                                 return redirect()->back();
                             }
                         }
-                        if (\Auth::User()->tipo_usuario=="Admin") {
+                        /*if (\Auth::User()->tipo_usuario=="Admin") {
                             $admin=UsersAdmin::where('email',\Auth::User()->email)->first();
 
                             $residente = new Residentes();
@@ -260,14 +260,10 @@ class AlquilerController extends Controller
                             $residente->id_usuario=\Auth::user()->id;
                             $residente->id_admin=$admin->id;
                             $residente->save();
-                        }
+                        }*/
 
                         $alquiler = new Alquiler();
-                        if (\Auth::User()->tipo_usuario=="Admin") {
-                            $alquiler->id_residente=$residente->id;
-                        } else {
-                            $alquiler->id_residente=$request->id_residente;
-                        }
+                        $alquiler->id_residente=$request->id_residente;
                         $alquiler->id_instalacion=$request->id_instalacion;
                         $alquiler->tipo_alquiler=$request->tipo_alquiler;
                         if($request->tipo_alquiler=="Temporal") {
