@@ -249,10 +249,25 @@ class AlquilerController extends Controller
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();
                             }
-                        }                        
+                        }
+                        if (\Auth::User()->tipo_usuario=="Admin") {
+                            $admin=UsersAdmin::where('email',\Auth::User()->email)->first();
+
+                            $residente = new Residentes();
+                            $residente->nombres=\Auth::user()->name;
+                            $residente->apellidos=\Auth::user()->name;
+                            $residente->rut=\Auth::user()->rut;
+                            $residente->id_usuario=\Auth::user()->id;
+                            $residente->id_admin=$admin->id;
+                            $residente->save();
+                        }
 
                         $alquiler = new Alquiler();
-                        $alquiler->id_residente=$request->id_residente;
+                        if (\Auth::User()->tipo_usuario=="Admin") {
+                            $alquiler->id_residente=$residente->id;
+                        } else {
+                            $alquiler->id_residente=$request->id_residente;
+                        }
                         $alquiler->id_instalacion=$request->id_instalacion;
                         $alquiler->tipo_alquiler=$request->tipo_alquiler;
                         if($request->tipo_alquiler=="Temporal") {
