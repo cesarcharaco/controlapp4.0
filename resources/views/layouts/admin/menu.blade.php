@@ -302,7 +302,7 @@
                                 </li>
                             </ul>
                         </li> -->
-                        <li>
+                        <!-- <li>
                             <a href="javascript: void(0);" aria-expanded="false">
                                 <i data-feather="clock"></i>
                                 <span> Arriendo de Instalación Interna </span>
@@ -317,7 +317,7 @@
                                     <a href="{{ url('instalaciones')}}">Alquilar una instalación</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <!-- <li>
                                 <a href="javascript: void(0);" aria-expanded="false">
                                     <i data-feather="columns"></i>

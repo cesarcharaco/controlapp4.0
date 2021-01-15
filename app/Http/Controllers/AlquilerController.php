@@ -12,6 +12,8 @@ use App\Http\Controllers\FlowAController;
 use App\Http\FlowBuilder1;
 use App\Contabilidad;
 use App\ContabilidadSaldo;
+use App\User;
+use App\UsersAdmin;
 
 class AlquilerController extends Controller
 {
@@ -170,7 +172,7 @@ class AlquilerController extends Controller
 
     public function registrar_alquiler(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         if(is_null($request->id_instalacion)){
             toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
@@ -249,10 +251,34 @@ class AlquilerController extends Controller
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();
                             }
-                        }                        
+                        }
 
+                        $id_admin=id_admin(\Auth::user()->email);
+                        if(!is_null($request->id_admin)){
+                            $residentesA=Residentes::where('id_usuario',$id_admin)->first();
+                            if(is_null($residentesA)){
+
+                                $admin=User::find(\Auth::user()->id);
+
+                                $residenteN=new Residentes();
+                                $residenteN->nombres = $admin->name;
+                                $residenteN->apellidos = 'admin';
+                                $residenteN->rut = $admin->rut;
+                                $residenteN->telefono = '0000000000';
+                                $residenteN->id_usuario = $admin->id;
+                                $residenteN->id_admin = $admin->id;
+                                $residenteN->save();
+
+                                $residente=$residenteN->id;
+                            }else{
+                                $residente=$residentesA->id;
+                            }
+                            // dd($residente);
+                        }else{
+                            $residente=$request->id_residente;
+                        }                      
                         $alquiler = new Alquiler();
-                        $alquiler->id_residente=$request->id_residente;
+                        $alquiler->id_residente=$residente;
                         $alquiler->id_instalacion=$request->id_instalacion;
                         $alquiler->tipo_alquiler=$request->tipo_alquiler;
                         if($request->tipo_alquiler=="Temporal") {
@@ -281,7 +307,6 @@ class AlquilerController extends Controller
                                     'tipo_pago' => $request->tipo_pago
                                 ]);
 
-                                $id_admin=id_admin(\Auth::user()->email);
 
                                 $consulta_saldo = ContabilidadSaldo::where('id_admin',$id_admin)->first();
                                 if ($consulta_saldo==NULL) {

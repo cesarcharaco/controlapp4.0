@@ -7,17 +7,21 @@
     </div>  
     <div class="border card-body">
       <h4>Nuevo Arriendo <br> <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
-
+      <hr>
       {!! Form::open(['route' => ['registrar_alquiler'], 'enctype' => 'multipart/form-data', 'method' => 'POST', 'name' => 'registrar_alquiler', 'id' => 'registrar_alquiler', 'data-parsley-validate']) !!}
         @csrf
           
 
         @if(\Auth::User()->tipo_usuario=="Admin")
+          <div>
+            <label for="AlquilerParaAdmin">¿Desea alquilarlo para usted?</label>
+              <input type="checkbox" name="id_admin" onchange="alquilerAmin();" id="AlquilerParaAdmin"  data-toggle="tooltip" data-placement="top" title="Seleccione si desea asignarse un alquiler" value="{{ \Auth::User()->id }}">
+          </div>
           <div class="row">
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="form-group" id="todosResidentesR">
                 <label>Residente <b class="text-danger">*</b></label>
-                <select class="form-control select2" id="id_residente" name="id_residente" required="required">
+                <select class="form-control select2" id="select_id_residente" name="id_residente" required="required">
                     <option disabled value selected>Seleccione residente</option>
                     @foreach($residentes as $key)
                         <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
@@ -51,54 +55,6 @@
               </center>
             </div>
           </div>
-        @elseif(\Auth::User()->tipo_usuario=="root")
-          <input type="hidden" name="id_residente" value="{{\Auth::User()->id}}">
-          @if (Request::url() == route('instalaciones'))
-            <!-- <input type="hidden" id="id_residenteC" name="id_residente"> -->
-            <input type="hidden" id="instalacionList" name="id_instalacion">
-            <div class="row">
-              <div class="col-md-12">
-                <center id="tipo_alquiler_v" style="display: none;">
-                  <div class="form-group">
-                    <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                    <select class="form-control tipo_alquiler border" name="tipo_alquiler" id="tipo_alquiler_c" onchange="TipoAlquiler(this.value)" required disabled>
-                      <option value="0" selected disabled>Seleccione tipo de alquiler</option>
-                      <option value="Permanente">Permanente</option>
-                      <option value="Temporal">Temporal</option>
-                    </select>
-                  </div>
-                </center>
-              </div>
-            </div>
-          @else
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>Instalación <b class="text-danger">*</b></label>
-                  <select class="form-control select2" id="instalacionList" name="id_instalacion" required="required" onchange="buscarInslatacion(this.value)">
-                      <option disabled value selected>Seleccione instalación</option>
-                      @foreach($instalaciones as $key)
-                        @if($key->status=="Activo")
-                          <option value="{{$key->id}}">{{$key->nombre}} - Dias disponible:@foreach($key->dias as $key2) {{$key2->dia}} @endforeach - {{$key->status}}</option>
-                        @endif
-                      @endforeach
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <center id="tipo_alquiler_v" style="display: none;">
-                  <div class="form-group">
-                    <label>Tipo de Alquiler <b class="text-danger">*</b></label>
-                    <select class="form-control tipo_alquiler border" name="tipo_alquiler" id="tipo_alquiler_c" onchange="TipoAlquiler(this.value)" required disabled>
-                      <option value="0" selected disabled>Seleccione tipo de alquiler</option>
-                      <option value="Permanente">Permanente</option>
-                      <option value="Temporal">Temporal</option>
-                    </select>
-                  </div>
-                </center>
-              </div>
-            </div>
-          @endif
         @else
           <input type="hidden" name="id_residente" value="{{\Auth::User()->residente->id}}">
           @if (Request::url() == route('instalaciones'))
