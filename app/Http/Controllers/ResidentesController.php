@@ -439,8 +439,13 @@ class ResidentesController extends Controller
      */
     public function destroy(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $residente = Residentes::where('id', $request->id)->first();
+
+        $buscarAdmin=User::where('id',$residente->id_usuario)->where('tipo_usuario','Admin')->count();
+        // $buscarAdmin=User::where('id',$residente->id)->where('tipo_usuario','Admin')->first();
+        // dd($buscarAdmin);
+
         $id=$residente->id_usuario;
         if(count($residente->inmuebles)>0){   
             foreach ($residente->inmuebles as $key) {
@@ -482,7 +487,8 @@ class ResidentesController extends Controller
         }
         $residente->delete();
 
-        if($eliminar = User::find($id)){
+            // dd($buscarAdmin);
+        if($eliminar = User::find($id) && $buscarAdmin == 0){
             $eliminar->delete();
         }
         toastr()->success('con éxito!!', 'Residente eliminado');

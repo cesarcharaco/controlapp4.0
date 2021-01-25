@@ -172,7 +172,6 @@ class AlquilerController extends Controller
 
     public function registrar_alquiler(Request $request)
     {
-        // dd($request->all());
         if(is_null($request->id_instalacion)){
             toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
@@ -209,7 +208,9 @@ class AlquilerController extends Controller
                                 return redirect()->back();  
                             }
                         
-                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+        
+                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas && $request->tipo_alquiler != "Permanente"){
+
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();  
                             }
@@ -247,7 +248,7 @@ class AlquilerController extends Controller
                         }else{
                             
                             $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
-                            if($request->num_horas > $horas_disponibles){
+                            if($request->num_horas > $horas_disponibles && $request->tipo_alquiler != "Permanente"){
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();
                             }
@@ -451,14 +452,14 @@ class AlquilerController extends Controller
                                 return redirect()->back();  
                             }
                         
-                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas){
+                            if($this->horasEntre2($buscar->hora_desde,$buscar->hora_hasta,$request->hora,$request->num_horas)!=$request->num_horas && $request->tipo_alquiler != "Permanente"){
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();  
                             }
                         }else{
                             $buscar=Instalaciones::find($request->id_instalacion);
                             $horas_disponibles = gmdate("H", strtotime($buscar->hora_hasta) - strtotime($buscar->hora_desde)); // feed seconds
-                            if($request->num_horas > $horas_disponibles){
+                            if($request->num_horas > $horas_disponibles && $request->tipo_alquiler != "Permanente"){
                                 toastr()->warning('Alerta!', 'El número horas ingresadas supera la disponibilidad de la instalación');
                                 return redirect()->back();
                             }
