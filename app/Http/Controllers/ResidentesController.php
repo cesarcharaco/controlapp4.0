@@ -29,7 +29,8 @@ class ResidentesController extends Controller
         $id_admin=id_admin(\Auth::user()->email);
         $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
         $estacionamientos=Estacionamientos::where('id_admin',$id_admin)->get();
-        $residentes=Residentes::where('id_admin',$id_admin)->orderBy('rut','ASC')->get();;
+        $residentes=Residentes::where('id_admin',$id_admin)->orderBy('rut','ASC')->get();
+        //dd($tipo_usuario);
         return View('residentes.index', compact('residentes','inmuebles','estacionamientos'));
     }
 
@@ -441,52 +442,62 @@ class ResidentesController extends Controller
     {
         //dd($request->all());
         $residente = Residentes::where('id', $request->id)->first();
-        $id=$residente->id_usuario;
-        if(count($residente->inmuebles)>0){   
-            foreach ($residente->inmuebles as $key) {
-                $inmueble=Inmuebles::find($key->pivot->id_inmueble);
-                $inmueble->status="Disponible";
-                $inmueble->save();
-                foreach ($key->mensualidades as $key2) {
-                    $buscar=Pagos::where('id_mensualidad',$key2->id);
-                    $buscar->delete();
+        $tipo_usuario= \DB::table('residentes')
+        ->join('users','users.id','=','residentes.id_usuario')
+        ->where('residentes.id', $request->id)
+        ->select('users.tipo_usuario')
+        ->first();
+        //dd($tipo_usuario->tipo_usuario);
+        if ($tipo_usuario->tipo_usuario=="Residente") {
+            $id=$residente->id_usuario;
+            if(count($residente->inmuebles)>0){   
+                foreach ($residente->inmuebles as $key) {
+                    $inmueble=Inmuebles::find($key->pivot->id_inmueble);
+                    $inmueble->status="Disponible";
+                    $inmueble->save();
+                    foreach ($key->mensualidades as $key2) {
+                        $buscar=Pagos::where('id_mensualidad',$key2->id);
+                        $buscar->delete();
+                    }
                 }
             }
-        }
-        if(count($residente->estacionamientos)>0){
-            foreach ($residente->estacionamientos as $key) {
-                $inmueble=Estacionamientos::find($key->pivot->id_estacionamiento);
-                $inmueble->status="Libre";
-                $inmueble->save();
-                foreach ($key->mensualidad as $key2) {
-                    $buscar=PagosE::where('id_mens_estac',$key2->id);
-                    $buscar->delete();
+            if(count($residente->estacionamientos)>0){
+                foreach ($residente->estacionamientos as $key) {
+                    $inmueble=Estacionamientos::find($key->pivot->id_estacionamiento);
+                    $inmueble->status="Libre";
+                    $inmueble->save();
+                    foreach ($key->mensualidad as $key2) {
+                        $buscar=PagosE::where('id_mens_estac',$key2->id);
+                        $buscar->delete();
+                    }
                 }
             }
-        }
-        //dd('----------');
+            //dd('----------');
 
-        if(count($residente->reportes)>0){
-            foreach($residente->reportes as $key){
-                $reporte=Reportes::find($key->id);
-                $reporte->delete();
+            if(count($residente->reportes)>0){
+                foreach($residente->reportes as $key){
+                    $reporte=Reportes::find($key->id);
+                    $reporte->delete();
+                }
             }
-        }
 
 
-        if(count($residente->alquiler)>0){
-            foreach($residente->alquiler as $key){
-                $alquiler=Alquiler::find($key->id);
-                $alquiler->delete();
+            if(count($residente->alquiler)>0){
+                foreach($residente->alquiler as $key){
+                    $alquiler=Alquiler::find($key->id);
+                    $alquiler->delete();
+                }
             }
+            $residente->delete();
+            if($eliminar = User::find($id)){
+                $eliminar->delete();
+            }
+            toastr()->success('con éxito!!', 'Residente eliminado');
+            return redirect()->back();
+        } else {
+            toastr()->error('Error!!', 'No puede eliminar esta cuenta de residente, porque pertenece a una cuenta Admin');
+            return redirect()->back();
         }
-        $residente->delete();
-
-        if($eliminar = User::find($id)){
-            $eliminar->delete();
-        }
-        toastr()->success('con éxito!!', 'Residente eliminado');
-        return redirect()->back();
     }
 
 

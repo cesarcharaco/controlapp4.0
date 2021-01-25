@@ -309,8 +309,10 @@ class AdminController extends Controller
         foreach ($user_admin->anuncios as $key) {
             $key->delete();
         }
-        $user=User::where('email',$user_admin->email)->first();
-        $user->delete();
+        
+        \DB::table('users')->where('email', $user_admin->email)->delete();
+        /*$user=User::where('email',$user_admin->email)->first();
+        $user->delete();*/
         
         $user_admin->delete();
 

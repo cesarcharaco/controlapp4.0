@@ -102,12 +102,13 @@
                                             </span>
                                                     
                                         </a>
+                                        @if($key->usuario->tipo_usuario != "Admin")
                                         <a href="#" data-toggle="modal" data-target="#eliminarResidente" class="btn btn-danger btn-sm boton-tabla shadow" style="border-radius: 5px; width: auto;" onclick="Eliminar('{{$key->id}}')">
                                             <span data-toggle="tooltip" data-placement="top" title="Seleccione para eliminar residente">
                                                 <i data-feather="trash"></i>Eliminar
                                             </span>
-                                                    
                                         </a>
+                                        @endif
                                     @endif
                                 </td>
                             </tr>
