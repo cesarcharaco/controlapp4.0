@@ -1416,5 +1416,15 @@
             $('.costo_temporal').attr('required',true);
         }
     }
+
+    function alquilerAmin() {
+        if($('#AlquilerParaAdmin').prop('checked')){
+            $('#select_id_residente').removeAttr('required',false);
+            $('#todosResidentesR').fadeOut('slow');
+        }else{
+            $('#select_id_residente').attr('required',true);
+            $('#todosResidentesR').fadeIn(300);
+        }
+    }
   
 </script>

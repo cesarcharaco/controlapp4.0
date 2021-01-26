@@ -7,17 +7,21 @@
     </div>  
     <div class="border card-body">
       <h4>Nuevo Arriendo <br> <small>Todos los campos (<b style="color: red;">*</b>) son requerido.</small></h4>
-
+      <hr>
       {!! Form::open(['route' => ['registrar_alquiler'], 'enctype' => 'multipart/form-data', 'method' => 'POST', 'name' => 'registrar_alquiler', 'id' => 'registrar_alquiler', 'data-parsley-validate']) !!}
         @csrf
           
 
         @if(\Auth::User()->tipo_usuario=="Admin")
+          <div>
+            <label for="AlquilerParaAdmin">¿Desea alquilarlo para usted?</label>
+              <input type="checkbox" name="id_admin" onchange="alquilerAmin();" id="AlquilerParaAdmin"  data-toggle="tooltip" data-placement="top" title="Seleccione si desea asignarse un alquiler" value="{{ \Auth::User()->id }}">
+          </div>
           <div class="row">
             <div class="col-md-4">
-              <div class="form-group">
+              <div class="form-group" id="todosResidentesR">
                 <label>Residente <b class="text-danger">*</b></label>
-                <select class="form-control select2" id="id_residente" name="id_residente" required="required">
+                <select class="form-control select2" id="select_id_residente" name="id_residente" required="required">
                     <option disabled value selected>Seleccione residente</option>
                     @foreach($residentes as $key)
                         <option value="{{$key->id}}">{{$key->nombres}} {{$key->apellidos}} - {{$key->rut}}</option>
