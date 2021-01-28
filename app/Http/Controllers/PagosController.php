@@ -80,7 +80,13 @@ class PagosController extends Controller
 
     public function estados_pagos()
     {
-        $meses=Meses::all();
+        $meses=\DB::table('meses')
+            ->join('mensualidades','mensualidades.mes','=','meses.id')
+            ->where('mensualidades.anio', date('Y'))
+            ->select('meses.*','mensualidades.monto')
+            ->groupBy('meses.id')
+            ->get();
+        // dd($meses);
         if(\Auth::user()->tipo_usuario=="Admin"){
             $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
         }elseif(\Auth::user()->tipo_usuario=="Residente"){

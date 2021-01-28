@@ -636,6 +636,8 @@ function status_pagos($id_residente,$mes,$anio){
 			}
 		}
 	}
-
+	if($status == null || $status == 0){
+		$status= 'Sin Estado de Pago';
+	}
 	return $status;
 }

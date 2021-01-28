@@ -2075,11 +2075,11 @@
                                 '<td>'+mostrar_mes(mes)+' '+anio+'</td>'+
                                 '<td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común"><span id="total_pagar'+i+'"></span></td>'+
                                 '<td><ul id="status_inmuebles'+i+'"></ul></td>'+
-                                '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></td>'+
+                                // '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></td>'+
                                 '<td><span id="total_multas'+i+'"></span></td>'+
                                 '<td><ul id="mis_multas'+i+'"></ul></td>'+
                                 '<td><ul id="mis_status_mr'+i+'"></ul></td>'+
-                                '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></th>'+
+                                // '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></th>'+
                             '</tr>';
                     }
                     	$('#example1_wrapper').append(
@@ -2092,11 +2092,11 @@
                                     '<th>Mes y Año</th>'+
                                     '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
                                     '<th>Estado de Pago</th>'+
-                                    '<th></th>'+
+                                    // '<th></th>'+
                                     '<th>Monto M/R</th>'+
                                     '<th>Detalle M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
-                                    '<th></th>'+
+                                    // '<th></th>'+
                                 '</tr>'+
                             '</thead>'+
                             '<tbody>'+contenido+
@@ -2121,7 +2121,7 @@
                                     '<th>Monto M/R</th>'+
                                     '<th>Detalle M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
-                                    '<th></th>'+
+                                    // '<th></th>'+
                                 '</tr>'+
                             '</thead>'+
                             '<tbody>'+
@@ -2172,6 +2172,10 @@
         				$('#status_inmuebles'+numero).append('<li>'+data[i].pago_status+'</li>');
         			}
         		
+        		}else{
+        			$('#id_mis_inmuebles'+numero).append('Debe registrar pagos');
+        			$('#mis_inmuebles'+numero).append('Debe registrar pagos');
+        			$('#status_inmuebles'+numero).append('Sin mensualidad registrada');
         		}
         	});
         		
