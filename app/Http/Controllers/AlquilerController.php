@@ -12,6 +12,7 @@ use App\Http\Controllers\FlowAController;
 use App\Http\FlowBuilder1;
 use App\Contabilidad;
 use App\ContabilidadSaldo;
+use App\UsersAdmin;
 
 class AlquilerController extends Controller
 {
@@ -170,7 +171,7 @@ class AlquilerController extends Controller
 
     public function registrar_alquiler(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         if(is_null($request->id_instalacion)){
             toastr()->warning('Alerta!', 'No ha seleccionado la instalación');
             return redirect()->back();
@@ -250,20 +251,30 @@ class AlquilerController extends Controller
                                 return redirect()->back();
                             }
                         }
-                        /*if (\Auth::User()->tipo_usuario=="Admin") {
-                            $admin=UsersAdmin::where('email',\Auth::User()->email)->first();
+                        if (!is_null($request->id_admin)) {
 
-                            $residente = new Residentes();
-                            $residente->nombres=\Auth::user()->name;
-                            $residente->apellidos=\Auth::user()->name;
-                            $residente->rut=\Auth::user()->rut;
-                            $residente->id_usuario=\Auth::user()->id;
-                            $residente->id_admin=$admin->id;
-                            $residente->save();
-                        }*/
+                            $admin=UsersAdmin::where('email',\Auth::User()->email)->first();
+                            $residenteBusca=Residentes::where('id_usuario',\Auth::User()->id)->first();
+
+                            if (is_null($residenteBusca)) {
+                                $residente = new Residentes();
+                                $residente->nombres=\Auth::user()->name;
+                                $residente->apellidos=\Auth::user()->name;
+                                $residente->rut=\Auth::user()->rut;
+                                $residente->id_usuario=\Auth::user()->id;
+                                $residente->id_admin=$admin->id;
+                                $residente->save();
+                            }else{
+                                $residente=$residenteBusca->id;
+                            }
+                        }
 
                         $alquiler = new Alquiler();
-                        $alquiler->id_residente=$request->id_residente;
+                        if($residente->id){
+                            $alquiler->id_residente=$residente->id;
+                        }else{
+                            $alquiler->id_residente=$request->id_residente;
+                        }
                         $alquiler->id_instalacion=$request->id_instalacion;
                         $alquiler->tipo_alquiler=$request->tipo_alquiler;
                         if($request->tipo_alquiler=="Temporal") {
@@ -277,6 +288,9 @@ class AlquilerController extends Controller
                             $alquiler->status='Activo';
                         }
                         $alquiler->save();
+
+
+
                         if ($request->tipo_alquiler=="Permanente") {
                             if(\Auth::user()->tipo_usuario=="Admin" && $request->pago_realizado==1) {
                                 if ($request->tipo_pago=="Transferencia") {

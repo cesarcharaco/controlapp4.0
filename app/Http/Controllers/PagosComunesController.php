@@ -420,7 +420,7 @@ class PagosComunesController extends Controller
             ->join('meses','meses.id','=','mensualidades.mes')
             ->where('residentes.id_admin',$id_admin)
             ->where('mensualidades.mes',$mes)
-            ->select('residentes.*','inmuebles.idem','mensualidades.monto','pagos.status','meses.mes AS mes')
+            ->select('residentes.*','inmuebles.idem','inmuebles.id AS id_inmueble','mensualidades.monto','pagos.status','meses.mes AS mes')
             ->get();
     }
 }

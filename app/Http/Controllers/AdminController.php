@@ -63,6 +63,8 @@ class AdminController extends Controller
         //corre
         $buscar1=UsersAdmin::where('email',$request->email)->count();
         $buscar2=UsersAdmin::where('rut',$request->rut.'-'.$request->verificador)->count();
+
+
         if($buscar1>0){
             toastr()->success('Verique otra vez!!', 'El correo electrónico ya se encuentra registrado');
         
@@ -98,13 +100,17 @@ class AdminController extends Controller
                 $user2->save();
                 
 
-                $residente = new Residentes();
-                $residente->nombres=$request->name;
-                $residente->apellidos=$request->name;
-                $residente->rut=$request->rut.'-'.$request->verificador;
-                $residente->id_usuario=$user2->id;
-                $residente->id_admin=$user->id;
-                $residente->save();
+                $residenteBusca=Residentes::where('id_usuario',$user2->id)->count();
+
+                if($residenteBusca == 0){
+                    $residente = new Residentes();
+                    $residente->nombres=$request->name;
+                    $residente->apellidos=$request->name;
+                    $residente->rut=$request->rut.'-'.$request->verificador;
+                    $residente->id_usuario=$user2->id;
+                    $residente->id_admin=$user->id;
+                    $residente->save();
+                }
 
                 toastr()->success('con éxito!', 'Usuario Admin registrado');                
                 return redirect()->back();

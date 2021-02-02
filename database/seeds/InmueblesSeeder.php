@@ -16,7 +16,7 @@ class InmueblesSeeder extends Seeder
             \DB::table('pagos_comunes')->insert([
                 'tipo' => 'Inmueble',
                 'mes' => $j,
-                'anio' => 2020,
+                'anio' => 2021,
                 'monto' => 10,
                 'id_admin' => 1
             ]);
@@ -37,7 +37,7 @@ class InmueblesSeeder extends Seeder
                 \DB::table('mensualidades')->insert([
                     'id_inmueble' => $m,
                     'mes' => $k,
-                    'anio' => 2020,
+                    'anio' => 2021,
                     'monto' => 10
                 ]);
             }

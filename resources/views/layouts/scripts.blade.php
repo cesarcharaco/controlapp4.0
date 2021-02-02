@@ -1896,6 +1896,7 @@
 			        		$('#tablaBodyMesPagoC').append(
 			        			'<tr>'+
 			        				'<td>'+data[i].idem+'</td>'+
+			        				'<td>'+data[i].id_inmueble+'</td>'+
 			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
 			        				'<td>'+data[i].mes+'</td>'+
 			        				'<td>'+data[i].monto+'</td>'+
@@ -1906,6 +1907,7 @@
 		        			$('#tablaBodyMesPagoC').append(
 			        			'<tr>'+
 			        				'<td>'+data[i].idem+'</td>'+
+			        				'<td>'+data[i].id_inmueble+'</td>'+
 			        				'<td>'+data[i].nombres+' '+data[i].apellidos+' - <br><strong>'+data[i].rut+'</strong></td>'+
 			        				'<td>'+data[i].mes+'</td>'+
 			        				'<td>'+data[i].monto+'</td>'+
@@ -2076,8 +2078,8 @@
                                 '<td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común"><span id="total_pagar'+i+'"></span></td>'+
                                 '<td><ul id="status_inmuebles'+i+'"></ul></td>'+
                                 // '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></td>'+
-                                '<td><span id="total_multas'+i+'"></span></td>'+
                                 '<td><ul id="mis_multas'+i+'"></ul></td>'+
+                                '<td><span id="total_multas'+i+'"></span></td>'+
                                 '<td><ul id="mis_status_mr'+i+'"></ul></td>'+
                                 // '<td><a href="#" class="btn btn-success btn-sm">Ingresar Pago en Efectivo</a></th>'+
                             '</tr>';
@@ -2093,8 +2095,8 @@
                                     '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
                                     '<th>Estado de Pago</th>'+
                                     // '<th></th>'+
-                                    '<th>Monto M/R</th>'+
                                     '<th>Detalle M/R</th>'+
+                                    '<th>Monto M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
                                     // '<th></th>'+
                                 '</tr>'+
@@ -2118,8 +2120,8 @@
                                     '<th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>'+
                                     '<th>Estado de Pago</th>'+
                                     '<th></th>'+
-                                    '<th>Monto M/R</th>'+
                                     '<th>Detalle M/R</th>'+
+                                    '<th>Monto M/R</th>'+
                                     '<th>Estado de Pago M/R</th>'+
                                     // '<th></th>'+
                                 '</tr>'+
@@ -2175,7 +2177,7 @@
         		}else{
         			$('#id_mis_inmuebles'+numero).append('Debe registrar pagos');
         			$('#mis_inmuebles'+numero).append('Debe registrar pagos');
-        			$('#status_inmuebles'+numero).append('Sin mensualidad registrada');
+        			$('#status_inmuebles'+numero).append('<span style="color:red">Con Deuda</span>');
         		}
         	});
         		

@@ -44,141 +44,149 @@
                
                 <div class="card" id="pagoResidente">
                     <div class="card-body">
-                        
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Seleccionar Año</label>
-                                    <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
-                                        
-                                        @foreach($anio2 as $key)
-                                            @if(date('Y')==$key->anio)
-                                                <option value="{{$key->anio}}" selected>{{$key->anio}}</option>
-                                            @else
-                                                <option value="{{$key->anio}}">{{$key->anio}}</option>
-                                            @endif
-                                        @endforeach()
-                                    </select>
+                        {!! Form::open(['route' => ['estados_pagos_pdf'], 'target' => '_blank','method' => 'GET', 'name' => 'estados_pagos_pdf', 'id' => 'estados_pagos_pdf', 'data-parsley-validate']) !!}
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Seleccionar Año</label>
+                                        <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
+                                            
+                                            @foreach($anio2 as $key)
+                                                @if(date('Y')==$key->anio)
+                                                    <option value="{{$key->anio}}" selected>{{$key->anio}}</option>
+                                                @else
+                                                    <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                                @endif
+                                            @endforeach()
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Seleccionar Mes</label>
-                                    <select class="form-control select2" multiple name="mes" id="mes_select" onchange="filtro_pagos()">
-                                        <option selected disabled>Seleccionar Mes</option>
-                                        @foreach($meses as $key)
-                                            <option value="{{$key->id}}">{{$key->mes}} - {{$key->monto}}$</option>
-                                        @endforeach()
-                                    </select>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Seleccionar Mes</label>
+                                        <select class="form-control select2" multiple name="mes" id="mes_select" onchange="filtro_pagos()">
+                                            <option selected disabled>Seleccionar Mes</option>
+                                            @foreach($meses as $key)
+                                                <option value="{{$key->id}}">{{$key->mes}} - {{$key->monto}}$</option>
+                                            @endforeach()
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                                <div class="form-group float-right">
+                                <div class="col-md-3">
                                     <label>Generar PDF</label>
                                     <br>
-                                    <a href="{{ route('estados_pagos_pdf')}}" target="_blank" class="btn btn-danger btn-sm rounded shadow" ><i data-feather="file-text" class="clipboard"></i> PDF</a>
+                                    <button type="submit" target="_blank" class="btn btn-danger btn-sm rounded shadow" ><i data-feather="file-text" class="clipboard"></i> PDF</button>
                                 </div>
+                            </div>
+                        {!! Form::close() !!}
+                        <div class="col-md-12">
                             <div id="CargandoFiltroPagos" style="display: none;">
                                 <div class="spinner-border text-success m-4" role="status"></div>
                             </div>
-                            <div class="col-md-12">
-                                <div id="example1_wrapper2" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
-                                    <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
-                                        <thead>
+                            <div id="example1_wrapper2" class="dataTables_wrapper dt-bootstrap4" style="width: 100% !important;">
+                                <table id="example1" class="table table-bordered table-hover table-striped dataTable display nowrap" cellspacing="0" style="width: 100% !important;">
+                                    <thead>
+                                        <tr>
+                                            <th>Inmueble</th>
+                                            @if(\Auth::user()->tipo_usuario=="Admin")
+                                            <th>Residente</th>
+                                            @endif
+                                            <th>Mes</th>
+                                            <th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>
+                                            <th>Estado de Pago</th>
+                                            <th>Descripción M/R</th>
+                                            <th>Monto M/R</th>
+                                            <th>Estado de Pago M/R</th>
+                                            <!-- <th>Opciones</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($residentes as $key) 
+                                            @foreach($meses as $key2)
                                             <tr>
-                                                <th>Inmueble</th>
-                                                @if(\Auth::user()->tipo_usuario=="Admin")
-                                                <th>Residente</th>
+                                            <td>
+                                                <ul>
+                                                    @foreach($key->inmuebles as $key3)
+                                                        <li>
+                                                            <span data-toggle="tooltip" data-placement="top" title="{{$key3->idem}}">
+                                                                {{Str::limit($key3->idem, 15, ' ...')}}
+                                                            </span>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
+                                            @if(\Auth::user()->tipo_usuario=="Admin")
+                                                <td>{{ $key->apellidos }}, {{ $key->nombres }}</td>
+                                            @endif
+                                            <td>{{ $key2->mes }}</td>
+                                            <td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">{{ pc_total($key2->id,$anio,$key->id_admin,$key->id) }}
+                                            </td>
+                                            <td>
+                                                @if( status_pagos($key->id,$key2->id,$anio) == "Con deuda")
+                                                    <span class="text-danger">{{ status_pagos($key->id,$key2->id,$anio) }}</span>
+                                                @else()
+                                                    {{ status_pagos($key->id,$key2->id,$anio) }}
                                                 @endif
-                                                <th>Mes</th>
-                                                <th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>
-                                                <th>Estado de Pago</th>
-                                                <th>Monto M/R</th>
-                                                <th>Descripción M/R</th>
-                                                <th>Estado de Pago M/R</th>
-                                                <!-- <th>Opciones</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($residentes as $key) 
-                                                @foreach($meses as $key2)
-                                                <tr>
-                                                <td>
-                                                    <ul>
-                                                        @foreach($key->inmuebles as $key3)
-                                                            <li>
-                                                                <span data-toggle="tooltip" data-placement="top" title="{{$key3->idem}}">
-                                                                    {{Str::limit($key3->idem, 15, ' ...')}}
-                                                                </span>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                </td>
-                                                @if(\Auth::user()->tipo_usuario=="Admin")
-                                                    <td>{{ $key->apellidos }}, {{ $key->nombres }}</td>
-                                                @endif
-                                                <td>{{ $key2->mes }}</td>
-                                                <td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">{{ pc_total($key2->id,$anio,$key->id_admin,$key->id) }}
-                                                </td>
-                                                <td>{{ status_pagos($key->id,$key2->id,$anio) }}</td>
-                                                <td>
-                                                    <ul>
-                                                        @php $montoM=0 @endphp
-                                                        @foreach($key->mr as $key4)
-                                                            @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
-                                                                @php $montoM=$key4->monto @endphp
-                                                                <li>{{ $key4->monto }}</li>
-                                                            @else
-                                                                
-                                                            @endif
-                                                        @endforeach
-                                                    </ul>
-                                                    @if($montoM == 0)
-                                                        Sin pagos de multas
+                                            </td>
+                                            <td>
+                                                <ul>@php $motivoM=0 @endphp
+                                                    @foreach($key->mr as $key4)
+                                                    @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
+                                                        @php $motivoM=$key4->motivo @endphp
+                                                        <li>
+                                                            <span data-toggle="tooltip" data-placement="top" title="{{$key4->motivo}}">
+                                                                {{Str::limit($key4->motivo, 23, ' ...')}}
+                                                            </span>
+                                                        </li>
                                                     @endif
-                                                </td>
-                                                <td>
-                                                    <ul>@php $motivoM=0 @endphp
-                                                        @foreach($key->mr as $key4)
+                                                    @endforeach
+                                                </ul>
+                                                @if($motivoM == 0)
+                                                    Sin Multas/Recargas
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    @php $montoM=0 @endphp
+                                                    @foreach($key->mr as $key4)
                                                         @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
-                                                            @php $motivoM=$key4->motivo @endphp
-                                                            <li>
-                                                                <span data-toggle="tooltip" data-placement="top" title="{{$key4->motivo}}">
-                                                                    {{Str::limit($key4->motivo, 23, ' ...')}}
-                                                                </span>
-                                                            </li>
+                                                            @php $montoM=$key4->monto @endphp
+                                                            <li>{{ $key4->monto }}</li>
+                                                        @else
+                                                            
                                                         @endif
-                                                        @endforeach
-                                                    </ul>
-                                                    @if($motivoM == 0)
-                                                        Sin Multas/Recargas
-                                                    @endif
-                                                </td>
-                                                <td>
-                                                    <ul>
-                                                        @php $statusM=0 @endphp
-                                                        @foreach($key->mr as $key4)
-                                                            @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
-                                                                @php $statusM=$key4->pivot->status @endphp
-                                                                <li>{{ $key4->pivot->status }}</li>
-                                                            @endif
-                                                        @endforeach
-                                                    </ul>
-                                                    @if($statusM == 0)
-                                                        Sin Estado de Pago
-                                                    @endif
-                                                </td>
-                                                <!-- <td>Opciones</td> -->
-                                            </tr>
-                                                @endforeach
+                                                    @endforeach
+                                                </ul>
+                                                @if($montoM == 0)
+                                                    -
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <ul>
+                                                    @php $statusM=0 @endphp
+                                                    @foreach($key->mr as $key4)
+                                                        @if($key4->anio==$anio && $key4->pivot->mes==$key2->id)
+                                                            @php $statusM=$key4->pivot->status @endphp
+                                                            <li>{{ $key4->pivot->status }}</li>
+                                                        @endif
+                                                    @endforeach
+                                                </ul>
+                                                @if($statusM == 0)
+                                                    -
+                                                @endif
+                                            </td>
+                                            <!-- <td>Opciones</td> -->
+                                        </tr>
                                             @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
+            </div>
         </div>
         {{--@include('pagos.layouts_pagosC.buscarMeses')--}}
     </div>

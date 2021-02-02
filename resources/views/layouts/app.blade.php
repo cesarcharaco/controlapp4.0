@@ -903,7 +903,7 @@
                                             <div class="form-group">
                                               <label for="tipo_pago">Tipo de pago <b style="color: red;">*</b></label>
                                               <select name="tipo_pago" id="tipo_pago" required="required" class="form-control" onchange="carg(this);">
-                                                <option value="">Seleccione tipo de pago...</option>
+                                                <option value="" disabled>Seleccione tipo de pago...</option>
                                                 <option value="Transferencia">Transferencia</option>
                                                 @if(\Auth::user()->tipo_usuario=="Admin")
                                                 <option value="Efectivo">Efectivo</option>

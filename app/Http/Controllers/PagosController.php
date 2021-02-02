@@ -39,11 +39,16 @@ class PagosController extends Controller
         $id_admin=id_admin(\Auth::user()->email);
         // $residentes=Residentes::where('id_admin',$id_admin)->get();
         if(\Auth::user()->tipo_usuario=="Admin"){
-            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->where('id_usuario','<>',$id_admin)->get();
         }elseif(\Auth::user()->tipo_usuario=="Residente"){
             $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
         }
-        $meses=Meses::all();
+        $meses=\DB::table('meses')
+            ->join('mensualidades','mensualidades.mes','=','meses.id')
+            ->where('mensualidades.anio', date('Y'))
+            ->select('meses.*','mensualidades.monto')
+            ->groupBy('meses.id')
+            ->get();
         $pagos=Pagos::all();
         $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
         $estacionamientos=Estacionamientos::where('id_admin',$id_admin)->get();
@@ -65,7 +70,12 @@ class PagosController extends Controller
         // dd('asdasdasd');
         $id_admin=id_admin(\Auth::user()->email);
         $residentes=Residentes::where('id_admin',$id_admin)->get();
-        $meses=Meses::all();
+        $meses=\DB::table('meses')
+            ->join('mensualidades','mensualidades.mes','=','meses.id')
+            ->where('mensualidades.anio', date('Y'))
+            ->select('meses.*','mensualidades.monto')
+            ->groupBy('meses.id')
+            ->get();
         $pagos=Pagos::all();
         $inmuebles=Inmuebles::where('id_admin',$id_admin)->get();
         $estacionamientos=Estacionamientos::where('id_admin',$id_admin)->get();
@@ -100,10 +110,10 @@ class PagosController extends Controller
 
     public function estados_pagos_filtro($anio,$mes)
     {
-        
+        $id_admin=id_admin(\Auth::user()->email);
         $meses=Meses::where('id',$mes)->get();
         if(\Auth::user()->tipo_usuario=="Admin"){
-            $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
+            $residentes=Residentes::where('id_admin',\Auth::user()->id)->where('id_usuario','<>',$id_admin)->get();
         }elseif(\Auth::user()->tipo_usuario=="Residente"){
             $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
         }
@@ -118,16 +128,15 @@ class PagosController extends Controller
         return $residentes->inmuebles;
 
     }
-    public function estados_pagos_pdf()
+    public function estados_pagos_pdf(Request $request)
     {
-
         $meses=Meses::all();
         if(\Auth::user()->tipo_usuario=="Admin"){
             $residentes=Residentes::where('id_admin',\Auth::user()->id)->get();
         }elseif(\Auth::user()->tipo_usuario=="Residente"){
             $residentes=Residentes::where('id_usuario',\Auth::user()->id)->get();
         }
-        $anio=date('Y');
+        $anio=$request->anio;
 
         $pdf = PDF::loadView('reportes/PDF/EstadosPago', array(
             'residentes' => $residentes,

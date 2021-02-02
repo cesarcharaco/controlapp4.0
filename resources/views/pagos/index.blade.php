@@ -53,7 +53,11 @@
                                     <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
                                         <option selected disabled>Seleccionar Año</option>
                                         @foreach($anio2 as $key)
-                                            <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                            @if(date('Y')==$key->anio)
+                                                <option value="{{$key->anio}}" selected>{{$key->anio}}</option>
+                                            @else
+                                                <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                            @endif
                                         @endforeach()
                                     </select>
                                 </div>
@@ -61,10 +65,10 @@
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <label>Seleccionar Mes</label>
-                                    <select class="form-control" name="mes" id="mes_select" onchange="filtro_pagos()">
+                                    <select class="form-control select2" multiple name="mes" id="mes_select" onchange="filtro_pagos()">
                                         <option selected disabled>Seleccionar Mes</option>
                                         @foreach($meses as $key)
-                                            <option value="{{$key->id}}">{{$key->mes}}</option>
+                                            <option value="{{$key->id}}">{{$key->mes}} - {{$key->monto}}$</option>
                                         @endforeach()
                                     </select>
                                 </div>
@@ -220,9 +224,12 @@
                                 <div class="form-group">
                                     <label>Seleccionar Año</label>
                                     <select class="form-control" name="anio" id="anio_select" onchange="filtro_pagos()">
-                                        <option selected disabled>Seleccionar Año</option>
                                         @foreach($anio2 as $key)
-                                            <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                            @if(date('Y')==$key->anio)
+                                                <option value="{{$key->anio}}" selected>{{$key->anio}}</option>
+                                            @else
+                                                <option value="{{$key->anio}}">{{$key->anio}}</option>
+                                            @endif
                                         @endforeach()
                                     </select>
                                 </div>
@@ -231,9 +238,8 @@
                                 <div class="form-group">
                                     <label>Seleccionar Mes</label>
                                     <select class="form-control" name="mes" id="mes_select" onchange="filtro_pagos()">
-                                        <option selected disabled>Seleccionar Mes</option>
                                         @foreach($meses as $key)
-                                            <option value="{{$key->id}}">{{$key->mes}}</option>
+                                            <option value="{{$key->id}}">{{$key->mes}} - {{$key->monto}}$</option>
                                         @endforeach()
                                     </select>
                                 </div>
@@ -252,8 +258,8 @@
                                         <th>Mes</th>
                                         <th data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">Monto</th>
                                         <th>Estado de Pago</th>
-                                        <th>Monto M/R</th>
                                         <th>Descripción M/R</th>
+                                        <th>Monto M/R</th>
                                         <th>Estado de Pago M/R</th>
                                         <th>Opciones</th>
                                     </tr>
@@ -279,17 +285,18 @@
                                                 <td>{{ $key2->mes }}</td>
                                                 <td data-toggle="tooltip" data-placement="top" title="Monto de Gasto Común">{{ pc_total($key2->id,$anio,$key->id_admin,$key->id) }}
                                                 </td>
-                                                <td>{{ status_pagos($key->id,$key2->id,$anio) }}</td>
                                                 <td>
-                                                    <ul>
-                                                        @foreach($key->mr as $key4)
-                                                            <li>{{ $key4->monto }}</li>
-                                                        @endforeach
-                                                    </ul>
+                                                    @if( status_pagos($key->id,$key2->id,$anio) == "Con deuda")
+                                                        <span class="text-danger">{{ status_pagos($key->id,$key2->id,$anio) }}</span>
+                                                    @else()
+                                                        {{ status_pagos($key->id,$key2->id,$anio) }}
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <ul>
+                                                        @php $idemM=0 @endphp
                                                         @foreach($key->mr as $key4)
+                                                            @php $idemM=1 @endphp
                                                             <li>
                                                                 <span data-toggle="tooltip" data-placement="top" title="{{$key4->motivo}}">
                                                                     {{Str::limit($key4->motivo, 23, ' ...')}}
@@ -297,15 +304,39 @@
                                                             </li>
                                                         @endforeach
                                                     </ul>
+                                                    @if($idemM == 0)
+                                                        Sin Multas/Recargas
+                                                    @endif
                                                 </td>
                                                 <td>
                                                     <ul>
+                                                        @php $montoM=0 @endphp
                                                         @foreach($key->mr as $key4)
+                                                            @php $montoM=1 @endphp
+                                                            <li>{{ $key4->monto }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                    @if($montoM == 0)
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <ul>@php $montoS=0 @endphp
+                                                        @foreach($key->mr as $key4)
+                                                            @php $montoS=1 @endphp
                                                             <li>{{ $key4->pivot->status }}</li>
                                                         @endforeach
                                                     </ul>
+                                                    @if($montoS == 0)
+                                                        -
+                                                    @endif
                                                 </td>
-                                                <td>Opciones</td>
+                                                <td>
+                                                    <a style="border-radius: 5px; width: 100%;" href="#" onclick="BMesesResidente('{{$key->id}}')" class=" btn btn-sm btn-success"> 
+                                                        <i data-feather="dollar-sign" style="float:left;"></i>
+                                                        <span>Realizar Pago</span>
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endforeach
